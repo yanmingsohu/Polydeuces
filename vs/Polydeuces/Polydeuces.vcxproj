@@ -30,6 +30,7 @@
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\generate\gcomm.h" />
     <ClInclude Include="..\..\generate\JavaScriptBaseLexer.h" />
     <ClInclude Include="..\..\generate\JavaScriptBaseParser.h" />
     <ClInclude Include="..\..\generate\JavaScriptLexer.h" />

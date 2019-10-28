@@ -1,6 +1,9 @@
+#include "gcomm.h"
 #include "JavaScriptParser.h"
 
 using namespace antlr4;
+using namespace PolydeucesEngine;
+
 
 JavaScriptBaseParser::JavaScriptBaseParser(TokenStream *input) : Parser(input)
 {

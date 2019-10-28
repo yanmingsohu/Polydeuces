@@ -1,6 +1,8 @@
+#include "gcomm.h"
 #include "JavaScriptLexer.h"
 
 using namespace antlr4;
+using namespace PolydeucesEngine;
 
 JavaScriptBaseLexer::JavaScriptBaseLexer(CharStream *input) : Lexer(input)
 {

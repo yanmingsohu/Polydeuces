@@ -71,6 +71,9 @@
     <ClInclude Include="..\..\generate\JavaScriptBaseParser.h">
       <Filter>generate</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\generate\gcomm.h">
+      <Filter>generate</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\generate\JavaScriptLexer.interp">
