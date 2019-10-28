@@ -14,9 +14,17 @@
 *.pdb
 *.tmp
 *.exp
+*.db
+*.opendb
+*.tlog
+*.log
+*.obj
+*.idb
+*.ilk
+*.ipch
+
 
 deps/*/
-generate/
 
 !LICENSE.txt
 !COPYING.LESSER

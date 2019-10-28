@@ -7,3 +7,4 @@ set PARSER=%LIB%\JavaScriptParser.g4
 set OUTDIR=%cd%\generate
 
 java -jar %ANTLR% -Dlanguage=Cpp -listener -visitor -o %OUTDIR% -lib %LIB% -package PolydeucesEngine %LEXER% %PARSER%
+copy %LIB%/Cpp %OUTDIR%
