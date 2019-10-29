@@ -28,8 +28,6 @@ deps/*/
 vs/.vs
 
 !LICENSE.txt
-!COPYING.LESSER
-!sanguo7.5
 !deps/*.cmd
 !deps/*.sh
 !deps/*.md
@@ -37,4 +35,4 @@ vs/.vs
 !*.vcxproj
 !*.filters
 !*.user
-!art/**
+!deps/javascript-grammars/javascript/*.g4

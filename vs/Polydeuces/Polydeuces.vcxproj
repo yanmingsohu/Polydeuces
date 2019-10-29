@@ -27,7 +27,10 @@
     <ClCompile Include="..\..\generate\JavaScriptParserBaseVisitor.cpp" />
     <ClCompile Include="..\..\generate\JavaScriptParserListener.cpp" />
     <ClCompile Include="..\..\generate\JavaScriptParserVisitor.cpp" />
-    <ClCompile Include="main.cpp" />
+    <ClCompile Include="..\..\src\main.cpp" />
+    <ClCompile Include="..\..\src\manager.cpp" />
+    <ClCompile Include="..\..\src\objects.cpp" />
+    <ClCompile Include="..\..\src\parser_listener.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\generate\gcomm.h" />
@@ -39,8 +42,12 @@
     <ClInclude Include="..\..\generate\JavaScriptParserBaseVisitor.h" />
     <ClInclude Include="..\..\generate\JavaScriptParserListener.h" />
     <ClInclude Include="..\..\generate\JavaScriptParserVisitor.h" />
+    <ClInclude Include="..\..\src\javascript.h" />
+    <ClInclude Include="..\..\src\parser_listener.h" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="..\..\deps\javascript-grammars\javascript\JavaScriptLexer.g4" />
+    <None Include="..\..\deps\javascript-grammars\javascript\JavaScriptParser.g4" />
     <None Include="..\..\generate\JavaScriptLexer.interp" />
     <None Include="..\..\generate\JavaScriptLexer.tokens" />
     <None Include="..\..\generate\JavaScriptParser.interp" />
@@ -100,22 +107,22 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>$(SolutionDir)..\generate;$(SolutionDir)..\deps\antlr-cpp-runtime\runtime\src;$(IncludePath)</IncludePath>
+    <IncludePath>$(SolutionDir)..\src;$(SolutionDir)..\generate;$(SolutionDir)..\deps\antlr-cpp-runtime\runtime\src;$(IncludePath)</IncludePath>
     <LibraryPath>$(SolutionDir)..\deps\antlr-cpp-runtime\lib\x64\Release Static;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>$(SolutionDir)..\generate;$(SolutionDir)..\deps\antlr-cpp-runtime\runtime\src;$(IncludePath)</IncludePath>
+    <IncludePath>$(SolutionDir)..\src;$(SolutionDir)..\generate;$(SolutionDir)..\deps\antlr-cpp-runtime\runtime\src;$(IncludePath)</IncludePath>
     <LibraryPath>$(SolutionDir)..\deps\antlr-cpp-runtime\lib\x64\Release Static;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
-    <IncludePath>$(SolutionDir)..\generate;$(SolutionDir)..\deps\antlr-cpp-runtime\runtime\src;$(IncludePath)</IncludePath>
+    <IncludePath>$(SolutionDir)..\src;$(SolutionDir)..\generate;$(SolutionDir)..\deps\antlr-cpp-runtime\runtime\src;$(IncludePath)</IncludePath>
     <LibraryPath>$(SolutionDir)..\deps\antlr-cpp-runtime\lib\x64\Release Static;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
-    <IncludePath>$(SolutionDir)..\generate;$(SolutionDir)..\deps\antlr-cpp-runtime\runtime\src;$(IncludePath)</IncludePath>
+    <IncludePath>$(SolutionDir)..\src;$(SolutionDir)..\generate;$(SolutionDir)..\deps\antlr-cpp-runtime\runtime\src;$(IncludePath)</IncludePath>
     <LibraryPath>$(SolutionDir)..\deps\antlr-cpp-runtime\lib\x64\Release Static;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
