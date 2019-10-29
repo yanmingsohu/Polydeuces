@@ -27,7 +27,7 @@ int main(char** argv, int argc) {
 
   //std::wstring s =  + L"\n";
   // Unicode output in the console is very limited.
-  std::wcout << "Parse Tree: " 
+  std::wcout << "\n Parse Tree: \n" 
              << antlrcpp::s2ws(tree->toStringTree(&parser)) 
              <<"\n" << std::endl; 
 

@@ -601,10 +601,12 @@ void CoreListener::exitLastArgument(JavaScriptParser::LastArgumentContext* ctx)
 
 void CoreListener::enterExpressionSequence(JavaScriptParser::ExpressionSequenceContext* ctx)
 {
+  //printf("enterExpressionSequence{");
 }
 
 void CoreListener::exitExpressionSequence(JavaScriptParser::ExpressionSequenceContext* ctx)
 {
+  //printf("}\n")
 }
 
 void CoreListener::enterTemplateStringExpression(JavaScriptParser::TemplateStringExpressionContext* ctx)
@@ -751,12 +753,10 @@ void CoreListener::exitInstanceofExpression(JavaScriptParser::InstanceofExpressi
 {
 }
 
-void CoreListener::enterUnaryPlusExpression(JavaScriptParser::UnaryPlusExpressionContext* ctx)
-{
+void CoreListener::enterUnaryPlusExpression(JavaScriptParser::UnaryPlusExpressionContext* ctx) {
 }
 
-void CoreListener::exitUnaryPlusExpression(JavaScriptParser::UnaryPlusExpressionContext* ctx)
-{
+void CoreListener::exitUnaryPlusExpression(JavaScriptParser::UnaryPlusExpressionContext* ctx) {
 }
 
 void CoreListener::enterDeleteExpression(JavaScriptParser::DeleteExpressionContext* ctx)
@@ -815,12 +815,14 @@ void CoreListener::exitSuperExpression(JavaScriptParser::SuperExpressionContext*
 {
 }
 
-void CoreListener::enterMultiplicativeExpression(JavaScriptParser::MultiplicativeExpressionContext* ctx)
-{
+void CoreListener
+::enterMultiplicativeExpression(JavaScriptParser::MultiplicativeExpressionContext* ctx) {
+  printf(" *{");
 }
 
-void CoreListener::exitMultiplicativeExpression(JavaScriptParser::MultiplicativeExpressionContext* ctx)
-{
+void CoreListener
+::exitMultiplicativeExpression(JavaScriptParser::MultiplicativeExpressionContext* ctx) {
+  printf(" *}");
 }
 
 void CoreListener::enterBitShiftExpression(JavaScriptParser::BitShiftExpressionContext* ctx)
@@ -839,12 +841,13 @@ void CoreListener::exitParenthesizedExpression(JavaScriptParser::ParenthesizedEx
 {
 }
 
-void CoreListener::enterAdditiveExpression(JavaScriptParser::AdditiveExpressionContext* ctx)
-{
+void CoreListener::enterAdditiveExpression(JavaScriptParser::AdditiveExpressionContext* ctx) {
+  printf("+{");
 }
 
 void CoreListener::exitAdditiveExpression(JavaScriptParser::AdditiveExpressionContext* ctx)
 {
+  printf(" +}");
 }
 
 void CoreListener::enterRelationalExpression(JavaScriptParser::RelationalExpressionContext* ctx)
@@ -1001,10 +1004,12 @@ void CoreListener::exitLiteral(JavaScriptParser::LiteralContext* ctx)
 
 void CoreListener::enterNumericLiteral(JavaScriptParser::NumericLiteralContext* ctx)
 {
+  printf("NUM(");
 }
 
 void CoreListener::exitNumericLiteral(JavaScriptParser::NumericLiteralContext* ctx)
 {
+  printf(" %s)", ctx->DecimalLiteral()->getText().c_str());
 }
 
 void CoreListener::enterIdentifierName(JavaScriptParser::IdentifierNameContext* ctx)

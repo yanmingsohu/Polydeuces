@@ -35,4 +35,4 @@ vs/.vs
 !*.vcxproj
 !*.filters
 !*.user
-!deps/javascript-grammars/javascript/*.g4
+!deps/javascript-grammars/javascript/**.g4
