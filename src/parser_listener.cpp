@@ -43,47 +43,45 @@ void CoreListener::enterEveryRule(antlr4::ParserRuleContext* ctx) {
   //printf("? enterEveryRule\n");
 }
 
+
 void CoreListener::exitEveryRule(antlr4::ParserRuleContext* ctx) {
   //printf("? exitEveryRule\n");
 }
 
-void CoreListener::enterSourceElement(
-JavaScriptParser::SourceElementContext* ctx) {}
 
-void CoreListener::exitSourceElement(
-JavaScriptParser::SourceElementContext* ctx) {}
+void CoreListener::enterSourceElement(JavaScriptParser::SourceElementContext* ctx) {}
 
-void CoreListener::enterStatement(
-JavaScriptParser::StatementContext* ctx) {}
+void CoreListener::exitSourceElement(JavaScriptParser::SourceElementContext* ctx) {}
 
-void CoreListener::exitStatement(
-JavaScriptParser::StatementContext* ctx) {}
+void CoreListener::enterStatement(JavaScriptParser::StatementContext* ctx) {}
+
+void CoreListener::exitStatement(JavaScriptParser::StatementContext* ctx) {}
 
 
 void CoreListener::enterBlock(JavaScriptParser::BlockContext* ctx) {
+  // TODO: 执行时创建上下文
+  printf("BLOCK{");
   currContext = process->newContext(currContext);
 }
 
 
 void CoreListener::exitBlock(JavaScriptParser::BlockContext* ctx) {
+  printf(" B}\n");
   currContext = currContext->getParent();
 }
 
-void CoreListener::enterStatementList(
-JavaScriptParser::StatementListContext* ctx) {}
 
-void CoreListener::exitStatementList(
-JavaScriptParser::StatementListContext* ctx) {}
+void CoreListener::enterStatementList(JavaScriptParser::StatementListContext* ctx) {}
+
+void CoreListener::exitStatementList(JavaScriptParser::StatementListContext* ctx) {}
 
 
-void CoreListener::enterImportStatement(
-      JavaScriptParser::ImportStatementContext* ctx) {
+void CoreListener::enterImportStatement(JavaScriptParser::ImportStatementContext* ctx) {
   printf("Import");
 }
 
 
-void CoreListener::exitImportStatement(
-      JavaScriptParser::ImportStatementContext* ctx) {
+void CoreListener::exitImportStatement(JavaScriptParser::ImportStatementContext* ctx) {
   printf(" over\n");
 }
 
@@ -99,14 +97,12 @@ void CoreListener
 ::exitMultipleImportStatement(JavaScriptParser::MultipleImportStatementContext* ctx){}
 
 
-void CoreListener
-::enterExportStatement(JavaScriptParser::ExportStatementContext* ctx) {
+void CoreListener::enterExportStatement(JavaScriptParser::ExportStatementContext* ctx) {
   printf("Export ");
 }
 
 
-void CoreListener
-::exitExportStatement(JavaScriptParser::ExportStatementContext* ctx) {
+void CoreListener::exitExportStatement(JavaScriptParser::ExportStatementContext* ctx) {
   printf(" over\n");
 }
 

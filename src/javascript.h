@@ -41,6 +41,7 @@ typedef std::shared_ptr<JSObject> ObjRef;
 
 //
 // 当前代码段上下文
+// TODO: 每次进入/函数/块 都要创建上下文的实例, 在多线程中有独立的实例
 //
 class JSContext : public JSObject {
 private:

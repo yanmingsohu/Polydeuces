@@ -9,6 +9,7 @@
 using namespace antlr4;
 using namespace PolydeucesEngine;
 
+
 int main(char** argv, int argc) {
   std::ifstream code;
   code.open("../../test/first.js");
@@ -16,8 +17,10 @@ int main(char** argv, int argc) {
   ANTLRInputStream input(code);
   std::cout << input.toString() << "\n\n" << std::endl;
   JavaScriptLexer lexer(&input);
-  lexer.setUseStrictDefault(true); //!! ÓÐÎÊÌâ
+  lexer.setUseStrictDefault(true);
   CommonTokenStream tokens(&lexer);
+
+  std::cout << (lexer.IsStrictMode() ? "Strict\n" : "Not Strict\n");
 
   Manager manager;
   CoreListener cl(&manager);
