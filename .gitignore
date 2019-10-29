@@ -25,6 +25,7 @@
 
 
 deps/*/
+vs/.vs
 
 !LICENSE.txt
 !COPYING.LESSER
