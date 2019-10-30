@@ -713,16 +713,18 @@ void CoreListener::exitFunctionExpression(JavaScriptParser::FunctionExpressionCo
 {
 }
 
-void CoreListener::enterUnaryMinusExpression(JavaScriptParser::UnaryMinusExpressionContext* ctx)
-{
+
+void CoreListener::enterUnaryMinusExpression(JavaScriptParser::UnaryMinusExpressionContext* ctx) {
 }
 
-void CoreListener::exitUnaryMinusExpression(JavaScriptParser::UnaryMinusExpressionContext* ctx)
-{
+
+void CoreListener::exitUnaryMinusExpression(JavaScriptParser::UnaryMinusExpressionContext* ctx) {
+  instruct->push(new UnaryMinusExp());
 }
 
-void CoreListener::enterAssignmentExpression(JavaScriptParser::AssignmentExpressionContext* ctx)
-{
+
+void CoreListener::enterAssignmentExpression(JavaScriptParser::AssignmentExpressionContext* ctx) {
+  printf("=\n");
 }
 
 void CoreListener::exitAssignmentExpression(JavaScriptParser::AssignmentExpressionContext* ctx)
@@ -799,13 +801,14 @@ void CoreListener::exitEqualityExpression(JavaScriptParser::EqualityExpressionCo
 {
 }
 
-void CoreListener::enterBitXOrExpression(JavaScriptParser::BitXOrExpressionContext* ctx)
-{
+
+void CoreListener::enterBitXOrExpression(JavaScriptParser::BitXOrExpressionContext* ctx) {}
+
+
+void CoreListener::exitBitXOrExpression(JavaScriptParser::BitXOrExpressionContext* ctx) {
+  instruct->push(new BitXOrExp());
 }
 
-void CoreListener::exitBitXOrExpression(JavaScriptParser::BitXOrExpressionContext* ctx)
-{
-}
 
 void CoreListener::enterSuperExpression(JavaScriptParser::SuperExpressionContext* ctx)
 {
@@ -817,52 +820,60 @@ void CoreListener::exitSuperExpression(JavaScriptParser::SuperExpressionContext*
 
 void CoreListener
 ::enterMultiplicativeExpression(JavaScriptParser::MultiplicativeExpressionContext* ctx) {
-  printf(" *{");
 }
 
 void CoreListener
 ::exitMultiplicativeExpression(JavaScriptParser::MultiplicativeExpressionContext* ctx) {
-  printf(" *}");
   if (ctx->Divide()) {
-    instruct->push(new PlusExp());
+    printf(" {/}");
+    instruct->push(new DivideExp());
   }
   else if (ctx->Multiply()) {
+    printf(" {*}");
     instruct->push(new MultiplyExp());
   }
   else if (ctx->Modulus()) {
+    printf(" {%%}");
     instruct->push(new ModulusExp());
   }
 }
 
-void CoreListener::enterBitShiftExpression(JavaScriptParser::BitShiftExpressionContext* ctx)
-{
+void CoreListener::enterBitShiftExpression(JavaScriptParser::BitShiftExpressionContext* ctx) {
 }
 
-void CoreListener::exitBitShiftExpression(JavaScriptParser::BitShiftExpressionContext* ctx)
-{
+void CoreListener::exitBitShiftExpression(JavaScriptParser::BitShiftExpressionContext* ctx) {
+  if (ctx->LeftShiftArithmetic()) {
+    instruct->push(new LeftShiftExp());
+  }
+  else if (ctx->RightShiftArithmetic()) {
+    instruct->push(new RightShiftExp());
+  }
+  else if (ctx->RightShiftLogical()) {
+    instruct->push(new RightShiftLogExp());
+  }
 }
 
 void CoreListener::enterParenthesizedExpression(JavaScriptParser::ParenthesizedExpressionContext* ctx)
 {
-  printf("-(-");
+  printf(" ( ");
 }
 
 void CoreListener::exitParenthesizedExpression(JavaScriptParser::ParenthesizedExpressionContext* ctx)
 {
-  printf("-)-");
+  printf(" )");
 }
 
 void CoreListener::enterAdditiveExpression(JavaScriptParser::AdditiveExpressionContext* ctx) {
-  printf("+{");
 }
 
 void CoreListener::exitAdditiveExpression(JavaScriptParser::AdditiveExpressionContext* ctx)
 {
-  printf(" +}");
   if (ctx->Plus()) {
+    printf(" {+}");
     instruct->push(new PlusExp());
   } 
   else if (ctx->Minus()) {
+    printf(" {-}");
     instruct->push(new MinusExp());
   }
 }
@@ -955,20 +966,18 @@ void CoreListener::exitIdentifierExpression(JavaScriptParser::IdentifierExpressi
 {
 }
 
-void CoreListener::enterBitAndExpression(JavaScriptParser::BitAndExpressionContext* ctx)
-{
+
+void CoreListener::enterBitAndExpression(JavaScriptParser::BitAndExpressionContext* ctx) {}
+
+
+void CoreListener::exitBitAndExpression(JavaScriptParser::BitAndExpressionContext* ctx) {
+  instruct->push(new BitAndExp());
 }
 
-void CoreListener::exitBitAndExpression(JavaScriptParser::BitAndExpressionContext* ctx)
-{
-}
+void CoreListener::enterBitOrExpression(JavaScriptParser::BitOrExpressionContext* ctx) {}
 
-void CoreListener::enterBitOrExpression(JavaScriptParser::BitOrExpressionContext* ctx)
-{
-}
-
-void CoreListener::exitBitOrExpression(JavaScriptParser::BitOrExpressionContext* ctx)
-{
+void CoreListener::exitBitOrExpression(JavaScriptParser::BitOrExpressionContext* ctx) {
+  instruct->push(new BitOrExp());
 }
 
 void CoreListener::enterAssignmentOperatorExpression(JavaScriptParser::AssignmentOperatorExpressionContext* ctx)
@@ -1024,12 +1033,68 @@ void CoreListener::enterNumericLiteral(JavaScriptParser::NumericLiteralContext* 
   printf("NUM(");
 }
 
+
+inline double str2number(std::string& str, const int begin, const int leftbit) {
+  unsigned long r = 0;
+  for (int i = begin, z = str.length(); i < z; ++i) {
+    char n = str[i] - '0';
+    r = (r << leftbit) | n;
+  }
+  return r;
+}
+
+
+inline double binary(std::string str) {
+  if (str[0] != '0') return 0;
+  if (str[1] != 'b') return 0;
+  return str2number(str, 2, 1);
+}
+
+
+inline double octal2(std::string str) {
+  if (str[0] != '0') return 0;
+  if (str[1] != 'o') return 0;
+  return str2number(str, 2, 3);
+}
+
+
+inline double octal(std::string str) {
+  if (str[0] != '0') return 0;
+  return str2number(str, 1, 3);
+}
+
+
 void CoreListener::exitNumericLiteral(JavaScriptParser::NumericLiteralContext* ctx)
 {
-  printf(" %s)", ctx->DecimalLiteral()->getText().c_str());
-  double d = std::stod(ctx->DecimalLiteral()->getText());
+  double d = 0;
+  if (ctx->DecimalLiteral()) {
+    d = std::stod(ctx->DecimalLiteral()->getText());
+    //printf(" D %s ", ctx->DecimalLiteral()->getText().c_str());
+  }
+  else if (ctx->BinaryIntegerLiteral()) {
+    d = binary(ctx->BinaryIntegerLiteral()->getText());
+    //printf(" B %s ", ctx->BinaryIntegerLiteral()->getText().c_str());
+  }
+  else if (ctx->HexIntegerLiteral()) {
+    d = std::stod(ctx->HexIntegerLiteral()->getText());
+    //printf(" H %s ", ctx->HexIntegerLiteral()->getText().c_str());
+  }
+  else if (ctx->OctalIntegerLiteral()) {
+    d = octal(ctx->OctalIntegerLiteral()->getText());
+    //printf(" O %s ", ctx->OctalIntegerLiteral()->getText().c_str());
+  }
+  else if (ctx->OctalIntegerLiteral2()) {
+    d = octal2(ctx->OctalIntegerLiteral2()->getText());
+    //printf(" o2 %s ", ctx->OctalIntegerLiteral2()->getText().c_str());
+  }
+  else {
+    printf(" ! %s ", ctx->getText().c_str());
+  }
+
+  printf(" %lf)", d);
   instruct->push(new PushNumeric(d));
 }
+
 
 void CoreListener::enterIdentifierName(JavaScriptParser::IdentifierNameContext* ctx)
 {

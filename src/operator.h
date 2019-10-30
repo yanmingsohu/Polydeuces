@@ -81,4 +81,67 @@ public:
   }
 };
 
+
+class UnaryMinusExp : public Runnable {
+public:
+  void operator()(RefContext& ctx, InstructionSet* ins) override {
+    auto m = ctx->popCalc();
+    if (m->isNumber()) {
+      ctx->pushCalc(new JSNumber(- m->toNumber()));
+    }
+    else {
+      ctx->pushCalc(new JSNaN());
+    }
+  }
+};
+
+
+class LeftShiftExp : public BinaryMathematicalOperator {
+public:
+  double calc(double a, double b) override {
+    return int(int(a) << int(b));
+  }
+};
+
+
+class RightShiftExp : public BinaryMathematicalOperator {
+public:
+  double calc(double a, double b) override {
+    return int(int(a) >> int(b));
+  }
+};
+
+
+class RightShiftLogExp : public BinaryMathematicalOperator {
+public:
+  double calc(double a, double b) override {
+    return int(unsigned int(a) >> int(b));
+  }
+};
+
+
+class BitAndExp : public BinaryMathematicalOperator {
+public:
+  double calc(double a, double b) override {
+    return long(unsigned int(a) & unsigned int(b));
+  }
+};
+
+
+class BitOrExp : public BinaryMathematicalOperator {
+public:
+  double calc(double a, double b) override {
+    return long(unsigned int(a) | unsigned int(b));
+  }
+};
+
+
+class BitXOrExp : public BinaryMathematicalOperator {
+public:
+  double calc(double a, double b) override {
+    return long(unsigned int(a) ^ unsigned int(b));
+  }
+};
+
+
 }
