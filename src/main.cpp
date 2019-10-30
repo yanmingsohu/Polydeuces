@@ -34,6 +34,7 @@ int main(char** argv, int argc) {
              << antlrcpp::s2ws(tree->toStringTree(&parser)) 
              <<"\n" << std::endl; 
 
+  manager.start();
   printf("ok");
   return 0;
 }

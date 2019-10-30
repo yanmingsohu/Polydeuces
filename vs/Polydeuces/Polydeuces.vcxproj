@@ -42,7 +42,9 @@
     <ClInclude Include="..\..\generate\JavaScriptParserBaseVisitor.h" />
     <ClInclude Include="..\..\generate\JavaScriptParserListener.h" />
     <ClInclude Include="..\..\generate\JavaScriptParserVisitor.h" />
+    <ClInclude Include="..\..\src\instructions.h" />
     <ClInclude Include="..\..\src\javascript.h" />
+    <ClInclude Include="..\..\src\operator.h" />
     <ClInclude Include="..\..\src\parser_listener.h" />
   </ItemGroup>
   <ItemGroup>

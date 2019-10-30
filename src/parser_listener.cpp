@@ -1,10 +1,12 @@
 #include "parser_listener.h"
+#include "instructions.h"
+#include "operator.h"
 #include "stdio.h"
 
 using namespace PolydeucesEngine;
 
 
-CoreListener::CoreListener(Manager* m) : manager(m) {
+CoreListener::CoreListener(Manager* m) : manager(m), instruct(0) {
   assert(m);
 }
 
@@ -12,7 +14,7 @@ CoreListener::CoreListener(Manager* m) : manager(m) {
 void CoreListener::enterProgram(JavaScriptParser::ProgramContext* ctx) {
   printf(">> programe enter\n");
   process = new Process();
-  currContext = process->getRootContext();
+  instruct = process;
 }
 
 
@@ -35,6 +37,7 @@ void CoreListener::visitErrorNode(antlr4::tree::ErrorNode* node) {
   if (process) {
     delete process;
     process = 0;
+    instruct = 0;
   }
 }
 
@@ -61,13 +64,14 @@ void CoreListener::exitStatement(JavaScriptParser::StatementContext* ctx) {}
 void CoreListener::enterBlock(JavaScriptParser::BlockContext* ctx) {
   // TODO: 执行时创建上下文
   printf("BLOCK{");
-  currContext = process->newContext(currContext);
+  instruct->push(new EnterBlock());
 }
 
 
 void CoreListener::exitBlock(JavaScriptParser::BlockContext* ctx) {
   printf(" B}\n");
-  currContext = currContext->getParent();
+  instruct->push(new DebugCalc());
+  instruct->push(new ExitBlock());
 }
 
 
@@ -819,6 +823,15 @@ void CoreListener
 void CoreListener
 ::exitMultiplicativeExpression(JavaScriptParser::MultiplicativeExpressionContext* ctx) {
   printf(" *}");
+  if (ctx->Divide()) {
+    instruct->push(new PlusExp());
+  }
+  else if (ctx->Multiply()) {
+    instruct->push(new MultiplyExp());
+  }
+  else if (ctx->Modulus()) {
+    instruct->push(new ModulusExp());
+  }
 }
 
 void CoreListener::enterBitShiftExpression(JavaScriptParser::BitShiftExpressionContext* ctx)
@@ -831,10 +844,12 @@ void CoreListener::exitBitShiftExpression(JavaScriptParser::BitShiftExpressionCo
 
 void CoreListener::enterParenthesizedExpression(JavaScriptParser::ParenthesizedExpressionContext* ctx)
 {
+  printf("-(-");
 }
 
 void CoreListener::exitParenthesizedExpression(JavaScriptParser::ParenthesizedExpressionContext* ctx)
 {
+  printf("-)-");
 }
 
 void CoreListener::enterAdditiveExpression(JavaScriptParser::AdditiveExpressionContext* ctx) {
@@ -844,6 +859,12 @@ void CoreListener::enterAdditiveExpression(JavaScriptParser::AdditiveExpressionC
 void CoreListener::exitAdditiveExpression(JavaScriptParser::AdditiveExpressionContext* ctx)
 {
   printf(" +}");
+  if (ctx->Plus()) {
+    instruct->push(new PlusExp());
+  } 
+  else if (ctx->Minus()) {
+    instruct->push(new MinusExp());
+  }
 }
 
 void CoreListener::enterRelationalExpression(JavaScriptParser::RelationalExpressionContext* ctx)
@@ -1006,6 +1027,8 @@ void CoreListener::enterNumericLiteral(JavaScriptParser::NumericLiteralContext* 
 void CoreListener::exitNumericLiteral(JavaScriptParser::NumericLiteralContext* ctx)
 {
   printf(" %s)", ctx->DecimalLiteral()->getText().c_str());
+  double d = std::stod(ctx->DecimalLiteral()->getText());
+  instruct->push(new PushNumeric(d));
 }
 
 void CoreListener::enterIdentifierName(JavaScriptParser::IdentifierNameContext* ctx)

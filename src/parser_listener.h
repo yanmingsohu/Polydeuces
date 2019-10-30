@@ -12,7 +12,7 @@ class CoreListener : public JavaScriptParserListener {
 private:
   Manager *manager;
   Process *process;
-  std::shared_ptr<JSContext> currContext;
+  IInsertInstruction *instruct;
 
   enum VarType {
     t_none = 0, t_var, t_const, t_let,
