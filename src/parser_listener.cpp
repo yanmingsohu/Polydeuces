@@ -1036,7 +1036,7 @@ void CoreListener::enterNumericLiteral(JavaScriptParser::NumericLiteralContext* 
 
 inline double str2number(std::string& str, const int begin, const int leftbit) {
   unsigned long r = 0;
-  for (int i = begin, z = str.length(); i < z; ++i) {
+  for (size_t i = begin, z = str.length(); i < z; ++i) {
     char n = str[i] - '0';
     r = (r << leftbit) | n;
   }

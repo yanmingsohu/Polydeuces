@@ -1,5 +1,5 @@
-
-    #include "JavaScriptBaseLexer.h"
+#include "gcomm.h"
+#include "JavaScriptBaseLexer.h"
 
 
 // Generated from D:\Polydeuces\deps\javascript-grammars\javascript\JavaScriptLexer.g4 by ANTLR 4.7.2

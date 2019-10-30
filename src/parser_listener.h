@@ -1,5 +1,6 @@
 #pragma once
 
+#include "gcomm.h"
 #include "JavaScriptParserListener.h"
 #include "javascript.h"
 
