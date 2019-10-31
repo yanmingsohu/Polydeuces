@@ -12,8 +12,10 @@ namespace PolydeucesEngine {
 #define Ref std::shared_ptr
 
 class Manager;
+class IManagerListener;
 class Runnable;
-class instruction;
+class InstructionSet;
+class IInsertInstruction;
 class Process;
 class Noncopy;
 class Var;
@@ -23,6 +25,8 @@ class JSNull;
 class JSUndefined;
 class JSNaN;
 class JSNumber;
+class JSError;
+class JSBoolean;
 typedef Ref<JSContext>  RefContext;
 typedef Ref<JSObject>   RefObj;
 typedef Ref<Var>        RefVar;
@@ -41,7 +45,7 @@ private:
 
 
 //
-// 原始类型基础, 可以复制
+// 原始类型基础, 可以复制, 不支持属性
 //
 class Var {
 public:
@@ -131,6 +135,28 @@ private:
 
 public:
   JSError(std::string msg, int code = 0);
+  std::string toString() override;
+  void appendString(std::stringstream&) override;
+  bool isString() override;
+};
+
+
+class JSString : public JSObject {
+private:
+  std::string str;
+public:
+  JSString(std::string str);
+  std::string toString() override;
+  void appendString(std::stringstream&) override;
+  bool isString() override;
+};
+
+
+class JSBoolean : public Var {
+private:
+  bool b;
+public:
+  JSBoolean(bool);
   std::string toString() override;
   void appendString(std::stringstream&) override;
 };

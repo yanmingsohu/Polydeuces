@@ -35,7 +35,8 @@ public:
   }
 
   void operator()(RefContext& ctx, InstructionSet* ins) {
-    ctx->pushCalc(new JSNumber(num));
+    RefVar rv(new JSNumber(num));
+    ctx->pushCalc(rv);
   }
 };
 
@@ -44,6 +45,19 @@ class DebugCalc : public Runnable {
 public:
   void operator()(RefContext& ctx, InstructionSet* ins) {
     ctx->printCalcStack();
+  }
+};
+
+
+class PushLiteral : public Runnable {
+private:
+  RefVar var;
+public:
+  PushLiteral(RefVar rv) : var(rv) {}
+  PushLiteral(Var* v) : var(v) {}
+
+  void operator()(RefContext& ctx, InstructionSet* ins) {
+    ctx->pushCalc(var);
   }
 };
 

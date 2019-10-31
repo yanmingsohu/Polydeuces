@@ -1018,13 +1018,33 @@ void CoreListener::exitAssignmentOperator(JavaScriptParser::AssignmentOperatorCo
 {
 }
 
-void CoreListener::enterLiteral(JavaScriptParser::LiteralContext* ctx)
-{
+
+void CoreListener::enterLiteral(JavaScriptParser::LiteralContext* ctx) {}
+
+
+void CoreListener::exitLiteral(JavaScriptParser::LiteralContext* ctx) {
+  if (ctx->NullLiteral()) {
+    instruct->push(new PushLiteral(new JSNull));
+  }
+  else if (ctx->BooleanLiteral()) {
+    auto txt = ctx->BooleanLiteral()->toString();
+    bool val = txt == "true";
+    instruct->push(new PushLiteral(new JSBoolean(val)));
+  }
+  else if (ctx->StringLiteral()) {
+    auto txt = ctx->StringLiteral()->getText();
+    instruct->push(new PushLiteral(new JSString( txt.substr(1, txt.length()-2) )));
+  }
+  else if (ctx->TemplateStringLiteral()) { // TODO: 未完成
+    auto txt = ctx->TemplateStringLiteral()->getText();
+    instruct->push(new PushLiteral(new JSString(txt)));
+  }
+  else if (ctx->RegularExpressionLiteral()) { // // TODO: 未完成
+    auto txt = ctx->RegularExpressionLiteral()->getText();
+    instruct->push(new PushLiteral(new JSString(txt)));
+  }
 }
 
-void CoreListener::exitLiteral(JavaScriptParser::LiteralContext* ctx)
-{
-}
 
 void CoreListener::enterNumericLiteral(JavaScriptParser::NumericLiteralContext* ctx)
 {

@@ -16,10 +16,16 @@ public:
 
     if (a->isNumber() && b->isNumber()) {
       auto c = calc(a->toNumber(), b->toNumber());
-      ctx->pushCalc(new JSNumber(c));
+      RefVar r(new JSNumber(c));
+      ctx->pushCalc(r);
+    }
+    else if (a->isString() || b->isString()) {
+      auto r = str_calc(a, b);
+      ctx->pushCalc(r);
     }
     else {
-      ctx->pushCalc(new JSNaN());
+      RefVar r(new JSNaN());
+      ctx->pushCalc(r);
     }
   }
 
@@ -27,25 +33,25 @@ public:
   // 计算类的实现
   //
   virtual double calc(double a, double b) = 0;
+  //
+  // 非数字运算, 总是返回 NaN
+  //
+  virtual RefVar str_calc(RefVar& a, RefVar& b) {
+    RefVar str(new JSNaN());
+    return str;
+  }
 };
 
 
-class PlusExp : public Runnable {
+class PlusExp : public BinaryMathematicalOperator {
 public:
-  void operator()(RefContext& ctx, InstructionSet* ins) override {
-    auto b = ctx->popCalc();
-    auto a = ctx->popCalc();
+  double calc(double a, double b) override {
+    return a + b;
+  }
 
-    if (a->isNumber() && b->isNumber()) {
-      auto c = a->toNumber() + b->toNumber();
-      ctx->pushCalc(new JSNumber(c));
-    } 
-    else if (a->isString() || b->isString()) {
-      // TODO
-    } 
-    else {
-      ctx->pushCalc(new JSNaN());
-    }
+  RefVar str_calc(RefVar& a, RefVar& b) override {
+    std::string r = a->toString() + b->toString();
+    return RefVar(new JSString(r));
   }
 };
 
@@ -87,10 +93,12 @@ public:
   void operator()(RefContext& ctx, InstructionSet* ins) override {
     auto m = ctx->popCalc();
     if (m->isNumber()) {
-      ctx->pushCalc(new JSNumber(- m->toNumber()));
+      RefVar r(new JSNumber(-m->toNumber()));
+      ctx->pushCalc(r);
     }
     else {
-      ctx->pushCalc(new JSNaN());
+      RefVar r(new JSNaN());
+      ctx->pushCalc(r);
     }
   }
 };

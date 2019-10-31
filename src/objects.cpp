@@ -57,6 +57,17 @@ std::string JSNaN::toString() {
 }
 
 
+JSBoolean::JSBoolean(bool _b) : b(_b) {}
+
+std::string JSBoolean::toString() {
+  return b ? "true" : "false";
+}
+
+void JSBoolean::appendString(std::stringstream& out) {
+  out << (b ? "true" : "false");
+}
+
+
 ///// JSError /////////////////////////////////////////////////66
 
 JSError::JSError(std::string _msg, int _code) : msg(_msg), code(_code) {
@@ -64,14 +75,38 @@ JSError::JSError(std::string _msg, int _code) : msg(_msg), code(_code) {
 
 
 std::string JSError::toString() {
-  std::stringstream buf;
-  appendString(buf);
-  return buf.str();
+  return "Error";
 }
 
 
 void JSError::appendString(std::stringstream& out) {
-  out << "Error:";
+  out << "Error";
+}
+
+
+bool JSError::isString() {
+  return true;
+}
+
+
+///// JSString ////////////////////////////////////////////////66
+
+JSString::JSString(std::string _str) : str(_str) {
+}
+
+
+std::string JSString::toString() {
+  return str;
+}
+
+
+void JSString::appendString(std::stringstream& out) {
+  out << str;
+}
+
+
+bool JSString::isString() {
+  return true;
 }
 
 
