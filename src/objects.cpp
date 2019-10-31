@@ -4,6 +4,18 @@
 using namespace PolydeucesEngine;
 
 
+///// Var /////////////////////////////////////////////////////66
+
+void Var::appendString(std::stringstream& output) {
+  output << toString();
+}
+
+
+RefVar Var::getProperty(std::string name) { 
+  return RefVar(new JSUndefined); 
+}
+
+
 ///// JSObject* ///////////////////////////////////////////////66
 
 JSObject::JSObject() {}
@@ -68,6 +80,13 @@ void JSBoolean::appendString(std::stringstream& out) {
 }
 
 
+JSIdentifier::JSIdentifier(std::string s) : JSString(s) {}
+
+bool JSIdentifier::isIdentifier() {
+  return true;
+}
+
+
 ///// JSError /////////////////////////////////////////////////66
 
 JSError::JSError(std::string _msg, int _code) : msg(_msg), code(_code) {
@@ -86,6 +105,11 @@ void JSError::appendString(std::stringstream& out) {
 
 bool JSError::isString() {
   return true;
+}
+
+
+std::string JSError::message() {
+  return "Error " + msg;
 }
 
 
@@ -178,13 +202,21 @@ JSContext* JSContext::getFunctionContext() {
 
 
 RefVar JSContext::popCalc() {
-  if (calcStack.size() > 0) {
-    auto v = calcStack.back();
-    calcStack.pop_back();
-    return v;
-  } else {
+  RefVar v = popCalcOriginal();
+  if (v->isIdentifier()) {
+    v = getProperty(v->toString());
+  }
+  return v;
+}
+
+
+RefVar JSContext::popCalcOriginal() {
+  if (calcStack.size() <= 0) {
     return Ref<Var>(new JSUndefined());
   }
+  RefVar v = calcStack.back();
+  calcStack.pop_back();
+  return v;
 }
 
 
@@ -212,6 +244,12 @@ void JSContext::printCalcStack() {
 void JSContext::setError(Ref<JSError> err) {
   error = err;
   hasErrFlag = true;
+}
+
+
+void JSContext::setError(std::string msg) {
+  Ref<JSError> ref(new JSError(msg));
+  setError(ref);
 }
 
 

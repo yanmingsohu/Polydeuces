@@ -43,6 +43,32 @@ public:
 };
 
 
+//
+// 赋值运算符基础实现
+//
+class AssignmentOperatorBase : public Runnable {
+public:
+  void operator()(RefContext& ctx, InstructionSet* ins) override {
+    ctx->printCalcStack();
+    RefVar right = ctx->popCalc();
+    RefVar left  = ctx->popCalcOriginal();
+
+    if (!left->isIdentifier()) {
+      ctx->setError("Invalid left value "+ left->toString());
+      return;
+    }
+
+    calc(ctx, left, right);
+
+    auto name = left->toString();
+    ctx->setProperty(name, right);
+  }
+
+  // 在赋值之前做一些运算, 默认啥也不做
+  void calc(RefContext& ctx, RefVar& left, RefVar& right) {}
+};
+
+
 class PlusExp : public BinaryMathematicalOperator {
 public:
   double calc(double a, double b) override {
@@ -149,6 +175,10 @@ public:
   double calc(double a, double b) override {
     return long(unsigned int(a) ^ unsigned int(b));
   }
+};
+
+
+class AssignmentExp : public AssignmentOperatorBase {
 };
 
 

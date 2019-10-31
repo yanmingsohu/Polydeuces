@@ -7,7 +7,6 @@ using namespace PolydeucesEngine;
 
 
 CoreListener::CoreListener(Manager& m) : manager(m), instruct(0) {
-  assert(m);
 }
 
 
@@ -222,9 +221,11 @@ void CoreListener::enterVarModifier(JavaScriptParser::VarModifierContext* mod) {
 
 void CoreListener::exitVarModifier(JavaScriptParser::VarModifierContext* mod){
   if (mod->Var()) {
+    // TODO: 在函数范围提前定义
     printf(" Var {");
     varType = t_var;
   } else if (mod->Let()) {
+    // TODO: 在当前位置定义
     printf(" Let {");
     varType = t_let;
   } else if (mod->Const()) {
@@ -719,12 +720,15 @@ void CoreListener::exitUnaryMinusExpression(JavaScriptParser::UnaryMinusExpressi
 
 
 void CoreListener::enterAssignmentExpression(JavaScriptParser::AssignmentExpressionContext* ctx) {
-  printf("=\n");
+  printf("?");
 }
 
-void CoreListener::exitAssignmentExpression(JavaScriptParser::AssignmentExpressionContext* ctx)
-{
+
+void CoreListener::exitAssignmentExpression(JavaScriptParser::AssignmentExpressionContext* ctx) {
+  printf("=");
+  instruct->push(new AssignmentExp());
 }
+
 
 void CoreListener::enterPostDecreaseExpression(JavaScriptParser::PostDecreaseExpressionContext* ctx)
 {
@@ -913,12 +917,10 @@ void CoreListener::exitNewExpression(JavaScriptParser::NewExpressionContext* ctx
 {
 }
 
-void CoreListener::enterLiteralExpression(JavaScriptParser::LiteralExpressionContext* ctx)
-{
+void CoreListener::enterLiteralExpression(JavaScriptParser::LiteralExpressionContext* ctx) {
 }
 
-void CoreListener::exitLiteralExpression(JavaScriptParser::LiteralExpressionContext* ctx)
-{
+void CoreListener::exitLiteralExpression(JavaScriptParser::LiteralExpressionContext* ctx) {
 }
 
 void CoreListener::enterArrayLiteralExpression(JavaScriptParser::ArrayLiteralExpressionContext* ctx)
@@ -957,8 +959,9 @@ void CoreListener::enterIdentifierExpression(JavaScriptParser::IdentifierExpress
 {
 }
 
-void CoreListener::exitIdentifierExpression(JavaScriptParser::IdentifierExpressionContext* ctx)
-{
+void CoreListener::exitIdentifierExpression(JavaScriptParser::IdentifierExpressionContext* ctx) {
+  printf(" %s ", ctx->Identifier()->toString().c_str());
+  instruct->push(new IdentifierExp(ctx->Identifier()->toString()));
 }
 
 

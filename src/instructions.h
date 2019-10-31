@@ -62,4 +62,17 @@ public:
 };
 
 
+class IdentifierExp : public Runnable {
+private:
+  std::string name;
+public:
+  IdentifierExp(std::string n) : name(n) {}
+
+  void operator()(RefContext& ctx, InstructionSet* ins) {
+    RefVar rv(new JSIdentifier(name));
+    ctx->pushCalc(rv);
+  }
+};
+
+
 }

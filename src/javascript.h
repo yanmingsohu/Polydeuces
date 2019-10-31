@@ -52,19 +52,33 @@ public:
   Var() {}
   virtual ~Var() {}
 
+  //
   // 输出字符串到 output, 默认调用 toString(), 应该尽可能重写该方法
-  virtual void appendString(std::stringstream& output) {
-    output << toString();
-  }
-
+  //
+  virtual void appendString(std::stringstream& output);
+  //
+  // 设置属性, 默认什么都不做
+  //
+  virtual void setProperty(std::string name, RefVar val) {}
+  //
+  // 读取属性, 默认返回 undefined
+  //
+  virtual RefVar getProperty(std::string name);
+  //
   // 转换为字符串, 默认什么都不做
+  //
   virtual std::string toString() = 0;
+  //
   // 转换为数字, 默认返回 0
+  //
   virtual double toNumber() { return 0; }
+  //
   // 转换为 bool, 默认返回 false
+  //
   virtual bool toBoolean() { return false; }
-
+  //
   // 如果是 X 返回 true, 默认返回 false
+  //
   virtual bool isNumber()    { return false; }
   virtual bool isBool()      { return false; }
   virtual bool isString()    { return false; }
@@ -75,6 +89,10 @@ public:
   virtual bool isArray()     { return false; }
   virtual bool isObject()    { return false; }
   virtual bool isSymbol()    { return false; }
+  //
+  // 是对变量的引用
+  //
+  virtual bool isIdentifier(){ return false; }
 };
 
 
@@ -129,7 +147,7 @@ public:
 
 class JSError : public JSObject {
 private:
-  std::string stack;
+  //std::string stack;
   std::string msg;
   int code;
 
@@ -138,11 +156,12 @@ public:
   std::string toString() override;
   void appendString(std::stringstream&) override;
   bool isString() override;
+  std::string message();
 };
 
 
 class JSString : public JSObject {
-private:
+protected:
   std::string str;
 public:
   JSString(std::string str);
@@ -159,6 +178,13 @@ public:
   JSBoolean(bool);
   std::string toString() override;
   void appendString(std::stringstream&) override;
+};
+
+
+class JSIdentifier : public JSString {
+public:
+  JSIdentifier(std::string s);
+  bool isIdentifier() override;
 };
 
 
@@ -228,6 +254,7 @@ public:
   // 设置当前上下文
   //
   void setCurrContext(RefContext& c);
+  RefContext getCurrContext();
 };
 
 
@@ -262,14 +289,19 @@ public:
   JSContext* getFunctionContext();
   //
   // 从计算堆栈中弹出变量, 如果堆栈为空, 返回 JSUndefined
+  // 如果变量是 isIdentifier 的, 则返回 id 引用的变量
   //
   RefVar popCalc();
+  //
+  // 不对 isIdentifier 的对象做二次解引用
+  //
+  RefVar popCalcOriginal();
   //
   // 把变量压入计算堆栈
   //
   void pushCalc(RefVar& v);
   //
-  // 返回对 v 的引用对象
+  // 压入变量指针, 返回对 v 的引用对象, 不要对 Var 进行内存管理
   //
   RefVar pushCalc(Var* v);
   //
@@ -280,6 +312,7 @@ public:
   // 设置错误
   //
   void setError(Ref<JSError> err);
+  void setError(std::string msg);
   //
   // 获取错误
   //
@@ -350,8 +383,8 @@ public:
   RefContext getRootContext();
 
   void push(Runnable*);
-
   size_t getId();
+  RefContext getCurrContext();
 };
 
 

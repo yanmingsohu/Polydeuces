@@ -23,11 +23,11 @@ void Manager::start() {
 
     switch (process->run()) {
       case Process::RunFlag::error:
-        ml.stop(&*process, process->getRootContext()->getError());
+        ml.stop(&*process, process->getCurrContext()->getError());
         break;
 
       case Process::RunFlag::end:
-        ml.stop(&*process, process->getRootContext()->popCalc());
+        ml.stop(&*process, process->getCurrContext()->popCalc());
         break;
     }
   }
@@ -90,6 +90,11 @@ void InstructionSet::setCurrContext(RefContext& c) {
 }
 
 
+RefContext InstructionSet::getCurrContext() {
+  return currContext;
+}
+
+
 std::shared_ptr<JSContext> InstructionSet::newContext(RefContext& parentCtx) {
   std::shared_ptr<JSContext> ctx(new JSContext(parentCtx));
   parentCtx->add(ctx);
@@ -141,6 +146,11 @@ void Process::push(Runnable* r) {
 }
 
 
+RefContext Process::getCurrContext() {
+  return instruct.getCurrContext();
+}
+
+
 Process::RunFlag Process::run() {
   switch (runFlag) {
     case RunFlag::paused:
@@ -174,7 +184,7 @@ Process::RunFlag Process::run() {
 
 void IManagerListener::stop(Process* process, Ref<JSError> err) {
   std::cout << "Process Abort ID:" << process->getId() << "\n"
-            << err->toString() << std::endl;
+            << err->message() << std::endl;
 }
 
 
