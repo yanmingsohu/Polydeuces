@@ -9,6 +9,11 @@ using namespace PolydeucesEngine;
 JSObject::JSObject() {}
 
 
+std::string JSObject::toString() {
+  return std::string("[object Object]");
+}
+
+
 bool JSNull::isNull() { 
   return true; 
 }
@@ -52,6 +57,24 @@ std::string JSNaN::toString() {
 }
 
 
+///// JSError /////////////////////////////////////////////////66
+
+JSError::JSError(std::string _msg, int _code) : msg(_msg), code(_code) {
+}
+
+
+std::string JSError::toString() {
+  std::stringstream buf;
+  appendString(buf);
+  return buf.str();
+}
+
+
+void JSError::appendString(std::stringstream& out) {
+  out << "Error:";
+}
+
+
 ///// JSNumber ////////////////////////////////////////////////66
 
 JSNumber::JSNumber(double n) : num(n) {}
@@ -85,11 +108,12 @@ bool JSNumber::toBoolean() {
 ///// JSContext ///////////////////////////////////////////////66
 
 JSContext::JSContext(std::shared_ptr<JSContext>& _parent, bool isFunc) 
-: parent(_parent), isFunctionCtx(isFunc){
+: parent(_parent), isFunctionCtx(isFunc), hasErrFlag(false) {
 }
 
 
-JSContext::JSContext(bool isFunc) : parent(0), isFunctionCtx(isFunc) {}
+JSContext::JSContext(bool isFunc) 
+: parent(0), isFunctionCtx(isFunc), hasErrFlag(false) {}
 
 
 void JSContext::add(std::shared_ptr<JSContext>& child) {
@@ -119,9 +143,13 @@ JSContext* JSContext::getFunctionContext() {
 
 
 RefVar JSContext::popCalc() {
-  auto v = calcStack.back();
-  calcStack.pop_back();
-  return v;
+  if (calcStack.size() > 0) {
+    auto v = calcStack.back();
+    calcStack.pop_back();
+    return v;
+  } else {
+    return Ref<Var>(new JSUndefined());
+  }
 }
 
 
@@ -143,4 +171,15 @@ void JSContext::printCalcStack() {
     std::cout << (*i)->toString() << ", ";
   }
   std::cout << "\n";
+}
+
+
+void JSContext::setError(Ref<JSError> err) {
+  error = err;
+  hasErrFlag = true;
+}
+
+
+Ref<JSError> JSContext::getError() {
+  return error;
 }

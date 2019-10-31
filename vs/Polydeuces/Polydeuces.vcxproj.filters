@@ -114,5 +114,8 @@
     <None Include="..\..\deps\javascript-grammars\javascript\JavaScriptParser.g4">
       <Filter>g4</Filter>
     </None>
+    <None Include="..\..\test\first.js">
+      <Filter>资源文件</Filter>
+    </None>
   </ItemGroup>
 </Project>

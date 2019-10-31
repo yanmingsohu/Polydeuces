@@ -9,6 +9,8 @@
 
 namespace PolydeucesEngine {
 
+#define Ref std::shared_ptr
+
 class Manager;
 class Runnable;
 class instruction;
@@ -21,7 +23,10 @@ class JSNull;
 class JSUndefined;
 class JSNaN;
 class JSNumber;
-typedef std::shared_ptr<JSContext> RefContext;
+typedef Ref<JSContext>  RefContext;
+typedef Ref<JSObject>   RefObj;
+typedef Ref<Var>        RefVar;
+typedef Ref<Process>    RefProcess;
 
 
 class Noncopy {
@@ -33,17 +38,6 @@ private:
   Noncopy(Noncopy const&) = delete;
   Noncopy operator=(const Noncopy&) = delete;
 };
-
-
-//
-// 所有 js 对象的基础, 不可复制不可赋值.
-//
-class JSObject : private Noncopy {
-public:
-  JSObject();
-};
-
-typedef std::shared_ptr<JSObject> RefObj;
 
 
 //
@@ -79,7 +73,15 @@ public:
   virtual bool isSymbol()    { return false; }
 };
 
-typedef std::shared_ptr<Var> RefVar;
+
+//
+// 不可复制不可赋值.
+//
+class JSObject : private Noncopy, public Var {
+public:
+  JSObject();
+  std::string toString() override;
+};
 
 
 class JSNull : public Var {
@@ -121,19 +123,28 @@ public:
 };
 
 
+class JSError : public JSObject {
+private:
+  std::string stack;
+  std::string msg;
+  int code;
+
+public:
+  JSError(std::string msg, int code = 0);
+  std::string toString() override;
+  void appendString(std::stringstream&) override;
+};
+
+
 //
 // 指令插入接口, 内存策略由子类设定
 //
 class IInsertInstruction {
 public:
-  virtual void push(Runnable* pr) {
-    auto sp = std::shared_ptr<Runnable>(pr);
-    push(sp);
-  }
   //
-  // 插入一条指令到指令的最后
+  // 插入一条指令到指令集合的最后, 之后对象生存期由实现的子类控制
   //
-  virtual void push(std::shared_ptr<Runnable>&) = 0;
+  virtual void push(Runnable* pr) = 0;
   virtual ~IInsertInstruction() {};
 };
 
@@ -143,10 +154,12 @@ public:
 //
 class InstructionSet : private Noncopy, public IInsertInstruction {
 private:
-  std::vector<std::shared_ptr<Runnable>> arr;
+  typedef std::unique_ptr<Runnable> RefInstruction;
+
+  std::vector<RefInstruction> arr;
+  RefContext currContext;
   size_t p;
   size_t _size;
-  RefContext currContext;
 
 public:
   enum FailCode {
@@ -175,7 +188,8 @@ public:
   // 不应该在出错后调用, 将出现不可预料的后果
   //
   FailCode next();
-  void push(std::shared_ptr<Runnable> &) override;
+
+  virtual void push(Runnable* pr) override;
   //
   // 在指定上下文中创建一个子上下文并返回.
   //
@@ -197,11 +211,14 @@ public:
 //
 class JSContext : public JSObject {
 private:
-  std::shared_ptr<JSContext> parent;
-  std::list<std::shared_ptr<JSContext>> childs;
+  Ref<JSContext> parent;
+  std::list<Ref<JSContext>> childs;
   // 用于算数/逻辑计算的变量堆栈
   std::vector<RefVar> calcStack;
   bool isFunctionCtx;
+  // 有错误发生, 则该变量非空
+  Ref<JSError> error;
+  bool hasErrFlag;
 
 public:
   JSContext(std::shared_ptr<JSContext>& _parent, bool isFunc = false);
@@ -218,7 +235,7 @@ public:
   //
   JSContext* getFunctionContext();
   //
-  // 从计算堆栈中弹出变量
+  // 从计算堆栈中弹出变量, 如果堆栈为空, 返回 JSUndefined
   //
   RefVar popCalc();
   //
@@ -229,8 +246,24 @@ public:
   // 返回对 v 的引用对象
   //
   RefVar pushCalc(Var* v);
-
+  //
+  // 打印计算堆栈, debug 用
+  //
   void printCalcStack();
+  //
+  // 设置错误
+  //
+  void setError(Ref<JSError> err);
+  //
+  // 获取错误
+  //
+  Ref<JSError> getError();
+  //
+  // 有错误返回 true
+  //
+  inline bool hasError() {
+    return hasErrFlag;
+  }
 };
 
 
@@ -248,10 +281,6 @@ public:
   //
   virtual void operator()(RefContext& ctx, InstructionSet* ins) = 0;
   //
-  // 执行之后调用, 有错误返回 true
-  //
-  virtual bool hasErr() { return false; }
-  //
   // 当前指令在源代码中的行号
   //
   long line() { return lineNum; }
@@ -261,20 +290,25 @@ public:
 //
 // 一个初始脚本将被编译为一个进程对象
 //
-class Process : public IInsertInstruction {
+class Process : public IInsertInstruction, private Noncopy {
+public:
+  enum RunFlag {
+    paused, running, error, end,
+  };
+
 private:
+  RunFlag runFlag;
   InstructionSet instruct;
   RefContext rootContext;
-  bool pauseFlag;
   size_t id;
 
 public:
-  Process();
-  Process(RefContext& rootContext);
+  Process(size_t id);
+  Process(RefContext& rootContext, size_t id);
   //
   // 开始执行代码, 或恢复挂起的操作
   //
-  void run();
+  RunFlag run();
   //
   // 暂停执行进程, 该方法在另一个线程中调用
   // run 应该挂起, 并返回, 以释放系统线程.
@@ -289,10 +323,29 @@ public:
   //
   RefContext getRootContext();
 
-  void push(std::shared_ptr<Runnable>&);
+  void push(Runnable*);
 
-private:
-  friend Manager;
+  size_t getId();
+};
+
+
+//
+// 监听管理器发出的消息
+//
+class IManagerListener {
+public:
+  //
+  // 当进程因为错误退出, 调用该方法
+  // process 进程指针, 在函数返回后无效
+  // err 错误对象
+  //
+  virtual void stop(Process* process, Ref<JSError> err);
+  //
+  // 进程正常结束后调用
+  // process 进程指针, 在函数返回后无效
+  // returnVal 进程的返回值
+  //
+  virtual void stop(Process* process, RefVar returnVal);
 };
 
 
@@ -300,13 +353,17 @@ private:
 // 一个进程通常只需要一个管理器, 管理器负责启动一个程序, 
 // 并为程序分配线程和内存资源;
 //
-class Manager {
+class Manager : private Noncopy {
 private:
+  IManagerListener& ml;
   std::vector<std::shared_ptr<Process>> parr;
+  size_t id;
 
 public:
-  Manager(Manager const&) = delete;
-  Manager();
+  //
+  // IManagerListener 的有效期应该超过 Manager
+  //
+  Manager(IManagerListener&);
   //
   // 把进程加入管理器, 稍后将被启动, 不要在外部对 pro 做内存管理
   //
@@ -315,6 +372,14 @@ public:
   // 启动任务, 直到所有进程都退出, 该方法才返回
   //
   void start();
+  //
+  // 生成不重复的 id
+  //
+  size_t genNextID();
+  //
+  // 发送错误消息
+  //
+  void sendError(Process* p, Ref<JSError> err);
 };
 
 }

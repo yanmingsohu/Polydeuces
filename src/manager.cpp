@@ -1,23 +1,46 @@
 #include "javascript.h"
+#include <iostream>
 
 using namespace PolydeucesEngine;
 
 
 ///// Manager /////////////////////////////////////////////////66
 
-Manager::Manager() {}
+Manager::Manager(IManagerListener& _ml) : id(0), ml(_ml) {}
 
 
 void Manager::add(Process* pro) {
-  pro->id = parr.size();
   parr.push_back(std::shared_ptr<Process>(pro));
 }
 
 
+//
+// TODO: 进程管理
+//
 void Manager::start() {
   for (auto i = parr.begin(); i != parr.end(); ++i) {
-    (*i)->run();
+    auto process = (*i);
+
+    switch (process->run()) {
+      case Process::RunFlag::error:
+        ml.stop(&*process, process->getRootContext()->getError());
+        break;
+
+      case Process::RunFlag::end:
+        ml.stop(&*process, process->getRootContext()->popCalc());
+        break;
+    }
   }
+}
+
+
+size_t Manager::genNextID() {
+  return ++id;
+}
+
+
+void Manager::sendError(Process* p, Ref<JSError> err) {
+  ml.stop(p, err);
 }
 
 
@@ -32,10 +55,12 @@ size_t InstructionSet::size() {
 
 
 InstructionSet::FailCode InstructionSet::next() {
-  if (p+1 >= _size) return FailCode::noMore;
-  auto currIns = arr[p+1];
+  if (p+1 >= _size) 
+    return FailCode::noMore;
+
+  auto currIns = arr[p+1].get();
   (*currIns)(currContext, this);
-  if (currIns->hasErr()) {
+  if (currContext->hasError()) {
     return FailCode::hasErr;
   }
   ++p;
@@ -43,8 +68,9 @@ InstructionSet::FailCode InstructionSet::next() {
 }
 
 
-void InstructionSet::push(std::shared_ptr<Runnable> &ins) {
-  arr.push_back(ins);
+void InstructionSet::push(Runnable* r) {
+  RefInstruction ref(r);
+  arr.push_back(std::move(ref));
   ++_size;
 }
 
@@ -78,18 +104,25 @@ std::shared_ptr<JSContext> InstructionSet::newContext() {
 
 ///// Process /////////////////////////////////////////////////66
 
-Process::Process() : pauseFlag(false) {
+Process::Process(size_t _id) : runFlag(RunFlag::paused), id(_id) {
   rootContext.reset(new JSContext());
 }
 
 
-Process::Process(std::shared_ptr<JSContext>& _rootContext) 
-: pauseFlag(false), rootContext(_rootContext) {
+Process::Process(std::shared_ptr<JSContext>& _rootContext, size_t _id)
+: runFlag(RunFlag::paused), rootContext(_rootContext), id(_id) {
 }
 
 
 void Process::pause() {
-  pauseFlag = true;
+  if (runFlag == RunFlag::running) {
+    runFlag = RunFlag::paused;
+  }
+}
+
+
+size_t Process::getId() {
+  return id;
 }
 
 
@@ -103,20 +136,49 @@ std::shared_ptr<JSContext> Process::getRootContext() {
 }
 
 
-void Process::push(std::shared_ptr<Runnable>& r) {
+void Process::push(Runnable* r) {
   instruct.push(r);
 }
 
 
-void Process::run() {
-  while (!pauseFlag) {
+Process::RunFlag Process::run() {
+  switch (runFlag) {
+    case RunFlag::paused:
+      runFlag = RunFlag::running;
+      break;
+
+    case RunFlag::running:
+    case RunFlag::end:
+    case RunFlag::error:
+    default:
+      return runFlag;
+  }
+
+  do {
     auto state = instruct.next();
     switch (state) {
       case InstructionSet::noMore:
-        return;
+        runFlag = RunFlag::end;
+        break;
       case InstructionSet::hasErr:
-        return;
+        runFlag = RunFlag::error;
+        break;
     }
-  }
+  } while (runFlag == RunFlag::running);
+
+  return runFlag;
 }
 
+
+///// IManagerListener ////////////////////////////////////////66
+
+void IManagerListener::stop(Process* process, Ref<JSError> err) {
+  std::cout << "Process Abort ID:" << process->getId() << "\n"
+            << err->toString() << std::endl;
+}
+
+
+void IManagerListener::stop(Process* process, RefVar returnVal) {
+  std::cout << "Process Exit ID:" << process->getId() << "\n\tReturn: "
+            << returnVal->toString() << std::endl;
+}

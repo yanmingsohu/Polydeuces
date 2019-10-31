@@ -6,24 +6,22 @@
 using namespace PolydeucesEngine;
 
 
-CoreListener::CoreListener(Manager* m) : manager(m), instruct(0) {
+CoreListener::CoreListener(Manager& m) : manager(m), instruct(0) {
   assert(m);
 }
 
 
 void CoreListener::enterProgram(JavaScriptParser::ProgramContext* ctx) {
   printf(">> programe enter\n");
-  process = new Process();
+  process = new Process(manager.genNextID());
   instruct = process;
 }
 
 
 void CoreListener::exitProgram(JavaScriptParser::ProgramContext* ctx) {
   printf("<< programe exit\n");
-  if (process) {
-    process->parseEnd();
-    manager->add(process);
-  }
+  process->parseEnd();
+  manager.add(process);
 }
 
 
@@ -34,11 +32,8 @@ void CoreListener::visitTerminal(antlr4::tree::TerminalNode* node) {
 
 void CoreListener::visitErrorNode(antlr4::tree::ErrorNode* node) {
   printf("? visit error node\n");
-  if (process) {
-    delete process;
-    process = 0;
-    instruct = 0;
-  }
+  Ref<JSError> err(new JSError(node->getText()));
+  manager.sendError(process, err);
 }
 
 
@@ -974,11 +969,14 @@ void CoreListener::exitBitAndExpression(JavaScriptParser::BitAndExpressionContex
   instruct->push(new BitAndExp());
 }
 
+
 void CoreListener::enterBitOrExpression(JavaScriptParser::BitOrExpressionContext* ctx) {}
+
 
 void CoreListener::exitBitOrExpression(JavaScriptParser::BitOrExpressionContext* ctx) {
   instruct->push(new BitOrExp());
 }
+
 
 void CoreListener::enterAssignmentOperatorExpression(JavaScriptParser::AssignmentOperatorExpressionContext* ctx)
 {
@@ -1046,14 +1044,14 @@ inline double str2number(std::string& str, const int begin, const int leftbit) {
 
 inline double binary(std::string str) {
   if (str[0] != '0') return 0;
-  if (str[1] != 'b') return 0;
+  if (str[1] != 'b' && str[1] != 'B') return 0;
   return str2number(str, 2, 1);
 }
 
 
 inline double octal2(std::string str) {
   if (str[0] != '0') return 0;
-  if (str[1] != 'o') return 0;
+  if (str[1] != 'o' && str[1] != 'O') return 0;
   return str2number(str, 2, 3);
 }
 

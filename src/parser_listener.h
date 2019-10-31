@@ -11,7 +11,7 @@ namespace PolydeucesEngine {
 //
 class CoreListener : public JavaScriptParserListener {
 private:
-  Manager *manager;
+  Manager& manager;
   Process *process;
   IInsertInstruction *instruct;
 
@@ -21,7 +21,7 @@ private:
   
 
 public:
-  CoreListener(Manager *m);
+  CoreListener(Manager& m);
   CoreListener(CoreListener const&) = delete;
 
   virtual void enterProgram(JavaScriptParser::ProgramContext* ctx) override;

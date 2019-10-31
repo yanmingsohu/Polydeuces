@@ -54,6 +54,7 @@
     <None Include="..\..\generate\JavaScriptLexer.tokens" />
     <None Include="..\..\generate\JavaScriptParser.interp" />
     <None Include="..\..\generate\JavaScriptParser.tokens" />
+    <None Include="..\..\test\first.js" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>

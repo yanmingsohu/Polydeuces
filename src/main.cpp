@@ -22,8 +22,9 @@ int main(char** argv, int argc) {
 
   std::cout << (lexer.IsStrictMode() ? "Strict\n" : "Not Strict\n");
 
-  Manager manager;
-  CoreListener cl(&manager);
+  IManagerListener defaultML;
+  Manager manager(defaultML);
+  CoreListener cl(manager);
   JavaScriptParser parser(&tokens);
   parser.addParseListener(&cl);
   tree::ParseTree* tree = parser.program();
