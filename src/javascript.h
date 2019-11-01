@@ -6,6 +6,8 @@
 #include <list>
 #include <string>
 #include <sstream>
+#include <unordered_map>
+#include <unordered_set>
 
 namespace PolydeucesEngine {
 
@@ -61,7 +63,12 @@ public:
   //
   virtual void setProperty(std::string name, RefVar val) {}
   //
-  // 读取属性, 默认返回 undefined
+  // 属性通过 setProperty 设置过返回 true, 即使设置 null/undefined 也会返回 true
+  //
+  virtual bool hasProperty(std::string name) { return false; }
+  //
+  // 读取属性如果属性不存在返回 undefined, 默认返回 undefined
+  // 该方法不能判断属性是否通过 setProperty 设置过, 
   //
   virtual RefVar getProperty(std::string name);
   //
@@ -101,8 +108,20 @@ public:
 //
 class JSObject : private Noncopy, public Var {
 public:
+  typedef std::unordered_map<std::string, RefVar> Properties;
+
   JSObject();
   std::string toString() override;
+  void setProperty(std::string name, RefVar val) override;
+  bool hasProperty(std::string name) override;
+  RefVar getProperty(std::string name) override;
+  void printAllProps();
+
+private:
+  Properties properties;
+
+protected:
+  Properties& propertiesRef();
 };
 
 
@@ -197,6 +216,10 @@ public:
   // 插入一条指令到指令集合的最后, 之后对象生存期由实现的子类控制
   //
   virtual void push(Runnable* pr) = 0;
+  //
+  // 插入一条指令作为指令集的第一条指令
+  //
+  virtual void push_top(Runnable* pr) = 0;
   virtual ~IInsertInstruction() {};
 };
 
@@ -222,7 +245,10 @@ public:
     // 有错误
     hasErr,
   };
-  InstructionSet();
+
+  InstructionSet(); 
+  void push_top(Runnable* pr) override;
+  void push(Runnable* pr) override;
   //
   // 返回指令数量
   //
@@ -240,8 +266,6 @@ public:
   // 不应该在出错后调用, 将出现不可预料的后果
   //
   FailCode next();
-
-  virtual void push(Runnable* pr) override;
   //
   // 在指定上下文中创建一个子上下文并返回.
   //
@@ -272,6 +296,10 @@ private:
   // 有错误发生, 则该变量非空
   Ref<JSError> error;
   bool hasErrFlag;
+  std::unordered_set<std::string> constVar;
+
+  // 沿着父引用路径一直寻找属性所在的上下文, 返回第一个上下文引用, 找不到返回空
+  JSContext* findContext(std::string& propertyName, bool returnFunctionCtx = false);
 
 public:
   JSContext(std::shared_ptr<JSContext>& _parent, bool isFunc = false);
@@ -283,7 +311,7 @@ public:
   std::shared_ptr<JSContext>& getParent();
 
   //
-  // 返回函数上下文, 可以是自身或父级, 找不到返回自身.
+  // 返回函数上下文, 可以是自身或父级, 找不到返回 NULL.
   // 不要对返回的对象做内存管理
   //
   JSContext* getFunctionContext();
@@ -323,6 +351,24 @@ public:
   inline bool hasError() {
     return hasErrFlag;
   }
+  //
+  // 设置变量为 const
+  //
+  void setConst(std::string var_name);
+  //
+  // 寻找正确的上下文保存变量, 若变量从未存在则保存到当前最近的函数上下文.
+  // 会阻止设置 const 变量
+  //
+  void setContextProperty(std::string name, RefVar val);
+  //
+  // 属性在自身和父级上下文中寻找, 找不到则 js 异常压入堆栈
+  //
+  RefVar getContextProperty(std::string name);
+  //
+  // 在表达式计算后清空计算堆栈, 
+  // TODO; 始终保持堆栈没有多余元素?
+  //
+  void clearCalcStack();
 };
 
 
@@ -349,7 +395,7 @@ public:
 //
 // 一个初始脚本将被编译为一个进程对象
 //
-class Process : public IInsertInstruction, private Noncopy {
+class Process : private Noncopy {
 public:
   enum RunFlag {
     paused, running, error, end,
@@ -382,9 +428,9 @@ public:
   //
   RefContext getRootContext();
 
-  void push(Runnable*);
   size_t getId();
   RefContext getCurrContext();
+  IInsertInstruction* getInstructionSet();
 };
 
 

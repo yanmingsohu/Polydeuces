@@ -13,7 +13,7 @@ CoreListener::CoreListener(Manager& m) : manager(m), instruct(0) {
 void CoreListener::enterProgram(JavaScriptParser::ProgramContext* ctx) {
   printf(">> programe enter\n");
   process = new Process(manager.genNextID());
-  instruct = process;
+  instruct = process->getInstructionSet();
 }
 
 
@@ -52,7 +52,10 @@ void CoreListener::exitSourceElement(JavaScriptParser::SourceElementContext* ctx
 
 void CoreListener::enterStatement(JavaScriptParser::StatementContext* ctx) {}
 
-void CoreListener::exitStatement(JavaScriptParser::StatementContext* ctx) {}
+void CoreListener::exitStatement(JavaScriptParser::StatementContext* ctx) {
+  std::cout << std::endl;
+  
+}
 
 
 void CoreListener::enterBlock(JavaScriptParser::BlockContext* ctx) {
@@ -128,14 +131,28 @@ void CoreListener::enterVariableDeclaration(JavaScriptParser::VariableDeclaratio
 void CoreListener::exitVariableDeclaration(JavaScriptParser::VariableDeclarationContext* ctx) {
   auto id = ctx->Identifier();
   if (id) {
-    printf(" %s=", id->getText().c_str());
+    auto name = id->getText();
+    printf(" %s=", name.c_str());
+    if (varType == t_var) {
+      instruct->push_top(new DefineVar(name));
+    }
+    else if (varType == t_let || varType == t_const) {
+      instruct->push(new DefineLet(name));
+    }
+    instruct->push(new IdentifierExp(name));
+    instruct->push(new VariableDeclarationAssignmentOperator());
+    if (varType == t_const) {
+      instruct->push(new DefineLock(name));
+    }
     return;
   }
+
   auto arr = ctx->arrayLiteral();
   if (arr) {
     printf(" %s=", arr->getText().c_str());
     return;
   }
+
   auto obj = ctx->objectLiteral();
   if (obj) {
     printf(" %s=", obj->getText().c_str());
@@ -595,15 +612,17 @@ void CoreListener::exitLastArgument(JavaScriptParser::LastArgumentContext* ctx)
 {
 }
 
-void CoreListener::enterExpressionSequence(JavaScriptParser::ExpressionSequenceContext* ctx)
-{
-  //printf("enterExpressionSequence{");
+
+void CoreListener::enterExpressionSequence(JavaScriptParser::ExpressionSequenceContext* ctx) {
+  instruct->push(new ClearCalcStack());
 }
+
 
 void CoreListener::exitExpressionSequence(JavaScriptParser::ExpressionSequenceContext* ctx)
 {
-  //printf("}\n")
+  printf("EXP END\n");
 }
+
 
 void CoreListener::enterTemplateStringExpression(JavaScriptParser::TemplateStringExpressionContext* ctx)
 {
@@ -720,12 +739,12 @@ void CoreListener::exitUnaryMinusExpression(JavaScriptParser::UnaryMinusExpressi
 
 
 void CoreListener::enterAssignmentExpression(JavaScriptParser::AssignmentExpressionContext* ctx) {
-  printf("?");
+  //printf("?");
 }
 
 
 void CoreListener::exitAssignmentExpression(JavaScriptParser::AssignmentExpressionContext* ctx) {
-  printf("=");
+  printf("{=}");
   instruct->push(new AssignmentExp());
 }
 
@@ -985,8 +1004,43 @@ void CoreListener::enterAssignmentOperatorExpression(JavaScriptParser::Assignmen
 {
 }
 
-void CoreListener::exitAssignmentOperatorExpression(JavaScriptParser::AssignmentOperatorExpressionContext* ctx)
-{
+void CoreListener::exitAssignmentOperatorExpression(
+    JavaScriptParser::AssignmentOperatorExpressionContext* ctx) {
+  auto op = ctx->assignmentOperator();
+  
+  if (op->MultiplyAssign()) {
+    instruct->push(new AssignmentOperatorExp<MultiplyExp>());
+  }
+  else if (op->DivideAssign()) {
+    instruct->push(new AssignmentOperatorExp<DivideExp>());
+  }
+  else if (op->ModulusAssign()) {
+    instruct->push(new AssignmentOperatorExp<ModulusExp>());
+  }
+  else if (op->PlusAssign()) {
+    instruct->push(new AssignmentOperatorExp<PlusExp>());
+  }
+  else if (op->MinusAssign()) {
+    instruct->push(new AssignmentOperatorExp<MinusExp>());
+  }
+  else if (op->LeftShiftArithmeticAssign()) {
+    instruct->push(new AssignmentOperatorExp<LeftShiftExp>());
+  }
+  else if (op->RightShiftArithmeticAssign()) {
+    instruct->push(new AssignmentOperatorExp<RightShiftExp>());
+  }
+  else if (op->RightShiftLogicalAssign()) {
+    instruct->push(new AssignmentOperatorExp<RightShiftLogExp>());
+  }
+  else if (op->BitAndAssign()) {
+    instruct->push(new AssignmentOperatorExp<BitAndExp>());
+  }
+  else if (op->BitXorAssign()) {
+    instruct->push(new AssignmentOperatorExp<BitXOrExp>());
+  }
+  else if (op->BitOrAssign()) {
+    instruct->push(new AssignmentOperatorExp<BitOrExp>());
+  }
 }
 
 void CoreListener::enterVoidExpression(JavaScriptParser::VoidExpressionContext* ctx)

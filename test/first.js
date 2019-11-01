@@ -1,17 +1,17 @@
 'use strict'
 
 (function() {
-  var a=1, b=1;
-  let c=1;
-  c++;
+  var a=1, b=2;
+  let c=3;
   let [a, b, c] = [];
   let {d, e, f} = [];
+  //c++;
   {
     //a = 1+2*5+3*4 /c;
   }
   if (1) {
-    console.log('ok');
-  }
+    // console.log('ok');
+  }/*
   {
     c = 1+2-5;
     c = 1-2*4;
@@ -39,14 +39,17 @@
     a = 0xe0 | 0x0c; // 236
     a = 0xf0 ^ 0xff; //  15
     a = (0xffff<<16) | 0xf0; // -65296
-  }
+  }*/
   {
     a = "123" + "abc";
     a = "1" - "a";
+    a = 10;
+    a += 1;
   }
   {
-    b= c = a = b + c;
+    //b= c = a += 1+1;
   }
 });
 
-199;
+a =199;
+a += 1;

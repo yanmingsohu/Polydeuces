@@ -75,6 +75,13 @@ void InstructionSet::push(Runnable* r) {
 }
 
 
+void InstructionSet::push_top(Runnable* r) {
+  RefInstruction ref(r);
+  arr.insert(arr.begin(), std::move(ref));
+  ++_size;
+}
+
+
 void InstructionSet::Goto(size_t i) {
   p = i-1;
 }
@@ -110,7 +117,7 @@ std::shared_ptr<JSContext> InstructionSet::newContext() {
 ///// Process /////////////////////////////////////////////////66
 
 Process::Process(size_t _id) : runFlag(RunFlag::paused), id(_id) {
-  rootContext.reset(new JSContext());
+  rootContext.reset(new JSContext(true));
 }
 
 
@@ -141,13 +148,14 @@ std::shared_ptr<JSContext> Process::getRootContext() {
 }
 
 
-void Process::push(Runnable* r) {
-  instruct.push(r);
-}
-
 
 RefContext Process::getCurrContext() {
   return instruct.getCurrContext();
+}
+
+
+IInsertInstruction* Process::getInstructionSet() {
+  return &instruct;
 }
 
 
@@ -191,4 +199,5 @@ void IManagerListener::stop(Process* process, Ref<JSError> err) {
 void IManagerListener::stop(Process* process, RefVar returnVal) {
   std::cout << "Process Exit ID:" << process->getId() << "\n\tReturn: "
             << returnVal->toString() << std::endl;
+  process->getRootContext()->printAllProps();
 }

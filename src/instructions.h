@@ -75,4 +75,49 @@ public:
 };
 
 
+class DefineVar : public Runnable {
+private:
+  std::string name;
+public:
+  DefineVar(std::string _name) : name(_name) {}
+
+  void operator()(RefContext& ctx, InstructionSet* ins) {
+    JSContext fc = ctx->getFunctionContext();
+    fc.setProperty(name, RefVar(new JSUndefined()));
+  }
+};
+
+
+class DefineLet : public Runnable {
+private:
+  std::string name;
+public:
+  DefineLet(std::string _name) : name(_name) {}
+
+  void operator()(RefContext& ctx, InstructionSet* ins) {
+    ctx->setProperty(name, RefVar(new JSUndefined()));
+  }
+};
+
+
+class DefineLock : public Runnable {
+private:
+  std::string name;
+public:
+  DefineLock(std::string _name) : name(_name) {}
+
+  void operator()(RefContext& ctx, InstructionSet* ins) {
+    ctx->setConst(name);
+  }
+};
+
+
+class ClearCalcStack : public Runnable {
+public:
+  void operator()(RefContext& ctx, InstructionSet* ins) {
+    ctx->clearCalcStack();
+  }
+};
+
+
 }

@@ -16,7 +16,7 @@ RefVar Var::getProperty(std::string name) {
 }
 
 
-///// JSObject* ///////////////////////////////////////////////66
+///// JSObject ////////////////////////////////////////////////66
 
 JSObject::JSObject() {}
 
@@ -26,61 +26,114 @@ std::string JSObject::toString() {
 }
 
 
+void JSObject::setProperty(std::string name, RefVar val) {
+  properties[name] = val;
+}
+
+
+bool JSObject::hasProperty(std::string name) {
+  return properties.count(name) > 0;
+}
+
+
+RefVar JSObject::getProperty(std::string name) {
+  auto search = properties.find(name);
+  if (search != properties.end()) {
+    return search->second;
+  }
+  return RefVar(new JSUndefined);
+}
+
+
+JSObject::Properties& JSObject::propertiesRef() {
+  return properties;
+}
+
+
+void JSObject::printAllProps() {
+  std::cout << "Properties:\n\t";
+  for (auto i = properties.begin(); i != properties.end(); ++i) {
+    std::cout << i->first << " = " << i->second->toString() << ", ";
+  }
+  std::cout << std::endl;
+}
+
+
+///// JSNull //////////////////////////////////////////////////66
+
 bool JSNull::isNull() { 
   return true; 
 }
+
 
 void JSNull::appendString(std::stringstream& out) {
   out << "null";
 }
 
+
 std::string JSNull::toString() {
   return std::string("null");
 }
+
 
 bool JSNull::isNumber() {
   return true;
 }
 
 
+///// JSUndefined /////////////////////////////////////////////66
+
 bool JSUndefined::isUndefined() {
   return true;
 }
 
+
 void JSUndefined::appendString(std::stringstream& out) {
   out << "undefined";
 }
+
 
 std::string JSUndefined::toString() {
   return std::string("undefined");
 }
 
 
+///// JSNaN ///////////////////////////////////////////////////66
+
 bool JSNaN::isNaN() {
   return true;
 }
 
+
 void JSNaN::appendString(std::stringstream& out) {
   out << "NaN";
 }
+
 
 std::string JSNaN::toString() {
   return std::string("NaN");
 }
 
 
+///// JSBoolean ///////////////////////////////////////////////66
+
 JSBoolean::JSBoolean(bool _b) : b(_b) {}
+
 
 std::string JSBoolean::toString() {
   return b ? "true" : "false";
 }
+
 
 void JSBoolean::appendString(std::stringstream& out) {
   out << (b ? "true" : "false");
 }
 
 
+///// JSIdentifier ////////////////////////////////////////////66
+
 JSIdentifier::JSIdentifier(std::string s) : JSString(s) {}
+
 
 bool JSIdentifier::isIdentifier() {
   return true;
@@ -145,11 +198,20 @@ bool JSNumber::isNumber() {
 
 
 void JSNumber::appendString(std::stringstream& out) {
+  long i = long(num);
+  if (double(i) == num) {
+    out << i;
+    return;
+  }
   out << num;
 }
 
 
 std::string JSNumber::toString() {
+  long i =  long(num);
+  if (double(i) == num) {
+    return std::to_string(i);
+  }
   return std::to_string(num);
 }
 
@@ -186,18 +248,14 @@ std::shared_ptr<JSContext>& JSContext::getParent() {
 
 
 JSContext* JSContext::getFunctionContext() {
-  if (isFunctionCtx) {
-    return this;
-  }
-
-  RefContext ctx = parent;
-  while (ctx.get()) {
+  JSContext* ctx = this;
+  do {
     if (ctx->isFunctionCtx) {
-      return ctx.get();
+      return ctx;
     }
-    ctx = ctx->parent;
-  }
-  return this;
+    ctx = ctx->parent.get();
+  } while (ctx);
+  return 0;
 }
 
 
@@ -235,7 +293,14 @@ RefVar JSContext::pushCalc(Var* v) {
 void JSContext::printCalcStack() {
   std::cout << "CALC:: ";
   for (auto i = calcStack.begin(); i < calcStack.end(); ++i) {
-    std::cout << (*i)->toString() << ", ";
+    auto x = (*i)->toString();
+
+    if ((*i)->isIdentifier()) {
+      std::cout << x << '=' 
+                << getContextProperty(x)->toString() << ", ";
+    } else {
+      std::cout << x << ", ";
+    }
   }
   std::cout << "\n";
 }
@@ -255,4 +320,54 @@ void JSContext::setError(std::string msg) {
 
 Ref<JSError> JSContext::getError() {
   return error;
+}
+
+
+JSContext* JSContext::findContext(std::string& propertyName, bool returnFunctionCtx) {
+  JSContext* ctx = this;
+  JSContext* func = 0;
+  do {
+    if (ctx->hasProperty(propertyName)) {
+      return ctx;
+    }
+    if (func == 0 && ctx->isFunctionCtx) {
+      func = ctx;
+    }
+    ctx = ctx->parent.get();
+  } while(ctx);
+  if (returnFunctionCtx) {
+    return func;
+  }
+  return 0;
+}
+
+
+void JSContext::setContextProperty(std::string name, RefVar val) {
+  JSContext *f = findContext(name, true);
+  if (f->constVar.count(name)) {
+    setError("Error: " + name + " is constant variable");
+    return;
+  }
+  f->setProperty(name, val);
+}
+
+
+RefVar JSContext::getContextProperty(std::string name) {
+  JSContext* f = findContext(name);
+  if (!f) {
+    setError("ReferenceError: "+ name +" is not defined");
+    return RefVar(new JSUndefined());
+  }
+  auto r = f->getProperty(name);
+  return r;
+}
+
+
+void JSContext::setConst(std::string var_name) {
+  constVar.insert(var_name);
+}
+
+
+void JSContext::clearCalcStack() {
+  calcStack.clear();
 }
