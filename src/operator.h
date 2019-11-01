@@ -54,7 +54,7 @@ public:
     RefVar left  = ctx->popCalcOriginal();
 
     if (!left->isIdentifier()) {
-      ctx->setError("Invalid left value "+ left->toString());
+      ctx->setError("Invalid left-hand value "+ left->toString());
       return;
     }
 
