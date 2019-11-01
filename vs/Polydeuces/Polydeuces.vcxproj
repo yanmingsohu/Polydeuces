@@ -48,10 +48,10 @@
     <ClInclude Include="..\..\src\parser_listener.h" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\..\deps\javascript-grammars\javascript\JavaScriptLexer.g4" />
-    <None Include="..\..\deps\javascript-grammars\javascript\JavaScriptParser.g4" />
+    <None Include="..\..\generate\JavaScriptLexer.g4" />
     <None Include="..\..\generate\JavaScriptLexer.interp" />
     <None Include="..\..\generate\JavaScriptLexer.tokens" />
+    <None Include="..\..\generate\JavaScriptParser.g4" />
     <None Include="..\..\generate\JavaScriptParser.interp" />
     <None Include="..\..\generate\JavaScriptParser.tokens" />
     <None Include="..\..\test\first.js" />

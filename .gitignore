@@ -6,7 +6,6 @@
 *.dll
 *.so
 *.dat
-*.txt
 *.ini
 *.lib
 *.iobj
@@ -26,6 +25,7 @@
 
 deps/*/
 vs/.vs
+vs/**/*.txt
 
 !LICENSE.txt
 !deps/*.cmd
