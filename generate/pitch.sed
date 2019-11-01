@@ -1,8 +1,18 @@
 # 'javascript-grammars\javascript\Cpp\README.md'
-# 替换 this. 为 this->; 
+#
+# Replease 'this.' TO 'this->'; 
+#
 s/this\./this->/g
 
-# 在 options {} 段的后面加入 @header{} 段.
+#
+# Fix assignment operator error
+#
+s/| singleExpression '=' singleExpression/| <assoc=right> singleExpression '=' singleExpression/
+s/| singleExpression assignmentOperator singleExpression/| <assoc=right> singleExpression assignmentOperator singleExpression/
+
+#
+# Add the @header{} section after the options {} section.
+#
 /options {/ {
   h
 }
