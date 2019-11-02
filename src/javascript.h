@@ -248,6 +248,7 @@ class InstructionSet : private Noncopy, public IInsertInstruction {
 private:
   typedef std::unique_ptr<Runnable> RefInstruction;
 
+  std::vector<LogicBlock> blockStack;
   std::vector<RefInstruction> arr;
   RefContext currContext;
   size_t p;
@@ -271,7 +272,7 @@ public:
   //
   size_t size();
   //
-  // 指令指针指向将要执行的指令的位置
+  // 指令指针指向将要执行的指令的位置(运行时有效)
   //
   size_t pc();
   // 
@@ -296,6 +297,33 @@ public:
   //
   void setCurrContext(RefContext& c);
   RefContext getCurrContext();
+};
+
+
+//
+// 逻辑代码块
+//
+class LogicBlock {
+private:
+  InstructionSet & is;
+  size_t begin_point;
+  size_t end_point;
+
+public:
+  LogicBlock(InstructionSet& _is);
+  virtual ~LogicBlock();
+  //
+  // 指令指针移动到代码块的开始处
+  //
+  void gotoEnd();
+  //
+  // 指令指针移动到代码块结束处
+  //
+  void gotoBegin();
+  //
+  // 代码块执行完最后一条指令, 该方法被调用, 默认什么都不做
+  //
+  virtual void onEnd() {};
 };
 
 

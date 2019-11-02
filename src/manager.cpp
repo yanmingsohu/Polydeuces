@@ -202,3 +202,22 @@ void IManagerListener::stop(Process* process, RefVar returnVal) {
             << returnVal->toString() << std::endl;
   process->getRootContext()->printAllProps();
 }
+
+
+///// LogicBlock //////////////////////////////////////////////66
+
+LogicBlock::LogicBlock(InstructionSet& _is) : is(_is), begin_point(_is.size()){
+}
+
+
+LogicBlock::~LogicBlock() {}
+
+
+void LogicBlock::gotoEnd() {
+  is.Goto(end_point);
+}
+
+
+void LogicBlock::gotoBegin() {
+  is.Goto(begin_point);
+}
