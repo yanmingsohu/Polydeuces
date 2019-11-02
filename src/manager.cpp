@@ -83,6 +83,7 @@ void InstructionSet::push_top(Runnable* r) {
 
 
 void InstructionSet::Goto(size_t i) {
+  if (i >= _size) throw JSRuntimeException("outof code address");
   p = i-1;
 }
 

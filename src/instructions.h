@@ -10,7 +10,7 @@ public:
   void operator()(RefContext& ctx, InstructionSet* ins) {
     auto nCtx = ins->newContext();
     ins->setCurrContext(nCtx);
-    std::cout << "[Enter block>>>]";
+    std::cout << "[Enter block>>>]\n";
   }
 };
 
@@ -116,6 +116,14 @@ class ClearCalcStack : public Runnable {
 public:
   void operator()(RefContext& ctx, InstructionSet* ins) {
     ctx->clearCalcStack();
+  }
+};
+
+
+class PushUndefined : public Runnable {
+  void operator()(RefContext& ctx, InstructionSet* ins) {
+    RefVar rf(new JSUndefined());
+    ctx->pushCalc(rf);
   }
 };
 

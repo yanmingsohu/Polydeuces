@@ -913,7 +913,7 @@ void CoreListener::enterPostIncrementExpression(JavaScriptParser::PostIncrementE
 
 void CoreListener::exitPostIncrementExpression(JavaScriptParser::PostIncrementExpressionContext* ctx)
 {
-  printf("{++}");
+  //printf("{++}");
   instruct->push(UnaryExpressionCreator(IncrementOp, PostSave));
 }
 
@@ -1053,9 +1053,11 @@ void CoreListener::enterVoidExpression(JavaScriptParser::VoidExpressionContext* 
 {
 }
 
-void CoreListener::exitVoidExpression(JavaScriptParser::VoidExpressionContext* ctx)
-{
+
+void CoreListener::exitVoidExpression(JavaScriptParser::VoidExpressionContext* ctx) {
+  instruct->push(new PushUndefined());
 }
+
 
 void CoreListener::enterArrowFunctionParameters(JavaScriptParser::ArrowFunctionParametersContext* ctx)
 {
