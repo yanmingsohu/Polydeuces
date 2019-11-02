@@ -8,10 +8,14 @@
 #include <sstream>
 #include <unordered_map>
 #include <unordered_set>
+#include <exception>
 
 namespace PolydeucesEngine {
 
 #define Ref std::shared_ptr
+// 声明这个方法会产生 javascript 异常, 
+// 调用方法后, 应该检测是否有 js 异常, 并作出处理.
+#define THROW_JAVASCRIPT_ERROR
 
 class Manager;
 class IManagerListener;
@@ -29,6 +33,7 @@ class JSNaN;
 class JSNumber;
 class JSError;
 class JSBoolean;
+class JSRuntimeException;
 typedef Ref<JSContext>  RefContext;
 typedef Ref<JSObject>   RefObj;
 typedef Ref<Var>        RefVar;
@@ -208,6 +213,18 @@ public:
 
 
 //
+// 如果运行时已经处于异常状态, 继续运行会抛出该 c++ 异常.
+// 应该保证不抛出这个异常, 也不应该使用这个机制做程序流程控制.
+//
+class JSRuntimeException : public std::runtime_error {
+public:
+  JSRuntimeException(const std::string& what) : std::runtime_error(what) {}
+  JSRuntimeException(const char* what) : std::runtime_error(what) {}
+  JSRuntimeException(Ref<JSError> err) : std::runtime_error(err->message()) {}
+};
+
+
+//
 // 指令插入接口, 内存策略由子类设定
 //
 class IInsertInstruction {
@@ -301,6 +318,9 @@ private:
   // 沿着父引用路径一直寻找属性所在的上下文, 返回第一个上下文引用, 找不到返回空
   JSContext* findContext(std::string& propertyName, bool returnFunctionCtx = false);
 
+  // 检测运行时如果有错误则抛出异常
+  inline void checkStateThrowException();
+
 public:
   JSContext(std::shared_ptr<JSContext>& _parent, bool isFunc = false);
   JSContext(bool isFunc = false);
@@ -318,18 +338,22 @@ public:
   //
   // 从计算堆栈中弹出变量, 如果堆栈为空, 返回 JSUndefined
   // 如果变量是 isIdentifier 的, 则返回 id 引用的变量
+  // 会抛出 JSRuntimeException 异常
   //
   RefVar popCalc();
   //
   // 不对 isIdentifier 的对象做二次解引用
+  // 会抛出 JSRuntimeException 异常
   //
   RefVar popCalcOriginal();
   //
   // 把变量压入计算堆栈
+  // 会抛出 JSRuntimeException 异常
   //
   void pushCalc(RefVar& v);
   //
   // 压入变量指针, 返回对 v 的引用对象, 不要对 Var 进行内存管理
+  // 会抛出 JSRuntimeException 异常
   //
   RefVar pushCalc(Var* v);
   //
@@ -357,16 +381,18 @@ public:
   void setConst(std::string var_name);
   //
   // 寻找正确的上下文保存变量, 若变量从未存在则保存到当前最近的函数上下文.
-  // 会阻止设置 const 变量
+  // 会阻止设置 const 变量; 会抛出 JSRuntimeException 异常
   //
-  void setContextProperty(std::string name, RefVar val);
+  THROW_JAVASCRIPT_ERROR void setContextProperty(std::string name, RefVar val) ;
   //
   // 属性在自身和父级上下文中寻找, 找不到则 js 异常压入堆栈
+  // 会抛出 JSRuntimeException 异常
   //
-  RefVar getContextProperty(std::string name);
+  THROW_JAVASCRIPT_ERROR RefVar getContextProperty(std::string name);
   //
   // 在表达式计算后清空计算堆栈, 
   // TODO; 始终保持堆栈没有多余元素?
+  // 会抛出 JSRuntimeException 异常
   //
   void clearCalcStack();
 };

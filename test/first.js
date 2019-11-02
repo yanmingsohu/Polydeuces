@@ -2,7 +2,7 @@
 
 (function() {
   var a=1, b=2;
-  let c=3;
+  let c=3, d=1;
   let [a, b, c] = [];
   let {d, e, f} = [];
   //c++;
@@ -50,6 +50,20 @@
     //b= c = a += 1+1;
   }
 });
+/*
+(function() {
+  const a2 = 20;
+  console.log(a2);
+  try {
+    a2 = 1
+  } catch(e) {}
+  console.log(a2);  
+})()*/
 
 a =199;
 a += 1;
+d = 1;
+d = d++ +d; // 3
+d = d-- +d; // 5
+d = ++d +d; // 12
+d = --d -d; // 0

@@ -162,7 +162,7 @@ bool JSError::isString() {
 
 
 std::string JSError::message() {
-  return "Error " + msg;
+  return "Error: " + msg;
 }
 
 
@@ -269,6 +269,7 @@ RefVar JSContext::popCalc() {
 
 
 RefVar JSContext::popCalcOriginal() {
+  checkStateThrowException();
   if (calcStack.size() <= 0) {
     return Ref<Var>(new JSUndefined());
   }
@@ -279,6 +280,7 @@ RefVar JSContext::popCalcOriginal() {
 
 
 void JSContext::pushCalc(RefVar& v) {
+  checkStateThrowException();
   calcStack.push_back(v);
 }
 
@@ -343,9 +345,10 @@ JSContext* JSContext::findContext(std::string& propertyName, bool returnFunction
 
 
 void JSContext::setContextProperty(std::string name, RefVar val) {
+  checkStateThrowException();
   JSContext *f = findContext(name, true);
   if (f->constVar.count(name)) {
-    setError("Error: " + name + " is constant variable");
+    setError(name + " is constant variable");
     return;
   }
   f->setProperty(name, val);
@@ -353,9 +356,10 @@ void JSContext::setContextProperty(std::string name, RefVar val) {
 
 
 RefVar JSContext::getContextProperty(std::string name) {
+  checkStateThrowException();
   JSContext* f = findContext(name);
   if (!f) {
-    setError("ReferenceError: "+ name +" is not defined");
+    setError(name +" is not defined");
     return RefVar(new JSUndefined());
   }
   auto r = f->getProperty(name);
@@ -369,5 +373,13 @@ void JSContext::setConst(std::string var_name) {
 
 
 void JSContext::clearCalcStack() {
+  checkStateThrowException();
   calcStack.clear();
+}
+
+
+void JSContext::checkStateThrowException() {
+  if (hasErrFlag) {
+    throw JSRuntimeException(error);
+  }
 }

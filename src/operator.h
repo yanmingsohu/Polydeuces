@@ -64,9 +64,12 @@ public:
 
     auto name = left->toString();
     calc(ctx, name, left, right);
-
-    ctx->setContextProperty(name, right);
-    ctx->pushCalc(left);
+    if (!ctx->hasError()) {
+      ctx->setContextProperty(name, right);
+      if (!ctx->hasError()) {
+        ctx->pushCalc(left);
+      }
+    }
   }
 };
 
@@ -191,7 +194,9 @@ private:
 public:
   void calc(RefContext& ctx, std::string& leftname, RefVar& left, RefVar& right) override {
     RefVar left_v = ctx->getContextProperty(leftname);
-    right = op.calcRef(left_v, right);
+    if (!ctx->hasError()) {
+      right = op.calcRef(left_v, right);
+    }
   }
 };
 
@@ -206,5 +211,69 @@ public:
   }
 };
 
+
+template<class Calc, class Save>
+class UnaryExpression : public Runnable {
+private:
+  Calc calc;
+  Save save;
+public:
+  UnaryExpression(Calc c, Save s) : calc(c), save(s) {
+  }
+
+  void operator()(RefContext& ctx, InstructionSet* ins) override {
+    RefVar left = ctx->popCalcOriginal();
+    if (!left->isIdentifier()) {
+      ctx->setError("Invalid left-hand value " + left->toString());
+      return;
+    }
+
+    std::string name = left->toString();
+    RefVar before = ctx->getContextProperty(name);
+    if (ctx->hasError())
+      return;
+
+    // 变量为 name, 值是 before 进行计算返回计算结果
+    RefVar after = calc(name, before);
+    // before 是变量原始值, after 是计算后的值, 保存到上下文
+    save(ctx, name, before, after);
+  }
+};
+
+
+template<class Calc, class Save>
+UnaryExpression<Calc, Save>* UnaryExpressionCreator(Calc c, Save s) {
+  return new UnaryExpression<Calc, Save>(c, s);
+}
+
+
+RefVar IncrementOp(std::string& name, RefVar& value) {
+  if (value->isNumber()) {
+    return RefVar(new JSNumber(value->toNumber() + 1));
+  } else {
+    return RefVar(new JSNaN());
+  }
+}
+
+
+RefVar DecreaseOp(std::string& name, RefVar& value) {
+  if (value->isNumber()) {
+    return RefVar(new JSNumber(value->toNumber() - 1));
+  } else {
+    return RefVar(new JSNaN());
+  }
+}
+
+
+void PostSave(RefContext& ctx, std::string&name, RefVar& before, RefVar& after) {
+  ctx->pushCalc(before);
+  ctx->setContextProperty(name, after);
+}
+
+
+void PreSave(RefContext& ctx, std::string& name, RefVar& before, RefVar& after) {
+  ctx->pushCalc(after);
+  ctx->setContextProperty(name, after);
+}
 
 }

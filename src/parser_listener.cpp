@@ -660,8 +660,9 @@ void CoreListener::enterPreIncrementExpression(JavaScriptParser::PreIncrementExp
 {
 }
 
-void CoreListener::exitPreIncrementExpression(JavaScriptParser::PreIncrementExpressionContext* ctx)
-{
+void CoreListener
+::exitPreIncrementExpression(JavaScriptParser::PreIncrementExpressionContext* ctx) {
+  instruct->push(UnaryExpressionCreator(IncrementOp, PreSave));
 }
 
 void CoreListener::enterObjectLiteralExpression(JavaScriptParser::ObjectLiteralExpressionContext* ctx)
@@ -700,8 +701,9 @@ void CoreListener::enterPreDecreaseExpression(JavaScriptParser::PreDecreaseExpre
 {
 }
 
-void CoreListener::exitPreDecreaseExpression(JavaScriptParser::PreDecreaseExpressionContext* ctx)
-{
+void CoreListener::
+exitPreDecreaseExpression(JavaScriptParser::PreDecreaseExpressionContext* ctx) {
+  instruct->push(UnaryExpressionCreator(DecreaseOp, PreSave));
 }
 
 void CoreListener::enterArgumentsExpression(JavaScriptParser::ArgumentsExpressionContext* ctx)
@@ -753,8 +755,9 @@ void CoreListener::enterPostDecreaseExpression(JavaScriptParser::PostDecreaseExp
 {
 }
 
-void CoreListener::exitPostDecreaseExpression(JavaScriptParser::PostDecreaseExpressionContext* ctx)
-{
+void CoreListener::
+exitPostDecreaseExpression(JavaScriptParser::PostDecreaseExpressionContext* ctx) {
+  instruct->push(UnaryExpressionCreator(DecreaseOp, PostSave));
 }
 
 void CoreListener::enterTypeofExpression(JavaScriptParser::TypeofExpressionContext* ctx)
@@ -910,6 +913,8 @@ void CoreListener::enterPostIncrementExpression(JavaScriptParser::PostIncrementE
 
 void CoreListener::exitPostIncrementExpression(JavaScriptParser::PostIncrementExpressionContext* ctx)
 {
+  printf("{++}");
+  instruct->push(UnaryExpressionCreator(IncrementOp, PostSave));
 }
 
 void CoreListener::enterYieldExpression(JavaScriptParser::YieldExpressionContext* ctx)
@@ -979,8 +984,9 @@ void CoreListener::enterIdentifierExpression(JavaScriptParser::IdentifierExpress
 }
 
 void CoreListener::exitIdentifierExpression(JavaScriptParser::IdentifierExpressionContext* ctx) {
-  printf(" %s ", ctx->Identifier()->toString().c_str());
-  instruct->push(new IdentifierExp(ctx->Identifier()->toString()));
+  auto name = ctx->Identifier();
+  printf(" %s ", name->toString().c_str());
+  instruct->push(new IdentifierExp(name->toString()));
 }
 
 
