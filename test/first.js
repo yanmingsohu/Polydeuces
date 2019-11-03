@@ -67,3 +67,49 @@ d = d++ +d; // 3
 d = d-- +d; // 5
 d = ++d +d; // 12
 d = --d -d; // 0
+
+[]==0 //ture
+[]>0 
+[]<0 
+
+[0]==0 //ture
+[0]>0
+[0]<0 
+
+[1]==0 
+[1]>0 //ture
+[1]<0 
+
+[1,0]==0 
+[1,0]>0
+[1,0]<0
+
+[-1]==0
+[-1]>0
+[-1]<0 //ture
+
+[-1,0]==0
+[-1,0]>0
+[-1,0]<0
+
+''==0, //ture
+''==false //true
+[]=='', //ture
+null==0,
+undefined==0,
+null==undefined //true
+[]>0 //true
+1>'' //true
+1>'2'
+1>{}
+1=={}
+1<{}
+
+true=='1' //true
+true=='a'
+true==[1] // true
+true==[]
+true==1 //true
+true==2
+if(2)console.log('T') //print
+if(2==true)console.log('T') //not print

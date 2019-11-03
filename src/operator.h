@@ -276,4 +276,181 @@ void PreSave(RefContext& ctx, std::string& name, RefVar& before, RefVar& after) 
   ctx->setContextProperty(name, after);
 }
 
+
+//
+// bool CompareOp(double d) 如果 d>0 则左操作数大于右操作数, 返回布尔值
+// bool TypeCompareOp(JavaScriptTypeId a, JavaScriptTypeId b, bool& returnVar) -
+//    比较 a b 的类型, 如果返回 true 则使用 returnVar 
+//    的值作为整个表达式的结果, 否则执行后续操作
+//
+template<class CompareOp, class TypeCompareOp>
+class RelationalExpressionOp : public Runnable {
+private:
+  CompareOp* compare;
+  TypeCompareOp* type;
+
+public:
+  RelationalExpressionOp(CompareOp* _c, TypeCompareOp* _t) 
+  : compare(_c), type(_t) {}
+
+  void operator()(RefContext& ctx, InstructionSet* ins) override {
+    auto b = ctx->popCalc();
+    auto a = ctx->popCalc();
+    auto r = calcRef(a, b);
+    RefVar ref(new JSBoolean(r));
+    ctx->pushCalc(ref);
+  }
+
+  inline bool calcRef(RefVar a, RefVar b) {
+    double va = 0, vb = 0;
+    bool r = false;
+
+    if ( type(a->typeID(), b->typeID(), r) ) {
+      return r;
+    }
+
+    // 比较数字
+    if (canbeNum(a, va) || canbeNum(b, vb)) {
+      r = compare(va - vb);
+    }
+    // 比较字符串
+    else if (a->isString() && b->isString()) {
+      r = compare( a->toString().compare(b->toString()) );
+    }
+    // 比较地址
+    else if (a->isObject() || b->isObject()) {
+      va = double(long(a.get()));
+      vb = double(long(b.get()));
+      r = compare(va - vb);
+    }
+    // 不可比较对象的比较
+    else if (a->isNaN()) {
+      r = compare(b->isNaN() ? 0 : 1);
+    }
+    else if (a->isNull() || a->isUndefined()) {
+      r = compare((b->isNull() || b->isUndefined()) ? 0 : 1);
+    }
+    return r;
+  }
+
+  // 尝试把对象转换为数字, 如果对象无法转换返回 false
+  inline bool canbeNum(RefVar& rv, double& v) {
+    if (rv->isNumber() || rv->isBool()) {
+      v = rv->toNumber();
+      return true;
+    }
+    if (rv->isString() || rv->isArray()) {
+      try {
+        v = std::stod(rv->toString());
+        return true;
+      } catch (std::invalid_argument&) {
+      } catch (std::out_of_range&) {}
+    }
+    return false;
+  }
+};
+
+
+template<class Com, class Type>
+RelationalExpressionOp<Com, Type>* RelationalExpressionCreator(Com* f1, Type* f2) {
+  return new RelationalExpressionOp<Com, Type>(f1, f2);
+}
+
+
+bool LessThanExp(const double r) {
+  return r < 0;
+}
+
+
+bool LessThanEqualsExp(const double r) {
+  return r <= 0;
+}
+
+
+bool MoreThanExp(const double r) {
+  return r > 0; 
+}
+
+
+bool GreaterThanEqualsExp(const double r) {
+  return r >= 0;
+}
+
+
+bool EqualsExp(const double r) {
+  return r == 0;
+}
+
+
+bool NotEqualsExp(const double r) {
+  return r != 0;
+}
+
+
+bool IdentityEqualsExp(JavaScriptTypeId a, JavaScriptTypeId b, bool& r) {
+  if (a == b) return false;
+  r = false;
+  return true;
+}
+
+
+bool IdentityNotEqualsExp(JavaScriptTypeId a, JavaScriptTypeId b, bool& r) {
+  if (a == b) return false;
+  r = true;
+  return true;
+}
+
+
+bool SkipType(JavaScriptTypeId a, JavaScriptTypeId b, bool& r) {
+  return false;
+}
+
+
+class LogicalAndExp : public Runnable {
+public:
+  void operator()(RefContext& ctx, InstructionSet* ins) override {
+    auto b = ctx->popCalc();
+    auto a = ctx->popCalc();
+    if (a->toBoolean() && b->toBoolean()) {
+      ctx->pushCalc(b);
+    }
+    ctx->pushCalc(a);
+  }
+};
+
+
+class LogicalOrExp : public Runnable {
+public:
+  void operator()(RefContext& ctx, InstructionSet* ins) override {
+    auto b = ctx->popCalc();
+    auto a = ctx->popCalc();
+    if (a->toBoolean()) {
+      ctx->pushCalc(a);
+    }
+    ctx->pushCalc(b);
+  }
+};
+
+
+class NotExp : public Runnable {
+public:
+  void operator()(RefContext& ctx, InstructionSet* ins) override {
+    auto a = ctx->popCalc();
+    auto b = a->toBoolean();
+    RefVar v(new JSBoolean(!b));
+    ctx->pushCalc(v);
+  }
+};
+
+
+class BitNotEx : public Runnable {
+public:
+  void operator()(RefContext& ctx, InstructionSet* ins) override {
+    auto a = ctx->popCalc();
+    int b = int(a->toNumber());
+    RefVar v(new JSNumber(~b));
+    ctx->pushCalc(v);
+  }
+};
+
 }

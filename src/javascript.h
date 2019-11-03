@@ -34,10 +34,17 @@ class JSNumber;
 class JSError;
 class JSBoolean;
 class JSRuntimeException;
+class LogicBlock;
 typedef Ref<JSContext>  RefContext;
 typedef Ref<JSObject>   RefObj;
 typedef Ref<Var>        RefVar;
 typedef Ref<Process>    RefProcess;
+
+
+enum JavaScriptTypeId {
+  t_unknow=0, t_null, t_nan, t_undefined, t_number, t_boolean,
+  t_array, t_object, t_string,
+};
 
 
 class Noncopy {
@@ -81,7 +88,7 @@ public:
   //
   virtual std::string toString() = 0;
   //
-  // 转换为数字, 默认返回 0
+  // 转换为数字, 默认返回 0, 算数/逻辑运算会调用该方法, 即使 isNumber 返回 0
   //
   virtual double toNumber() { return 0; }
   //
@@ -99,12 +106,14 @@ public:
   virtual bool isNaN()       { return false; }
   virtual bool isFunction()  { return false; }
   virtual bool isArray()     { return false; }
+  // 仅当对象是 object 或子类才返回 true
   virtual bool isObject()    { return false; }
   virtual bool isSymbol()    { return false; }
   //
   // 是对变量的引用
   //
   virtual bool isIdentifier(){ return false; }
+  virtual JavaScriptTypeId typeID() = 0;
 };
 
 
@@ -121,6 +130,9 @@ public:
   bool hasProperty(std::string name) override;
   RefVar getProperty(std::string name) override;
   void printAllProps();
+  bool isObject();
+  JavaScriptTypeId typeID() override;
+  bool toBoolean() override;
 
 private:
   Properties properties;
@@ -135,8 +147,7 @@ public:
   bool isNull() override;
   void appendString(std::stringstream&) override;
   std::string toString() override;
-  // null 与数字做数学运算时当零使用
-  bool isNumber() override;
+  JavaScriptTypeId typeID() override;
 };
 
 
@@ -145,6 +156,7 @@ public:
   bool isUndefined() override;
   void appendString(std::stringstream&) override;
   std::string toString() override;
+  JavaScriptTypeId typeID() override;
 };
 
 
@@ -153,6 +165,7 @@ public:
   bool isNaN() override;
   void appendString(std::stringstream&) override;
   std::string toString() override;
+  JavaScriptTypeId typeID() override;
 };
 
 
@@ -166,6 +179,7 @@ public:
   std::string toString() override;
   double toNumber() override;
   bool toBoolean() override;
+  JavaScriptTypeId typeID() override;
 };
 
 
@@ -192,6 +206,8 @@ public:
   std::string toString() override;
   void appendString(std::stringstream&) override;
   bool isString() override;
+  JavaScriptTypeId typeID() override;
+  bool toBoolean() override;
 };
 
 
@@ -202,6 +218,9 @@ public:
   JSBoolean(bool);
   std::string toString() override;
   void appendString(std::stringstream&) override;
+  double toNumber() override;
+  JavaScriptTypeId typeID() override;
+  bool toBoolean() override;
 };
 
 
@@ -209,6 +228,19 @@ class JSIdentifier : public JSString {
 public:
   JSIdentifier(std::string s);
   bool isIdentifier() override;
+  bool isString() override { return false; }
+};
+
+
+class JSArray : public JSObject {
+private:
+  std::vector<RefVar> elem;
+public:
+  bool isArray() override;
+  std::string toString() override;
+  void appendString(std::stringstream&) override;
+  JavaScriptTypeId typeID() override;
+  bool toBoolean() override;
 };
 
 
@@ -248,7 +280,7 @@ class InstructionSet : private Noncopy, public IInsertInstruction {
 private:
   typedef std::unique_ptr<Runnable> RefInstruction;
 
-  std::vector<LogicBlock> blockStack;
+  std::vector<LogicBlock*> blockStack;
   std::vector<RefInstruction> arr;
   RefContext currContext;
   size_t p;
@@ -302,10 +334,11 @@ public:
 
 //
 // 逻辑代码块
+// TODO: 逻辑代码块应该保存程序指针
 //
 class LogicBlock {
 private:
-  InstructionSet & is;
+  InstructionSet& is;
   size_t begin_point;
   size_t end_point;
 
@@ -323,7 +356,7 @@ public:
   //
   // 代码块执行完最后一条指令, 该方法被调用, 默认什么都不做
   //
-  virtual void onEnd() {};
+  virtual void onEnd();
 };
 
 

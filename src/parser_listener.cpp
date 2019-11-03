@@ -644,8 +644,8 @@ void CoreListener::enterLogicalAndExpression(JavaScriptParser::LogicalAndExpress
 {
 }
 
-void CoreListener::exitLogicalAndExpression(JavaScriptParser::LogicalAndExpressionContext* ctx)
-{
+void CoreListener::exitLogicalAndExpression(JavaScriptParser::LogicalAndExpressionContext* ctx) {
+  instruct->push(new LogicalAndExp);
 }
 
 void CoreListener::enterGeneratorsExpression(JavaScriptParser::GeneratorsExpressionContext* ctx)
@@ -685,26 +685,32 @@ void CoreListener::enterLogicalOrExpression(JavaScriptParser::LogicalOrExpressio
 {
 }
 
-void CoreListener::exitLogicalOrExpression(JavaScriptParser::LogicalOrExpressionContext* ctx)
-{
+
+void CoreListener::exitLogicalOrExpression(JavaScriptParser::LogicalOrExpressionContext* ctx) {
+  instruct->push(new LogicalOrExp);
 }
+
 
 void CoreListener::enterNotExpression(JavaScriptParser::NotExpressionContext* ctx)
 {
 }
 
-void CoreListener::exitNotExpression(JavaScriptParser::NotExpressionContext* ctx)
-{
+
+void CoreListener::exitNotExpression(JavaScriptParser::NotExpressionContext* ctx) {
+  instruct->push(new NotExp);
 }
+
 
 void CoreListener::enterPreDecreaseExpression(JavaScriptParser::PreDecreaseExpressionContext* ctx)
 {
 }
 
+
 void CoreListener::
 exitPreDecreaseExpression(JavaScriptParser::PreDecreaseExpressionContext* ctx) {
   instruct->push(UnaryExpressionCreator(DecreaseOp, PreSave));
 }
+
 
 void CoreListener::enterArgumentsExpression(JavaScriptParser::ArgumentsExpressionContext* ctx)
 {
@@ -818,8 +824,19 @@ void CoreListener::enterEqualityExpression(JavaScriptParser::EqualityExpressionC
 {
 }
 
-void CoreListener::exitEqualityExpression(JavaScriptParser::EqualityExpressionContext* ctx)
-{
+void CoreListener::exitEqualityExpression(JavaScriptParser::EqualityExpressionContext* ctx) {
+  if (ctx->Equals_()) {
+    instruct->push(RelationalExpressionCreator(EqualsExp, SkipType));
+  }
+  else if (ctx->NotEquals()) {
+    instruct->push(RelationalExpressionCreator(NotEqualsExp, SkipType));
+  }
+  else if (ctx->IdentityEquals()) {
+    instruct->push(RelationalExpressionCreator(EqualsExp, IdentityEqualsExp));
+  }
+  else if (ctx->IdentityNotEquals()) {
+    instruct->push(RelationalExpressionCreator(NotEqualsExp, IdentityNotEqualsExp));
+  }
 }
 
 
@@ -887,6 +904,7 @@ void CoreListener::exitParenthesizedExpression(JavaScriptParser::ParenthesizedEx
 void CoreListener::enterAdditiveExpression(JavaScriptParser::AdditiveExpressionContext* ctx) {
 }
 
+
 void CoreListener::exitAdditiveExpression(JavaScriptParser::AdditiveExpressionContext* ctx)
 {
   if (ctx->Plus()) {
@@ -899,13 +917,23 @@ void CoreListener::exitAdditiveExpression(JavaScriptParser::AdditiveExpressionCo
   }
 }
 
-void CoreListener::enterRelationalExpression(JavaScriptParser::RelationalExpressionContext* ctx)
-{
+
+void CoreListener::enterRelationalExpression(JavaScriptParser::RelationalExpressionContext* ctx) {
 }
 
-void CoreListener::exitRelationalExpression(JavaScriptParser::RelationalExpressionContext* ctx)
-{
+
+void CoreListener::exitRelationalExpression(JavaScriptParser::RelationalExpressionContext* ctx) {
+  if (ctx->LessThan()) {
+    instruct->push(RelationalExpressionCreator(LessThanExp, SkipType));
+  } else if (ctx->LessThanEquals()) {
+    instruct->push(RelationalExpressionCreator(LessThanEqualsExp, SkipType));
+  } else if (ctx->MoreThan()) {
+    instruct->push(RelationalExpressionCreator(MoreThanExp, SkipType));
+  } else if (ctx->GreaterThanEquals()) {
+    instruct->push(RelationalExpressionCreator(GreaterThanEqualsExp, SkipType));
+  }
 }
+
 
 void CoreListener::enterPostIncrementExpression(JavaScriptParser::PostIncrementExpressionContext* ctx)
 {
@@ -929,9 +957,11 @@ void CoreListener::enterBitNotExpression(JavaScriptParser::BitNotExpressionConte
 {
 }
 
-void CoreListener::exitBitNotExpression(JavaScriptParser::BitNotExpressionContext* ctx)
-{
+
+void CoreListener::exitBitNotExpression(JavaScriptParser::BitNotExpressionContext* ctx) {
+  instruct->push(new BitNotEx);
 }
+
 
 void CoreListener::enterNewExpression(JavaScriptParser::NewExpressionContext* ctx)
 {

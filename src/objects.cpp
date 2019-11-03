@@ -59,6 +59,21 @@ void JSObject::printAllProps() {
 }
 
 
+bool JSObject::isObject() {
+  return true;
+}
+
+
+JavaScriptTypeId JSObject::typeID() {
+  return JavaScriptTypeId::t_object;
+}
+
+
+bool JSObject::toBoolean() {
+  return true;
+}
+
+
 ///// JSNull //////////////////////////////////////////////////66
 
 bool JSNull::isNull() { 
@@ -76,8 +91,8 @@ std::string JSNull::toString() {
 }
 
 
-bool JSNull::isNumber() {
-  return true;
+JavaScriptTypeId JSNull::typeID() {
+  return JavaScriptTypeId::t_null;
 }
 
 
@@ -98,6 +113,11 @@ std::string JSUndefined::toString() {
 }
 
 
+JavaScriptTypeId JSUndefined::typeID() {
+  return JavaScriptTypeId::t_undefined;
+}
+
+
 ///// JSNaN ///////////////////////////////////////////////////66
 
 bool JSNaN::isNaN() {
@@ -115,6 +135,11 @@ std::string JSNaN::toString() {
 }
 
 
+JavaScriptTypeId JSNaN::typeID() {
+  return JavaScriptTypeId::t_nan;
+}
+
+
 ///// JSBoolean ///////////////////////////////////////////////66
 
 JSBoolean::JSBoolean(bool _b) : b(_b) {}
@@ -127,6 +152,21 @@ std::string JSBoolean::toString() {
 
 void JSBoolean::appendString(std::stringstream& out) {
   out << (b ? "true" : "false");
+}
+
+
+double JSBoolean::toNumber() {
+  return b ? 1 : 0;
+}
+
+
+JavaScriptTypeId JSBoolean::typeID() {
+  return JavaScriptTypeId::t_boolean;
+}
+
+
+bool JSBoolean::toBoolean() {
+  return b;
 }
 
 
@@ -187,6 +227,59 @@ bool JSString::isString() {
 }
 
 
+JavaScriptTypeId JSString::typeID() {
+  return JavaScriptTypeId::t_string;
+}
+
+
+bool JSString::toBoolean() {
+  return str.length() > 0;
+}
+
+
+///// JSArray /////////////////////////////////////////////////66
+
+bool JSArray::isArray() {
+  return true;
+}
+
+
+std::string JSArray::toString() {
+  std::stringstream buf;
+  appendString(buf);
+  return buf.str();
+}
+
+
+void JSArray::appendString(std::stringstream& buf) {
+  bool first = true;
+  for (auto i = elem.begin(), end = elem.end(); i != end; ++i) {
+    auto e = (*i);
+    if (!first) {
+      buf << ',';
+    } else {
+      first = false;
+    }
+    if (e->isString()) {
+      buf << '"' << e->toString() << '"';
+    } else {
+      buf << e->toString();
+    }
+    
+  }
+}
+
+
+JavaScriptTypeId JSArray::typeID() {
+  return JavaScriptTypeId::t_array;
+}
+
+
+bool JSArray::toBoolean() {
+  return true;
+}
+
+
 ///// JSNumber ////////////////////////////////////////////////66
 
 JSNumber::JSNumber(double n) : num(n) {}
@@ -223,6 +316,11 @@ double JSNumber::toNumber() {
 
 bool JSNumber::toBoolean() {
   return num != 0;
+}
+
+
+JavaScriptTypeId JSNumber::typeID() {
+  return JavaScriptTypeId::t_number;
 }
 
 

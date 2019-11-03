@@ -221,3 +221,7 @@ void LogicBlock::gotoEnd() {
 void LogicBlock::gotoBegin() {
   is.Goto(begin_point);
 }
+
+
+void LogicBlock::onEnd() {
+}
