@@ -46,7 +46,7 @@ void Manager::sendError(Process* p, Ref<JSError> err) {
 
 ///// Instruction /////////////////////////////////////////////66
 
-InstructionSet::InstructionSet() : p(-1), _size(0) {}
+InstructionSet::InstructionSet() : _size(0) {}
 
 
 size_t InstructionSet::size() {
@@ -54,11 +54,68 @@ size_t InstructionSet::size() {
 }
 
 
-InstructionSet::FailCode InstructionSet::next() {
-  if (p+1 >= _size) 
+void InstructionSet::push(Microinstruction* r) {
+  RefInstruction ref(r);
+  arr.push_back(std::move(ref));
+  ++_size;
+}
+
+
+void InstructionSet::push_top(Microinstruction* r) {
+  RefInstruction ref(r);
+  arr.insert(arr.begin(), std::move(ref));
+  ++_size;
+}
+
+
+InstructionSet::RefInstruction& InstructionSet::operator[](size_t pos) {
+  return arr[pos];
+}
+
+
+///// VirtualCPU //////////////////////////////////////////////66
+
+VirtualCPU::VirtualCPU(InstructionSet& _i) : ins(_i) {}
+
+
+void VirtualCPU::Goto(size_t i) {
+  if (i >= ins.size()) throw JSRuntimeException("outof code address");
+  p = i - 1;
+}
+
+
+size_t VirtualCPU::pc() {
+  return p + 1;
+}
+
+
+void VirtualCPU::setCurrContext(RefContext& c) {
+  currContext = c;
+}
+
+
+RefContext VirtualCPU::getCurrContext() {
+  return currContext;
+}
+
+
+std::shared_ptr<JSContext> VirtualCPU::newContext(RefContext& parentCtx) {
+  std::shared_ptr<JSContext> ctx(new JSContext(parentCtx));
+  parentCtx->add(ctx);
+  return ctx;
+}
+
+
+std::shared_ptr<JSContext> VirtualCPU::newContext() {
+  return newContext(currContext);
+}
+
+
+VirtualCPU::FailCode VirtualCPU::next() {
+  if (p + 1 >= ins.size())
     return FailCode::noMore;
 
-  auto currIns = arr[p+1].get();
+  auto currIns = ins[p + 1].get();
   (*currIns)(currContext, this);
   if (currContext->hasError()) {
     return FailCode::hasErr;
@@ -68,62 +125,15 @@ InstructionSet::FailCode InstructionSet::next() {
 }
 
 
-void InstructionSet::push(Runnable* r) {
-  RefInstruction ref(r);
-  arr.push_back(std::move(ref));
-  ++_size;
-}
-
-
-void InstructionSet::push_top(Runnable* r) {
-  RefInstruction ref(r);
-  arr.insert(arr.begin(), std::move(ref));
-  ++_size;
-}
-
-
-void InstructionSet::Goto(size_t i) {
-  if (i >= _size) throw JSRuntimeException("outof code address");
-  p = i-1;
-}
-
-
-size_t InstructionSet::pc() {
-  return p+1;
-}
-
-
-void InstructionSet::setCurrContext(RefContext& c) {
-  currContext = c;
-}
-
-
-RefContext InstructionSet::getCurrContext() {
-  return currContext;
-}
-
-
-std::shared_ptr<JSContext> InstructionSet::newContext(RefContext& parentCtx) {
-  std::shared_ptr<JSContext> ctx(new JSContext(parentCtx));
-  parentCtx->add(ctx);
-  return ctx;
-}
-
-
-std::shared_ptr<JSContext> InstructionSet::newContext() {
-  return newContext(currContext);
-}
-
-
 ///// Process /////////////////////////////////////////////////66
 
-Process::Process(size_t _id) : runFlag(RunFlag::paused), id(_id) {
+Process::Process(size_t _id) : runFlag(RunFlag::paused), id(_id), cpu(instruct) {
   rootContext.reset(new JSContext(true));
 }
 
 
 Process::Process(std::shared_ptr<JSContext>& _rootContext, size_t _id)
-: runFlag(RunFlag::paused), rootContext(_rootContext), id(_id) {
+: runFlag(RunFlag::paused), rootContext(_rootContext), id(_id), cpu(instruct) {
 }
 
 
@@ -140,7 +150,7 @@ size_t Process::getId() {
 
 
 void Process::parseEnd() {
-  instruct.setCurrContext(rootContext);
+  cpu.setCurrContext(rootContext);
 }
 
 
@@ -151,7 +161,7 @@ std::shared_ptr<JSContext> Process::getRootContext() {
 
 
 RefContext Process::getCurrContext() {
-  return instruct.getCurrContext();
+  return cpu.getCurrContext();
 }
 
 
@@ -174,12 +184,12 @@ Process::RunFlag Process::run() {
   }
 
   do {
-    auto state = instruct.next();
+    auto state = cpu.next();
     switch (state) {
-      case InstructionSet::noMore:
+      case VirtualCPU::noMore:
         runFlag = RunFlag::end;
         break;
-      case InstructionSet::hasErr:
+      case VirtualCPU::hasErr:
         runFlag = RunFlag::error;
         break;
     }
@@ -206,7 +216,7 @@ void IManagerListener::stop(Process* process, RefVar returnVal) {
 
 ///// LogicBlock //////////////////////////////////////////////66
 
-LogicBlock::LogicBlock(InstructionSet& _is) : is(_is), begin_point(_is.size()){
+LogicBlock::LogicBlock(VirtualCPU& _cpu) : cpu(_cpu), begin_point(-1), end_point(-1) {
 }
 
 
@@ -214,14 +224,10 @@ LogicBlock::~LogicBlock() {}
 
 
 void LogicBlock::gotoEnd() {
-  is.Goto(end_point);
+  cpu.Goto(end_point);
 }
 
 
 void LogicBlock::gotoBegin() {
-  is.Goto(begin_point);
-}
-
-
-void LogicBlock::onEnd() {
+  cpu.Goto(begin_point);
 }

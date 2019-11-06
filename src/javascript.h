@@ -19,7 +19,6 @@ namespace PolydeucesEngine {
 
 class Manager;
 class IManagerListener;
-class Runnable;
 class InstructionSet;
 class IInsertInstruction;
 class Process;
@@ -35,10 +34,14 @@ class JSError;
 class JSBoolean;
 class JSRuntimeException;
 class LogicBlock;
-typedef Ref<JSContext>  RefContext;
-typedef Ref<JSObject>   RefObj;
-typedef Ref<Var>        RefVar;
-typedef Ref<Process>    RefProcess;
+class VirtualCPU;
+template<class D> class Runnable;
+
+typedef Ref<JSContext>        RefContext;
+typedef Ref<JSObject>         RefObj;
+typedef Ref<Var>              RefVar;
+typedef Ref<Process>          RefProcess;
+typedef Runnable<VirtualCPU*> Microinstruction;
 
 
 enum JavaScriptTypeId {
@@ -261,31 +264,22 @@ public:
 //
 class IInsertInstruction {
 public:
+  virtual ~IInsertInstruction() {};
   //
   // 插入一条指令到指令集合的最后, 之后对象生存期由实现的子类控制
   //
-  virtual void push(Runnable* pr) = 0;
+  virtual void push(Microinstruction* pr) = 0;
   //
   // 插入一条指令作为指令集的第一条指令
   //
-  virtual void push_top(Runnable* pr) = 0;
-  virtual ~IInsertInstruction() {};
+  virtual void push_top(Microinstruction* pr) = 0;
 };
 
 
 //
-// 指令集合
+// 虚拟机的虚拟cpu, 这是个单核cpu
 //
-class InstructionSet : private Noncopy, public IInsertInstruction {
-private:
-  typedef std::unique_ptr<Runnable> RefInstruction;
-
-  std::vector<LogicBlock*> blockStack;
-  std::vector<RefInstruction> arr;
-  RefContext currContext;
-  size_t p;
-  size_t _size;
-
+class VirtualCPU : private Noncopy {
 public:
   enum FailCode {
     // 成功执行
@@ -296,13 +290,14 @@ public:
     hasErr,
   };
 
-  InstructionSet(); 
-  void push_top(Runnable* pr) override;
-  void push(Runnable* pr) override;
-  //
-  // 返回指令数量
-  //
-  size_t size();
+private:
+  std::vector<LogicBlock*> blockStack;
+  RefContext currContext;
+  InstructionSet& ins;
+  size_t p;
+
+public:
+  VirtualCPU(InstructionSet&);
   //
   // 指令指针指向将要执行的指令的位置(运行时有效)
   //
@@ -317,11 +312,11 @@ public:
   //
   FailCode next();
   //
-  // 在指定上下文中创建一个子上下文并返回.
+  // 在指定上下文中创建一个子上下文并返回; 这会设置父子上下文关系.
   //
   RefContext newContext(RefContext& parentCtx);
   //
-  // 用当前上下文创建一个子上下文并返回.
+  // 用当前上下文创建一个子上下文并返回; 这会设置父子上下文关系.
   //
   RefContext newContext();
   //
@@ -333,30 +328,56 @@ public:
 
 
 //
+// 指令集合
+//
+class InstructionSet : private Noncopy, public IInsertInstruction {
+private:
+  typedef std::unique_ptr<Microinstruction> RefInstruction;
+
+  std::vector<RefInstruction> arr;
+  size_t _size;
+
+public:
+  InstructionSet(); 
+  void push_top(Microinstruction* pr) override;
+  void push(Microinstruction* pr) override;
+  //
+  // 返回指令数量
+  //
+  size_t size();
+  RefInstruction& operator[](size_t pos);
+};
+
+
+//
 // 逻辑代码块
 // TODO: 逻辑代码块应该保存程序指针
 //
 class LogicBlock {
 private:
-  InstructionSet& is;
+  VirtualCPU& cpu;
   size_t begin_point;
   size_t end_point;
 
 public:
-  LogicBlock(InstructionSet& _is);
+  LogicBlock(VirtualCPU&);
   virtual ~LogicBlock();
   //
-  // 指令指针移动到代码块的开始处
-  //
-  void gotoEnd();
-  //
-  // 指令指针移动到代码块结束处
+  // 指令指针移动到代码块的开始处(准备开始执行代码块)
   //
   void gotoBegin();
   //
+  // 指令指针移动到代码块结束处(退出代码块)
+  //
+  void gotoEnd();
+  //
   // 代码块执行完最后一条指令, 该方法被调用, 默认什么都不做
   //
-  virtual void onEnd();
+  virtual void onEnd() = 0;
+  //
+  // 代码块的第一条指令执行之前被调用
+  //
+  virtual void onEnter() = 0;
 };
 
 
@@ -370,11 +391,12 @@ private:
   std::list<Ref<JSContext>> childs;
   // 用于算数/逻辑计算的变量堆栈
   std::vector<RefVar> calcStack;
-  bool isFunctionCtx;
   // 有错误发生, 则该变量非空
   Ref<JSError> error;
-  bool hasErrFlag;
+  // const 声明的变量列表
   std::unordered_set<std::string> constVar;
+  bool hasErrFlag;
+  bool isFunctionCtx;
 
   // 沿着父引用路径一直寻找属性所在的上下文, 返回第一个上下文引用, 找不到返回空
   JSContext* findContext(std::string& propertyName, bool returnFunctionCtx = false);
@@ -462,15 +484,17 @@ public:
 //
 // 函数/任务/进程的抽象接口
 //
+template<class Data>
 class Runnable : private Noncopy {
 protected:
   long lineNum = -1;
 
 public:
+  typedef Data Param;
   //
   // 执行当前指令
   //
-  virtual void operator()(RefContext& ctx, InstructionSet* ins) = 0;
+  virtual void operator()(RefContext& ctx, Data ins) = 0;
   //
   // 当前指令在源代码中的行号
   //
@@ -491,6 +515,7 @@ private:
   RunFlag runFlag;
   InstructionSet instruct;
   RefContext rootContext;
+  VirtualCPU cpu;
   size_t id;
 
 public:

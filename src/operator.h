@@ -8,9 +8,9 @@ namespace PolydeucesEngine {
 //
 // 二元数学运算基础类
 //
-class BinaryMathematicalOperator : public Runnable {
+class BinaryMathematicalOperator : public Microinstruction {
 public:
-  void operator()(RefContext& ctx, InstructionSet* ins) override {
+  void operator()(RefContext& ctx, Microinstruction::Param cpu) override {
     auto b = ctx->popCalc();
     auto a = ctx->popCalc();
     auto r = calcRef(a, b);
@@ -45,9 +45,9 @@ public:
 //
 // 赋值运算符基础实现
 //
-class AssignmentOperatorBase : public Runnable {
+class AssignmentOperatorBase : public Microinstruction {
 public:
-  void operator()(RefContext& ctx, InstructionSet* ins) override {
+  void operator()(RefContext& ctx, Microinstruction::Param cpu) override {
     RefVar right = ctx->popCalc();
     RefVar left  = ctx->popCalcOriginal();
     assignment(ctx, left, right);
@@ -119,9 +119,9 @@ public:
 };
 
 
-class UnaryMinusExp : public Runnable {
+class UnaryMinusExp : public Microinstruction {
 public:
-  void operator()(RefContext& ctx, InstructionSet* ins) override {
+  void operator()(RefContext& ctx, Microinstruction::Param cpu) override {
     auto m = ctx->popCalc();
     if (m->isNumber()) {
       RefVar r(new JSNumber(-m->toNumber()));
@@ -204,7 +204,7 @@ public:
 
 class VariableDeclarationAssignmentOperator : public AssignmentOperatorBase {
 public:
-  void operator()(RefContext& ctx, InstructionSet* ins) override {
+  void operator()(RefContext& ctx, Microinstruction::Param cpu) override {
     RefVar left  = ctx->popCalcOriginal();
     RefVar right = ctx->popCalc();
     assignment(ctx, left, right);
@@ -213,7 +213,7 @@ public:
 
 
 template<class Calc, class Save>
-class UnaryExpression : public Runnable {
+class UnaryExpression : public Microinstruction {
 private:
   Calc calc;
   Save save;
@@ -221,7 +221,7 @@ public:
   UnaryExpression(Calc c, Save s) : calc(c), save(s) {
   }
 
-  void operator()(RefContext& ctx, InstructionSet* ins) override {
+  void operator()(RefContext& ctx, Microinstruction::Param cpu) override {
     RefVar left = ctx->popCalcOriginal();
     if (!left->isIdentifier()) {
       ctx->setError("Invalid left-hand value " + left->toString());
@@ -284,7 +284,7 @@ void PreSave(RefContext& ctx, std::string& name, RefVar& before, RefVar& after) 
 //    的值作为整个表达式的结果, 否则执行后续操作
 //
 template<class CompareOp, class TypeCompareOp>
-class RelationalExpressionOp : public Runnable {
+class RelationalExpressionOp : public Microinstruction {
 private:
   CompareOp* compare;
   TypeCompareOp* type;
@@ -293,7 +293,7 @@ public:
   RelationalExpressionOp(CompareOp* _c, TypeCompareOp* _t) 
   : compare(_c), type(_t) {}
 
-  void operator()(RefContext& ctx, InstructionSet* ins) override {
+  void operator()(RefContext& ctx, Microinstruction::Param cpu) override {
     auto b = ctx->popCalc();
     auto a = ctx->popCalc();
     auto r = calcRef(a, b);
@@ -406,9 +406,9 @@ bool SkipType(JavaScriptTypeId a, JavaScriptTypeId b, bool& r) {
 }
 
 
-class LogicalAndExp : public Runnable {
+class LogicalAndExp : public Microinstruction {
 public:
-  void operator()(RefContext& ctx, InstructionSet* ins) override {
+  void operator()(RefContext& ctx, Microinstruction::Param cpu) override {
     auto b = ctx->popCalc();
     auto a = ctx->popCalc();
     if (a->toBoolean() && b->toBoolean()) {
@@ -419,9 +419,9 @@ public:
 };
 
 
-class LogicalOrExp : public Runnable {
+class LogicalOrExp : public Microinstruction {
 public:
-  void operator()(RefContext& ctx, InstructionSet* ins) override {
+  void operator()(RefContext& ctx, Microinstruction::Param cpu) override {
     auto b = ctx->popCalc();
     auto a = ctx->popCalc();
     if (a->toBoolean()) {
@@ -432,9 +432,9 @@ public:
 };
 
 
-class NotExp : public Runnable {
+class NotExp : public Microinstruction {
 public:
-  void operator()(RefContext& ctx, InstructionSet* ins) override {
+  void operator()(RefContext& ctx, Microinstruction::Param cpu) override {
     auto a = ctx->popCalc();
     auto b = a->toBoolean();
     RefVar v(new JSBoolean(!b));
@@ -443,9 +443,9 @@ public:
 };
 
 
-class BitNotEx : public Runnable {
+class BitNotEx : public Microinstruction {
 public:
-  void operator()(RefContext& ctx, InstructionSet* ins) override {
+  void operator()(RefContext& ctx, Microinstruction::Param cpu) override {
     auto a = ctx->popCalc();
     int b = int(a->toNumber());
     RefVar v(new JSNumber(~b));
