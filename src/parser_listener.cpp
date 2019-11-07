@@ -179,10 +179,12 @@ void CoreListener::exitExpressionStatement(JavaScriptParser::ExpressionStatement
 
 void CoreListener::enterIfStatement(JavaScriptParser::IfStatementContext* ctx)
 {
+  printf("IF {");
 }
 
 void CoreListener::exitIfStatement(JavaScriptParser::IfStatementContext* ctx)
 {
+  printf(" IF}");
 }
 
 void CoreListener::enterDoStatement(JavaScriptParser::DoStatementContext* ctx)
@@ -382,10 +384,12 @@ void CoreListener::exitDebuggerStatement(JavaScriptParser::DebuggerStatementCont
 
 void CoreListener::enterFunctionDeclaration(JavaScriptParser::FunctionDeclarationContext* ctx)
 {
+  printf("Function(...){");
 }
 
 void CoreListener::exitFunctionDeclaration(JavaScriptParser::FunctionDeclarationContext* ctx)
 {
+  printf(" Function}");
 }
 
 void CoreListener::enterClassDeclaration(JavaScriptParser::ClassDeclarationContext* ctx)
@@ -730,10 +734,12 @@ void CoreListener::exitThisExpression(JavaScriptParser::ThisExpressionContext* c
 
 void CoreListener::enterFunctionExpression(JavaScriptParser::FunctionExpressionContext* ctx)
 {
+  printf("FunctionExp-{");
 }
 
 void CoreListener::exitFunctionExpression(JavaScriptParser::FunctionExpressionContext* ctx)
 {
+  printf("Function-}");
 }
 
 

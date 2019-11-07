@@ -53,6 +53,9 @@
     <ClCompile Include="..\..\src\objects.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\src\controller.h">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\generate\JavaScriptLexer.h">
@@ -117,5 +120,6 @@
     <None Include="..\..\generate\JavaScriptParser.g4">
       <Filter>g4</Filter>
     </None>
+    <None Include="cpp.hint" />
   </ItemGroup>
 </Project>

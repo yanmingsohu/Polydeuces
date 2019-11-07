@@ -34,7 +34,7 @@ void Manager::start() {
 }
 
 
-size_t Manager::genNextID() {
+ProcessID Manager::genNextID() {
   return ++id;
 }
 
@@ -49,7 +49,7 @@ void Manager::sendError(Process* p, Ref<JSError> err) {
 InstructionSet::InstructionSet() : _size(0) {}
 
 
-size_t InstructionSet::size() {
+InstructPos InstructionSet::size() {
   return _size;
 }
 
@@ -68,7 +68,7 @@ void InstructionSet::push_top(Microinstruction* r) {
 }
 
 
-InstructionSet::RefInstruction& InstructionSet::operator[](size_t pos) {
+InstructionSet::RefInstruction& InstructionSet::operator[](InstructPos pos) {
   return arr[pos];
 }
 
@@ -78,13 +78,13 @@ InstructionSet::RefInstruction& InstructionSet::operator[](size_t pos) {
 VirtualCPU::VirtualCPU(InstructionSet& _i) : ins(_i) {}
 
 
-void VirtualCPU::Goto(size_t i) {
+void VirtualCPU::Goto(InstructPos i) {
   if (i >= ins.size()) throw JSRuntimeException("outof code address");
   p = i - 1;
 }
 
 
-size_t VirtualCPU::pc() {
+InstructPos VirtualCPU::pc() {
   return p + 1;
 }
 
@@ -125,14 +125,21 @@ VirtualCPU::FailCode VirtualCPU::next() {
 }
 
 
+InstructPos VirtualCPU::currentLength() {
+  return ins.size();
+}
+
+
 ///// Process /////////////////////////////////////////////////66
 
-Process::Process(size_t _id) : runFlag(RunFlag::paused), id(_id), cpu(instruct) {
+Process::Process(ProcessID _id)
+: runFlag(RunFlag::paused), id(_id), cpu(instruct) 
+{
   rootContext.reset(new JSContext(true));
 }
 
 
-Process::Process(std::shared_ptr<JSContext>& _rootContext, size_t _id)
+Process::Process(RefContext& _rootContext, ProcessID _id)
 : runFlag(RunFlag::paused), rootContext(_rootContext), id(_id), cpu(instruct) {
 }
 
@@ -144,7 +151,7 @@ void Process::pause() {
 }
 
 
-size_t Process::getId() {
+ProcessID Process::getId() {
   return id;
 }
 
@@ -214,20 +221,26 @@ void IManagerListener::stop(Process* process, RefVar returnVal) {
 }
 
 
-///// LogicBlock //////////////////////////////////////////////66
+///// ControlBlock ////////////////////////////////////////////66
 
-LogicBlock::LogicBlock(VirtualCPU& _cpu) : cpu(_cpu), begin_point(-1), end_point(-1) {
+ControlBlock::ControlBlock(VirtualCPU& _cpu) : cpu(_cpu), begin_point(-1), end_point(-1) {
 }
 
 
-LogicBlock::~LogicBlock() {}
+ControlBlock::~ControlBlock() {}
 
 
-void LogicBlock::gotoEnd() {
+void ControlBlock::gotoEnd() {
   cpu.Goto(end_point);
 }
 
 
-void LogicBlock::gotoBegin() {
+void ControlBlock::gotoBegin() {
   cpu.Goto(begin_point);
+}
+
+
+void ControlBlock::setCurrentPosEnd() {
+  if (end_point >= 0) throw JSRuntimeException("can't set end pos second");
+  end_point = cpu.currentLength();
 }

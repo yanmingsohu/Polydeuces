@@ -1,5 +1,10 @@
 'use strict'
 
+function a() {
+}
+
+let b = function() {};
+
 (function() {
   var a=1, b=2;
   let c=3, d=1;

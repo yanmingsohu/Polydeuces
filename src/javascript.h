@@ -13,7 +13,7 @@
 namespace PolydeucesEngine {
 
 #define Ref std::shared_ptr
-// 声明这个方法会产生 javascript 异常, 
+// 声明这个宏的方法可能会产生 javascript 内部异常, 
 // 调用方法后, 应该检测是否有 js 异常, 并作出处理.
 #define THROW_JAVASCRIPT_ERROR
 
@@ -33,7 +33,7 @@ class JSNumber;
 class JSError;
 class JSBoolean;
 class JSRuntimeException;
-class LogicBlock;
+class ControlBlock;
 class VirtualCPU;
 template<class D> class Runnable;
 
@@ -42,6 +42,8 @@ typedef Ref<JSObject>         RefObj;
 typedef Ref<Var>              RefVar;
 typedef Ref<Process>          RefProcess;
 typedef Runnable<VirtualCPU*> Microinstruction;
+typedef size_t                InstructPos;
+typedef size_t                ProcessID;
 
 
 enum JavaScriptTypeId {
@@ -291,21 +293,21 @@ public:
   };
 
 private:
-  std::vector<LogicBlock*> blockStack;
+  //std::vector<LogicBlock*> blockStack; //??
   RefContext currContext;
   InstructionSet& ins;
-  size_t p;
+  InstructPos p;
 
 public:
   VirtualCPU(InstructionSet&);
   //
   // 指令指针指向将要执行的指令的位置(运行时有效)
   //
-  size_t pc();
+  InstructPos pc();
   // 
   // 设置指令i为下一次要执行的指令, 但不执行
   //
-  void Goto(size_t i);
+  void Goto(InstructPos i);
   //
   // 执行下一条指令, 返回指令执行状态, 
   // 不应该在出错后调用, 将出现不可预料的后果
@@ -324,6 +326,7 @@ public:
   //
   void setCurrContext(RefContext& c);
   RefContext getCurrContext();
+  InstructPos currentLength();
 };
 
 
@@ -335,7 +338,7 @@ private:
   typedef std::unique_ptr<Microinstruction> RefInstruction;
 
   std::vector<RefInstruction> arr;
-  size_t _size;
+  InstructPos _size;
 
 public:
   InstructionSet(); 
@@ -344,24 +347,23 @@ public:
   //
   // 返回指令数量
   //
-  size_t size();
-  RefInstruction& operator[](size_t pos);
+  InstructPos size();
+  RefInstruction& operator[](InstructPos pos);
 };
 
 
 //
-// 逻辑代码块
-// TODO: 逻辑代码块应该保存程序指针
+// 程序流程控制
 //
-class LogicBlock {
+class ControlBlock {
 private:
   VirtualCPU& cpu;
-  size_t begin_point;
-  size_t end_point;
+  InstructPos begin_point;
+  InstructPos end_point;
 
 public:
-  LogicBlock(VirtualCPU&);
-  virtual ~LogicBlock();
+  ControlBlock(VirtualCPU&);
+  virtual ~ControlBlock();
   //
   // 指令指针移动到代码块的开始处(准备开始执行代码块)
   //
@@ -370,6 +372,10 @@ public:
   // 指令指针移动到代码块结束处(退出代码块)
   //
   void gotoEnd();
+  //
+  // 设置当前指令位置为代码块结束, 只能调用一次, 否则抛出异常
+  //
+  void setCurrentPosEnd();
   //
   // 代码块执行完最后一条指令, 该方法被调用, 默认什么都不做
   //
@@ -440,6 +446,12 @@ public:
   //
   RefVar pushCalc(Var* v);
   //
+  // 在表达式计算后清空计算堆栈, 
+  // TODO; 始终保持堆栈没有多余元素?
+  // 会抛出 JSRuntimeException 异常
+  //
+  void clearCalcStack();
+  //
   // 打印计算堆栈, debug 用
   //
   void printCalcStack();
@@ -472,12 +484,6 @@ public:
   // 会抛出 JSRuntimeException 异常
   //
   THROW_JAVASCRIPT_ERROR RefVar getContextProperty(std::string name);
-  //
-  // 在表达式计算后清空计算堆栈, 
-  // TODO; 始终保持堆栈没有多余元素?
-  // 会抛出 JSRuntimeException 异常
-  //
-  void clearCalcStack();
 };
 
 
@@ -516,11 +522,11 @@ private:
   InstructionSet instruct;
   RefContext rootContext;
   VirtualCPU cpu;
-  size_t id;
+  ProcessID id;
 
 public:
-  Process(size_t id);
-  Process(RefContext& rootContext, size_t id);
+  Process(ProcessID id);
+  Process(RefContext& rootContext, ProcessID id);
   //
   // 开始执行代码, 或恢复挂起的操作
   //
@@ -539,7 +545,7 @@ public:
   //
   RefContext getRootContext();
 
-  size_t getId();
+  ProcessID getId();
   RefContext getCurrContext();
   IInsertInstruction* getInstructionSet();
 };
@@ -573,7 +579,7 @@ class Manager : private Noncopy {
 private:
   IManagerListener& ml;
   std::vector<std::shared_ptr<Process>> parr;
-  size_t id;
+  ProcessID id;
 
 public:
   //
@@ -591,7 +597,7 @@ public:
   //
   // 生成不重复的 id
   //
-  size_t genNextID();
+  ProcessID genNextID();
   //
   // 发送错误消息
   //

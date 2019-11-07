@@ -27,6 +27,7 @@
     <ClCompile Include="..\..\generate\JavaScriptParserBaseVisitor.cpp" />
     <ClCompile Include="..\..\generate\JavaScriptParserListener.cpp" />
     <ClCompile Include="..\..\generate\JavaScriptParserVisitor.cpp" />
+    <ClCompile Include="..\..\src\controller.h" />
     <ClCompile Include="..\..\src\main.cpp" />
     <ClCompile Include="..\..\src\manager.cpp" />
     <ClCompile Include="..\..\src\objects.cpp" />
@@ -55,6 +56,7 @@
     <None Include="..\..\generate\JavaScriptParser.interp" />
     <None Include="..\..\generate\JavaScriptParser.tokens" />
     <None Include="..\..\test\first.js" />
+    <None Include="cpp.hint" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
