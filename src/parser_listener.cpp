@@ -498,10 +498,12 @@ void CoreListener::exitLastFormalParameterArg(JavaScriptParser::LastFormalParame
 
 void CoreListener::enterFunctionBody(JavaScriptParser::FunctionBodyContext* ctx)
 {
+  printf("<<FunctionBody");
 }
 
 void CoreListener::exitFunctionBody(JavaScriptParser::FunctionBodyContext* ctx)
 {
+  printf(" FB>>");
 }
 
 void CoreListener::enterSourceElements(JavaScriptParser::SourceElementsContext* ctx)
