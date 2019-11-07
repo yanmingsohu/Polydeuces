@@ -19,30 +19,32 @@ namespace PolydeucesEngine {
 class  JavaScriptLexer : public JavaScriptBaseLexer {
 public:
   enum {
-    MultiLineComment = 1, SingleLineComment = 2, RegularExpressionLiteral = 3, 
-    OpenBracket = 4, CloseBracket = 5, OpenParen = 6, CloseParen = 7, OpenBrace = 8, 
-    CloseBrace = 9, SemiColon = 10, Comma = 11, Assign = 12, QuestionMark = 13, 
-    Colon = 14, Ellipsis = 15, Dot = 16, PlusPlus = 17, MinusMinus = 18, 
-    Plus = 19, Minus = 20, BitNot = 21, Not = 22, Multiply = 23, Divide = 24, 
-    Modulus = 25, RightShiftArithmetic = 26, LeftShiftArithmetic = 27, RightShiftLogical = 28, 
-    LessThan = 29, MoreThan = 30, LessThanEquals = 31, GreaterThanEquals = 32, 
-    Equals_ = 33, NotEquals = 34, IdentityEquals = 35, IdentityNotEquals = 36, 
-    BitAnd = 37, BitXOr = 38, BitOr = 39, And = 40, Or = 41, MultiplyAssign = 42, 
-    DivideAssign = 43, ModulusAssign = 44, PlusAssign = 45, MinusAssign = 46, 
-    LeftShiftArithmeticAssign = 47, RightShiftArithmeticAssign = 48, RightShiftLogicalAssign = 49, 
-    BitAndAssign = 50, BitXorAssign = 51, BitOrAssign = 52, ARROW = 53, 
-    NullLiteral = 54, BooleanLiteral = 55, DecimalLiteral = 56, HexIntegerLiteral = 57, 
-    OctalIntegerLiteral = 58, OctalIntegerLiteral2 = 59, BinaryIntegerLiteral = 60, 
-    Break = 61, Do = 62, Instanceof = 63, Typeof = 64, Case = 65, Else = 66, 
-    New = 67, Var = 68, Catch = 69, Finally = 70, Return = 71, Void = 72, 
-    Continue = 73, For = 74, Switch = 75, While = 76, Debugger = 77, Function = 78, 
-    This = 79, With = 80, Default = 81, If = 82, Throw = 83, Delete = 84, 
-    In = 85, Try = 86, As = 87, From = 88, Class = 89, Enum = 90, Extends = 91, 
-    Super = 92, Const = 93, Export = 94, Import = 95, Implements = 96, Let = 97, 
-    Private = 98, Public = 99, Interface = 100, Package = 101, Protected = 102, 
-    Static = 103, Yield = 104, Identifier = 105, StringLiteral = 106, TemplateStringLiteral = 107, 
-    WhiteSpaces = 108, LineTerminator = 109, HtmlComment = 110, CDataComment = 111, 
-    UnexpectedCharacter = 112
+    HashBangLine = 1, MultiLineComment = 2, SingleLineComment = 3, RegularExpressionLiteral = 4, 
+    OpenBracket = 5, CloseBracket = 6, OpenParen = 7, CloseParen = 8, OpenBrace = 9, 
+    CloseBrace = 10, SemiColon = 11, Comma = 12, Assign = 13, QuestionMark = 14, 
+    Colon = 15, Ellipsis = 16, Dot = 17, PlusPlus = 18, MinusMinus = 19, 
+    Plus = 20, Minus = 21, BitNot = 22, Not = 23, Multiply = 24, Divide = 25, 
+    Modulus = 26, Power = 27, NullCoalesce = 28, Hashtag = 29, RightShiftArithmetic = 30, 
+    LeftShiftArithmetic = 31, RightShiftLogical = 32, LessThan = 33, MoreThan = 34, 
+    LessThanEquals = 35, GreaterThanEquals = 36, Equals_ = 37, NotEquals = 38, 
+    IdentityEquals = 39, IdentityNotEquals = 40, BitAnd = 41, BitXOr = 42, 
+    BitOr = 43, And = 44, Or = 45, MultiplyAssign = 46, DivideAssign = 47, 
+    ModulusAssign = 48, PlusAssign = 49, MinusAssign = 50, LeftShiftArithmeticAssign = 51, 
+    RightShiftArithmeticAssign = 52, RightShiftLogicalAssign = 53, BitAndAssign = 54, 
+    BitXorAssign = 55, BitOrAssign = 56, PowerAssign = 57, ARROW = 58, NullLiteral = 59, 
+    BooleanLiteral = 60, DecimalLiteral = 61, HexIntegerLiteral = 62, OctalIntegerLiteral = 63, 
+    OctalIntegerLiteral2 = 64, BinaryIntegerLiteral = 65, BigHexIntegerLiteral = 66, 
+    BigOctalIntegerLiteral = 67, BigBinaryIntegerLiteral = 68, BigDecimalIntegerLiteral = 69, 
+    Break = 70, Do = 71, Instanceof = 72, Typeof = 73, Case = 74, Else = 75, 
+    New = 76, Var = 77, Catch = 78, Finally = 79, Return = 80, Void = 81, 
+    Continue = 82, For = 83, Switch = 84, While = 85, Debugger = 86, Function = 87, 
+    This = 88, With = 89, Default = 90, If = 91, Throw = 92, Delete = 93, 
+    In = 94, Try = 95, As = 96, From = 97, Class = 98, Enum = 99, Extends = 100, 
+    Super = 101, Const = 102, Export = 103, Import = 104, Async = 105, Await = 106, 
+    Implements = 107, Let = 108, Private = 109, Public = 110, Interface = 111, 
+    Package = 112, Protected = 113, Static = 114, Yield = 115, Identifier = 116, 
+    StringLiteral = 117, TemplateStringLiteral = 118, WhiteSpaces = 119, 
+    LineTerminator = 120, HtmlComment = 121, CDataComment = 122, UnexpectedCharacter = 123
   };
 
   enum {
@@ -87,6 +89,7 @@ private:
   void StringLiteralAction(antlr4::RuleContext *context, size_t actionIndex);
 
   // Individual semantic predicate functions triggered by sempred() above.
+  bool HashBangLineSempred(antlr4::RuleContext *_localctx, size_t predicateIndex);
   bool RegularExpressionLiteralSempred(antlr4::RuleContext *_localctx, size_t predicateIndex);
   bool OctalIntegerLiteralSempred(antlr4::RuleContext *_localctx, size_t predicateIndex);
   bool ImplementsSempred(antlr4::RuleContext *_localctx, size_t predicateIndex);

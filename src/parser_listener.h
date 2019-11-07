@@ -56,18 +56,6 @@ public:
 
   virtual void exitImportStatement(JavaScriptParser::ImportStatementContext* ctx) override;
 
-  virtual void enterFromBlock(JavaScriptParser::FromBlockContext* ctx) override;
-
-  virtual void exitFromBlock(JavaScriptParser::FromBlockContext* ctx) override;
-
-  virtual void enterMultipleImportStatement(JavaScriptParser::MultipleImportStatementContext* ctx) override;
-
-  virtual void exitMultipleImportStatement(JavaScriptParser::MultipleImportStatementContext* ctx) override;
-
-  virtual void enterExportStatement(JavaScriptParser::ExportStatementContext* ctx) override;
-
-  virtual void exitExportStatement(JavaScriptParser::ExportStatementContext* ctx) override;
-
   virtual void enterVariableStatement(JavaScriptParser::VariableStatementContext* ctx) override;
 
   virtual void exitVariableStatement(JavaScriptParser::VariableStatementContext* ctx) override;
@@ -104,17 +92,9 @@ public:
 
   virtual void exitForStatement(JavaScriptParser::ForStatementContext* ctx) override;
 
-  virtual void enterForVarStatement(JavaScriptParser::ForVarStatementContext* ctx) override;
-
-  virtual void exitForVarStatement(JavaScriptParser::ForVarStatementContext* ctx) override;
-
   virtual void enterForInStatement(JavaScriptParser::ForInStatementContext* ctx) override;
 
   virtual void exitForInStatement(JavaScriptParser::ForInStatementContext* ctx) override;
-
-  virtual void enterForVarInStatement(JavaScriptParser::ForVarInStatementContext* ctx) override;
-
-  virtual void exitForVarInStatement(JavaScriptParser::ForVarInStatementContext* ctx) override;
 
   virtual void enterVarModifier(JavaScriptParser::VarModifierContext* ctx) override;
 
@@ -204,30 +184,6 @@ public:
 
   virtual void exitMethodDefinition(JavaScriptParser::MethodDefinitionContext* ctx) override;
 
-  virtual void enterGeneratorMethod(JavaScriptParser::GeneratorMethodContext* ctx) override;
-
-  virtual void exitGeneratorMethod(JavaScriptParser::GeneratorMethodContext* ctx) override;
-
-  virtual void enterGeneratorFunctionDeclaration(JavaScriptParser::GeneratorFunctionDeclarationContext* ctx) override;
-
-  virtual void exitGeneratorFunctionDeclaration(JavaScriptParser::GeneratorFunctionDeclarationContext* ctx) override;
-
-  virtual void enterGeneratorBlock(JavaScriptParser::GeneratorBlockContext* ctx) override;
-
-  virtual void exitGeneratorBlock(JavaScriptParser::GeneratorBlockContext* ctx) override;
-
-  virtual void enterGeneratorDefinition(JavaScriptParser::GeneratorDefinitionContext* ctx) override;
-
-  virtual void exitGeneratorDefinition(JavaScriptParser::GeneratorDefinitionContext* ctx) override;
-
-  virtual void enterIteratorBlock(JavaScriptParser::IteratorBlockContext* ctx) override;
-
-  virtual void exitIteratorBlock(JavaScriptParser::IteratorBlockContext* ctx) override;
-
-  virtual void enterIteratorDefinition(JavaScriptParser::IteratorDefinitionContext* ctx) override;
-
-  virtual void exitIteratorDefinition(JavaScriptParser::IteratorDefinitionContext* ctx) override;
-
   virtual void enterFormalParameterList(JavaScriptParser::FormalParameterListContext* ctx) override;
 
   virtual void exitFormalParameterList(JavaScriptParser::FormalParameterListContext* ctx) override;
@@ -256,10 +212,6 @@ public:
 
   virtual void exitElementList(JavaScriptParser::ElementListContext* ctx) override;
 
-  virtual void enterLastElement(JavaScriptParser::LastElementContext* ctx) override;
-
-  virtual void exitLastElement(JavaScriptParser::LastElementContext* ctx) override;
-
   virtual void enterObjectLiteral(JavaScriptParser::ObjectLiteralContext* ctx) override;
 
   virtual void exitObjectLiteral(JavaScriptParser::ObjectLiteralContext* ctx) override;
@@ -280,10 +232,6 @@ public:
 
   virtual void exitPropertySetter(JavaScriptParser::PropertySetterContext* ctx) override;
 
-  virtual void enterMethodProperty(JavaScriptParser::MethodPropertyContext* ctx) override;
-
-  virtual void exitMethodProperty(JavaScriptParser::MethodPropertyContext* ctx) override;
-
   virtual void enterPropertyShorthand(JavaScriptParser::PropertyShorthandContext* ctx) override;
 
   virtual void exitPropertyShorthand(JavaScriptParser::PropertyShorthandContext* ctx) override;
@@ -295,10 +243,6 @@ public:
   virtual void enterArguments(JavaScriptParser::ArgumentsContext* ctx) override;
 
   virtual void exitArguments(JavaScriptParser::ArgumentsContext* ctx) override;
-
-  virtual void enterLastArgument(JavaScriptParser::LastArgumentContext* ctx) override;
-
-  virtual void exitLastArgument(JavaScriptParser::LastArgumentContext* ctx) override;
 
   virtual void enterExpressionSequence(JavaScriptParser::ExpressionSequenceContext* ctx) override;
 
@@ -315,10 +259,6 @@ public:
   virtual void enterLogicalAndExpression(JavaScriptParser::LogicalAndExpressionContext* ctx) override;
 
   virtual void exitLogicalAndExpression(JavaScriptParser::LogicalAndExpressionContext* ctx) override;
-
-  virtual void enterGeneratorsExpression(JavaScriptParser::GeneratorsExpressionContext* ctx) override;
-
-  virtual void exitGeneratorsExpression(JavaScriptParser::GeneratorsExpressionContext* ctx) override;
 
   virtual void enterPreIncrementExpression(JavaScriptParser::PreIncrementExpressionContext* ctx) override;
 
@@ -383,18 +323,6 @@ public:
   virtual void enterDeleteExpression(JavaScriptParser::DeleteExpressionContext* ctx) override;
 
   virtual void exitDeleteExpression(JavaScriptParser::DeleteExpressionContext* ctx) override;
-
-  virtual void enterGeneratorsFunctionExpression(JavaScriptParser::GeneratorsFunctionExpressionContext* ctx) override;
-
-  virtual void exitGeneratorsFunctionExpression(JavaScriptParser::GeneratorsFunctionExpressionContext* ctx) override;
-
-  virtual void enterIteratorsExpression(JavaScriptParser::IteratorsExpressionContext* ctx) override;
-
-  virtual void exitIteratorsExpression(JavaScriptParser::IteratorsExpressionContext* ctx) override;
-
-  virtual void enterArrowFunctionExpression(JavaScriptParser::ArrowFunctionExpressionContext* ctx) override;
-
-  virtual void exitArrowFunctionExpression(JavaScriptParser::ArrowFunctionExpressionContext* ctx) override;
 
   virtual void enterEqualityExpression(JavaScriptParser::EqualityExpressionContext* ctx) override;
 
@@ -527,6 +455,104 @@ public:
   virtual void enterEos(JavaScriptParser::EosContext* ctx) override;
 
   virtual void exitEos(JavaScriptParser::EosContext* ctx) override;
+
+  // Éý¼¶µ½ ES2020
+
+  virtual void enterImportFromBlock(JavaScriptParser::ImportFromBlockContext* ctx) override;
+
+  virtual void exitImportFromBlock(JavaScriptParser::ImportFromBlockContext* ctx) override;
+
+  virtual void enterModuleItems(JavaScriptParser::ModuleItemsContext* ctx) override;
+
+  virtual void exitModuleItems(JavaScriptParser::ModuleItemsContext* ctx) override;
+
+  virtual void enterImportDefault(JavaScriptParser::ImportDefaultContext* ctx) override;
+
+  virtual void exitImportDefault(JavaScriptParser::ImportDefaultContext* ctx) override;
+
+  virtual void enterImportNamespace(JavaScriptParser::ImportNamespaceContext* ctx) override;
+
+  virtual void exitImportNamespace(JavaScriptParser::ImportNamespaceContext* ctx) override;
+
+  virtual void enterImportFrom(JavaScriptParser::ImportFromContext* ctx) override;
+
+  virtual void exitImportFrom(JavaScriptParser::ImportFromContext* ctx) override;
+
+  virtual void enterAliasName(JavaScriptParser::AliasNameContext* ctx) override;
+
+  virtual void exitAliasName(JavaScriptParser::AliasNameContext* ctx) override;
+
+  virtual void enterExportDeclaration(JavaScriptParser::ExportDeclarationContext* ctx) override;
+
+  virtual void exitExportDeclaration(JavaScriptParser::ExportDeclarationContext* ctx) override;
+
+  virtual void enterExportDefaultDeclaration(JavaScriptParser::ExportDefaultDeclarationContext* ctx) override;
+
+  virtual void exitExportDefaultDeclaration(JavaScriptParser::ExportDefaultDeclarationContext* ctx) override;
+
+  virtual void enterExportFromBlock(JavaScriptParser::ExportFromBlockContext* ctx) override;
+
+  virtual void exitExportFromBlock(JavaScriptParser::ExportFromBlockContext* ctx) override;
+
+  virtual void enterDeclaration(JavaScriptParser::DeclarationContext* ctx) override;
+
+  virtual void exitDeclaration(JavaScriptParser::DeclarationContext* ctx) override;
+
+  virtual void enterForOfStatement(JavaScriptParser::ForOfStatementContext* ctx) override;
+
+  virtual void exitForOfStatement(JavaScriptParser::ForOfStatementContext* ctx) override;
+
+  virtual void enterArrayElement(JavaScriptParser::ArrayElementContext* ctx) override;
+
+  virtual void exitArrayElement(JavaScriptParser::ArrayElementContext* ctx) override;
+
+  virtual void enterFunctionProperty(JavaScriptParser::FunctionPropertyContext* ctx) override;
+
+  virtual void exitFunctionProperty(JavaScriptParser::FunctionPropertyContext* ctx) override;
+
+  virtual void enterArgument(JavaScriptParser::ArgumentContext* ctx) override;
+
+  virtual void exitArgument(JavaScriptParser::ArgumentContext* ctx) override;
+
+  virtual void enterPowerExpression(JavaScriptParser::PowerExpressionContext* ctx) override;
+
+  virtual void exitPowerExpression(JavaScriptParser::PowerExpressionContext* ctx) override;
+
+  virtual void enterMetaExpression(JavaScriptParser::MetaExpressionContext* ctx) override;
+
+  virtual void exitMetaExpression(JavaScriptParser::MetaExpressionContext* ctx) override;
+
+  virtual void enterAwaitExpression(JavaScriptParser::AwaitExpressionContext* ctx) override;
+
+  virtual void exitAwaitExpression(JavaScriptParser::AwaitExpressionContext* ctx) override;
+
+  virtual void enterImportExpression(JavaScriptParser::ImportExpressionContext* ctx) override;
+
+  virtual void exitImportExpression(JavaScriptParser::ImportExpressionContext* ctx) override;
+
+  virtual void enterCoalesceExpression(JavaScriptParser::CoalesceExpressionContext* ctx) override;
+
+  virtual void exitCoalesceExpression(JavaScriptParser::CoalesceExpressionContext* ctx) override;
+
+  virtual void enterAssignable(JavaScriptParser::AssignableContext* ctx) override;
+
+  virtual void exitAssignable(JavaScriptParser::AssignableContext* ctx) override;
+
+  virtual void enterFunctionDecl(JavaScriptParser::FunctionDeclContext* ctx) override;
+
+  virtual void exitFunctionDecl(JavaScriptParser::FunctionDeclContext* ctx) override;
+
+  virtual void enterAnoymousFunctionDecl(JavaScriptParser::AnoymousFunctionDeclContext* ctx) override;
+
+  virtual void exitAnoymousFunctionDecl(JavaScriptParser::AnoymousFunctionDeclContext* ctx) override;
+
+  virtual void enterArrowFunction(JavaScriptParser::ArrowFunctionContext* ctx) override;
+
+  virtual void exitArrowFunction(JavaScriptParser::ArrowFunctionContext* ctx) override;
+
+  virtual void enterBigintLiteral(JavaScriptParser::BigintLiteralContext* ctx) override;
+
+  virtual void exitBigintLiteral(JavaScriptParser::BigintLiteralContext* ctx) override;
 
 };
 

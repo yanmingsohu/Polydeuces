@@ -38,11 +38,25 @@ public:
 
     virtual antlrcpp::Any visitImportStatement(JavaScriptParser::ImportStatementContext *context) = 0;
 
-    virtual antlrcpp::Any visitFromBlock(JavaScriptParser::FromBlockContext *context) = 0;
+    virtual antlrcpp::Any visitImportFromBlock(JavaScriptParser::ImportFromBlockContext *context) = 0;
 
-    virtual antlrcpp::Any visitMultipleImportStatement(JavaScriptParser::MultipleImportStatementContext *context) = 0;
+    virtual antlrcpp::Any visitModuleItems(JavaScriptParser::ModuleItemsContext *context) = 0;
 
-    virtual antlrcpp::Any visitExportStatement(JavaScriptParser::ExportStatementContext *context) = 0;
+    virtual antlrcpp::Any visitImportDefault(JavaScriptParser::ImportDefaultContext *context) = 0;
+
+    virtual antlrcpp::Any visitImportNamespace(JavaScriptParser::ImportNamespaceContext *context) = 0;
+
+    virtual antlrcpp::Any visitImportFrom(JavaScriptParser::ImportFromContext *context) = 0;
+
+    virtual antlrcpp::Any visitAliasName(JavaScriptParser::AliasNameContext *context) = 0;
+
+    virtual antlrcpp::Any visitExportDeclaration(JavaScriptParser::ExportDeclarationContext *context) = 0;
+
+    virtual antlrcpp::Any visitExportDefaultDeclaration(JavaScriptParser::ExportDefaultDeclarationContext *context) = 0;
+
+    virtual antlrcpp::Any visitExportFromBlock(JavaScriptParser::ExportFromBlockContext *context) = 0;
+
+    virtual antlrcpp::Any visitDeclaration(JavaScriptParser::DeclarationContext *context) = 0;
 
     virtual antlrcpp::Any visitVariableStatement(JavaScriptParser::VariableStatementContext *context) = 0;
 
@@ -62,11 +76,9 @@ public:
 
     virtual antlrcpp::Any visitForStatement(JavaScriptParser::ForStatementContext *context) = 0;
 
-    virtual antlrcpp::Any visitForVarStatement(JavaScriptParser::ForVarStatementContext *context) = 0;
-
     virtual antlrcpp::Any visitForInStatement(JavaScriptParser::ForInStatementContext *context) = 0;
 
-    virtual antlrcpp::Any visitForVarInStatement(JavaScriptParser::ForVarInStatementContext *context) = 0;
+    virtual antlrcpp::Any visitForOfStatement(JavaScriptParser::ForOfStatementContext *context) = 0;
 
     virtual antlrcpp::Any visitVarModifier(JavaScriptParser::VarModifierContext *context) = 0;
 
@@ -112,18 +124,6 @@ public:
 
     virtual antlrcpp::Any visitMethodDefinition(JavaScriptParser::MethodDefinitionContext *context) = 0;
 
-    virtual antlrcpp::Any visitGeneratorMethod(JavaScriptParser::GeneratorMethodContext *context) = 0;
-
-    virtual antlrcpp::Any visitGeneratorFunctionDeclaration(JavaScriptParser::GeneratorFunctionDeclarationContext *context) = 0;
-
-    virtual antlrcpp::Any visitGeneratorBlock(JavaScriptParser::GeneratorBlockContext *context) = 0;
-
-    virtual antlrcpp::Any visitGeneratorDefinition(JavaScriptParser::GeneratorDefinitionContext *context) = 0;
-
-    virtual antlrcpp::Any visitIteratorBlock(JavaScriptParser::IteratorBlockContext *context) = 0;
-
-    virtual antlrcpp::Any visitIteratorDefinition(JavaScriptParser::IteratorDefinitionContext *context) = 0;
-
     virtual antlrcpp::Any visitFormalParameterList(JavaScriptParser::FormalParameterListContext *context) = 0;
 
     virtual antlrcpp::Any visitFormalParameterArg(JavaScriptParser::FormalParameterArgContext *context) = 0;
@@ -138,7 +138,7 @@ public:
 
     virtual antlrcpp::Any visitElementList(JavaScriptParser::ElementListContext *context) = 0;
 
-    virtual antlrcpp::Any visitLastElement(JavaScriptParser::LastElementContext *context) = 0;
+    virtual antlrcpp::Any visitArrayElement(JavaScriptParser::ArrayElementContext *context) = 0;
 
     virtual antlrcpp::Any visitObjectLiteral(JavaScriptParser::ObjectLiteralContext *context) = 0;
 
@@ -146,11 +146,11 @@ public:
 
     virtual antlrcpp::Any visitComputedPropertyExpressionAssignment(JavaScriptParser::ComputedPropertyExpressionAssignmentContext *context) = 0;
 
+    virtual antlrcpp::Any visitFunctionProperty(JavaScriptParser::FunctionPropertyContext *context) = 0;
+
     virtual antlrcpp::Any visitPropertyGetter(JavaScriptParser::PropertyGetterContext *context) = 0;
 
     virtual antlrcpp::Any visitPropertySetter(JavaScriptParser::PropertySetterContext *context) = 0;
-
-    virtual antlrcpp::Any visitMethodProperty(JavaScriptParser::MethodPropertyContext *context) = 0;
 
     virtual antlrcpp::Any visitPropertyShorthand(JavaScriptParser::PropertyShorthandContext *context) = 0;
 
@@ -158,7 +158,7 @@ public:
 
     virtual antlrcpp::Any visitArguments(JavaScriptParser::ArgumentsContext *context) = 0;
 
-    virtual antlrcpp::Any visitLastArgument(JavaScriptParser::LastArgumentContext *context) = 0;
+    virtual antlrcpp::Any visitArgument(JavaScriptParser::ArgumentContext *context) = 0;
 
     virtual antlrcpp::Any visitExpressionSequence(JavaScriptParser::ExpressionSequenceContext *context) = 0;
 
@@ -168,11 +168,13 @@ public:
 
     virtual antlrcpp::Any visitLogicalAndExpression(JavaScriptParser::LogicalAndExpressionContext *context) = 0;
 
-    virtual antlrcpp::Any visitGeneratorsExpression(JavaScriptParser::GeneratorsExpressionContext *context) = 0;
+    virtual antlrcpp::Any visitPowerExpression(JavaScriptParser::PowerExpressionContext *context) = 0;
 
     virtual antlrcpp::Any visitPreIncrementExpression(JavaScriptParser::PreIncrementExpressionContext *context) = 0;
 
     virtual antlrcpp::Any visitObjectLiteralExpression(JavaScriptParser::ObjectLiteralExpressionContext *context) = 0;
+
+    virtual antlrcpp::Any visitMetaExpression(JavaScriptParser::MetaExpressionContext *context) = 0;
 
     virtual antlrcpp::Any visitInExpression(JavaScriptParser::InExpressionContext *context) = 0;
 
@@ -183,6 +185,8 @@ public:
     virtual antlrcpp::Any visitPreDecreaseExpression(JavaScriptParser::PreDecreaseExpressionContext *context) = 0;
 
     virtual antlrcpp::Any visitArgumentsExpression(JavaScriptParser::ArgumentsExpressionContext *context) = 0;
+
+    virtual antlrcpp::Any visitAwaitExpression(JavaScriptParser::AwaitExpressionContext *context) = 0;
 
     virtual antlrcpp::Any visitThisExpression(JavaScriptParser::ThisExpressionContext *context) = 0;
 
@@ -202,11 +206,7 @@ public:
 
     virtual antlrcpp::Any visitDeleteExpression(JavaScriptParser::DeleteExpressionContext *context) = 0;
 
-    virtual antlrcpp::Any visitGeneratorsFunctionExpression(JavaScriptParser::GeneratorsFunctionExpressionContext *context) = 0;
-
-    virtual antlrcpp::Any visitIteratorsExpression(JavaScriptParser::IteratorsExpressionContext *context) = 0;
-
-    virtual antlrcpp::Any visitArrowFunctionExpression(JavaScriptParser::ArrowFunctionExpressionContext *context) = 0;
+    virtual antlrcpp::Any visitImportExpression(JavaScriptParser::ImportExpressionContext *context) = 0;
 
     virtual antlrcpp::Any visitEqualityExpression(JavaScriptParser::EqualityExpressionContext *context) = 0;
 
@@ -252,6 +252,16 @@ public:
 
     virtual antlrcpp::Any visitVoidExpression(JavaScriptParser::VoidExpressionContext *context) = 0;
 
+    virtual antlrcpp::Any visitCoalesceExpression(JavaScriptParser::CoalesceExpressionContext *context) = 0;
+
+    virtual antlrcpp::Any visitAssignable(JavaScriptParser::AssignableContext *context) = 0;
+
+    virtual antlrcpp::Any visitFunctionDecl(JavaScriptParser::FunctionDeclContext *context) = 0;
+
+    virtual antlrcpp::Any visitAnoymousFunctionDecl(JavaScriptParser::AnoymousFunctionDeclContext *context) = 0;
+
+    virtual antlrcpp::Any visitArrowFunction(JavaScriptParser::ArrowFunctionContext *context) = 0;
+
     virtual antlrcpp::Any visitArrowFunctionParameters(JavaScriptParser::ArrowFunctionParametersContext *context) = 0;
 
     virtual antlrcpp::Any visitArrowFunctionBody(JavaScriptParser::ArrowFunctionBodyContext *context) = 0;
@@ -261,6 +271,8 @@ public:
     virtual antlrcpp::Any visitLiteral(JavaScriptParser::LiteralContext *context) = 0;
 
     virtual antlrcpp::Any visitNumericLiteral(JavaScriptParser::NumericLiteralContext *context) = 0;
+
+    virtual antlrcpp::Any visitBigintLiteral(JavaScriptParser::BigintLiteralContext *context) = 0;
 
     virtual antlrcpp::Any visitIdentifierName(JavaScriptParser::IdentifierNameContext *context) = 0;
 

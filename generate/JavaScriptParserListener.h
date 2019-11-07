@@ -40,14 +40,35 @@ public:
   virtual void enterImportStatement(JavaScriptParser::ImportStatementContext *ctx) = 0;
   virtual void exitImportStatement(JavaScriptParser::ImportStatementContext *ctx) = 0;
 
-  virtual void enterFromBlock(JavaScriptParser::FromBlockContext *ctx) = 0;
-  virtual void exitFromBlock(JavaScriptParser::FromBlockContext *ctx) = 0;
+  virtual void enterImportFromBlock(JavaScriptParser::ImportFromBlockContext *ctx) = 0;
+  virtual void exitImportFromBlock(JavaScriptParser::ImportFromBlockContext *ctx) = 0;
 
-  virtual void enterMultipleImportStatement(JavaScriptParser::MultipleImportStatementContext *ctx) = 0;
-  virtual void exitMultipleImportStatement(JavaScriptParser::MultipleImportStatementContext *ctx) = 0;
+  virtual void enterModuleItems(JavaScriptParser::ModuleItemsContext *ctx) = 0;
+  virtual void exitModuleItems(JavaScriptParser::ModuleItemsContext *ctx) = 0;
 
-  virtual void enterExportStatement(JavaScriptParser::ExportStatementContext *ctx) = 0;
-  virtual void exitExportStatement(JavaScriptParser::ExportStatementContext *ctx) = 0;
+  virtual void enterImportDefault(JavaScriptParser::ImportDefaultContext *ctx) = 0;
+  virtual void exitImportDefault(JavaScriptParser::ImportDefaultContext *ctx) = 0;
+
+  virtual void enterImportNamespace(JavaScriptParser::ImportNamespaceContext *ctx) = 0;
+  virtual void exitImportNamespace(JavaScriptParser::ImportNamespaceContext *ctx) = 0;
+
+  virtual void enterImportFrom(JavaScriptParser::ImportFromContext *ctx) = 0;
+  virtual void exitImportFrom(JavaScriptParser::ImportFromContext *ctx) = 0;
+
+  virtual void enterAliasName(JavaScriptParser::AliasNameContext *ctx) = 0;
+  virtual void exitAliasName(JavaScriptParser::AliasNameContext *ctx) = 0;
+
+  virtual void enterExportDeclaration(JavaScriptParser::ExportDeclarationContext *ctx) = 0;
+  virtual void exitExportDeclaration(JavaScriptParser::ExportDeclarationContext *ctx) = 0;
+
+  virtual void enterExportDefaultDeclaration(JavaScriptParser::ExportDefaultDeclarationContext *ctx) = 0;
+  virtual void exitExportDefaultDeclaration(JavaScriptParser::ExportDefaultDeclarationContext *ctx) = 0;
+
+  virtual void enterExportFromBlock(JavaScriptParser::ExportFromBlockContext *ctx) = 0;
+  virtual void exitExportFromBlock(JavaScriptParser::ExportFromBlockContext *ctx) = 0;
+
+  virtual void enterDeclaration(JavaScriptParser::DeclarationContext *ctx) = 0;
+  virtual void exitDeclaration(JavaScriptParser::DeclarationContext *ctx) = 0;
 
   virtual void enterVariableStatement(JavaScriptParser::VariableStatementContext *ctx) = 0;
   virtual void exitVariableStatement(JavaScriptParser::VariableStatementContext *ctx) = 0;
@@ -76,14 +97,11 @@ public:
   virtual void enterForStatement(JavaScriptParser::ForStatementContext *ctx) = 0;
   virtual void exitForStatement(JavaScriptParser::ForStatementContext *ctx) = 0;
 
-  virtual void enterForVarStatement(JavaScriptParser::ForVarStatementContext *ctx) = 0;
-  virtual void exitForVarStatement(JavaScriptParser::ForVarStatementContext *ctx) = 0;
-
   virtual void enterForInStatement(JavaScriptParser::ForInStatementContext *ctx) = 0;
   virtual void exitForInStatement(JavaScriptParser::ForInStatementContext *ctx) = 0;
 
-  virtual void enterForVarInStatement(JavaScriptParser::ForVarInStatementContext *ctx) = 0;
-  virtual void exitForVarInStatement(JavaScriptParser::ForVarInStatementContext *ctx) = 0;
+  virtual void enterForOfStatement(JavaScriptParser::ForOfStatementContext *ctx) = 0;
+  virtual void exitForOfStatement(JavaScriptParser::ForOfStatementContext *ctx) = 0;
 
   virtual void enterVarModifier(JavaScriptParser::VarModifierContext *ctx) = 0;
   virtual void exitVarModifier(JavaScriptParser::VarModifierContext *ctx) = 0;
@@ -151,24 +169,6 @@ public:
   virtual void enterMethodDefinition(JavaScriptParser::MethodDefinitionContext *ctx) = 0;
   virtual void exitMethodDefinition(JavaScriptParser::MethodDefinitionContext *ctx) = 0;
 
-  virtual void enterGeneratorMethod(JavaScriptParser::GeneratorMethodContext *ctx) = 0;
-  virtual void exitGeneratorMethod(JavaScriptParser::GeneratorMethodContext *ctx) = 0;
-
-  virtual void enterGeneratorFunctionDeclaration(JavaScriptParser::GeneratorFunctionDeclarationContext *ctx) = 0;
-  virtual void exitGeneratorFunctionDeclaration(JavaScriptParser::GeneratorFunctionDeclarationContext *ctx) = 0;
-
-  virtual void enterGeneratorBlock(JavaScriptParser::GeneratorBlockContext *ctx) = 0;
-  virtual void exitGeneratorBlock(JavaScriptParser::GeneratorBlockContext *ctx) = 0;
-
-  virtual void enterGeneratorDefinition(JavaScriptParser::GeneratorDefinitionContext *ctx) = 0;
-  virtual void exitGeneratorDefinition(JavaScriptParser::GeneratorDefinitionContext *ctx) = 0;
-
-  virtual void enterIteratorBlock(JavaScriptParser::IteratorBlockContext *ctx) = 0;
-  virtual void exitIteratorBlock(JavaScriptParser::IteratorBlockContext *ctx) = 0;
-
-  virtual void enterIteratorDefinition(JavaScriptParser::IteratorDefinitionContext *ctx) = 0;
-  virtual void exitIteratorDefinition(JavaScriptParser::IteratorDefinitionContext *ctx) = 0;
-
   virtual void enterFormalParameterList(JavaScriptParser::FormalParameterListContext *ctx) = 0;
   virtual void exitFormalParameterList(JavaScriptParser::FormalParameterListContext *ctx) = 0;
 
@@ -190,8 +190,8 @@ public:
   virtual void enterElementList(JavaScriptParser::ElementListContext *ctx) = 0;
   virtual void exitElementList(JavaScriptParser::ElementListContext *ctx) = 0;
 
-  virtual void enterLastElement(JavaScriptParser::LastElementContext *ctx) = 0;
-  virtual void exitLastElement(JavaScriptParser::LastElementContext *ctx) = 0;
+  virtual void enterArrayElement(JavaScriptParser::ArrayElementContext *ctx) = 0;
+  virtual void exitArrayElement(JavaScriptParser::ArrayElementContext *ctx) = 0;
 
   virtual void enterObjectLiteral(JavaScriptParser::ObjectLiteralContext *ctx) = 0;
   virtual void exitObjectLiteral(JavaScriptParser::ObjectLiteralContext *ctx) = 0;
@@ -202,14 +202,14 @@ public:
   virtual void enterComputedPropertyExpressionAssignment(JavaScriptParser::ComputedPropertyExpressionAssignmentContext *ctx) = 0;
   virtual void exitComputedPropertyExpressionAssignment(JavaScriptParser::ComputedPropertyExpressionAssignmentContext *ctx) = 0;
 
+  virtual void enterFunctionProperty(JavaScriptParser::FunctionPropertyContext *ctx) = 0;
+  virtual void exitFunctionProperty(JavaScriptParser::FunctionPropertyContext *ctx) = 0;
+
   virtual void enterPropertyGetter(JavaScriptParser::PropertyGetterContext *ctx) = 0;
   virtual void exitPropertyGetter(JavaScriptParser::PropertyGetterContext *ctx) = 0;
 
   virtual void enterPropertySetter(JavaScriptParser::PropertySetterContext *ctx) = 0;
   virtual void exitPropertySetter(JavaScriptParser::PropertySetterContext *ctx) = 0;
-
-  virtual void enterMethodProperty(JavaScriptParser::MethodPropertyContext *ctx) = 0;
-  virtual void exitMethodProperty(JavaScriptParser::MethodPropertyContext *ctx) = 0;
 
   virtual void enterPropertyShorthand(JavaScriptParser::PropertyShorthandContext *ctx) = 0;
   virtual void exitPropertyShorthand(JavaScriptParser::PropertyShorthandContext *ctx) = 0;
@@ -220,8 +220,8 @@ public:
   virtual void enterArguments(JavaScriptParser::ArgumentsContext *ctx) = 0;
   virtual void exitArguments(JavaScriptParser::ArgumentsContext *ctx) = 0;
 
-  virtual void enterLastArgument(JavaScriptParser::LastArgumentContext *ctx) = 0;
-  virtual void exitLastArgument(JavaScriptParser::LastArgumentContext *ctx) = 0;
+  virtual void enterArgument(JavaScriptParser::ArgumentContext *ctx) = 0;
+  virtual void exitArgument(JavaScriptParser::ArgumentContext *ctx) = 0;
 
   virtual void enterExpressionSequence(JavaScriptParser::ExpressionSequenceContext *ctx) = 0;
   virtual void exitExpressionSequence(JavaScriptParser::ExpressionSequenceContext *ctx) = 0;
@@ -235,14 +235,17 @@ public:
   virtual void enterLogicalAndExpression(JavaScriptParser::LogicalAndExpressionContext *ctx) = 0;
   virtual void exitLogicalAndExpression(JavaScriptParser::LogicalAndExpressionContext *ctx) = 0;
 
-  virtual void enterGeneratorsExpression(JavaScriptParser::GeneratorsExpressionContext *ctx) = 0;
-  virtual void exitGeneratorsExpression(JavaScriptParser::GeneratorsExpressionContext *ctx) = 0;
+  virtual void enterPowerExpression(JavaScriptParser::PowerExpressionContext *ctx) = 0;
+  virtual void exitPowerExpression(JavaScriptParser::PowerExpressionContext *ctx) = 0;
 
   virtual void enterPreIncrementExpression(JavaScriptParser::PreIncrementExpressionContext *ctx) = 0;
   virtual void exitPreIncrementExpression(JavaScriptParser::PreIncrementExpressionContext *ctx) = 0;
 
   virtual void enterObjectLiteralExpression(JavaScriptParser::ObjectLiteralExpressionContext *ctx) = 0;
   virtual void exitObjectLiteralExpression(JavaScriptParser::ObjectLiteralExpressionContext *ctx) = 0;
+
+  virtual void enterMetaExpression(JavaScriptParser::MetaExpressionContext *ctx) = 0;
+  virtual void exitMetaExpression(JavaScriptParser::MetaExpressionContext *ctx) = 0;
 
   virtual void enterInExpression(JavaScriptParser::InExpressionContext *ctx) = 0;
   virtual void exitInExpression(JavaScriptParser::InExpressionContext *ctx) = 0;
@@ -258,6 +261,9 @@ public:
 
   virtual void enterArgumentsExpression(JavaScriptParser::ArgumentsExpressionContext *ctx) = 0;
   virtual void exitArgumentsExpression(JavaScriptParser::ArgumentsExpressionContext *ctx) = 0;
+
+  virtual void enterAwaitExpression(JavaScriptParser::AwaitExpressionContext *ctx) = 0;
+  virtual void exitAwaitExpression(JavaScriptParser::AwaitExpressionContext *ctx) = 0;
 
   virtual void enterThisExpression(JavaScriptParser::ThisExpressionContext *ctx) = 0;
   virtual void exitThisExpression(JavaScriptParser::ThisExpressionContext *ctx) = 0;
@@ -286,14 +292,8 @@ public:
   virtual void enterDeleteExpression(JavaScriptParser::DeleteExpressionContext *ctx) = 0;
   virtual void exitDeleteExpression(JavaScriptParser::DeleteExpressionContext *ctx) = 0;
 
-  virtual void enterGeneratorsFunctionExpression(JavaScriptParser::GeneratorsFunctionExpressionContext *ctx) = 0;
-  virtual void exitGeneratorsFunctionExpression(JavaScriptParser::GeneratorsFunctionExpressionContext *ctx) = 0;
-
-  virtual void enterIteratorsExpression(JavaScriptParser::IteratorsExpressionContext *ctx) = 0;
-  virtual void exitIteratorsExpression(JavaScriptParser::IteratorsExpressionContext *ctx) = 0;
-
-  virtual void enterArrowFunctionExpression(JavaScriptParser::ArrowFunctionExpressionContext *ctx) = 0;
-  virtual void exitArrowFunctionExpression(JavaScriptParser::ArrowFunctionExpressionContext *ctx) = 0;
+  virtual void enterImportExpression(JavaScriptParser::ImportExpressionContext *ctx) = 0;
+  virtual void exitImportExpression(JavaScriptParser::ImportExpressionContext *ctx) = 0;
 
   virtual void enterEqualityExpression(JavaScriptParser::EqualityExpressionContext *ctx) = 0;
   virtual void exitEqualityExpression(JavaScriptParser::EqualityExpressionContext *ctx) = 0;
@@ -361,6 +361,21 @@ public:
   virtual void enterVoidExpression(JavaScriptParser::VoidExpressionContext *ctx) = 0;
   virtual void exitVoidExpression(JavaScriptParser::VoidExpressionContext *ctx) = 0;
 
+  virtual void enterCoalesceExpression(JavaScriptParser::CoalesceExpressionContext *ctx) = 0;
+  virtual void exitCoalesceExpression(JavaScriptParser::CoalesceExpressionContext *ctx) = 0;
+
+  virtual void enterAssignable(JavaScriptParser::AssignableContext *ctx) = 0;
+  virtual void exitAssignable(JavaScriptParser::AssignableContext *ctx) = 0;
+
+  virtual void enterFunctionDecl(JavaScriptParser::FunctionDeclContext *ctx) = 0;
+  virtual void exitFunctionDecl(JavaScriptParser::FunctionDeclContext *ctx) = 0;
+
+  virtual void enterAnoymousFunctionDecl(JavaScriptParser::AnoymousFunctionDeclContext *ctx) = 0;
+  virtual void exitAnoymousFunctionDecl(JavaScriptParser::AnoymousFunctionDeclContext *ctx) = 0;
+
+  virtual void enterArrowFunction(JavaScriptParser::ArrowFunctionContext *ctx) = 0;
+  virtual void exitArrowFunction(JavaScriptParser::ArrowFunctionContext *ctx) = 0;
+
   virtual void enterArrowFunctionParameters(JavaScriptParser::ArrowFunctionParametersContext *ctx) = 0;
   virtual void exitArrowFunctionParameters(JavaScriptParser::ArrowFunctionParametersContext *ctx) = 0;
 
@@ -375,6 +390,9 @@ public:
 
   virtual void enterNumericLiteral(JavaScriptParser::NumericLiteralContext *ctx) = 0;
   virtual void exitNumericLiteral(JavaScriptParser::NumericLiteralContext *ctx) = 0;
+
+  virtual void enterBigintLiteral(JavaScriptParser::BigintLiteralContext *ctx) = 0;
+  virtual void exitBigintLiteral(JavaScriptParser::BigintLiteralContext *ctx) = 0;
 
   virtual void enterIdentifierName(JavaScriptParser::IdentifierNameContext *ctx) = 0;
   virtual void exitIdentifierName(JavaScriptParser::IdentifierNameContext *ctx) = 0;

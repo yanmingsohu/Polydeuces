@@ -47,15 +47,43 @@ public:
     return visitChildren(ctx);
   }
 
-  virtual antlrcpp::Any visitFromBlock(JavaScriptParser::FromBlockContext *ctx) override {
+  virtual antlrcpp::Any visitImportFromBlock(JavaScriptParser::ImportFromBlockContext *ctx) override {
     return visitChildren(ctx);
   }
 
-  virtual antlrcpp::Any visitMultipleImportStatement(JavaScriptParser::MultipleImportStatementContext *ctx) override {
+  virtual antlrcpp::Any visitModuleItems(JavaScriptParser::ModuleItemsContext *ctx) override {
     return visitChildren(ctx);
   }
 
-  virtual antlrcpp::Any visitExportStatement(JavaScriptParser::ExportStatementContext *ctx) override {
+  virtual antlrcpp::Any visitImportDefault(JavaScriptParser::ImportDefaultContext *ctx) override {
+    return visitChildren(ctx);
+  }
+
+  virtual antlrcpp::Any visitImportNamespace(JavaScriptParser::ImportNamespaceContext *ctx) override {
+    return visitChildren(ctx);
+  }
+
+  virtual antlrcpp::Any visitImportFrom(JavaScriptParser::ImportFromContext *ctx) override {
+    return visitChildren(ctx);
+  }
+
+  virtual antlrcpp::Any visitAliasName(JavaScriptParser::AliasNameContext *ctx) override {
+    return visitChildren(ctx);
+  }
+
+  virtual antlrcpp::Any visitExportDeclaration(JavaScriptParser::ExportDeclarationContext *ctx) override {
+    return visitChildren(ctx);
+  }
+
+  virtual antlrcpp::Any visitExportDefaultDeclaration(JavaScriptParser::ExportDefaultDeclarationContext *ctx) override {
+    return visitChildren(ctx);
+  }
+
+  virtual antlrcpp::Any visitExportFromBlock(JavaScriptParser::ExportFromBlockContext *ctx) override {
+    return visitChildren(ctx);
+  }
+
+  virtual antlrcpp::Any visitDeclaration(JavaScriptParser::DeclarationContext *ctx) override {
     return visitChildren(ctx);
   }
 
@@ -95,15 +123,11 @@ public:
     return visitChildren(ctx);
   }
 
-  virtual antlrcpp::Any visitForVarStatement(JavaScriptParser::ForVarStatementContext *ctx) override {
-    return visitChildren(ctx);
-  }
-
   virtual antlrcpp::Any visitForInStatement(JavaScriptParser::ForInStatementContext *ctx) override {
     return visitChildren(ctx);
   }
 
-  virtual antlrcpp::Any visitForVarInStatement(JavaScriptParser::ForVarInStatementContext *ctx) override {
+  virtual antlrcpp::Any visitForOfStatement(JavaScriptParser::ForOfStatementContext *ctx) override {
     return visitChildren(ctx);
   }
 
@@ -195,30 +219,6 @@ public:
     return visitChildren(ctx);
   }
 
-  virtual antlrcpp::Any visitGeneratorMethod(JavaScriptParser::GeneratorMethodContext *ctx) override {
-    return visitChildren(ctx);
-  }
-
-  virtual antlrcpp::Any visitGeneratorFunctionDeclaration(JavaScriptParser::GeneratorFunctionDeclarationContext *ctx) override {
-    return visitChildren(ctx);
-  }
-
-  virtual antlrcpp::Any visitGeneratorBlock(JavaScriptParser::GeneratorBlockContext *ctx) override {
-    return visitChildren(ctx);
-  }
-
-  virtual antlrcpp::Any visitGeneratorDefinition(JavaScriptParser::GeneratorDefinitionContext *ctx) override {
-    return visitChildren(ctx);
-  }
-
-  virtual antlrcpp::Any visitIteratorBlock(JavaScriptParser::IteratorBlockContext *ctx) override {
-    return visitChildren(ctx);
-  }
-
-  virtual antlrcpp::Any visitIteratorDefinition(JavaScriptParser::IteratorDefinitionContext *ctx) override {
-    return visitChildren(ctx);
-  }
-
   virtual antlrcpp::Any visitFormalParameterList(JavaScriptParser::FormalParameterListContext *ctx) override {
     return visitChildren(ctx);
   }
@@ -247,7 +247,7 @@ public:
     return visitChildren(ctx);
   }
 
-  virtual antlrcpp::Any visitLastElement(JavaScriptParser::LastElementContext *ctx) override {
+  virtual antlrcpp::Any visitArrayElement(JavaScriptParser::ArrayElementContext *ctx) override {
     return visitChildren(ctx);
   }
 
@@ -263,15 +263,15 @@ public:
     return visitChildren(ctx);
   }
 
+  virtual antlrcpp::Any visitFunctionProperty(JavaScriptParser::FunctionPropertyContext *ctx) override {
+    return visitChildren(ctx);
+  }
+
   virtual antlrcpp::Any visitPropertyGetter(JavaScriptParser::PropertyGetterContext *ctx) override {
     return visitChildren(ctx);
   }
 
   virtual antlrcpp::Any visitPropertySetter(JavaScriptParser::PropertySetterContext *ctx) override {
-    return visitChildren(ctx);
-  }
-
-  virtual antlrcpp::Any visitMethodProperty(JavaScriptParser::MethodPropertyContext *ctx) override {
     return visitChildren(ctx);
   }
 
@@ -287,7 +287,7 @@ public:
     return visitChildren(ctx);
   }
 
-  virtual antlrcpp::Any visitLastArgument(JavaScriptParser::LastArgumentContext *ctx) override {
+  virtual antlrcpp::Any visitArgument(JavaScriptParser::ArgumentContext *ctx) override {
     return visitChildren(ctx);
   }
 
@@ -307,7 +307,7 @@ public:
     return visitChildren(ctx);
   }
 
-  virtual antlrcpp::Any visitGeneratorsExpression(JavaScriptParser::GeneratorsExpressionContext *ctx) override {
+  virtual antlrcpp::Any visitPowerExpression(JavaScriptParser::PowerExpressionContext *ctx) override {
     return visitChildren(ctx);
   }
 
@@ -316,6 +316,10 @@ public:
   }
 
   virtual antlrcpp::Any visitObjectLiteralExpression(JavaScriptParser::ObjectLiteralExpressionContext *ctx) override {
+    return visitChildren(ctx);
+  }
+
+  virtual antlrcpp::Any visitMetaExpression(JavaScriptParser::MetaExpressionContext *ctx) override {
     return visitChildren(ctx);
   }
 
@@ -336,6 +340,10 @@ public:
   }
 
   virtual antlrcpp::Any visitArgumentsExpression(JavaScriptParser::ArgumentsExpressionContext *ctx) override {
+    return visitChildren(ctx);
+  }
+
+  virtual antlrcpp::Any visitAwaitExpression(JavaScriptParser::AwaitExpressionContext *ctx) override {
     return visitChildren(ctx);
   }
 
@@ -375,15 +383,7 @@ public:
     return visitChildren(ctx);
   }
 
-  virtual antlrcpp::Any visitGeneratorsFunctionExpression(JavaScriptParser::GeneratorsFunctionExpressionContext *ctx) override {
-    return visitChildren(ctx);
-  }
-
-  virtual antlrcpp::Any visitIteratorsExpression(JavaScriptParser::IteratorsExpressionContext *ctx) override {
-    return visitChildren(ctx);
-  }
-
-  virtual antlrcpp::Any visitArrowFunctionExpression(JavaScriptParser::ArrowFunctionExpressionContext *ctx) override {
+  virtual antlrcpp::Any visitImportExpression(JavaScriptParser::ImportExpressionContext *ctx) override {
     return visitChildren(ctx);
   }
 
@@ -475,6 +475,26 @@ public:
     return visitChildren(ctx);
   }
 
+  virtual antlrcpp::Any visitCoalesceExpression(JavaScriptParser::CoalesceExpressionContext *ctx) override {
+    return visitChildren(ctx);
+  }
+
+  virtual antlrcpp::Any visitAssignable(JavaScriptParser::AssignableContext *ctx) override {
+    return visitChildren(ctx);
+  }
+
+  virtual antlrcpp::Any visitFunctionDecl(JavaScriptParser::FunctionDeclContext *ctx) override {
+    return visitChildren(ctx);
+  }
+
+  virtual antlrcpp::Any visitAnoymousFunctionDecl(JavaScriptParser::AnoymousFunctionDeclContext *ctx) override {
+    return visitChildren(ctx);
+  }
+
+  virtual antlrcpp::Any visitArrowFunction(JavaScriptParser::ArrowFunctionContext *ctx) override {
+    return visitChildren(ctx);
+  }
+
   virtual antlrcpp::Any visitArrowFunctionParameters(JavaScriptParser::ArrowFunctionParametersContext *ctx) override {
     return visitChildren(ctx);
   }
@@ -492,6 +512,10 @@ public:
   }
 
   virtual antlrcpp::Any visitNumericLiteral(JavaScriptParser::NumericLiteralContext *ctx) override {
+    return visitChildren(ctx);
+  }
+
+  virtual antlrcpp::Any visitBigintLiteral(JavaScriptParser::BigintLiteralContext *ctx) override {
     return visitChildren(ctx);
   }
 

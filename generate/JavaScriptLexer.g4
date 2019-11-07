@@ -5,6 +5,7 @@
  * Copyright (c) 2017 by Ivan Kochurkin (Positive Technologies):
     added ECMAScript 6 support, cleared and transformed to the universal grammar.
  * Copyright (c) 2018 by Juan Alvarez (contributor -> ported to Go)
+ * Copyright (c) 2019 by Student Main (contributor -> ES2020)
  *
  * Permission is hereby granted, free of charge, to any person
  * obtaining a copy of this software and associated documentation
@@ -14,7 +15,7 @@
  * copies of the Software, and to permit persons to whom the
  * Software is furnished to do so, subject to the following
  * conditions:
- * 
+ *
  * The above copyright notice and this permission notice shall be
  * included in all copies or substantial portions of the Software.
  *
@@ -41,6 +42,7 @@ options { superClass=JavaScriptBaseLexer; }
 #include "JavaScriptBaseParser.h"
 }
 
+HashBangLine:                   { this->IsStartOfFile()}? '#!' ~[\r\n\u2028\u2029]*; // only allowed at start
 MultiLineComment:               '/*' .*? '*/'             -> channel(HIDDEN);
 SingleLineComment:              '//' ~[\r\n\u2028\u2029]* -> channel(HIDDEN);
 RegularExpressionLiteral:       '/' RegularExpressionFirstChar RegularExpressionChar* {this->IsRegexPossible()}? '/' IdentifierPart*;
@@ -67,6 +69,9 @@ Not:                            '!';
 Multiply:                       '*';
 Divide:                         '/';
 Modulus:                        '%';
+Power:                          '**';
+NullCoalesce:                   '??';
+Hashtag:                        '#';
 RightShiftArithmetic:           '>>';
 LeftShiftArithmetic:            '<<';
 RightShiftLogical:              '>>>';
@@ -94,6 +99,7 @@ RightShiftLogicalAssign:        '>>>=';
 BitAndAssign:                   '&=';
 BitXorAssign:                   '^=';
 BitOrAssign:                    '|=';
+PowerAssign:                    '**=';
 ARROW:                          '=>';
 
 /// Null Literals
@@ -107,17 +113,22 @@ BooleanLiteral:                 'true'
 
 /// Numeric Literals
 
-DecimalLiteral:                 DecimalIntegerLiteral '.' [0-9]* ExponentPart?
-              |                 '.' [0-9]+ ExponentPart?
+DecimalLiteral:                 DecimalIntegerLiteral '.' [0-9] [0-9_]* ExponentPart?
+              |                 '.' [0-9] [0-9_]* ExponentPart?
               |                 DecimalIntegerLiteral ExponentPart?
               ;
 
 /// Numeric Literals
 
-HexIntegerLiteral:              '0' [xX] HexDigit+;
+HexIntegerLiteral:              '0' [xX] [0-9a-fA-F] HexDigit*;
 OctalIntegerLiteral:            '0' [0-7]+ {!this->IsStrictMode()}?;
-OctalIntegerLiteral2:           '0' [oO] [0-7]+;
-BinaryIntegerLiteral:           '0' [bB] [01]+;
+OctalIntegerLiteral2:           '0' [oO] [0-7] [_0-7]*;
+BinaryIntegerLiteral:           '0' [bB] [01] [_01]*;
+
+BigHexIntegerLiteral:           '0' [xX] [0-9a-fA-F] HexDigit* 'n';
+BigOctalIntegerLiteral:         '0' [oO] [0-7] [_0-7]* 'n';
+BigBinaryIntegerLiteral:        '0' [bB] [01] [_01]* 'n';
+BigDecimalIntegerLiteral:       DecimalIntegerLiteral 'n';
 
 /// Keywords
 
@@ -160,7 +171,10 @@ Const:                          'const';
 Export:                         'export';
 Import:                         'import';
 
-/// The following tokens are also considered to be FutureReservedWords 
+Async:                          'async';
+Await:                          'await';
+
+/// The following tokens are also considered to be FutureReservedWords
 /// when parsing strict mode
 
 Implements:                     'implements' {this->IsStrictMode()}?;
@@ -176,12 +190,12 @@ Yield:                          'yield' {this->IsStrictMode()}?;
 /// Identifier Names and Identifiers
 
 Identifier:                     IdentifierStart IdentifierPart*;
-
 /// String Literals
 StringLiteral:                 ('"' DoubleStringCharacter* '"'
              |                  '\'' SingleStringCharacter* '\'') {this->ProcessStringLiteral();}
              ;
 
+// TODO: `${`tmp`}`
 TemplateStringLiteral:          '`' ('\\`' | ~'`')* '`';
 
 WhiteSpaces:                    [\t\u000B\u000C\u0020\u00A0]+ -> channel(HIDDEN);
@@ -228,6 +242,7 @@ fragment HexEscapeSequence
 
 fragment UnicodeEscapeSequence
     : 'u' HexDigit HexDigit HexDigit HexDigit
+    | 'u' '{' HexDigit HexDigit+ '}'
     ;
 
 fragment ExtendedUnicodeEscapeSequence
@@ -253,16 +268,16 @@ fragment LineContinuation
     ;
 
 fragment HexDigit
-    : [0-9a-fA-F]
+    : [_0-9a-fA-F]
     ;
 
 fragment DecimalIntegerLiteral
     : '0'
-    | [1-9] [0-9]*
+    | [1-9] [0-9_]*
     ;
 
 fragment ExponentPart
-    : [eE] [+-]? [0-9]+
+    : [eE] [+-]? [0-9_]+
     ;
 
 fragment IdentifierPart
@@ -549,7 +564,7 @@ fragment UnicodeCombiningMark
     | [\u0591-\u05A1]
     | [\u05A3-\u05B9]
     | [\u05BB-\u05BD]
-    | [\u05BF] 
+    | [\u05BF]
     | [\u05C1-\u05C2]
     | [\u05C4]
     | [\u064B-\u0655]

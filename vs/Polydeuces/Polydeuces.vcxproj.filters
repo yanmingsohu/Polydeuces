@@ -121,5 +121,6 @@
       <Filter>g4</Filter>
     </None>
     <None Include="cpp.hint" />
+    <None Include="..\..\README.md" />
   </ItemGroup>
 </Project>

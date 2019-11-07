@@ -10,12 +10,11 @@
 
 ## antlr-cpp-runtime
 
-* (All from zip)[https://www.antlr.org/download/antlr4-cpp-runtime-4.7.2-source.zip] !bug
-* Download from `https://github.com/antlr/antlr4/archive/master.zip` unzip master.zip/runtime/Cpp/** to antlr-cpp-runtime
-* Run `antlr-cpp-runtime.cmd`
+* Run `install-antlr-cpp-runtime` once, then update with git always.
+* Run `compile-antlr-cpp-runtime`.
 
 
 ## javascript-grammars
 
-* run `javascript-grammars.cmd`
-* read `javascript-grammars/javascript/README.md`
+* Run `install-javascript-grammars` once, then update with git always.
+* Read `javascript-grammars/javascript/README.md`.

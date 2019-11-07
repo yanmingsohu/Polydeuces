@@ -87,27 +87,6 @@ void CoreListener::exitImportStatement(JavaScriptParser::ImportStatementContext*
 }
 
 
-void CoreListener::enterFromBlock(JavaScriptParser::FromBlockContext* ctx) {}
-
-void CoreListener::exitFromBlock(JavaScriptParser::FromBlockContext* ctx) {}
-
-void CoreListener
-::enterMultipleImportStatement(JavaScriptParser::MultipleImportStatementContext* ctx){}
-
-void CoreListener
-::exitMultipleImportStatement(JavaScriptParser::MultipleImportStatementContext* ctx){}
-
-
-void CoreListener::enterExportStatement(JavaScriptParser::ExportStatementContext* ctx) {
-  printf("Export ");
-}
-
-
-void CoreListener::exitExportStatement(JavaScriptParser::ExportStatementContext* ctx) {
-  printf(" over\n");
-}
-
-
 void CoreListener::enterVariableStatement(JavaScriptParser::VariableStatementContext* ctx) {
   printf("DEF {");
 }
@@ -125,11 +104,14 @@ void CoreListener
 void CoreListener
 ::exitVariableDeclarationList(JavaScriptParser::VariableDeclarationListContext* ctx){}
 
-void CoreListener::enterVariableDeclaration(JavaScriptParser::VariableDeclarationContext* ctx) {}
+
+void CoreListener::enterVariableDeclaration(JavaScriptParser::VariableDeclarationContext* ctx) {
+}
 
 
 void CoreListener::exitVariableDeclaration(JavaScriptParser::VariableDeclarationContext* ctx) {
-  auto id = ctx->Identifier();
+  auto ass = ctx->assignable();
+  auto id = ass->Identifier();
   if (id) {
     auto name = id->getText();
     printf(" %s=", name.c_str());
@@ -147,13 +129,13 @@ void CoreListener::exitVariableDeclaration(JavaScriptParser::VariableDeclaration
     return;
   }
 
-  auto arr = ctx->arrayLiteral();
+  auto arr = ass->arrayLiteral();
   if (arr) {
     printf(" %s=", arr->getText().c_str());
     return;
   }
 
-  auto obj = ctx->objectLiteral();
+  auto obj = ass->objectLiteral();
   if (obj) {
     printf(" %s=", obj->getText().c_str());
     return;
@@ -211,14 +193,6 @@ void CoreListener::exitForStatement(JavaScriptParser::ForStatementContext* ctx)
 {
 }
 
-void CoreListener::enterForVarStatement(JavaScriptParser::ForVarStatementContext* ctx)
-{
-}
-
-void CoreListener::exitForVarStatement(JavaScriptParser::ForVarStatementContext* ctx)
-{
-}
-
 void CoreListener::enterForInStatement(JavaScriptParser::ForInStatementContext* ctx)
 {
 }
@@ -227,13 +201,6 @@ void CoreListener::exitForInStatement(JavaScriptParser::ForInStatementContext* c
 {
 }
 
-void CoreListener::enterForVarInStatement(JavaScriptParser::ForVarInStatementContext* ctx)
-{
-}
-
-void CoreListener::exitForVarInStatement(JavaScriptParser::ForVarInStatementContext* ctx)
-{
-}
 
 void CoreListener::enterVarModifier(JavaScriptParser::VarModifierContext* mod) {}
 
@@ -424,54 +391,6 @@ void CoreListener::exitMethodDefinition(JavaScriptParser::MethodDefinitionContex
 {
 }
 
-void CoreListener::enterGeneratorMethod(JavaScriptParser::GeneratorMethodContext* ctx)
-{
-}
-
-void CoreListener::exitGeneratorMethod(JavaScriptParser::GeneratorMethodContext* ctx)
-{
-}
-
-void CoreListener::enterGeneratorFunctionDeclaration(JavaScriptParser::GeneratorFunctionDeclarationContext* ctx)
-{
-}
-
-void CoreListener::exitGeneratorFunctionDeclaration(JavaScriptParser::GeneratorFunctionDeclarationContext* ctx)
-{
-}
-
-void CoreListener::enterGeneratorBlock(JavaScriptParser::GeneratorBlockContext* ctx)
-{
-}
-
-void CoreListener::exitGeneratorBlock(JavaScriptParser::GeneratorBlockContext* ctx)
-{
-}
-
-void CoreListener::enterGeneratorDefinition(JavaScriptParser::GeneratorDefinitionContext* ctx)
-{
-}
-
-void CoreListener::exitGeneratorDefinition(JavaScriptParser::GeneratorDefinitionContext* ctx)
-{
-}
-
-void CoreListener::enterIteratorBlock(JavaScriptParser::IteratorBlockContext* ctx)
-{
-}
-
-void CoreListener::exitIteratorBlock(JavaScriptParser::IteratorBlockContext* ctx)
-{
-}
-
-void CoreListener::enterIteratorDefinition(JavaScriptParser::IteratorDefinitionContext* ctx)
-{
-}
-
-void CoreListener::exitIteratorDefinition(JavaScriptParser::IteratorDefinitionContext* ctx)
-{
-}
-
 void CoreListener::enterFormalParameterList(JavaScriptParser::FormalParameterListContext* ctx)
 {
 }
@@ -530,14 +449,6 @@ void CoreListener::exitElementList(JavaScriptParser::ElementListContext* ctx)
 {
 }
 
-void CoreListener::enterLastElement(JavaScriptParser::LastElementContext* ctx)
-{
-}
-
-void CoreListener::exitLastElement(JavaScriptParser::LastElementContext* ctx)
-{
-}
-
 void CoreListener::enterObjectLiteral(JavaScriptParser::ObjectLiteralContext* ctx)
 {
 }
@@ -578,14 +489,6 @@ void CoreListener::exitPropertySetter(JavaScriptParser::PropertySetterContext* c
 {
 }
 
-void CoreListener::enterMethodProperty(JavaScriptParser::MethodPropertyContext* ctx)
-{
-}
-
-void CoreListener::exitMethodProperty(JavaScriptParser::MethodPropertyContext* ctx)
-{
-}
-
 void CoreListener::enterPropertyShorthand(JavaScriptParser::PropertyShorthandContext* ctx)
 {
 }
@@ -607,14 +510,6 @@ void CoreListener::enterArguments(JavaScriptParser::ArgumentsContext* ctx)
 }
 
 void CoreListener::exitArguments(JavaScriptParser::ArgumentsContext* ctx)
-{
-}
-
-void CoreListener::enterLastArgument(JavaScriptParser::LastArgumentContext* ctx)
-{
-}
-
-void CoreListener::exitLastArgument(JavaScriptParser::LastArgumentContext* ctx)
 {
 }
 
@@ -652,14 +547,6 @@ void CoreListener::enterLogicalAndExpression(JavaScriptParser::LogicalAndExpress
 
 void CoreListener::exitLogicalAndExpression(JavaScriptParser::LogicalAndExpressionContext* ctx) {
   instruct->push(new LogicalAndExp);
-}
-
-void CoreListener::enterGeneratorsExpression(JavaScriptParser::GeneratorsExpressionContext* ctx)
-{
-}
-
-void CoreListener::exitGeneratorsExpression(JavaScriptParser::GeneratorsExpressionContext* ctx)
-{
 }
 
 void CoreListener::enterPreIncrementExpression(JavaScriptParser::PreIncrementExpressionContext* ctx)
@@ -736,12 +623,12 @@ void CoreListener::exitThisExpression(JavaScriptParser::ThisExpressionContext* c
 
 void CoreListener::enterFunctionExpression(JavaScriptParser::FunctionExpressionContext* ctx)
 {
-  printf("FunctionExp-{");
+  printf(" FunctionExp-{");
 }
 
 void CoreListener::exitFunctionExpression(JavaScriptParser::FunctionExpressionContext* ctx)
 {
-  printf("Function-}");
+  printf(" Function-}");
 }
 
 
@@ -804,33 +691,11 @@ void CoreListener::exitDeleteExpression(JavaScriptParser::DeleteExpressionContex
 {
 }
 
-void CoreListener::enterGeneratorsFunctionExpression(JavaScriptParser::GeneratorsFunctionExpressionContext* ctx)
-{
-}
-
-void CoreListener::exitGeneratorsFunctionExpression(JavaScriptParser::GeneratorsFunctionExpressionContext* ctx)
-{
-}
-
-void CoreListener::enterIteratorsExpression(JavaScriptParser::IteratorsExpressionContext* ctx)
-{
-}
-
-void CoreListener::exitIteratorsExpression(JavaScriptParser::IteratorsExpressionContext* ctx)
-{
-}
-
-void CoreListener::enterArrowFunctionExpression(JavaScriptParser::ArrowFunctionExpressionContext* ctx)
-{
-}
-
-void CoreListener::exitArrowFunctionExpression(JavaScriptParser::ArrowFunctionExpressionContext* ctx)
-{
-}
 
 void CoreListener::enterEqualityExpression(JavaScriptParser::EqualityExpressionContext* ctx)
 {
 }
+
 
 void CoreListener::exitEqualityExpression(JavaScriptParser::EqualityExpressionContext* ctx) {
   if (ctx->Equals_()) {
@@ -1263,4 +1128,150 @@ void CoreListener::enterEos(JavaScriptParser::EosContext* ctx)
 
 void CoreListener::exitEos(JavaScriptParser::EosContext* ctx)
 {
+}
+
+// Éý¼¶µ½ ES2020
+
+void CoreListener::enterImportFromBlock(JavaScriptParser::ImportFromBlockContext* ctx) {
+}
+
+void CoreListener::exitImportFromBlock(JavaScriptParser::ImportFromBlockContext* ctx) {
+}
+
+void CoreListener::enterModuleItems(JavaScriptParser::ModuleItemsContext* ctx) {
+}
+
+void CoreListener::exitModuleItems(JavaScriptParser::ModuleItemsContext* ctx) {
+}
+
+void CoreListener::enterImportDefault(JavaScriptParser::ImportDefaultContext* ctx) {
+}
+
+void CoreListener::exitImportDefault(JavaScriptParser::ImportDefaultContext* ctx) {
+}
+
+void CoreListener::enterImportNamespace(JavaScriptParser::ImportNamespaceContext* ctx) {
+}
+
+void CoreListener::exitImportNamespace(JavaScriptParser::ImportNamespaceContext* ctx) {
+}
+
+void CoreListener::enterImportFrom(JavaScriptParser::ImportFromContext* ctx) {
+}
+
+void CoreListener::exitImportFrom(JavaScriptParser::ImportFromContext* ctx) {
+}
+
+void CoreListener::enterAliasName(JavaScriptParser::AliasNameContext* ctx) {
+}
+
+void CoreListener::exitAliasName(JavaScriptParser::AliasNameContext* ctx) {
+}
+
+void CoreListener::enterExportDeclaration(JavaScriptParser::ExportDeclarationContext* ctx) {
+}
+
+void CoreListener::exitExportDeclaration(JavaScriptParser::ExportDeclarationContext* ctx) {
+}
+
+void CoreListener::enterExportDefaultDeclaration(JavaScriptParser::ExportDefaultDeclarationContext* ctx) {
+}
+
+void CoreListener::exitExportDefaultDeclaration(JavaScriptParser::ExportDefaultDeclarationContext* ctx) {
+}
+
+void CoreListener::enterExportFromBlock(JavaScriptParser::ExportFromBlockContext* ctx) {
+}
+
+void CoreListener::exitExportFromBlock(JavaScriptParser::ExportFromBlockContext* ctx) {
+}
+
+void CoreListener::enterDeclaration(JavaScriptParser::DeclarationContext* ctx) {
+}
+
+void CoreListener::exitDeclaration(JavaScriptParser::DeclarationContext* ctx) {
+}
+
+void CoreListener::enterForOfStatement(JavaScriptParser::ForOfStatementContext* ctx) {
+}
+
+void CoreListener::exitForOfStatement(JavaScriptParser::ForOfStatementContext* ctx) {
+}
+
+void CoreListener::enterArrayElement(JavaScriptParser::ArrayElementContext* ctx) {
+}
+
+void CoreListener::exitArrayElement(JavaScriptParser::ArrayElementContext* ctx) {
+}
+
+void CoreListener::enterFunctionProperty(JavaScriptParser::FunctionPropertyContext* ctx) {
+}
+
+void CoreListener::exitFunctionProperty(JavaScriptParser::FunctionPropertyContext* ctx) {
+}
+
+void CoreListener::enterArgument(JavaScriptParser::ArgumentContext* ctx) {
+}
+
+void CoreListener::exitArgument(JavaScriptParser::ArgumentContext* ctx) {
+}
+
+void CoreListener::enterPowerExpression(JavaScriptParser::PowerExpressionContext* ctx) {
+}
+
+void CoreListener::exitPowerExpression(JavaScriptParser::PowerExpressionContext* ctx) {
+}
+
+void CoreListener::enterMetaExpression(JavaScriptParser::MetaExpressionContext* ctx) {
+}
+
+void CoreListener::exitMetaExpression(JavaScriptParser::MetaExpressionContext* ctx) {
+}
+
+void CoreListener::enterAwaitExpression(JavaScriptParser::AwaitExpressionContext* ctx) {
+}
+
+void CoreListener::exitAwaitExpression(JavaScriptParser::AwaitExpressionContext* ctx) {
+}
+
+void CoreListener::enterImportExpression(JavaScriptParser::ImportExpressionContext* ctx) {
+}
+
+void CoreListener::exitImportExpression(JavaScriptParser::ImportExpressionContext* ctx) {
+}
+
+void CoreListener::enterCoalesceExpression(JavaScriptParser::CoalesceExpressionContext* ctx) {
+}
+
+void CoreListener::exitCoalesceExpression(JavaScriptParser::CoalesceExpressionContext* ctx) {
+}
+
+void CoreListener::enterAssignable(JavaScriptParser::AssignableContext* ctx) {
+}
+
+void CoreListener::exitAssignable(JavaScriptParser::AssignableContext* ctx) {
+}
+
+void CoreListener::enterFunctionDecl(JavaScriptParser::FunctionDeclContext* ctx) {
+}
+
+void CoreListener::exitFunctionDecl(JavaScriptParser::FunctionDeclContext* ctx) {
+}
+
+void CoreListener::enterAnoymousFunctionDecl(JavaScriptParser::AnoymousFunctionDeclContext* ctx) {
+}
+
+void CoreListener::exitAnoymousFunctionDecl(JavaScriptParser::AnoymousFunctionDeclContext* ctx) {
+}
+
+void CoreListener::enterArrowFunction(JavaScriptParser::ArrowFunctionContext* ctx) {
+}
+
+void CoreListener::exitArrowFunction(JavaScriptParser::ArrowFunctionContext* ctx) {
+}
+
+void CoreListener::enterBigintLiteral(JavaScriptParser::BigintLiteralContext* ctx) {
+}
+
+void CoreListener::exitBigintLiteral(JavaScriptParser::BigintLiteralContext* ctx) {
 }

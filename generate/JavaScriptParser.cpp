@@ -49,6 +49,10 @@ tree::TerminalNode* JavaScriptParser::ProgramContext::EOF() {
   return getToken(JavaScriptParser::EOF, 0);
 }
 
+tree::TerminalNode* JavaScriptParser::ProgramContext::HashBangLine() {
+  return getToken(JavaScriptParser::HashBangLine, 0);
+}
+
 JavaScriptParser::SourceElementsContext* JavaScriptParser::ProgramContext::sourceElements() {
   return getRuleContext<JavaScriptParser::SourceElementsContext>(0);
 }
@@ -87,18 +91,29 @@ JavaScriptParser::ProgramContext* JavaScriptParser::program() {
   });
   try {
     enterOuterAlt(_localctx, 1);
-    setState(141);
+    setState(147);
     _errHandler->sync(this);
 
     switch (getInterpreter<atn::ParserATNSimulator>()->adaptivePredict(_input, 0, _ctx)) {
     case 1: {
-      setState(140);
+      setState(146);
+      match(JavaScriptParser::HashBangLine);
+      break;
+    }
+
+    }
+    setState(150);
+    _errHandler->sync(this);
+
+    switch (getInterpreter<atn::ParserATNSimulator>()->adaptivePredict(_input, 1, _ctx)) {
+    case 1: {
+      setState(149);
       sourceElements();
       break;
     }
 
     }
-    setState(143);
+    setState(152);
     match(JavaScriptParser::EOF);
    
   }
@@ -119,10 +134,6 @@ JavaScriptParser::SourceElementContext::SourceElementContext(ParserRuleContext *
 
 JavaScriptParser::StatementContext* JavaScriptParser::SourceElementContext::statement() {
   return getRuleContext<JavaScriptParser::StatementContext>(0);
-}
-
-tree::TerminalNode* JavaScriptParser::SourceElementContext::Export() {
-  return getToken(JavaScriptParser::Export, 0);
 }
 
 
@@ -159,18 +170,7 @@ JavaScriptParser::SourceElementContext* JavaScriptParser::sourceElement() {
   });
   try {
     enterOuterAlt(_localctx, 1);
-    setState(146);
-    _errHandler->sync(this);
-
-    switch (getInterpreter<atn::ParserATNSimulator>()->adaptivePredict(_input, 1, _ctx)) {
-    case 1: {
-      setState(145);
-      match(JavaScriptParser::Export);
-      break;
-    }
-
-    }
-    setState(148);
+    setState(154);
     statement();
    
   }
@@ -269,10 +269,6 @@ JavaScriptParser::FunctionDeclarationContext* JavaScriptParser::StatementContext
   return getRuleContext<JavaScriptParser::FunctionDeclarationContext>(0);
 }
 
-JavaScriptParser::GeneratorFunctionDeclarationContext* JavaScriptParser::StatementContext::generatorFunctionDeclaration() {
-  return getRuleContext<JavaScriptParser::GeneratorFunctionDeclarationContext>(0);
-}
-
 
 size_t JavaScriptParser::StatementContext::getRuleIndex() const {
   return JavaScriptParser::RuleStatement;
@@ -306,153 +302,146 @@ JavaScriptParser::StatementContext* JavaScriptParser::statement() {
     exitRule();
   });
   try {
-    setState(171);
+    setState(176);
     _errHandler->sync(this);
     switch (getInterpreter<atn::ParserATNSimulator>()->adaptivePredict(_input, 2, _ctx)) {
     case 1: {
       enterOuterAlt(_localctx, 1);
-      setState(150);
+      setState(156);
       block();
       break;
     }
 
     case 2: {
       enterOuterAlt(_localctx, 2);
-      setState(151);
+      setState(157);
       variableStatement();
       break;
     }
 
     case 3: {
       enterOuterAlt(_localctx, 3);
-      setState(152);
+      setState(158);
       importStatement();
       break;
     }
 
     case 4: {
       enterOuterAlt(_localctx, 4);
-      setState(153);
+      setState(159);
       exportStatement();
       break;
     }
 
     case 5: {
       enterOuterAlt(_localctx, 5);
-      setState(154);
+      setState(160);
       emptyStatement();
       break;
     }
 
     case 6: {
       enterOuterAlt(_localctx, 6);
-      setState(155);
+      setState(161);
       classDeclaration();
       break;
     }
 
     case 7: {
       enterOuterAlt(_localctx, 7);
-      setState(156);
+      setState(162);
       expressionStatement();
       break;
     }
 
     case 8: {
       enterOuterAlt(_localctx, 8);
-      setState(157);
+      setState(163);
       ifStatement();
       break;
     }
 
     case 9: {
       enterOuterAlt(_localctx, 9);
-      setState(158);
+      setState(164);
       iterationStatement();
       break;
     }
 
     case 10: {
       enterOuterAlt(_localctx, 10);
-      setState(159);
+      setState(165);
       continueStatement();
       break;
     }
 
     case 11: {
       enterOuterAlt(_localctx, 11);
-      setState(160);
+      setState(166);
       breakStatement();
       break;
     }
 
     case 12: {
       enterOuterAlt(_localctx, 12);
-      setState(161);
+      setState(167);
       returnStatement();
       break;
     }
 
     case 13: {
       enterOuterAlt(_localctx, 13);
-      setState(162);
+      setState(168);
       yieldStatement();
       break;
     }
 
     case 14: {
       enterOuterAlt(_localctx, 14);
-      setState(163);
+      setState(169);
       withStatement();
       break;
     }
 
     case 15: {
       enterOuterAlt(_localctx, 15);
-      setState(164);
+      setState(170);
       labelledStatement();
       break;
     }
 
     case 16: {
       enterOuterAlt(_localctx, 16);
-      setState(165);
+      setState(171);
       switchStatement();
       break;
     }
 
     case 17: {
       enterOuterAlt(_localctx, 17);
-      setState(166);
+      setState(172);
       throwStatement();
       break;
     }
 
     case 18: {
       enterOuterAlt(_localctx, 18);
-      setState(167);
+      setState(173);
       tryStatement();
       break;
     }
 
     case 19: {
       enterOuterAlt(_localctx, 19);
-      setState(168);
+      setState(174);
       debuggerStatement();
       break;
     }
 
     case 20: {
       enterOuterAlt(_localctx, 20);
-      setState(169);
+      setState(175);
       functionDeclaration();
-      break;
-    }
-
-    case 21: {
-      enterOuterAlt(_localctx, 21);
-      setState(170);
-      generatorFunctionDeclaration();
       break;
     }
 
@@ -520,20 +509,20 @@ JavaScriptParser::BlockContext* JavaScriptParser::block() {
   });
   try {
     enterOuterAlt(_localctx, 1);
-    setState(173);
+    setState(178);
     match(JavaScriptParser::OpenBrace);
-    setState(175);
+    setState(180);
     _errHandler->sync(this);
 
     switch (getInterpreter<atn::ParserATNSimulator>()->adaptivePredict(_input, 3, _ctx)) {
     case 1: {
-      setState(174);
+      setState(179);
       statementList();
       break;
     }
 
     }
-    setState(177);
+    setState(182);
     match(JavaScriptParser::CloseBrace);
    
   }
@@ -595,13 +584,13 @@ JavaScriptParser::StatementListContext* JavaScriptParser::statementList() {
   try {
     size_t alt;
     enterOuterAlt(_localctx, 1);
-    setState(180); 
+    setState(185); 
     _errHandler->sync(this);
     alt = 1;
     do {
       switch (alt) {
         case 1: {
-              setState(179);
+              setState(184);
               statement();
               break;
             }
@@ -609,7 +598,7 @@ JavaScriptParser::StatementListContext* JavaScriptParser::statementList() {
       default:
         throw NoViableAltException(this);
       }
-      setState(182); 
+      setState(187); 
       _errHandler->sync(this);
       alt = getInterpreter<atn::ParserATNSimulator>()->adaptivePredict(_input, 4, _ctx);
     } while (alt != 2 && alt != atn::ATN::INVALID_ALT_NUMBER);
@@ -634,8 +623,8 @@ tree::TerminalNode* JavaScriptParser::ImportStatementContext::Import() {
   return getToken(JavaScriptParser::Import, 0);
 }
 
-JavaScriptParser::FromBlockContext* JavaScriptParser::ImportStatementContext::fromBlock() {
-  return getRuleContext<JavaScriptParser::FromBlockContext>(0);
+JavaScriptParser::ImportFromBlockContext* JavaScriptParser::ImportStatementContext::importFromBlock() {
+  return getRuleContext<JavaScriptParser::ImportFromBlockContext>(0);
 }
 
 
@@ -672,10 +661,10 @@ JavaScriptParser::ImportStatementContext* JavaScriptParser::importStatement() {
   });
   try {
     enterOuterAlt(_localctx, 1);
-    setState(184);
+    setState(189);
     match(JavaScriptParser::Import);
-    setState(185);
-    fromBlock();
+    setState(190);
+    importFromBlock();
    
   }
   catch (RecognitionException &e) {
@@ -687,85 +676,75 @@ JavaScriptParser::ImportStatementContext* JavaScriptParser::importStatement() {
   return _localctx;
 }
 
-//----------------- FromBlockContext ------------------------------------------------------------------
+//----------------- ImportFromBlockContext ------------------------------------------------------------------
 
-JavaScriptParser::FromBlockContext::FromBlockContext(ParserRuleContext *parent, size_t invokingState)
+JavaScriptParser::ImportFromBlockContext::ImportFromBlockContext(ParserRuleContext *parent, size_t invokingState)
   : ParserRuleContext(parent, invokingState) {
 }
 
-tree::TerminalNode* JavaScriptParser::FromBlockContext::From() {
-  return getToken(JavaScriptParser::From, 0);
+JavaScriptParser::ImportFromContext* JavaScriptParser::ImportFromBlockContext::importFrom() {
+  return getRuleContext<JavaScriptParser::ImportFromContext>(0);
 }
 
-tree::TerminalNode* JavaScriptParser::FromBlockContext::StringLiteral() {
-  return getToken(JavaScriptParser::StringLiteral, 0);
-}
-
-JavaScriptParser::EosContext* JavaScriptParser::FromBlockContext::eos() {
+JavaScriptParser::EosContext* JavaScriptParser::ImportFromBlockContext::eos() {
   return getRuleContext<JavaScriptParser::EosContext>(0);
 }
 
-tree::TerminalNode* JavaScriptParser::FromBlockContext::Multiply() {
-  return getToken(JavaScriptParser::Multiply, 0);
+JavaScriptParser::ImportNamespaceContext* JavaScriptParser::ImportFromBlockContext::importNamespace() {
+  return getRuleContext<JavaScriptParser::ImportNamespaceContext>(0);
 }
 
-JavaScriptParser::MultipleImportStatementContext* JavaScriptParser::FromBlockContext::multipleImportStatement() {
-  return getRuleContext<JavaScriptParser::MultipleImportStatementContext>(0);
+JavaScriptParser::ModuleItemsContext* JavaScriptParser::ImportFromBlockContext::moduleItems() {
+  return getRuleContext<JavaScriptParser::ModuleItemsContext>(0);
 }
 
-tree::TerminalNode* JavaScriptParser::FromBlockContext::As() {
-  return getToken(JavaScriptParser::As, 0);
+JavaScriptParser::ImportDefaultContext* JavaScriptParser::ImportFromBlockContext::importDefault() {
+  return getRuleContext<JavaScriptParser::ImportDefaultContext>(0);
 }
 
-JavaScriptParser::IdentifierNameContext* JavaScriptParser::FromBlockContext::identifierName() {
-  return getRuleContext<JavaScriptParser::IdentifierNameContext>(0);
+tree::TerminalNode* JavaScriptParser::ImportFromBlockContext::StringLiteral() {
+  return getToken(JavaScriptParser::StringLiteral, 0);
 }
 
 
-size_t JavaScriptParser::FromBlockContext::getRuleIndex() const {
-  return JavaScriptParser::RuleFromBlock;
+size_t JavaScriptParser::ImportFromBlockContext::getRuleIndex() const {
+  return JavaScriptParser::RuleImportFromBlock;
 }
 
-void JavaScriptParser::FromBlockContext::enterRule(tree::ParseTreeListener *listener) {
+void JavaScriptParser::ImportFromBlockContext::enterRule(tree::ParseTreeListener *listener) {
   auto parserListener = dynamic_cast<JavaScriptParserListener *>(listener);
   if (parserListener != nullptr)
-    parserListener->enterFromBlock(this);
+    parserListener->enterImportFromBlock(this);
 }
 
-void JavaScriptParser::FromBlockContext::exitRule(tree::ParseTreeListener *listener) {
+void JavaScriptParser::ImportFromBlockContext::exitRule(tree::ParseTreeListener *listener) {
   auto parserListener = dynamic_cast<JavaScriptParserListener *>(listener);
   if (parserListener != nullptr)
-    parserListener->exitFromBlock(this);
+    parserListener->exitImportFromBlock(this);
 }
 
 
-antlrcpp::Any JavaScriptParser::FromBlockContext::accept(tree::ParseTreeVisitor *visitor) {
+antlrcpp::Any JavaScriptParser::ImportFromBlockContext::accept(tree::ParseTreeVisitor *visitor) {
   if (auto parserVisitor = dynamic_cast<JavaScriptParserVisitor*>(visitor))
-    return parserVisitor->visitFromBlock(this);
+    return parserVisitor->visitImportFromBlock(this);
   else
     return visitor->visitChildren(this);
 }
 
-JavaScriptParser::FromBlockContext* JavaScriptParser::fromBlock() {
-  FromBlockContext *_localctx = _tracker.createInstance<FromBlockContext>(_ctx, getState());
-  enterRule(_localctx, 12, JavaScriptParser::RuleFromBlock);
+JavaScriptParser::ImportFromBlockContext* JavaScriptParser::importFromBlock() {
+  ImportFromBlockContext *_localctx = _tracker.createInstance<ImportFromBlockContext>(_ctx, getState());
+  enterRule(_localctx, 12, JavaScriptParser::RuleImportFromBlock);
   size_t _la = 0;
 
   auto onExit = finally([=] {
     exitRule();
   });
   try {
-    enterOuterAlt(_localctx, 1);
-    setState(189);
+    setState(204);
     _errHandler->sync(this);
     switch (_input->LA(1)) {
-      case JavaScriptParser::Multiply: {
-        setState(187);
-        match(JavaScriptParser::Multiply);
-        break;
-      }
-
       case JavaScriptParser::OpenBrace:
+      case JavaScriptParser::Multiply:
       case JavaScriptParser::NullLiteral:
       case JavaScriptParser::BooleanLiteral:
       case JavaScriptParser::Break:
@@ -794,6 +773,8 @@ JavaScriptParser::FromBlockContext* JavaScriptParser::fromBlock() {
       case JavaScriptParser::Delete:
       case JavaScriptParser::In:
       case JavaScriptParser::Try:
+      case JavaScriptParser::As:
+      case JavaScriptParser::From:
       case JavaScriptParser::Class:
       case JavaScriptParser::Enum:
       case JavaScriptParser::Extends:
@@ -801,6 +782,8 @@ JavaScriptParser::FromBlockContext* JavaScriptParser::fromBlock() {
       case JavaScriptParser::Const:
       case JavaScriptParser::Export:
       case JavaScriptParser::Import:
+      case JavaScriptParser::Async:
+      case JavaScriptParser::Await:
       case JavaScriptParser::Implements:
       case JavaScriptParser::Let:
       case JavaScriptParser::Private:
@@ -811,30 +794,101 @@ JavaScriptParser::FromBlockContext* JavaScriptParser::fromBlock() {
       case JavaScriptParser::Static:
       case JavaScriptParser::Yield:
       case JavaScriptParser::Identifier: {
-        setState(188);
-        multipleImportStatement();
+        enterOuterAlt(_localctx, 1);
+        setState(193);
+        _errHandler->sync(this);
+
+        _la = _input->LA(1);
+        if (((((_la - 59) & ~ 0x3fULL) == 0) &&
+          ((1ULL << (_la - 59)) & ((1ULL << (JavaScriptParser::NullLiteral - 59))
+          | (1ULL << (JavaScriptParser::BooleanLiteral - 59))
+          | (1ULL << (JavaScriptParser::Break - 59))
+          | (1ULL << (JavaScriptParser::Do - 59))
+          | (1ULL << (JavaScriptParser::Instanceof - 59))
+          | (1ULL << (JavaScriptParser::Typeof - 59))
+          | (1ULL << (JavaScriptParser::Case - 59))
+          | (1ULL << (JavaScriptParser::Else - 59))
+          | (1ULL << (JavaScriptParser::New - 59))
+          | (1ULL << (JavaScriptParser::Var - 59))
+          | (1ULL << (JavaScriptParser::Catch - 59))
+          | (1ULL << (JavaScriptParser::Finally - 59))
+          | (1ULL << (JavaScriptParser::Return - 59))
+          | (1ULL << (JavaScriptParser::Void - 59))
+          | (1ULL << (JavaScriptParser::Continue - 59))
+          | (1ULL << (JavaScriptParser::For - 59))
+          | (1ULL << (JavaScriptParser::Switch - 59))
+          | (1ULL << (JavaScriptParser::While - 59))
+          | (1ULL << (JavaScriptParser::Debugger - 59))
+          | (1ULL << (JavaScriptParser::Function - 59))
+          | (1ULL << (JavaScriptParser::This - 59))
+          | (1ULL << (JavaScriptParser::With - 59))
+          | (1ULL << (JavaScriptParser::Default - 59))
+          | (1ULL << (JavaScriptParser::If - 59))
+          | (1ULL << (JavaScriptParser::Throw - 59))
+          | (1ULL << (JavaScriptParser::Delete - 59))
+          | (1ULL << (JavaScriptParser::In - 59))
+          | (1ULL << (JavaScriptParser::Try - 59))
+          | (1ULL << (JavaScriptParser::As - 59))
+          | (1ULL << (JavaScriptParser::From - 59))
+          | (1ULL << (JavaScriptParser::Class - 59))
+          | (1ULL << (JavaScriptParser::Enum - 59))
+          | (1ULL << (JavaScriptParser::Extends - 59))
+          | (1ULL << (JavaScriptParser::Super - 59))
+          | (1ULL << (JavaScriptParser::Const - 59))
+          | (1ULL << (JavaScriptParser::Export - 59))
+          | (1ULL << (JavaScriptParser::Import - 59))
+          | (1ULL << (JavaScriptParser::Async - 59))
+          | (1ULL << (JavaScriptParser::Await - 59))
+          | (1ULL << (JavaScriptParser::Implements - 59))
+          | (1ULL << (JavaScriptParser::Let - 59))
+          | (1ULL << (JavaScriptParser::Private - 59))
+          | (1ULL << (JavaScriptParser::Public - 59))
+          | (1ULL << (JavaScriptParser::Interface - 59))
+          | (1ULL << (JavaScriptParser::Package - 59))
+          | (1ULL << (JavaScriptParser::Protected - 59))
+          | (1ULL << (JavaScriptParser::Static - 59))
+          | (1ULL << (JavaScriptParser::Yield - 59))
+          | (1ULL << (JavaScriptParser::Identifier - 59)))) != 0)) {
+          setState(192);
+          importDefault();
+        }
+        setState(197);
+        _errHandler->sync(this);
+        switch (_input->LA(1)) {
+          case JavaScriptParser::Multiply: {
+            setState(195);
+            importNamespace();
+            break;
+          }
+
+          case JavaScriptParser::OpenBrace: {
+            setState(196);
+            moduleItems();
+            break;
+          }
+
+        default:
+          throw NoViableAltException(this);
+        }
+        setState(199);
+        importFrom();
+        setState(200);
+        eos();
+        break;
+      }
+
+      case JavaScriptParser::StringLiteral: {
+        enterOuterAlt(_localctx, 2);
+        setState(202);
+        match(JavaScriptParser::StringLiteral);
+        setState(203);
+        eos();
         break;
       }
 
     default:
       throw NoViableAltException(this);
     }
-    setState(193);
-    _errHandler->sync(this);
-
-    _la = _input->LA(1);
-    if (_la == JavaScriptParser::As) {
-      setState(191);
-      match(JavaScriptParser::As);
-      setState(192);
-      identifierName();
-    }
-    setState(195);
-    match(JavaScriptParser::From);
-    setState(196);
-    match(JavaScriptParser::StringLiteral);
-    setState(197);
-    eos();
    
   }
   catch (RecognitionException &e) {
@@ -846,64 +900,275 @@ JavaScriptParser::FromBlockContext* JavaScriptParser::fromBlock() {
   return _localctx;
 }
 
-//----------------- MultipleImportStatementContext ------------------------------------------------------------------
+//----------------- ModuleItemsContext ------------------------------------------------------------------
 
-JavaScriptParser::MultipleImportStatementContext::MultipleImportStatementContext(ParserRuleContext *parent, size_t invokingState)
+JavaScriptParser::ModuleItemsContext::ModuleItemsContext(ParserRuleContext *parent, size_t invokingState)
   : ParserRuleContext(parent, invokingState) {
 }
 
-tree::TerminalNode* JavaScriptParser::MultipleImportStatementContext::OpenBrace() {
+tree::TerminalNode* JavaScriptParser::ModuleItemsContext::OpenBrace() {
   return getToken(JavaScriptParser::OpenBrace, 0);
 }
 
-std::vector<JavaScriptParser::IdentifierNameContext *> JavaScriptParser::MultipleImportStatementContext::identifierName() {
-  return getRuleContexts<JavaScriptParser::IdentifierNameContext>();
-}
-
-JavaScriptParser::IdentifierNameContext* JavaScriptParser::MultipleImportStatementContext::identifierName(size_t i) {
-  return getRuleContext<JavaScriptParser::IdentifierNameContext>(i);
-}
-
-tree::TerminalNode* JavaScriptParser::MultipleImportStatementContext::CloseBrace() {
+tree::TerminalNode* JavaScriptParser::ModuleItemsContext::CloseBrace() {
   return getToken(JavaScriptParser::CloseBrace, 0);
 }
 
-std::vector<tree::TerminalNode *> JavaScriptParser::MultipleImportStatementContext::Comma() {
+std::vector<JavaScriptParser::AliasNameContext *> JavaScriptParser::ModuleItemsContext::aliasName() {
+  return getRuleContexts<JavaScriptParser::AliasNameContext>();
+}
+
+JavaScriptParser::AliasNameContext* JavaScriptParser::ModuleItemsContext::aliasName(size_t i) {
+  return getRuleContext<JavaScriptParser::AliasNameContext>(i);
+}
+
+std::vector<tree::TerminalNode *> JavaScriptParser::ModuleItemsContext::Comma() {
   return getTokens(JavaScriptParser::Comma);
 }
 
-tree::TerminalNode* JavaScriptParser::MultipleImportStatementContext::Comma(size_t i) {
+tree::TerminalNode* JavaScriptParser::ModuleItemsContext::Comma(size_t i) {
   return getToken(JavaScriptParser::Comma, i);
 }
 
 
-size_t JavaScriptParser::MultipleImportStatementContext::getRuleIndex() const {
-  return JavaScriptParser::RuleMultipleImportStatement;
+size_t JavaScriptParser::ModuleItemsContext::getRuleIndex() const {
+  return JavaScriptParser::RuleModuleItems;
 }
 
-void JavaScriptParser::MultipleImportStatementContext::enterRule(tree::ParseTreeListener *listener) {
+void JavaScriptParser::ModuleItemsContext::enterRule(tree::ParseTreeListener *listener) {
   auto parserListener = dynamic_cast<JavaScriptParserListener *>(listener);
   if (parserListener != nullptr)
-    parserListener->enterMultipleImportStatement(this);
+    parserListener->enterModuleItems(this);
 }
 
-void JavaScriptParser::MultipleImportStatementContext::exitRule(tree::ParseTreeListener *listener) {
+void JavaScriptParser::ModuleItemsContext::exitRule(tree::ParseTreeListener *listener) {
   auto parserListener = dynamic_cast<JavaScriptParserListener *>(listener);
   if (parserListener != nullptr)
-    parserListener->exitMultipleImportStatement(this);
+    parserListener->exitModuleItems(this);
 }
 
 
-antlrcpp::Any JavaScriptParser::MultipleImportStatementContext::accept(tree::ParseTreeVisitor *visitor) {
+antlrcpp::Any JavaScriptParser::ModuleItemsContext::accept(tree::ParseTreeVisitor *visitor) {
   if (auto parserVisitor = dynamic_cast<JavaScriptParserVisitor*>(visitor))
-    return parserVisitor->visitMultipleImportStatement(this);
+    return parserVisitor->visitModuleItems(this);
   else
     return visitor->visitChildren(this);
 }
 
-JavaScriptParser::MultipleImportStatementContext* JavaScriptParser::multipleImportStatement() {
-  MultipleImportStatementContext *_localctx = _tracker.createInstance<MultipleImportStatementContext>(_ctx, getState());
-  enterRule(_localctx, 14, JavaScriptParser::RuleMultipleImportStatement);
+JavaScriptParser::ModuleItemsContext* JavaScriptParser::moduleItems() {
+  ModuleItemsContext *_localctx = _tracker.createInstance<ModuleItemsContext>(_ctx, getState());
+  enterRule(_localctx, 14, JavaScriptParser::RuleModuleItems);
+  size_t _la = 0;
+
+  auto onExit = finally([=] {
+    exitRule();
+  });
+  try {
+    size_t alt;
+    enterOuterAlt(_localctx, 1);
+    setState(206);
+    match(JavaScriptParser::OpenBrace);
+    setState(212);
+    _errHandler->sync(this);
+    alt = getInterpreter<atn::ParserATNSimulator>()->adaptivePredict(_input, 8, _ctx);
+    while (alt != 2 && alt != atn::ATN::INVALID_ALT_NUMBER) {
+      if (alt == 1) {
+        setState(207);
+        aliasName();
+        setState(208);
+        match(JavaScriptParser::Comma); 
+      }
+      setState(214);
+      _errHandler->sync(this);
+      alt = getInterpreter<atn::ParserATNSimulator>()->adaptivePredict(_input, 8, _ctx);
+    }
+    setState(219);
+    _errHandler->sync(this);
+
+    _la = _input->LA(1);
+    if (((((_la - 59) & ~ 0x3fULL) == 0) &&
+      ((1ULL << (_la - 59)) & ((1ULL << (JavaScriptParser::NullLiteral - 59))
+      | (1ULL << (JavaScriptParser::BooleanLiteral - 59))
+      | (1ULL << (JavaScriptParser::Break - 59))
+      | (1ULL << (JavaScriptParser::Do - 59))
+      | (1ULL << (JavaScriptParser::Instanceof - 59))
+      | (1ULL << (JavaScriptParser::Typeof - 59))
+      | (1ULL << (JavaScriptParser::Case - 59))
+      | (1ULL << (JavaScriptParser::Else - 59))
+      | (1ULL << (JavaScriptParser::New - 59))
+      | (1ULL << (JavaScriptParser::Var - 59))
+      | (1ULL << (JavaScriptParser::Catch - 59))
+      | (1ULL << (JavaScriptParser::Finally - 59))
+      | (1ULL << (JavaScriptParser::Return - 59))
+      | (1ULL << (JavaScriptParser::Void - 59))
+      | (1ULL << (JavaScriptParser::Continue - 59))
+      | (1ULL << (JavaScriptParser::For - 59))
+      | (1ULL << (JavaScriptParser::Switch - 59))
+      | (1ULL << (JavaScriptParser::While - 59))
+      | (1ULL << (JavaScriptParser::Debugger - 59))
+      | (1ULL << (JavaScriptParser::Function - 59))
+      | (1ULL << (JavaScriptParser::This - 59))
+      | (1ULL << (JavaScriptParser::With - 59))
+      | (1ULL << (JavaScriptParser::Default - 59))
+      | (1ULL << (JavaScriptParser::If - 59))
+      | (1ULL << (JavaScriptParser::Throw - 59))
+      | (1ULL << (JavaScriptParser::Delete - 59))
+      | (1ULL << (JavaScriptParser::In - 59))
+      | (1ULL << (JavaScriptParser::Try - 59))
+      | (1ULL << (JavaScriptParser::As - 59))
+      | (1ULL << (JavaScriptParser::From - 59))
+      | (1ULL << (JavaScriptParser::Class - 59))
+      | (1ULL << (JavaScriptParser::Enum - 59))
+      | (1ULL << (JavaScriptParser::Extends - 59))
+      | (1ULL << (JavaScriptParser::Super - 59))
+      | (1ULL << (JavaScriptParser::Const - 59))
+      | (1ULL << (JavaScriptParser::Export - 59))
+      | (1ULL << (JavaScriptParser::Import - 59))
+      | (1ULL << (JavaScriptParser::Async - 59))
+      | (1ULL << (JavaScriptParser::Await - 59))
+      | (1ULL << (JavaScriptParser::Implements - 59))
+      | (1ULL << (JavaScriptParser::Let - 59))
+      | (1ULL << (JavaScriptParser::Private - 59))
+      | (1ULL << (JavaScriptParser::Public - 59))
+      | (1ULL << (JavaScriptParser::Interface - 59))
+      | (1ULL << (JavaScriptParser::Package - 59))
+      | (1ULL << (JavaScriptParser::Protected - 59))
+      | (1ULL << (JavaScriptParser::Static - 59))
+      | (1ULL << (JavaScriptParser::Yield - 59))
+      | (1ULL << (JavaScriptParser::Identifier - 59)))) != 0)) {
+      setState(215);
+      aliasName();
+      setState(217);
+      _errHandler->sync(this);
+
+      _la = _input->LA(1);
+      if (_la == JavaScriptParser::Comma) {
+        setState(216);
+        match(JavaScriptParser::Comma);
+      }
+    }
+    setState(221);
+    match(JavaScriptParser::CloseBrace);
+   
+  }
+  catch (RecognitionException &e) {
+    _errHandler->reportError(this, e);
+    _localctx->exception = std::current_exception();
+    _errHandler->recover(this, _localctx->exception);
+  }
+
+  return _localctx;
+}
+
+//----------------- ImportDefaultContext ------------------------------------------------------------------
+
+JavaScriptParser::ImportDefaultContext::ImportDefaultContext(ParserRuleContext *parent, size_t invokingState)
+  : ParserRuleContext(parent, invokingState) {
+}
+
+JavaScriptParser::AliasNameContext* JavaScriptParser::ImportDefaultContext::aliasName() {
+  return getRuleContext<JavaScriptParser::AliasNameContext>(0);
+}
+
+tree::TerminalNode* JavaScriptParser::ImportDefaultContext::Comma() {
+  return getToken(JavaScriptParser::Comma, 0);
+}
+
+
+size_t JavaScriptParser::ImportDefaultContext::getRuleIndex() const {
+  return JavaScriptParser::RuleImportDefault;
+}
+
+void JavaScriptParser::ImportDefaultContext::enterRule(tree::ParseTreeListener *listener) {
+  auto parserListener = dynamic_cast<JavaScriptParserListener *>(listener);
+  if (parserListener != nullptr)
+    parserListener->enterImportDefault(this);
+}
+
+void JavaScriptParser::ImportDefaultContext::exitRule(tree::ParseTreeListener *listener) {
+  auto parserListener = dynamic_cast<JavaScriptParserListener *>(listener);
+  if (parserListener != nullptr)
+    parserListener->exitImportDefault(this);
+}
+
+
+antlrcpp::Any JavaScriptParser::ImportDefaultContext::accept(tree::ParseTreeVisitor *visitor) {
+  if (auto parserVisitor = dynamic_cast<JavaScriptParserVisitor*>(visitor))
+    return parserVisitor->visitImportDefault(this);
+  else
+    return visitor->visitChildren(this);
+}
+
+JavaScriptParser::ImportDefaultContext* JavaScriptParser::importDefault() {
+  ImportDefaultContext *_localctx = _tracker.createInstance<ImportDefaultContext>(_ctx, getState());
+  enterRule(_localctx, 16, JavaScriptParser::RuleImportDefault);
+
+  auto onExit = finally([=] {
+    exitRule();
+  });
+  try {
+    enterOuterAlt(_localctx, 1);
+    setState(223);
+    aliasName();
+    setState(224);
+    match(JavaScriptParser::Comma);
+   
+  }
+  catch (RecognitionException &e) {
+    _errHandler->reportError(this, e);
+    _localctx->exception = std::current_exception();
+    _errHandler->recover(this, _localctx->exception);
+  }
+
+  return _localctx;
+}
+
+//----------------- ImportNamespaceContext ------------------------------------------------------------------
+
+JavaScriptParser::ImportNamespaceContext::ImportNamespaceContext(ParserRuleContext *parent, size_t invokingState)
+  : ParserRuleContext(parent, invokingState) {
+}
+
+tree::TerminalNode* JavaScriptParser::ImportNamespaceContext::Multiply() {
+  return getToken(JavaScriptParser::Multiply, 0);
+}
+
+tree::TerminalNode* JavaScriptParser::ImportNamespaceContext::As() {
+  return getToken(JavaScriptParser::As, 0);
+}
+
+JavaScriptParser::IdentifierNameContext* JavaScriptParser::ImportNamespaceContext::identifierName() {
+  return getRuleContext<JavaScriptParser::IdentifierNameContext>(0);
+}
+
+
+size_t JavaScriptParser::ImportNamespaceContext::getRuleIndex() const {
+  return JavaScriptParser::RuleImportNamespace;
+}
+
+void JavaScriptParser::ImportNamespaceContext::enterRule(tree::ParseTreeListener *listener) {
+  auto parserListener = dynamic_cast<JavaScriptParserListener *>(listener);
+  if (parserListener != nullptr)
+    parserListener->enterImportNamespace(this);
+}
+
+void JavaScriptParser::ImportNamespaceContext::exitRule(tree::ParseTreeListener *listener) {
+  auto parserListener = dynamic_cast<JavaScriptParserListener *>(listener);
+  if (parserListener != nullptr)
+    parserListener->exitImportNamespace(this);
+}
+
+
+antlrcpp::Any JavaScriptParser::ImportNamespaceContext::accept(tree::ParseTreeVisitor *visitor) {
+  if (auto parserVisitor = dynamic_cast<JavaScriptParserVisitor*>(visitor))
+    return parserVisitor->visitImportNamespace(this);
+  else
+    return visitor->visitChildren(this);
+}
+
+JavaScriptParser::ImportNamespaceContext* JavaScriptParser::importNamespace() {
+  ImportNamespaceContext *_localctx = _tracker.createInstance<ImportNamespaceContext>(_ctx, getState());
+  enterRule(_localctx, 18, JavaScriptParser::RuleImportNamespace);
   size_t _la = 0;
 
   auto onExit = finally([=] {
@@ -911,79 +1176,157 @@ JavaScriptParser::MultipleImportStatementContext* JavaScriptParser::multipleImpo
   });
   try {
     enterOuterAlt(_localctx, 1);
-    setState(202);
+    setState(226);
+    match(JavaScriptParser::Multiply);
+    setState(229);
     _errHandler->sync(this);
 
     _la = _input->LA(1);
-    if (((((_la - 54) & ~ 0x3fULL) == 0) &&
-      ((1ULL << (_la - 54)) & ((1ULL << (JavaScriptParser::NullLiteral - 54))
-      | (1ULL << (JavaScriptParser::BooleanLiteral - 54))
-      | (1ULL << (JavaScriptParser::Break - 54))
-      | (1ULL << (JavaScriptParser::Do - 54))
-      | (1ULL << (JavaScriptParser::Instanceof - 54))
-      | (1ULL << (JavaScriptParser::Typeof - 54))
-      | (1ULL << (JavaScriptParser::Case - 54))
-      | (1ULL << (JavaScriptParser::Else - 54))
-      | (1ULL << (JavaScriptParser::New - 54))
-      | (1ULL << (JavaScriptParser::Var - 54))
-      | (1ULL << (JavaScriptParser::Catch - 54))
-      | (1ULL << (JavaScriptParser::Finally - 54))
-      | (1ULL << (JavaScriptParser::Return - 54))
-      | (1ULL << (JavaScriptParser::Void - 54))
-      | (1ULL << (JavaScriptParser::Continue - 54))
-      | (1ULL << (JavaScriptParser::For - 54))
-      | (1ULL << (JavaScriptParser::Switch - 54))
-      | (1ULL << (JavaScriptParser::While - 54))
-      | (1ULL << (JavaScriptParser::Debugger - 54))
-      | (1ULL << (JavaScriptParser::Function - 54))
-      | (1ULL << (JavaScriptParser::This - 54))
-      | (1ULL << (JavaScriptParser::With - 54))
-      | (1ULL << (JavaScriptParser::Default - 54))
-      | (1ULL << (JavaScriptParser::If - 54))
-      | (1ULL << (JavaScriptParser::Throw - 54))
-      | (1ULL << (JavaScriptParser::Delete - 54))
-      | (1ULL << (JavaScriptParser::In - 54))
-      | (1ULL << (JavaScriptParser::Try - 54))
-      | (1ULL << (JavaScriptParser::Class - 54))
-      | (1ULL << (JavaScriptParser::Enum - 54))
-      | (1ULL << (JavaScriptParser::Extends - 54))
-      | (1ULL << (JavaScriptParser::Super - 54))
-      | (1ULL << (JavaScriptParser::Const - 54))
-      | (1ULL << (JavaScriptParser::Export - 54))
-      | (1ULL << (JavaScriptParser::Import - 54))
-      | (1ULL << (JavaScriptParser::Implements - 54))
-      | (1ULL << (JavaScriptParser::Let - 54))
-      | (1ULL << (JavaScriptParser::Private - 54))
-      | (1ULL << (JavaScriptParser::Public - 54))
-      | (1ULL << (JavaScriptParser::Interface - 54))
-      | (1ULL << (JavaScriptParser::Package - 54))
-      | (1ULL << (JavaScriptParser::Protected - 54))
-      | (1ULL << (JavaScriptParser::Static - 54))
-      | (1ULL << (JavaScriptParser::Yield - 54))
-      | (1ULL << (JavaScriptParser::Identifier - 54)))) != 0)) {
-      setState(199);
+    if (_la == JavaScriptParser::As) {
+      setState(227);
+      match(JavaScriptParser::As);
+      setState(228);
       identifierName();
-      setState(200);
-      match(JavaScriptParser::Comma);
     }
-    setState(204);
-    match(JavaScriptParser::OpenBrace);
-    setState(205);
+   
+  }
+  catch (RecognitionException &e) {
+    _errHandler->reportError(this, e);
+    _localctx->exception = std::current_exception();
+    _errHandler->recover(this, _localctx->exception);
+  }
+
+  return _localctx;
+}
+
+//----------------- ImportFromContext ------------------------------------------------------------------
+
+JavaScriptParser::ImportFromContext::ImportFromContext(ParserRuleContext *parent, size_t invokingState)
+  : ParserRuleContext(parent, invokingState) {
+}
+
+tree::TerminalNode* JavaScriptParser::ImportFromContext::From() {
+  return getToken(JavaScriptParser::From, 0);
+}
+
+tree::TerminalNode* JavaScriptParser::ImportFromContext::StringLiteral() {
+  return getToken(JavaScriptParser::StringLiteral, 0);
+}
+
+
+size_t JavaScriptParser::ImportFromContext::getRuleIndex() const {
+  return JavaScriptParser::RuleImportFrom;
+}
+
+void JavaScriptParser::ImportFromContext::enterRule(tree::ParseTreeListener *listener) {
+  auto parserListener = dynamic_cast<JavaScriptParserListener *>(listener);
+  if (parserListener != nullptr)
+    parserListener->enterImportFrom(this);
+}
+
+void JavaScriptParser::ImportFromContext::exitRule(tree::ParseTreeListener *listener) {
+  auto parserListener = dynamic_cast<JavaScriptParserListener *>(listener);
+  if (parserListener != nullptr)
+    parserListener->exitImportFrom(this);
+}
+
+
+antlrcpp::Any JavaScriptParser::ImportFromContext::accept(tree::ParseTreeVisitor *visitor) {
+  if (auto parserVisitor = dynamic_cast<JavaScriptParserVisitor*>(visitor))
+    return parserVisitor->visitImportFrom(this);
+  else
+    return visitor->visitChildren(this);
+}
+
+JavaScriptParser::ImportFromContext* JavaScriptParser::importFrom() {
+  ImportFromContext *_localctx = _tracker.createInstance<ImportFromContext>(_ctx, getState());
+  enterRule(_localctx, 20, JavaScriptParser::RuleImportFrom);
+
+  auto onExit = finally([=] {
+    exitRule();
+  });
+  try {
+    enterOuterAlt(_localctx, 1);
+    setState(231);
+    match(JavaScriptParser::From);
+    setState(232);
+    match(JavaScriptParser::StringLiteral);
+   
+  }
+  catch (RecognitionException &e) {
+    _errHandler->reportError(this, e);
+    _localctx->exception = std::current_exception();
+    _errHandler->recover(this, _localctx->exception);
+  }
+
+  return _localctx;
+}
+
+//----------------- AliasNameContext ------------------------------------------------------------------
+
+JavaScriptParser::AliasNameContext::AliasNameContext(ParserRuleContext *parent, size_t invokingState)
+  : ParserRuleContext(parent, invokingState) {
+}
+
+std::vector<JavaScriptParser::IdentifierNameContext *> JavaScriptParser::AliasNameContext::identifierName() {
+  return getRuleContexts<JavaScriptParser::IdentifierNameContext>();
+}
+
+JavaScriptParser::IdentifierNameContext* JavaScriptParser::AliasNameContext::identifierName(size_t i) {
+  return getRuleContext<JavaScriptParser::IdentifierNameContext>(i);
+}
+
+tree::TerminalNode* JavaScriptParser::AliasNameContext::As() {
+  return getToken(JavaScriptParser::As, 0);
+}
+
+
+size_t JavaScriptParser::AliasNameContext::getRuleIndex() const {
+  return JavaScriptParser::RuleAliasName;
+}
+
+void JavaScriptParser::AliasNameContext::enterRule(tree::ParseTreeListener *listener) {
+  auto parserListener = dynamic_cast<JavaScriptParserListener *>(listener);
+  if (parserListener != nullptr)
+    parserListener->enterAliasName(this);
+}
+
+void JavaScriptParser::AliasNameContext::exitRule(tree::ParseTreeListener *listener) {
+  auto parserListener = dynamic_cast<JavaScriptParserListener *>(listener);
+  if (parserListener != nullptr)
+    parserListener->exitAliasName(this);
+}
+
+
+antlrcpp::Any JavaScriptParser::AliasNameContext::accept(tree::ParseTreeVisitor *visitor) {
+  if (auto parserVisitor = dynamic_cast<JavaScriptParserVisitor*>(visitor))
+    return parserVisitor->visitAliasName(this);
+  else
+    return visitor->visitChildren(this);
+}
+
+JavaScriptParser::AliasNameContext* JavaScriptParser::aliasName() {
+  AliasNameContext *_localctx = _tracker.createInstance<AliasNameContext>(_ctx, getState());
+  enterRule(_localctx, 22, JavaScriptParser::RuleAliasName);
+  size_t _la = 0;
+
+  auto onExit = finally([=] {
+    exitRule();
+  });
+  try {
+    enterOuterAlt(_localctx, 1);
+    setState(234);
     identifierName();
-    setState(210);
+    setState(237);
     _errHandler->sync(this);
+
     _la = _input->LA(1);
-    while (_la == JavaScriptParser::Comma) {
-      setState(206);
-      match(JavaScriptParser::Comma);
-      setState(207);
+    if (_la == JavaScriptParser::As) {
+      setState(235);
+      match(JavaScriptParser::As);
+      setState(236);
       identifierName();
-      setState(212);
-      _errHandler->sync(this);
-      _la = _input->LA(1);
     }
-    setState(213);
-    match(JavaScriptParser::CloseBrace);
    
   }
   catch (RecognitionException &e) {
@@ -1001,84 +1344,343 @@ JavaScriptParser::ExportStatementContext::ExportStatementContext(ParserRuleConte
   : ParserRuleContext(parent, invokingState) {
 }
 
-tree::TerminalNode* JavaScriptParser::ExportStatementContext::Export() {
-  return getToken(JavaScriptParser::Export, 0);
-}
-
-JavaScriptParser::FromBlockContext* JavaScriptParser::ExportStatementContext::fromBlock() {
-  return getRuleContext<JavaScriptParser::FromBlockContext>(0);
-}
-
-JavaScriptParser::StatementContext* JavaScriptParser::ExportStatementContext::statement() {
-  return getRuleContext<JavaScriptParser::StatementContext>(0);
-}
-
-tree::TerminalNode* JavaScriptParser::ExportStatementContext::Default() {
-  return getToken(JavaScriptParser::Default, 0);
-}
-
 
 size_t JavaScriptParser::ExportStatementContext::getRuleIndex() const {
   return JavaScriptParser::RuleExportStatement;
 }
 
-void JavaScriptParser::ExportStatementContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<JavaScriptParserListener *>(listener);
-  if (parserListener != nullptr)
-    parserListener->enterExportStatement(this);
+void JavaScriptParser::ExportStatementContext::copyFrom(ExportStatementContext *ctx) {
+  ParserRuleContext::copyFrom(ctx);
 }
 
-void JavaScriptParser::ExportStatementContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<JavaScriptParserListener *>(listener);
-  if (parserListener != nullptr)
-    parserListener->exitExportStatement(this);
+//----------------- ExportDefaultDeclarationContext ------------------------------------------------------------------
+
+tree::TerminalNode* JavaScriptParser::ExportDefaultDeclarationContext::Export() {
+  return getToken(JavaScriptParser::Export, 0);
 }
 
+tree::TerminalNode* JavaScriptParser::ExportDefaultDeclarationContext::Default() {
+  return getToken(JavaScriptParser::Default, 0);
+}
 
-antlrcpp::Any JavaScriptParser::ExportStatementContext::accept(tree::ParseTreeVisitor *visitor) {
+JavaScriptParser::SingleExpressionContext* JavaScriptParser::ExportDefaultDeclarationContext::singleExpression() {
+  return getRuleContext<JavaScriptParser::SingleExpressionContext>(0);
+}
+
+JavaScriptParser::EosContext* JavaScriptParser::ExportDefaultDeclarationContext::eos() {
+  return getRuleContext<JavaScriptParser::EosContext>(0);
+}
+
+JavaScriptParser::ExportDefaultDeclarationContext::ExportDefaultDeclarationContext(ExportStatementContext *ctx) { copyFrom(ctx); }
+
+void JavaScriptParser::ExportDefaultDeclarationContext::enterRule(tree::ParseTreeListener *listener) {
+  auto parserListener = dynamic_cast<JavaScriptParserListener *>(listener);
+  if (parserListener != nullptr)
+    parserListener->enterExportDefaultDeclaration(this);
+}
+void JavaScriptParser::ExportDefaultDeclarationContext::exitRule(tree::ParseTreeListener *listener) {
+  auto parserListener = dynamic_cast<JavaScriptParserListener *>(listener);
+  if (parserListener != nullptr)
+    parserListener->exitExportDefaultDeclaration(this);
+}
+
+antlrcpp::Any JavaScriptParser::ExportDefaultDeclarationContext::accept(tree::ParseTreeVisitor *visitor) {
   if (auto parserVisitor = dynamic_cast<JavaScriptParserVisitor*>(visitor))
-    return parserVisitor->visitExportStatement(this);
+    return parserVisitor->visitExportDefaultDeclaration(this);
   else
     return visitor->visitChildren(this);
 }
+//----------------- ExportDeclarationContext ------------------------------------------------------------------
 
+tree::TerminalNode* JavaScriptParser::ExportDeclarationContext::Export() {
+  return getToken(JavaScriptParser::Export, 0);
+}
+
+JavaScriptParser::EosContext* JavaScriptParser::ExportDeclarationContext::eos() {
+  return getRuleContext<JavaScriptParser::EosContext>(0);
+}
+
+JavaScriptParser::ExportFromBlockContext* JavaScriptParser::ExportDeclarationContext::exportFromBlock() {
+  return getRuleContext<JavaScriptParser::ExportFromBlockContext>(0);
+}
+
+JavaScriptParser::DeclarationContext* JavaScriptParser::ExportDeclarationContext::declaration() {
+  return getRuleContext<JavaScriptParser::DeclarationContext>(0);
+}
+
+JavaScriptParser::ExportDeclarationContext::ExportDeclarationContext(ExportStatementContext *ctx) { copyFrom(ctx); }
+
+void JavaScriptParser::ExportDeclarationContext::enterRule(tree::ParseTreeListener *listener) {
+  auto parserListener = dynamic_cast<JavaScriptParserListener *>(listener);
+  if (parserListener != nullptr)
+    parserListener->enterExportDeclaration(this);
+}
+void JavaScriptParser::ExportDeclarationContext::exitRule(tree::ParseTreeListener *listener) {
+  auto parserListener = dynamic_cast<JavaScriptParserListener *>(listener);
+  if (parserListener != nullptr)
+    parserListener->exitExportDeclaration(this);
+}
+
+antlrcpp::Any JavaScriptParser::ExportDeclarationContext::accept(tree::ParseTreeVisitor *visitor) {
+  if (auto parserVisitor = dynamic_cast<JavaScriptParserVisitor*>(visitor))
+    return parserVisitor->visitExportDeclaration(this);
+  else
+    return visitor->visitChildren(this);
+}
 JavaScriptParser::ExportStatementContext* JavaScriptParser::exportStatement() {
   ExportStatementContext *_localctx = _tracker.createInstance<ExportStatementContext>(_ctx, getState());
-  enterRule(_localctx, 16, JavaScriptParser::RuleExportStatement);
+  enterRule(_localctx, 24, JavaScriptParser::RuleExportStatement);
 
   auto onExit = finally([=] {
     exitRule();
   });
   try {
-    enterOuterAlt(_localctx, 1);
-    setState(215);
-    match(JavaScriptParser::Export);
-    setState(217);
+    setState(251);
     _errHandler->sync(this);
-
-    switch (getInterpreter<atn::ParserATNSimulator>()->adaptivePredict(_input, 9, _ctx)) {
+    switch (getInterpreter<atn::ParserATNSimulator>()->adaptivePredict(_input, 14, _ctx)) {
     case 1: {
-      setState(216);
-      match(JavaScriptParser::Default);
-      break;
-    }
+      _localctx = dynamic_cast<ExportStatementContext *>(_tracker.createInstance<JavaScriptParser::ExportDeclarationContext>(_localctx));
+      enterOuterAlt(_localctx, 1);
+      setState(239);
+      match(JavaScriptParser::Export);
+      setState(242);
+      _errHandler->sync(this);
+      switch (_input->LA(1)) {
+        case JavaScriptParser::OpenBrace:
+        case JavaScriptParser::Multiply: {
+          setState(240);
+          exportFromBlock();
+          break;
+        }
 
-    }
-    setState(221);
-    _errHandler->sync(this);
-    switch (getInterpreter<atn::ParserATNSimulator>()->adaptivePredict(_input, 10, _ctx)) {
-    case 1: {
-      setState(219);
-      fromBlock();
+        case JavaScriptParser::Var:
+        case JavaScriptParser::Function:
+        case JavaScriptParser::Class:
+        case JavaScriptParser::Const:
+        case JavaScriptParser::Async:
+        case JavaScriptParser::Let: {
+          setState(241);
+          declaration();
+          break;
+        }
+
+      default:
+        throw NoViableAltException(this);
+      }
+      setState(244);
+      eos();
       break;
     }
 
     case 2: {
-      setState(220);
-      statement();
+      _localctx = dynamic_cast<ExportStatementContext *>(_tracker.createInstance<JavaScriptParser::ExportDefaultDeclarationContext>(_localctx));
+      enterOuterAlt(_localctx, 2);
+      setState(246);
+      match(JavaScriptParser::Export);
+      setState(247);
+      match(JavaScriptParser::Default);
+      setState(248);
+      singleExpression(0);
+      setState(249);
+      eos();
       break;
     }
 
+    }
+   
+  }
+  catch (RecognitionException &e) {
+    _errHandler->reportError(this, e);
+    _localctx->exception = std::current_exception();
+    _errHandler->recover(this, _localctx->exception);
+  }
+
+  return _localctx;
+}
+
+//----------------- ExportFromBlockContext ------------------------------------------------------------------
+
+JavaScriptParser::ExportFromBlockContext::ExportFromBlockContext(ParserRuleContext *parent, size_t invokingState)
+  : ParserRuleContext(parent, invokingState) {
+}
+
+JavaScriptParser::ImportNamespaceContext* JavaScriptParser::ExportFromBlockContext::importNamespace() {
+  return getRuleContext<JavaScriptParser::ImportNamespaceContext>(0);
+}
+
+JavaScriptParser::ImportFromContext* JavaScriptParser::ExportFromBlockContext::importFrom() {
+  return getRuleContext<JavaScriptParser::ImportFromContext>(0);
+}
+
+JavaScriptParser::EosContext* JavaScriptParser::ExportFromBlockContext::eos() {
+  return getRuleContext<JavaScriptParser::EosContext>(0);
+}
+
+JavaScriptParser::ModuleItemsContext* JavaScriptParser::ExportFromBlockContext::moduleItems() {
+  return getRuleContext<JavaScriptParser::ModuleItemsContext>(0);
+}
+
+
+size_t JavaScriptParser::ExportFromBlockContext::getRuleIndex() const {
+  return JavaScriptParser::RuleExportFromBlock;
+}
+
+void JavaScriptParser::ExportFromBlockContext::enterRule(tree::ParseTreeListener *listener) {
+  auto parserListener = dynamic_cast<JavaScriptParserListener *>(listener);
+  if (parserListener != nullptr)
+    parserListener->enterExportFromBlock(this);
+}
+
+void JavaScriptParser::ExportFromBlockContext::exitRule(tree::ParseTreeListener *listener) {
+  auto parserListener = dynamic_cast<JavaScriptParserListener *>(listener);
+  if (parserListener != nullptr)
+    parserListener->exitExportFromBlock(this);
+}
+
+
+antlrcpp::Any JavaScriptParser::ExportFromBlockContext::accept(tree::ParseTreeVisitor *visitor) {
+  if (auto parserVisitor = dynamic_cast<JavaScriptParserVisitor*>(visitor))
+    return parserVisitor->visitExportFromBlock(this);
+  else
+    return visitor->visitChildren(this);
+}
+
+JavaScriptParser::ExportFromBlockContext* JavaScriptParser::exportFromBlock() {
+  ExportFromBlockContext *_localctx = _tracker.createInstance<ExportFromBlockContext>(_ctx, getState());
+  enterRule(_localctx, 26, JavaScriptParser::RuleExportFromBlock);
+
+  auto onExit = finally([=] {
+    exitRule();
+  });
+  try {
+    setState(263);
+    _errHandler->sync(this);
+    switch (_input->LA(1)) {
+      case JavaScriptParser::Multiply: {
+        enterOuterAlt(_localctx, 1);
+        setState(253);
+        importNamespace();
+        setState(254);
+        importFrom();
+        setState(255);
+        eos();
+        break;
+      }
+
+      case JavaScriptParser::OpenBrace: {
+        enterOuterAlt(_localctx, 2);
+        setState(257);
+        moduleItems();
+        setState(259);
+        _errHandler->sync(this);
+
+        switch (getInterpreter<atn::ParserATNSimulator>()->adaptivePredict(_input, 15, _ctx)) {
+        case 1: {
+          setState(258);
+          importFrom();
+          break;
+        }
+
+        }
+        setState(261);
+        eos();
+        break;
+      }
+
+    default:
+      throw NoViableAltException(this);
+    }
+   
+  }
+  catch (RecognitionException &e) {
+    _errHandler->reportError(this, e);
+    _localctx->exception = std::current_exception();
+    _errHandler->recover(this, _localctx->exception);
+  }
+
+  return _localctx;
+}
+
+//----------------- DeclarationContext ------------------------------------------------------------------
+
+JavaScriptParser::DeclarationContext::DeclarationContext(ParserRuleContext *parent, size_t invokingState)
+  : ParserRuleContext(parent, invokingState) {
+}
+
+JavaScriptParser::VariableStatementContext* JavaScriptParser::DeclarationContext::variableStatement() {
+  return getRuleContext<JavaScriptParser::VariableStatementContext>(0);
+}
+
+JavaScriptParser::ClassDeclarationContext* JavaScriptParser::DeclarationContext::classDeclaration() {
+  return getRuleContext<JavaScriptParser::ClassDeclarationContext>(0);
+}
+
+JavaScriptParser::FunctionDeclarationContext* JavaScriptParser::DeclarationContext::functionDeclaration() {
+  return getRuleContext<JavaScriptParser::FunctionDeclarationContext>(0);
+}
+
+
+size_t JavaScriptParser::DeclarationContext::getRuleIndex() const {
+  return JavaScriptParser::RuleDeclaration;
+}
+
+void JavaScriptParser::DeclarationContext::enterRule(tree::ParseTreeListener *listener) {
+  auto parserListener = dynamic_cast<JavaScriptParserListener *>(listener);
+  if (parserListener != nullptr)
+    parserListener->enterDeclaration(this);
+}
+
+void JavaScriptParser::DeclarationContext::exitRule(tree::ParseTreeListener *listener) {
+  auto parserListener = dynamic_cast<JavaScriptParserListener *>(listener);
+  if (parserListener != nullptr)
+    parserListener->exitDeclaration(this);
+}
+
+
+antlrcpp::Any JavaScriptParser::DeclarationContext::accept(tree::ParseTreeVisitor *visitor) {
+  if (auto parserVisitor = dynamic_cast<JavaScriptParserVisitor*>(visitor))
+    return parserVisitor->visitDeclaration(this);
+  else
+    return visitor->visitChildren(this);
+}
+
+JavaScriptParser::DeclarationContext* JavaScriptParser::declaration() {
+  DeclarationContext *_localctx = _tracker.createInstance<DeclarationContext>(_ctx, getState());
+  enterRule(_localctx, 28, JavaScriptParser::RuleDeclaration);
+
+  auto onExit = finally([=] {
+    exitRule();
+  });
+  try {
+    setState(268);
+    _errHandler->sync(this);
+    switch (_input->LA(1)) {
+      case JavaScriptParser::Var:
+      case JavaScriptParser::Const:
+      case JavaScriptParser::Let: {
+        enterOuterAlt(_localctx, 1);
+        setState(265);
+        variableStatement();
+        break;
+      }
+
+      case JavaScriptParser::Class: {
+        enterOuterAlt(_localctx, 2);
+        setState(266);
+        classDeclaration();
+        break;
+      }
+
+      case JavaScriptParser::Function:
+      case JavaScriptParser::Async: {
+        enterOuterAlt(_localctx, 3);
+        setState(267);
+        functionDeclaration();
+        break;
+      }
+
+    default:
+      throw NoViableAltException(this);
     }
    
   }
@@ -1136,18 +1738,18 @@ antlrcpp::Any JavaScriptParser::VariableStatementContext::accept(tree::ParseTree
 
 JavaScriptParser::VariableStatementContext* JavaScriptParser::variableStatement() {
   VariableStatementContext *_localctx = _tracker.createInstance<VariableStatementContext>(_ctx, getState());
-  enterRule(_localctx, 18, JavaScriptParser::RuleVariableStatement);
+  enterRule(_localctx, 30, JavaScriptParser::RuleVariableStatement);
 
   auto onExit = finally([=] {
     exitRule();
   });
   try {
     enterOuterAlt(_localctx, 1);
-    setState(223);
+    setState(270);
     varModifier();
-    setState(224);
+    setState(271);
     variableDeclarationList();
-    setState(225);
+    setState(272);
     eos();
    
   }
@@ -1209,7 +1811,7 @@ antlrcpp::Any JavaScriptParser::VariableDeclarationListContext::accept(tree::Par
 
 JavaScriptParser::VariableDeclarationListContext* JavaScriptParser::variableDeclarationList() {
   VariableDeclarationListContext *_localctx = _tracker.createInstance<VariableDeclarationListContext>(_ctx, getState());
-  enterRule(_localctx, 20, JavaScriptParser::RuleVariableDeclarationList);
+  enterRule(_localctx, 32, JavaScriptParser::RuleVariableDeclarationList);
 
   auto onExit = finally([=] {
     exitRule();
@@ -1217,21 +1819,21 @@ JavaScriptParser::VariableDeclarationListContext* JavaScriptParser::variableDecl
   try {
     size_t alt;
     enterOuterAlt(_localctx, 1);
-    setState(227);
+    setState(274);
     variableDeclaration();
-    setState(232);
+    setState(279);
     _errHandler->sync(this);
-    alt = getInterpreter<atn::ParserATNSimulator>()->adaptivePredict(_input, 11, _ctx);
+    alt = getInterpreter<atn::ParserATNSimulator>()->adaptivePredict(_input, 18, _ctx);
     while (alt != 2 && alt != atn::ATN::INVALID_ALT_NUMBER) {
       if (alt == 1) {
-        setState(228);
+        setState(275);
         match(JavaScriptParser::Comma);
-        setState(229);
+        setState(276);
         variableDeclaration(); 
       }
-      setState(234);
+      setState(281);
       _errHandler->sync(this);
-      alt = getInterpreter<atn::ParserATNSimulator>()->adaptivePredict(_input, 11, _ctx);
+      alt = getInterpreter<atn::ParserATNSimulator>()->adaptivePredict(_input, 18, _ctx);
     }
    
   }
@@ -1250,16 +1852,8 @@ JavaScriptParser::VariableDeclarationContext::VariableDeclarationContext(ParserR
   : ParserRuleContext(parent, invokingState) {
 }
 
-tree::TerminalNode* JavaScriptParser::VariableDeclarationContext::Identifier() {
-  return getToken(JavaScriptParser::Identifier, 0);
-}
-
-JavaScriptParser::ArrayLiteralContext* JavaScriptParser::VariableDeclarationContext::arrayLiteral() {
-  return getRuleContext<JavaScriptParser::ArrayLiteralContext>(0);
-}
-
-JavaScriptParser::ObjectLiteralContext* JavaScriptParser::VariableDeclarationContext::objectLiteral() {
-  return getRuleContext<JavaScriptParser::ObjectLiteralContext>(0);
+JavaScriptParser::AssignableContext* JavaScriptParser::VariableDeclarationContext::assignable() {
+  return getRuleContext<JavaScriptParser::AssignableContext>(0);
 }
 
 tree::TerminalNode* JavaScriptParser::VariableDeclarationContext::Assign() {
@@ -1297,45 +1891,23 @@ antlrcpp::Any JavaScriptParser::VariableDeclarationContext::accept(tree::ParseTr
 
 JavaScriptParser::VariableDeclarationContext* JavaScriptParser::variableDeclaration() {
   VariableDeclarationContext *_localctx = _tracker.createInstance<VariableDeclarationContext>(_ctx, getState());
-  enterRule(_localctx, 22, JavaScriptParser::RuleVariableDeclaration);
+  enterRule(_localctx, 34, JavaScriptParser::RuleVariableDeclaration);
 
   auto onExit = finally([=] {
     exitRule();
   });
   try {
     enterOuterAlt(_localctx, 1);
-    setState(238);
-    _errHandler->sync(this);
-    switch (_input->LA(1)) {
-      case JavaScriptParser::Identifier: {
-        setState(235);
-        match(JavaScriptParser::Identifier);
-        break;
-      }
-
-      case JavaScriptParser::OpenBracket: {
-        setState(236);
-        arrayLiteral();
-        break;
-      }
-
-      case JavaScriptParser::OpenBrace: {
-        setState(237);
-        objectLiteral();
-        break;
-      }
-
-    default:
-      throw NoViableAltException(this);
-    }
-    setState(242);
+    setState(282);
+    assignable();
+    setState(285);
     _errHandler->sync(this);
 
-    switch (getInterpreter<atn::ParserATNSimulator>()->adaptivePredict(_input, 13, _ctx)) {
+    switch (getInterpreter<atn::ParserATNSimulator>()->adaptivePredict(_input, 19, _ctx)) {
     case 1: {
-      setState(240);
+      setState(283);
       match(JavaScriptParser::Assign);
-      setState(241);
+      setState(284);
       singleExpression(0);
       break;
     }
@@ -1389,14 +1961,14 @@ antlrcpp::Any JavaScriptParser::EmptyStatementContext::accept(tree::ParseTreeVis
 
 JavaScriptParser::EmptyStatementContext* JavaScriptParser::emptyStatement() {
   EmptyStatementContext *_localctx = _tracker.createInstance<EmptyStatementContext>(_ctx, getState());
-  enterRule(_localctx, 24, JavaScriptParser::RuleEmptyStatement);
+  enterRule(_localctx, 36, JavaScriptParser::RuleEmptyStatement);
 
   auto onExit = finally([=] {
     exitRule();
   });
   try {
     enterOuterAlt(_localctx, 1);
-    setState(244);
+    setState(287);
     match(JavaScriptParser::SemiColon);
    
   }
@@ -1450,19 +2022,19 @@ antlrcpp::Any JavaScriptParser::ExpressionStatementContext::accept(tree::ParseTr
 
 JavaScriptParser::ExpressionStatementContext* JavaScriptParser::expressionStatement() {
   ExpressionStatementContext *_localctx = _tracker.createInstance<ExpressionStatementContext>(_ctx, getState());
-  enterRule(_localctx, 26, JavaScriptParser::RuleExpressionStatement);
+  enterRule(_localctx, 38, JavaScriptParser::RuleExpressionStatement);
 
   auto onExit = finally([=] {
     exitRule();
   });
   try {
     enterOuterAlt(_localctx, 1);
-    setState(246);
+    setState(289);
 
     if (!(this->notOpenBraceAndNotFunction())) throw FailedPredicateException(this, "this->notOpenBraceAndNotFunction()");
-    setState(247);
+    setState(290);
     expressionSequence();
-    setState(248);
+    setState(291);
     eos();
    
   }
@@ -1536,31 +2108,31 @@ antlrcpp::Any JavaScriptParser::IfStatementContext::accept(tree::ParseTreeVisito
 
 JavaScriptParser::IfStatementContext* JavaScriptParser::ifStatement() {
   IfStatementContext *_localctx = _tracker.createInstance<IfStatementContext>(_ctx, getState());
-  enterRule(_localctx, 28, JavaScriptParser::RuleIfStatement);
+  enterRule(_localctx, 40, JavaScriptParser::RuleIfStatement);
 
   auto onExit = finally([=] {
     exitRule();
   });
   try {
     enterOuterAlt(_localctx, 1);
-    setState(250);
+    setState(293);
     match(JavaScriptParser::If);
-    setState(251);
+    setState(294);
     match(JavaScriptParser::OpenParen);
-    setState(252);
+    setState(295);
     expressionSequence();
-    setState(253);
+    setState(296);
     match(JavaScriptParser::CloseParen);
-    setState(254);
+    setState(297);
     statement();
-    setState(257);
+    setState(300);
     _errHandler->sync(this);
 
-    switch (getInterpreter<atn::ParserATNSimulator>()->adaptivePredict(_input, 14, _ctx)) {
+    switch (getInterpreter<atn::ParserATNSimulator>()->adaptivePredict(_input, 20, _ctx)) {
     case 1: {
-      setState(255);
+      setState(298);
       match(JavaScriptParser::Else);
-      setState(256);
+      setState(299);
       statement();
       break;
     }
@@ -1641,124 +2213,6 @@ antlrcpp::Any JavaScriptParser::DoStatementContext::accept(tree::ParseTreeVisito
   else
     return visitor->visitChildren(this);
 }
-//----------------- ForVarStatementContext ------------------------------------------------------------------
-
-tree::TerminalNode* JavaScriptParser::ForVarStatementContext::For() {
-  return getToken(JavaScriptParser::For, 0);
-}
-
-tree::TerminalNode* JavaScriptParser::ForVarStatementContext::OpenParen() {
-  return getToken(JavaScriptParser::OpenParen, 0);
-}
-
-JavaScriptParser::VarModifierContext* JavaScriptParser::ForVarStatementContext::varModifier() {
-  return getRuleContext<JavaScriptParser::VarModifierContext>(0);
-}
-
-JavaScriptParser::VariableDeclarationListContext* JavaScriptParser::ForVarStatementContext::variableDeclarationList() {
-  return getRuleContext<JavaScriptParser::VariableDeclarationListContext>(0);
-}
-
-std::vector<tree::TerminalNode *> JavaScriptParser::ForVarStatementContext::SemiColon() {
-  return getTokens(JavaScriptParser::SemiColon);
-}
-
-tree::TerminalNode* JavaScriptParser::ForVarStatementContext::SemiColon(size_t i) {
-  return getToken(JavaScriptParser::SemiColon, i);
-}
-
-tree::TerminalNode* JavaScriptParser::ForVarStatementContext::CloseParen() {
-  return getToken(JavaScriptParser::CloseParen, 0);
-}
-
-JavaScriptParser::StatementContext* JavaScriptParser::ForVarStatementContext::statement() {
-  return getRuleContext<JavaScriptParser::StatementContext>(0);
-}
-
-std::vector<JavaScriptParser::ExpressionSequenceContext *> JavaScriptParser::ForVarStatementContext::expressionSequence() {
-  return getRuleContexts<JavaScriptParser::ExpressionSequenceContext>();
-}
-
-JavaScriptParser::ExpressionSequenceContext* JavaScriptParser::ForVarStatementContext::expressionSequence(size_t i) {
-  return getRuleContext<JavaScriptParser::ExpressionSequenceContext>(i);
-}
-
-JavaScriptParser::ForVarStatementContext::ForVarStatementContext(IterationStatementContext *ctx) { copyFrom(ctx); }
-
-void JavaScriptParser::ForVarStatementContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<JavaScriptParserListener *>(listener);
-  if (parserListener != nullptr)
-    parserListener->enterForVarStatement(this);
-}
-void JavaScriptParser::ForVarStatementContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<JavaScriptParserListener *>(listener);
-  if (parserListener != nullptr)
-    parserListener->exitForVarStatement(this);
-}
-
-antlrcpp::Any JavaScriptParser::ForVarStatementContext::accept(tree::ParseTreeVisitor *visitor) {
-  if (auto parserVisitor = dynamic_cast<JavaScriptParserVisitor*>(visitor))
-    return parserVisitor->visitForVarStatement(this);
-  else
-    return visitor->visitChildren(this);
-}
-//----------------- ForVarInStatementContext ------------------------------------------------------------------
-
-tree::TerminalNode* JavaScriptParser::ForVarInStatementContext::For() {
-  return getToken(JavaScriptParser::For, 0);
-}
-
-tree::TerminalNode* JavaScriptParser::ForVarInStatementContext::OpenParen() {
-  return getToken(JavaScriptParser::OpenParen, 0);
-}
-
-JavaScriptParser::VarModifierContext* JavaScriptParser::ForVarInStatementContext::varModifier() {
-  return getRuleContext<JavaScriptParser::VarModifierContext>(0);
-}
-
-JavaScriptParser::VariableDeclarationContext* JavaScriptParser::ForVarInStatementContext::variableDeclaration() {
-  return getRuleContext<JavaScriptParser::VariableDeclarationContext>(0);
-}
-
-JavaScriptParser::ExpressionSequenceContext* JavaScriptParser::ForVarInStatementContext::expressionSequence() {
-  return getRuleContext<JavaScriptParser::ExpressionSequenceContext>(0);
-}
-
-tree::TerminalNode* JavaScriptParser::ForVarInStatementContext::CloseParen() {
-  return getToken(JavaScriptParser::CloseParen, 0);
-}
-
-JavaScriptParser::StatementContext* JavaScriptParser::ForVarInStatementContext::statement() {
-  return getRuleContext<JavaScriptParser::StatementContext>(0);
-}
-
-tree::TerminalNode* JavaScriptParser::ForVarInStatementContext::In() {
-  return getToken(JavaScriptParser::In, 0);
-}
-
-tree::TerminalNode* JavaScriptParser::ForVarInStatementContext::Identifier() {
-  return getToken(JavaScriptParser::Identifier, 0);
-}
-
-JavaScriptParser::ForVarInStatementContext::ForVarInStatementContext(IterationStatementContext *ctx) { copyFrom(ctx); }
-
-void JavaScriptParser::ForVarInStatementContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<JavaScriptParserListener *>(listener);
-  if (parserListener != nullptr)
-    parserListener->enterForVarInStatement(this);
-}
-void JavaScriptParser::ForVarInStatementContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<JavaScriptParserListener *>(listener);
-  if (parserListener != nullptr)
-    parserListener->exitForVarInStatement(this);
-}
-
-antlrcpp::Any JavaScriptParser::ForVarInStatementContext::accept(tree::ParseTreeVisitor *visitor) {
-  if (auto parserVisitor = dynamic_cast<JavaScriptParserVisitor*>(visitor))
-    return parserVisitor->visitForVarInStatement(this);
-  else
-    return visitor->visitChildren(this);
-}
 //----------------- WhileStatementContext ------------------------------------------------------------------
 
 tree::TerminalNode* JavaScriptParser::WhileStatementContext::While() {
@@ -1834,6 +2288,10 @@ JavaScriptParser::ExpressionSequenceContext* JavaScriptParser::ForStatementConte
   return getRuleContext<JavaScriptParser::ExpressionSequenceContext>(i);
 }
 
+JavaScriptParser::VariableStatementContext* JavaScriptParser::ForStatementContext::variableStatement() {
+  return getRuleContext<JavaScriptParser::VariableStatementContext>(0);
+}
+
 JavaScriptParser::ForStatementContext::ForStatementContext(IterationStatementContext *ctx) { copyFrom(ctx); }
 
 void JavaScriptParser::ForStatementContext::enterRule(tree::ParseTreeListener *listener) {
@@ -1863,8 +2321,8 @@ tree::TerminalNode* JavaScriptParser::ForInStatementContext::OpenParen() {
   return getToken(JavaScriptParser::OpenParen, 0);
 }
 
-JavaScriptParser::SingleExpressionContext* JavaScriptParser::ForInStatementContext::singleExpression() {
-  return getRuleContext<JavaScriptParser::SingleExpressionContext>(0);
+tree::TerminalNode* JavaScriptParser::ForInStatementContext::In() {
+  return getToken(JavaScriptParser::In, 0);
 }
 
 JavaScriptParser::ExpressionSequenceContext* JavaScriptParser::ForInStatementContext::expressionSequence() {
@@ -1879,12 +2337,12 @@ JavaScriptParser::StatementContext* JavaScriptParser::ForInStatementContext::sta
   return getRuleContext<JavaScriptParser::StatementContext>(0);
 }
 
-tree::TerminalNode* JavaScriptParser::ForInStatementContext::In() {
-  return getToken(JavaScriptParser::In, 0);
+JavaScriptParser::SingleExpressionContext* JavaScriptParser::ForInStatementContext::singleExpression() {
+  return getRuleContext<JavaScriptParser::SingleExpressionContext>(0);
 }
 
-tree::TerminalNode* JavaScriptParser::ForInStatementContext::Identifier() {
-  return getToken(JavaScriptParser::Identifier, 0);
+JavaScriptParser::VariableStatementContext* JavaScriptParser::ForInStatementContext::variableStatement() {
+  return getRuleContext<JavaScriptParser::VariableStatementContext>(0);
 }
 
 JavaScriptParser::ForInStatementContext::ForInStatementContext(IterationStatementContext *ctx) { copyFrom(ctx); }
@@ -1906,34 +2364,91 @@ antlrcpp::Any JavaScriptParser::ForInStatementContext::accept(tree::ParseTreeVis
   else
     return visitor->visitChildren(this);
 }
+//----------------- ForOfStatementContext ------------------------------------------------------------------
+
+tree::TerminalNode* JavaScriptParser::ForOfStatementContext::For() {
+  return getToken(JavaScriptParser::For, 0);
+}
+
+tree::TerminalNode* JavaScriptParser::ForOfStatementContext::OpenParen() {
+  return getToken(JavaScriptParser::OpenParen, 0);
+}
+
+tree::TerminalNode* JavaScriptParser::ForOfStatementContext::Identifier() {
+  return getToken(JavaScriptParser::Identifier, 0);
+}
+
+JavaScriptParser::ExpressionSequenceContext* JavaScriptParser::ForOfStatementContext::expressionSequence() {
+  return getRuleContext<JavaScriptParser::ExpressionSequenceContext>(0);
+}
+
+tree::TerminalNode* JavaScriptParser::ForOfStatementContext::CloseParen() {
+  return getToken(JavaScriptParser::CloseParen, 0);
+}
+
+JavaScriptParser::StatementContext* JavaScriptParser::ForOfStatementContext::statement() {
+  return getRuleContext<JavaScriptParser::StatementContext>(0);
+}
+
+JavaScriptParser::SingleExpressionContext* JavaScriptParser::ForOfStatementContext::singleExpression() {
+  return getRuleContext<JavaScriptParser::SingleExpressionContext>(0);
+}
+
+JavaScriptParser::VariableStatementContext* JavaScriptParser::ForOfStatementContext::variableStatement() {
+  return getRuleContext<JavaScriptParser::VariableStatementContext>(0);
+}
+
+tree::TerminalNode* JavaScriptParser::ForOfStatementContext::Await() {
+  return getToken(JavaScriptParser::Await, 0);
+}
+
+JavaScriptParser::ForOfStatementContext::ForOfStatementContext(IterationStatementContext *ctx) { copyFrom(ctx); }
+
+void JavaScriptParser::ForOfStatementContext::enterRule(tree::ParseTreeListener *listener) {
+  auto parserListener = dynamic_cast<JavaScriptParserListener *>(listener);
+  if (parserListener != nullptr)
+    parserListener->enterForOfStatement(this);
+}
+void JavaScriptParser::ForOfStatementContext::exitRule(tree::ParseTreeListener *listener) {
+  auto parserListener = dynamic_cast<JavaScriptParserListener *>(listener);
+  if (parserListener != nullptr)
+    parserListener->exitForOfStatement(this);
+}
+
+antlrcpp::Any JavaScriptParser::ForOfStatementContext::accept(tree::ParseTreeVisitor *visitor) {
+  if (auto parserVisitor = dynamic_cast<JavaScriptParserVisitor*>(visitor))
+    return parserVisitor->visitForOfStatement(this);
+  else
+    return visitor->visitChildren(this);
+}
 JavaScriptParser::IterationStatementContext* JavaScriptParser::iterationStatement() {
   IterationStatementContext *_localctx = _tracker.createInstance<IterationStatementContext>(_ctx, getState());
-  enterRule(_localctx, 30, JavaScriptParser::RuleIterationStatement);
+  enterRule(_localctx, 42, JavaScriptParser::RuleIterationStatement);
   size_t _la = 0;
 
   auto onExit = finally([=] {
     exitRule();
   });
   try {
-    setState(328);
+    setState(358);
     _errHandler->sync(this);
-    switch (getInterpreter<atn::ParserATNSimulator>()->adaptivePredict(_input, 22, _ctx)) {
+    switch (getInterpreter<atn::ParserATNSimulator>()->adaptivePredict(_input, 27, _ctx)) {
     case 1: {
       _localctx = dynamic_cast<IterationStatementContext *>(_tracker.createInstance<JavaScriptParser::DoStatementContext>(_localctx));
       enterOuterAlt(_localctx, 1);
-      setState(259);
+      setState(302);
       match(JavaScriptParser::Do);
-      setState(260);
+      setState(303);
       statement();
-      setState(261);
+      setState(304);
       match(JavaScriptParser::While);
-      setState(262);
+      setState(305);
       match(JavaScriptParser::OpenParen);
-      setState(263);
+      setState(306);
       expressionSequence();
-      setState(264);
+      setState(307);
       match(JavaScriptParser::CloseParen);
-      setState(265);
+      setState(308);
       eos();
       break;
     }
@@ -1941,15 +2456,15 @@ JavaScriptParser::IterationStatementContext* JavaScriptParser::iterationStatemen
     case 2: {
       _localctx = dynamic_cast<IterationStatementContext *>(_tracker.createInstance<JavaScriptParser::WhileStatementContext>(_localctx));
       enterOuterAlt(_localctx, 2);
-      setState(267);
+      setState(310);
       match(JavaScriptParser::While);
-      setState(268);
+      setState(311);
       match(JavaScriptParser::OpenParen);
-      setState(269);
+      setState(312);
       expressionSequence();
-      setState(270);
+      setState(313);
       match(JavaScriptParser::CloseParen);
-      setState(271);
+      setState(314);
       statement();
       break;
     }
@@ -1957,50 +2472,72 @@ JavaScriptParser::IterationStatementContext* JavaScriptParser::iterationStatemen
     case 3: {
       _localctx = dynamic_cast<IterationStatementContext *>(_tracker.createInstance<JavaScriptParser::ForStatementContext>(_localctx));
       enterOuterAlt(_localctx, 3);
-      setState(273);
+      setState(316);
       match(JavaScriptParser::For);
-      setState(274);
+      setState(317);
       match(JavaScriptParser::OpenParen);
-      setState(276);
+      setState(320);
       _errHandler->sync(this);
+      switch (_input->LA(1)) {
+        case JavaScriptParser::RegularExpressionLiteral:
+        case JavaScriptParser::OpenBracket:
+        case JavaScriptParser::OpenParen:
+        case JavaScriptParser::OpenBrace:
+        case JavaScriptParser::PlusPlus:
+        case JavaScriptParser::MinusMinus:
+        case JavaScriptParser::Plus:
+        case JavaScriptParser::Minus:
+        case JavaScriptParser::BitNot:
+        case JavaScriptParser::Not:
+        case JavaScriptParser::NullLiteral:
+        case JavaScriptParser::BooleanLiteral:
+        case JavaScriptParser::DecimalLiteral:
+        case JavaScriptParser::HexIntegerLiteral:
+        case JavaScriptParser::OctalIntegerLiteral:
+        case JavaScriptParser::OctalIntegerLiteral2:
+        case JavaScriptParser::BinaryIntegerLiteral:
+        case JavaScriptParser::BigHexIntegerLiteral:
+        case JavaScriptParser::BigOctalIntegerLiteral:
+        case JavaScriptParser::BigBinaryIntegerLiteral:
+        case JavaScriptParser::BigDecimalIntegerLiteral:
+        case JavaScriptParser::Typeof:
+        case JavaScriptParser::New:
+        case JavaScriptParser::Void:
+        case JavaScriptParser::Function:
+        case JavaScriptParser::This:
+        case JavaScriptParser::Delete:
+        case JavaScriptParser::Class:
+        case JavaScriptParser::Super:
+        case JavaScriptParser::Import:
+        case JavaScriptParser::Async:
+        case JavaScriptParser::Await:
+        case JavaScriptParser::Yield:
+        case JavaScriptParser::Identifier:
+        case JavaScriptParser::StringLiteral:
+        case JavaScriptParser::TemplateStringLiteral: {
+          setState(318);
+          expressionSequence();
+          break;
+        }
 
-      _la = _input->LA(1);
-      if ((((_la & ~ 0x3fULL) == 0) &&
-        ((1ULL << _la) & ((1ULL << JavaScriptParser::RegularExpressionLiteral)
-        | (1ULL << JavaScriptParser::OpenBracket)
-        | (1ULL << JavaScriptParser::OpenParen)
-        | (1ULL << JavaScriptParser::OpenBrace)
-        | (1ULL << JavaScriptParser::PlusPlus)
-        | (1ULL << JavaScriptParser::MinusMinus)
-        | (1ULL << JavaScriptParser::Plus)
-        | (1ULL << JavaScriptParser::Minus)
-        | (1ULL << JavaScriptParser::BitNot)
-        | (1ULL << JavaScriptParser::Not)
-        | (1ULL << JavaScriptParser::NullLiteral)
-        | (1ULL << JavaScriptParser::BooleanLiteral)
-        | (1ULL << JavaScriptParser::DecimalLiteral)
-        | (1ULL << JavaScriptParser::HexIntegerLiteral)
-        | (1ULL << JavaScriptParser::OctalIntegerLiteral)
-        | (1ULL << JavaScriptParser::OctalIntegerLiteral2)
-        | (1ULL << JavaScriptParser::BinaryIntegerLiteral))) != 0) || ((((_la - 64) & ~ 0x3fULL) == 0) &&
-        ((1ULL << (_la - 64)) & ((1ULL << (JavaScriptParser::Typeof - 64))
-        | (1ULL << (JavaScriptParser::New - 64))
-        | (1ULL << (JavaScriptParser::Void - 64))
-        | (1ULL << (JavaScriptParser::Function - 64))
-        | (1ULL << (JavaScriptParser::This - 64))
-        | (1ULL << (JavaScriptParser::Delete - 64))
-        | (1ULL << (JavaScriptParser::Class - 64))
-        | (1ULL << (JavaScriptParser::Super - 64))
-        | (1ULL << (JavaScriptParser::Yield - 64))
-        | (1ULL << (JavaScriptParser::Identifier - 64))
-        | (1ULL << (JavaScriptParser::StringLiteral - 64))
-        | (1ULL << (JavaScriptParser::TemplateStringLiteral - 64)))) != 0)) {
-        setState(275);
-        expressionSequence();
+        case JavaScriptParser::Var:
+        case JavaScriptParser::Const:
+        case JavaScriptParser::Let: {
+          setState(319);
+          variableStatement();
+          break;
+        }
+
+        case JavaScriptParser::SemiColon: {
+          break;
+        }
+
+      default:
+        break;
       }
-      setState(278);
+      setState(322);
       match(JavaScriptParser::SemiColon);
-      setState(280);
+      setState(324);
       _errHandler->sync(this);
 
       _la = _input->LA(1);
@@ -2019,10 +2556,14 @@ JavaScriptParser::IterationStatementContext* JavaScriptParser::iterationStatemen
         | (1ULL << JavaScriptParser::BooleanLiteral)
         | (1ULL << JavaScriptParser::DecimalLiteral)
         | (1ULL << JavaScriptParser::HexIntegerLiteral)
-        | (1ULL << JavaScriptParser::OctalIntegerLiteral)
-        | (1ULL << JavaScriptParser::OctalIntegerLiteral2)
-        | (1ULL << JavaScriptParser::BinaryIntegerLiteral))) != 0) || ((((_la - 64) & ~ 0x3fULL) == 0) &&
-        ((1ULL << (_la - 64)) & ((1ULL << (JavaScriptParser::Typeof - 64))
+        | (1ULL << JavaScriptParser::OctalIntegerLiteral))) != 0) || ((((_la - 64) & ~ 0x3fULL) == 0) &&
+        ((1ULL << (_la - 64)) & ((1ULL << (JavaScriptParser::OctalIntegerLiteral2 - 64))
+        | (1ULL << (JavaScriptParser::BinaryIntegerLiteral - 64))
+        | (1ULL << (JavaScriptParser::BigHexIntegerLiteral - 64))
+        | (1ULL << (JavaScriptParser::BigOctalIntegerLiteral - 64))
+        | (1ULL << (JavaScriptParser::BigBinaryIntegerLiteral - 64))
+        | (1ULL << (JavaScriptParser::BigDecimalIntegerLiteral - 64))
+        | (1ULL << (JavaScriptParser::Typeof - 64))
         | (1ULL << (JavaScriptParser::New - 64))
         | (1ULL << (JavaScriptParser::Void - 64))
         | (1ULL << (JavaScriptParser::Function - 64))
@@ -2030,16 +2571,19 @@ JavaScriptParser::IterationStatementContext* JavaScriptParser::iterationStatemen
         | (1ULL << (JavaScriptParser::Delete - 64))
         | (1ULL << (JavaScriptParser::Class - 64))
         | (1ULL << (JavaScriptParser::Super - 64))
+        | (1ULL << (JavaScriptParser::Import - 64))
+        | (1ULL << (JavaScriptParser::Async - 64))
+        | (1ULL << (JavaScriptParser::Await - 64))
         | (1ULL << (JavaScriptParser::Yield - 64))
         | (1ULL << (JavaScriptParser::Identifier - 64))
         | (1ULL << (JavaScriptParser::StringLiteral - 64))
         | (1ULL << (JavaScriptParser::TemplateStringLiteral - 64)))) != 0)) {
-        setState(279);
+        setState(323);
         expressionSequence();
       }
-      setState(282);
+      setState(326);
       match(JavaScriptParser::SemiColon);
-      setState(284);
+      setState(328);
       _errHandler->sync(this);
 
       _la = _input->LA(1);
@@ -2058,10 +2602,14 @@ JavaScriptParser::IterationStatementContext* JavaScriptParser::iterationStatemen
         | (1ULL << JavaScriptParser::BooleanLiteral)
         | (1ULL << JavaScriptParser::DecimalLiteral)
         | (1ULL << JavaScriptParser::HexIntegerLiteral)
-        | (1ULL << JavaScriptParser::OctalIntegerLiteral)
-        | (1ULL << JavaScriptParser::OctalIntegerLiteral2)
-        | (1ULL << JavaScriptParser::BinaryIntegerLiteral))) != 0) || ((((_la - 64) & ~ 0x3fULL) == 0) &&
-        ((1ULL << (_la - 64)) & ((1ULL << (JavaScriptParser::Typeof - 64))
+        | (1ULL << JavaScriptParser::OctalIntegerLiteral))) != 0) || ((((_la - 64) & ~ 0x3fULL) == 0) &&
+        ((1ULL << (_la - 64)) & ((1ULL << (JavaScriptParser::OctalIntegerLiteral2 - 64))
+        | (1ULL << (JavaScriptParser::BinaryIntegerLiteral - 64))
+        | (1ULL << (JavaScriptParser::BigHexIntegerLiteral - 64))
+        | (1ULL << (JavaScriptParser::BigOctalIntegerLiteral - 64))
+        | (1ULL << (JavaScriptParser::BigBinaryIntegerLiteral - 64))
+        | (1ULL << (JavaScriptParser::BigDecimalIntegerLiteral - 64))
+        | (1ULL << (JavaScriptParser::Typeof - 64))
         | (1ULL << (JavaScriptParser::New - 64))
         | (1ULL << (JavaScriptParser::Void - 64))
         | (1ULL << (JavaScriptParser::Function - 64))
@@ -2069,192 +2617,176 @@ JavaScriptParser::IterationStatementContext* JavaScriptParser::iterationStatemen
         | (1ULL << (JavaScriptParser::Delete - 64))
         | (1ULL << (JavaScriptParser::Class - 64))
         | (1ULL << (JavaScriptParser::Super - 64))
+        | (1ULL << (JavaScriptParser::Import - 64))
+        | (1ULL << (JavaScriptParser::Async - 64))
+        | (1ULL << (JavaScriptParser::Await - 64))
         | (1ULL << (JavaScriptParser::Yield - 64))
         | (1ULL << (JavaScriptParser::Identifier - 64))
         | (1ULL << (JavaScriptParser::StringLiteral - 64))
         | (1ULL << (JavaScriptParser::TemplateStringLiteral - 64)))) != 0)) {
-        setState(283);
+        setState(327);
         expressionSequence();
       }
-      setState(286);
+      setState(330);
       match(JavaScriptParser::CloseParen);
-      setState(287);
+      setState(331);
       statement();
       break;
     }
 
     case 4: {
-      _localctx = dynamic_cast<IterationStatementContext *>(_tracker.createInstance<JavaScriptParser::ForVarStatementContext>(_localctx));
+      _localctx = dynamic_cast<IterationStatementContext *>(_tracker.createInstance<JavaScriptParser::ForInStatementContext>(_localctx));
       enterOuterAlt(_localctx, 4);
-      setState(288);
+      setState(332);
       match(JavaScriptParser::For);
-      setState(289);
+      setState(333);
       match(JavaScriptParser::OpenParen);
-      setState(290);
-      varModifier();
-      setState(291);
-      variableDeclarationList();
-      setState(292);
-      match(JavaScriptParser::SemiColon);
-      setState(294);
+      setState(336);
       _errHandler->sync(this);
+      switch (_input->LA(1)) {
+        case JavaScriptParser::RegularExpressionLiteral:
+        case JavaScriptParser::OpenBracket:
+        case JavaScriptParser::OpenParen:
+        case JavaScriptParser::OpenBrace:
+        case JavaScriptParser::PlusPlus:
+        case JavaScriptParser::MinusMinus:
+        case JavaScriptParser::Plus:
+        case JavaScriptParser::Minus:
+        case JavaScriptParser::BitNot:
+        case JavaScriptParser::Not:
+        case JavaScriptParser::NullLiteral:
+        case JavaScriptParser::BooleanLiteral:
+        case JavaScriptParser::DecimalLiteral:
+        case JavaScriptParser::HexIntegerLiteral:
+        case JavaScriptParser::OctalIntegerLiteral:
+        case JavaScriptParser::OctalIntegerLiteral2:
+        case JavaScriptParser::BinaryIntegerLiteral:
+        case JavaScriptParser::BigHexIntegerLiteral:
+        case JavaScriptParser::BigOctalIntegerLiteral:
+        case JavaScriptParser::BigBinaryIntegerLiteral:
+        case JavaScriptParser::BigDecimalIntegerLiteral:
+        case JavaScriptParser::Typeof:
+        case JavaScriptParser::New:
+        case JavaScriptParser::Void:
+        case JavaScriptParser::Function:
+        case JavaScriptParser::This:
+        case JavaScriptParser::Delete:
+        case JavaScriptParser::Class:
+        case JavaScriptParser::Super:
+        case JavaScriptParser::Import:
+        case JavaScriptParser::Async:
+        case JavaScriptParser::Await:
+        case JavaScriptParser::Yield:
+        case JavaScriptParser::Identifier:
+        case JavaScriptParser::StringLiteral:
+        case JavaScriptParser::TemplateStringLiteral: {
+          setState(334);
+          singleExpression(0);
+          break;
+        }
 
-      _la = _input->LA(1);
-      if ((((_la & ~ 0x3fULL) == 0) &&
-        ((1ULL << _la) & ((1ULL << JavaScriptParser::RegularExpressionLiteral)
-        | (1ULL << JavaScriptParser::OpenBracket)
-        | (1ULL << JavaScriptParser::OpenParen)
-        | (1ULL << JavaScriptParser::OpenBrace)
-        | (1ULL << JavaScriptParser::PlusPlus)
-        | (1ULL << JavaScriptParser::MinusMinus)
-        | (1ULL << JavaScriptParser::Plus)
-        | (1ULL << JavaScriptParser::Minus)
-        | (1ULL << JavaScriptParser::BitNot)
-        | (1ULL << JavaScriptParser::Not)
-        | (1ULL << JavaScriptParser::NullLiteral)
-        | (1ULL << JavaScriptParser::BooleanLiteral)
-        | (1ULL << JavaScriptParser::DecimalLiteral)
-        | (1ULL << JavaScriptParser::HexIntegerLiteral)
-        | (1ULL << JavaScriptParser::OctalIntegerLiteral)
-        | (1ULL << JavaScriptParser::OctalIntegerLiteral2)
-        | (1ULL << JavaScriptParser::BinaryIntegerLiteral))) != 0) || ((((_la - 64) & ~ 0x3fULL) == 0) &&
-        ((1ULL << (_la - 64)) & ((1ULL << (JavaScriptParser::Typeof - 64))
-        | (1ULL << (JavaScriptParser::New - 64))
-        | (1ULL << (JavaScriptParser::Void - 64))
-        | (1ULL << (JavaScriptParser::Function - 64))
-        | (1ULL << (JavaScriptParser::This - 64))
-        | (1ULL << (JavaScriptParser::Delete - 64))
-        | (1ULL << (JavaScriptParser::Class - 64))
-        | (1ULL << (JavaScriptParser::Super - 64))
-        | (1ULL << (JavaScriptParser::Yield - 64))
-        | (1ULL << (JavaScriptParser::Identifier - 64))
-        | (1ULL << (JavaScriptParser::StringLiteral - 64))
-        | (1ULL << (JavaScriptParser::TemplateStringLiteral - 64)))) != 0)) {
-        setState(293);
-        expressionSequence();
-      }
-      setState(296);
-      match(JavaScriptParser::SemiColon);
-      setState(298);
-      _errHandler->sync(this);
+        case JavaScriptParser::Var:
+        case JavaScriptParser::Const:
+        case JavaScriptParser::Let: {
+          setState(335);
+          variableStatement();
+          break;
+        }
 
-      _la = _input->LA(1);
-      if ((((_la & ~ 0x3fULL) == 0) &&
-        ((1ULL << _la) & ((1ULL << JavaScriptParser::RegularExpressionLiteral)
-        | (1ULL << JavaScriptParser::OpenBracket)
-        | (1ULL << JavaScriptParser::OpenParen)
-        | (1ULL << JavaScriptParser::OpenBrace)
-        | (1ULL << JavaScriptParser::PlusPlus)
-        | (1ULL << JavaScriptParser::MinusMinus)
-        | (1ULL << JavaScriptParser::Plus)
-        | (1ULL << JavaScriptParser::Minus)
-        | (1ULL << JavaScriptParser::BitNot)
-        | (1ULL << JavaScriptParser::Not)
-        | (1ULL << JavaScriptParser::NullLiteral)
-        | (1ULL << JavaScriptParser::BooleanLiteral)
-        | (1ULL << JavaScriptParser::DecimalLiteral)
-        | (1ULL << JavaScriptParser::HexIntegerLiteral)
-        | (1ULL << JavaScriptParser::OctalIntegerLiteral)
-        | (1ULL << JavaScriptParser::OctalIntegerLiteral2)
-        | (1ULL << JavaScriptParser::BinaryIntegerLiteral))) != 0) || ((((_la - 64) & ~ 0x3fULL) == 0) &&
-        ((1ULL << (_la - 64)) & ((1ULL << (JavaScriptParser::Typeof - 64))
-        | (1ULL << (JavaScriptParser::New - 64))
-        | (1ULL << (JavaScriptParser::Void - 64))
-        | (1ULL << (JavaScriptParser::Function - 64))
-        | (1ULL << (JavaScriptParser::This - 64))
-        | (1ULL << (JavaScriptParser::Delete - 64))
-        | (1ULL << (JavaScriptParser::Class - 64))
-        | (1ULL << (JavaScriptParser::Super - 64))
-        | (1ULL << (JavaScriptParser::Yield - 64))
-        | (1ULL << (JavaScriptParser::Identifier - 64))
-        | (1ULL << (JavaScriptParser::StringLiteral - 64))
-        | (1ULL << (JavaScriptParser::TemplateStringLiteral - 64)))) != 0)) {
-        setState(297);
-        expressionSequence();
+      default:
+        throw NoViableAltException(this);
       }
-      setState(300);
+      setState(338);
+      match(JavaScriptParser::In);
+      setState(339);
+      expressionSequence();
+      setState(340);
       match(JavaScriptParser::CloseParen);
-      setState(301);
+      setState(341);
       statement();
       break;
     }
 
     case 5: {
-      _localctx = dynamic_cast<IterationStatementContext *>(_tracker.createInstance<JavaScriptParser::ForInStatementContext>(_localctx));
+      _localctx = dynamic_cast<IterationStatementContext *>(_tracker.createInstance<JavaScriptParser::ForOfStatementContext>(_localctx));
       enterOuterAlt(_localctx, 5);
-      setState(303);
+      setState(343);
       match(JavaScriptParser::For);
-      setState(304);
+      setState(345);
+      _errHandler->sync(this);
+
+      _la = _input->LA(1);
+      if (_la == JavaScriptParser::Await) {
+        setState(344);
+        match(JavaScriptParser::Await);
+      }
+      setState(347);
       match(JavaScriptParser::OpenParen);
-      setState(305);
-      singleExpression(0);
-      setState(309);
+      setState(350);
       _errHandler->sync(this);
       switch (_input->LA(1)) {
-        case JavaScriptParser::In: {
-          setState(306);
-          match(JavaScriptParser::In);
+        case JavaScriptParser::RegularExpressionLiteral:
+        case JavaScriptParser::OpenBracket:
+        case JavaScriptParser::OpenParen:
+        case JavaScriptParser::OpenBrace:
+        case JavaScriptParser::PlusPlus:
+        case JavaScriptParser::MinusMinus:
+        case JavaScriptParser::Plus:
+        case JavaScriptParser::Minus:
+        case JavaScriptParser::BitNot:
+        case JavaScriptParser::Not:
+        case JavaScriptParser::NullLiteral:
+        case JavaScriptParser::BooleanLiteral:
+        case JavaScriptParser::DecimalLiteral:
+        case JavaScriptParser::HexIntegerLiteral:
+        case JavaScriptParser::OctalIntegerLiteral:
+        case JavaScriptParser::OctalIntegerLiteral2:
+        case JavaScriptParser::BinaryIntegerLiteral:
+        case JavaScriptParser::BigHexIntegerLiteral:
+        case JavaScriptParser::BigOctalIntegerLiteral:
+        case JavaScriptParser::BigBinaryIntegerLiteral:
+        case JavaScriptParser::BigDecimalIntegerLiteral:
+        case JavaScriptParser::Typeof:
+        case JavaScriptParser::New:
+        case JavaScriptParser::Void:
+        case JavaScriptParser::Function:
+        case JavaScriptParser::This:
+        case JavaScriptParser::Delete:
+        case JavaScriptParser::Class:
+        case JavaScriptParser::Super:
+        case JavaScriptParser::Import:
+        case JavaScriptParser::Async:
+        case JavaScriptParser::Await:
+        case JavaScriptParser::Yield:
+        case JavaScriptParser::Identifier:
+        case JavaScriptParser::StringLiteral:
+        case JavaScriptParser::TemplateStringLiteral: {
+          setState(348);
+          singleExpression(0);
           break;
         }
 
-        case JavaScriptParser::Identifier: {
-          setState(307);
-          match(JavaScriptParser::Identifier);
-          setState(308);
-
-          if (!(this->p("of"))) throw FailedPredicateException(this, "this->p(\"of\")");
+        case JavaScriptParser::Var:
+        case JavaScriptParser::Const:
+        case JavaScriptParser::Let: {
+          setState(349);
+          variableStatement();
           break;
         }
 
       default:
         throw NoViableAltException(this);
       }
-      setState(311);
+      setState(352);
+      match(JavaScriptParser::Identifier);
+      setState(353);
+
+      if (!(this->p("of"))) throw FailedPredicateException(this, "this->p(\"of\")");
+      setState(354);
       expressionSequence();
-      setState(312);
+      setState(355);
       match(JavaScriptParser::CloseParen);
-      setState(313);
-      statement();
-      break;
-    }
-
-    case 6: {
-      _localctx = dynamic_cast<IterationStatementContext *>(_tracker.createInstance<JavaScriptParser::ForVarInStatementContext>(_localctx));
-      enterOuterAlt(_localctx, 6);
-      setState(315);
-      match(JavaScriptParser::For);
-      setState(316);
-      match(JavaScriptParser::OpenParen);
-      setState(317);
-      varModifier();
-      setState(318);
-      variableDeclaration();
-      setState(322);
-      _errHandler->sync(this);
-      switch (_input->LA(1)) {
-        case JavaScriptParser::In: {
-          setState(319);
-          match(JavaScriptParser::In);
-          break;
-        }
-
-        case JavaScriptParser::Identifier: {
-          setState(320);
-          match(JavaScriptParser::Identifier);
-          setState(321);
-
-          if (!(this->p("of"))) throw FailedPredicateException(this, "this->p(\"of\")");
-          break;
-        }
-
-      default:
-        throw NoViableAltException(this);
-      }
-      setState(324);
-      expressionSequence();
-      setState(325);
-      match(JavaScriptParser::CloseParen);
-      setState(326);
+      setState(356);
       statement();
       break;
     }
@@ -2316,7 +2848,7 @@ antlrcpp::Any JavaScriptParser::VarModifierContext::accept(tree::ParseTreeVisito
 
 JavaScriptParser::VarModifierContext* JavaScriptParser::varModifier() {
   VarModifierContext *_localctx = _tracker.createInstance<VarModifierContext>(_ctx, getState());
-  enterRule(_localctx, 32, JavaScriptParser::RuleVarModifier);
+  enterRule(_localctx, 44, JavaScriptParser::RuleVarModifier);
   size_t _la = 0;
 
   auto onExit = finally([=] {
@@ -2324,12 +2856,12 @@ JavaScriptParser::VarModifierContext* JavaScriptParser::varModifier() {
   });
   try {
     enterOuterAlt(_localctx, 1);
-    setState(330);
+    setState(360);
     _la = _input->LA(1);
-    if (!(((((_la - 68) & ~ 0x3fULL) == 0) &&
-      ((1ULL << (_la - 68)) & ((1ULL << (JavaScriptParser::Var - 68))
-      | (1ULL << (JavaScriptParser::Const - 68))
-      | (1ULL << (JavaScriptParser::Let - 68)))) != 0))) {
+    if (!(((((_la - 77) & ~ 0x3fULL) == 0) &&
+      ((1ULL << (_la - 77)) & ((1ULL << (JavaScriptParser::Var - 77))
+      | (1ULL << (JavaScriptParser::Const - 77))
+      | (1ULL << (JavaScriptParser::Let - 77)))) != 0))) {
     _errHandler->recoverInline(this);
     }
     else {
@@ -2392,30 +2924,30 @@ antlrcpp::Any JavaScriptParser::ContinueStatementContext::accept(tree::ParseTree
 
 JavaScriptParser::ContinueStatementContext* JavaScriptParser::continueStatement() {
   ContinueStatementContext *_localctx = _tracker.createInstance<ContinueStatementContext>(_ctx, getState());
-  enterRule(_localctx, 34, JavaScriptParser::RuleContinueStatement);
+  enterRule(_localctx, 46, JavaScriptParser::RuleContinueStatement);
 
   auto onExit = finally([=] {
     exitRule();
   });
   try {
     enterOuterAlt(_localctx, 1);
-    setState(332);
+    setState(362);
     match(JavaScriptParser::Continue);
-    setState(335);
+    setState(365);
     _errHandler->sync(this);
 
-    switch (getInterpreter<atn::ParserATNSimulator>()->adaptivePredict(_input, 23, _ctx)) {
+    switch (getInterpreter<atn::ParserATNSimulator>()->adaptivePredict(_input, 28, _ctx)) {
     case 1: {
-      setState(333);
+      setState(363);
 
       if (!(this->notLineTerminator())) throw FailedPredicateException(this, "this->notLineTerminator()");
-      setState(334);
+      setState(364);
       match(JavaScriptParser::Identifier);
       break;
     }
 
     }
-    setState(337);
+    setState(367);
     eos();
    
   }
@@ -2473,30 +3005,30 @@ antlrcpp::Any JavaScriptParser::BreakStatementContext::accept(tree::ParseTreeVis
 
 JavaScriptParser::BreakStatementContext* JavaScriptParser::breakStatement() {
   BreakStatementContext *_localctx = _tracker.createInstance<BreakStatementContext>(_ctx, getState());
-  enterRule(_localctx, 36, JavaScriptParser::RuleBreakStatement);
+  enterRule(_localctx, 48, JavaScriptParser::RuleBreakStatement);
 
   auto onExit = finally([=] {
     exitRule();
   });
   try {
     enterOuterAlt(_localctx, 1);
-    setState(339);
+    setState(369);
     match(JavaScriptParser::Break);
-    setState(342);
+    setState(372);
     _errHandler->sync(this);
 
-    switch (getInterpreter<atn::ParserATNSimulator>()->adaptivePredict(_input, 24, _ctx)) {
+    switch (getInterpreter<atn::ParserATNSimulator>()->adaptivePredict(_input, 29, _ctx)) {
     case 1: {
-      setState(340);
+      setState(370);
 
       if (!(this->notLineTerminator())) throw FailedPredicateException(this, "this->notLineTerminator()");
-      setState(341);
+      setState(371);
       match(JavaScriptParser::Identifier);
       break;
     }
 
     }
-    setState(344);
+    setState(374);
     eos();
    
   }
@@ -2554,30 +3086,30 @@ antlrcpp::Any JavaScriptParser::ReturnStatementContext::accept(tree::ParseTreeVi
 
 JavaScriptParser::ReturnStatementContext* JavaScriptParser::returnStatement() {
   ReturnStatementContext *_localctx = _tracker.createInstance<ReturnStatementContext>(_ctx, getState());
-  enterRule(_localctx, 38, JavaScriptParser::RuleReturnStatement);
+  enterRule(_localctx, 50, JavaScriptParser::RuleReturnStatement);
 
   auto onExit = finally([=] {
     exitRule();
   });
   try {
     enterOuterAlt(_localctx, 1);
-    setState(346);
+    setState(376);
     match(JavaScriptParser::Return);
-    setState(349);
+    setState(379);
     _errHandler->sync(this);
 
-    switch (getInterpreter<atn::ParserATNSimulator>()->adaptivePredict(_input, 25, _ctx)) {
+    switch (getInterpreter<atn::ParserATNSimulator>()->adaptivePredict(_input, 30, _ctx)) {
     case 1: {
-      setState(347);
+      setState(377);
 
       if (!(this->notLineTerminator())) throw FailedPredicateException(this, "this->notLineTerminator()");
-      setState(348);
+      setState(378);
       expressionSequence();
       break;
     }
 
     }
-    setState(351);
+    setState(381);
     eos();
    
   }
@@ -2635,30 +3167,30 @@ antlrcpp::Any JavaScriptParser::YieldStatementContext::accept(tree::ParseTreeVis
 
 JavaScriptParser::YieldStatementContext* JavaScriptParser::yieldStatement() {
   YieldStatementContext *_localctx = _tracker.createInstance<YieldStatementContext>(_ctx, getState());
-  enterRule(_localctx, 40, JavaScriptParser::RuleYieldStatement);
+  enterRule(_localctx, 52, JavaScriptParser::RuleYieldStatement);
 
   auto onExit = finally([=] {
     exitRule();
   });
   try {
     enterOuterAlt(_localctx, 1);
-    setState(353);
+    setState(383);
     match(JavaScriptParser::Yield);
-    setState(356);
+    setState(386);
     _errHandler->sync(this);
 
-    switch (getInterpreter<atn::ParserATNSimulator>()->adaptivePredict(_input, 26, _ctx)) {
+    switch (getInterpreter<atn::ParserATNSimulator>()->adaptivePredict(_input, 31, _ctx)) {
     case 1: {
-      setState(354);
+      setState(384);
 
       if (!(this->notLineTerminator())) throw FailedPredicateException(this, "this->notLineTerminator()");
-      setState(355);
+      setState(385);
       expressionSequence();
       break;
     }
 
     }
-    setState(358);
+    setState(388);
     eos();
    
   }
@@ -2724,22 +3256,22 @@ antlrcpp::Any JavaScriptParser::WithStatementContext::accept(tree::ParseTreeVisi
 
 JavaScriptParser::WithStatementContext* JavaScriptParser::withStatement() {
   WithStatementContext *_localctx = _tracker.createInstance<WithStatementContext>(_ctx, getState());
-  enterRule(_localctx, 42, JavaScriptParser::RuleWithStatement);
+  enterRule(_localctx, 54, JavaScriptParser::RuleWithStatement);
 
   auto onExit = finally([=] {
     exitRule();
   });
   try {
     enterOuterAlt(_localctx, 1);
-    setState(360);
+    setState(390);
     match(JavaScriptParser::With);
-    setState(361);
+    setState(391);
     match(JavaScriptParser::OpenParen);
-    setState(362);
+    setState(392);
     expressionSequence();
-    setState(363);
+    setState(393);
     match(JavaScriptParser::CloseParen);
-    setState(364);
+    setState(394);
     statement();
    
   }
@@ -2805,22 +3337,22 @@ antlrcpp::Any JavaScriptParser::SwitchStatementContext::accept(tree::ParseTreeVi
 
 JavaScriptParser::SwitchStatementContext* JavaScriptParser::switchStatement() {
   SwitchStatementContext *_localctx = _tracker.createInstance<SwitchStatementContext>(_ctx, getState());
-  enterRule(_localctx, 44, JavaScriptParser::RuleSwitchStatement);
+  enterRule(_localctx, 56, JavaScriptParser::RuleSwitchStatement);
 
   auto onExit = finally([=] {
     exitRule();
   });
   try {
     enterOuterAlt(_localctx, 1);
-    setState(366);
+    setState(396);
     match(JavaScriptParser::Switch);
-    setState(367);
+    setState(397);
     match(JavaScriptParser::OpenParen);
-    setState(368);
+    setState(398);
     expressionSequence();
-    setState(369);
+    setState(399);
     match(JavaScriptParser::CloseParen);
-    setState(370);
+    setState(400);
     caseBlock();
    
   }
@@ -2886,7 +3418,7 @@ antlrcpp::Any JavaScriptParser::CaseBlockContext::accept(tree::ParseTreeVisitor 
 
 JavaScriptParser::CaseBlockContext* JavaScriptParser::caseBlock() {
   CaseBlockContext *_localctx = _tracker.createInstance<CaseBlockContext>(_ctx, getState());
-  enterRule(_localctx, 46, JavaScriptParser::RuleCaseBlock);
+  enterRule(_localctx, 58, JavaScriptParser::RuleCaseBlock);
   size_t _la = 0;
 
   auto onExit = finally([=] {
@@ -2894,33 +3426,33 @@ JavaScriptParser::CaseBlockContext* JavaScriptParser::caseBlock() {
   });
   try {
     enterOuterAlt(_localctx, 1);
-    setState(372);
+    setState(402);
     match(JavaScriptParser::OpenBrace);
-    setState(374);
+    setState(404);
     _errHandler->sync(this);
 
     _la = _input->LA(1);
     if (_la == JavaScriptParser::Case) {
-      setState(373);
+      setState(403);
       caseClauses();
     }
-    setState(380);
+    setState(410);
     _errHandler->sync(this);
 
     _la = _input->LA(1);
     if (_la == JavaScriptParser::Default) {
-      setState(376);
+      setState(406);
       defaultClause();
-      setState(378);
+      setState(408);
       _errHandler->sync(this);
 
       _la = _input->LA(1);
       if (_la == JavaScriptParser::Case) {
-        setState(377);
+        setState(407);
         caseClauses();
       }
     }
-    setState(382);
+    setState(412);
     match(JavaScriptParser::CloseBrace);
    
   }
@@ -2974,7 +3506,7 @@ antlrcpp::Any JavaScriptParser::CaseClausesContext::accept(tree::ParseTreeVisito
 
 JavaScriptParser::CaseClausesContext* JavaScriptParser::caseClauses() {
   CaseClausesContext *_localctx = _tracker.createInstance<CaseClausesContext>(_ctx, getState());
-  enterRule(_localctx, 48, JavaScriptParser::RuleCaseClauses);
+  enterRule(_localctx, 60, JavaScriptParser::RuleCaseClauses);
   size_t _la = 0;
 
   auto onExit = finally([=] {
@@ -2982,13 +3514,13 @@ JavaScriptParser::CaseClausesContext* JavaScriptParser::caseClauses() {
   });
   try {
     enterOuterAlt(_localctx, 1);
-    setState(385); 
+    setState(415); 
     _errHandler->sync(this);
     _la = _input->LA(1);
     do {
-      setState(384);
+      setState(414);
       caseClause();
-      setState(387); 
+      setState(417); 
       _errHandler->sync(this);
       _la = _input->LA(1);
     } while (_la == JavaScriptParser::Case);
@@ -3052,25 +3584,25 @@ antlrcpp::Any JavaScriptParser::CaseClauseContext::accept(tree::ParseTreeVisitor
 
 JavaScriptParser::CaseClauseContext* JavaScriptParser::caseClause() {
   CaseClauseContext *_localctx = _tracker.createInstance<CaseClauseContext>(_ctx, getState());
-  enterRule(_localctx, 50, JavaScriptParser::RuleCaseClause);
+  enterRule(_localctx, 62, JavaScriptParser::RuleCaseClause);
 
   auto onExit = finally([=] {
     exitRule();
   });
   try {
     enterOuterAlt(_localctx, 1);
-    setState(389);
+    setState(419);
     match(JavaScriptParser::Case);
-    setState(390);
+    setState(420);
     expressionSequence();
-    setState(391);
+    setState(421);
     match(JavaScriptParser::Colon);
-    setState(393);
+    setState(423);
     _errHandler->sync(this);
 
-    switch (getInterpreter<atn::ParserATNSimulator>()->adaptivePredict(_input, 31, _ctx)) {
+    switch (getInterpreter<atn::ParserATNSimulator>()->adaptivePredict(_input, 36, _ctx)) {
     case 1: {
-      setState(392);
+      setState(422);
       statementList();
       break;
     }
@@ -3132,23 +3664,23 @@ antlrcpp::Any JavaScriptParser::DefaultClauseContext::accept(tree::ParseTreeVisi
 
 JavaScriptParser::DefaultClauseContext* JavaScriptParser::defaultClause() {
   DefaultClauseContext *_localctx = _tracker.createInstance<DefaultClauseContext>(_ctx, getState());
-  enterRule(_localctx, 52, JavaScriptParser::RuleDefaultClause);
+  enterRule(_localctx, 64, JavaScriptParser::RuleDefaultClause);
 
   auto onExit = finally([=] {
     exitRule();
   });
   try {
     enterOuterAlt(_localctx, 1);
-    setState(395);
+    setState(425);
     match(JavaScriptParser::Default);
-    setState(396);
+    setState(426);
     match(JavaScriptParser::Colon);
-    setState(398);
+    setState(428);
     _errHandler->sync(this);
 
-    switch (getInterpreter<atn::ParserATNSimulator>()->adaptivePredict(_input, 32, _ctx)) {
+    switch (getInterpreter<atn::ParserATNSimulator>()->adaptivePredict(_input, 37, _ctx)) {
     case 1: {
-      setState(397);
+      setState(427);
       statementList();
       break;
     }
@@ -3210,18 +3742,18 @@ antlrcpp::Any JavaScriptParser::LabelledStatementContext::accept(tree::ParseTree
 
 JavaScriptParser::LabelledStatementContext* JavaScriptParser::labelledStatement() {
   LabelledStatementContext *_localctx = _tracker.createInstance<LabelledStatementContext>(_ctx, getState());
-  enterRule(_localctx, 54, JavaScriptParser::RuleLabelledStatement);
+  enterRule(_localctx, 66, JavaScriptParser::RuleLabelledStatement);
 
   auto onExit = finally([=] {
     exitRule();
   });
   try {
     enterOuterAlt(_localctx, 1);
-    setState(400);
+    setState(430);
     match(JavaScriptParser::Identifier);
-    setState(401);
+    setState(431);
     match(JavaScriptParser::Colon);
-    setState(402);
+    setState(432);
     statement();
    
   }
@@ -3279,21 +3811,21 @@ antlrcpp::Any JavaScriptParser::ThrowStatementContext::accept(tree::ParseTreeVis
 
 JavaScriptParser::ThrowStatementContext* JavaScriptParser::throwStatement() {
   ThrowStatementContext *_localctx = _tracker.createInstance<ThrowStatementContext>(_ctx, getState());
-  enterRule(_localctx, 56, JavaScriptParser::RuleThrowStatement);
+  enterRule(_localctx, 68, JavaScriptParser::RuleThrowStatement);
 
   auto onExit = finally([=] {
     exitRule();
   });
   try {
     enterOuterAlt(_localctx, 1);
-    setState(404);
+    setState(434);
     match(JavaScriptParser::Throw);
-    setState(405);
+    setState(435);
 
     if (!(this->notLineTerminator())) throw FailedPredicateException(this, "this->notLineTerminator()");
-    setState(406);
+    setState(436);
     expressionSequence();
-    setState(407);
+    setState(437);
     eos();
    
   }
@@ -3355,29 +3887,29 @@ antlrcpp::Any JavaScriptParser::TryStatementContext::accept(tree::ParseTreeVisit
 
 JavaScriptParser::TryStatementContext* JavaScriptParser::tryStatement() {
   TryStatementContext *_localctx = _tracker.createInstance<TryStatementContext>(_ctx, getState());
-  enterRule(_localctx, 58, JavaScriptParser::RuleTryStatement);
+  enterRule(_localctx, 70, JavaScriptParser::RuleTryStatement);
 
   auto onExit = finally([=] {
     exitRule();
   });
   try {
     enterOuterAlt(_localctx, 1);
-    setState(409);
+    setState(439);
     match(JavaScriptParser::Try);
-    setState(410);
+    setState(440);
     block();
-    setState(416);
+    setState(446);
     _errHandler->sync(this);
     switch (_input->LA(1)) {
       case JavaScriptParser::Catch: {
-        setState(411);
+        setState(441);
         catchProduction();
-        setState(413);
+        setState(443);
         _errHandler->sync(this);
 
-        switch (getInterpreter<atn::ParserATNSimulator>()->adaptivePredict(_input, 33, _ctx)) {
+        switch (getInterpreter<atn::ParserATNSimulator>()->adaptivePredict(_input, 38, _ctx)) {
         case 1: {
-          setState(412);
+          setState(442);
           finallyProduction();
           break;
         }
@@ -3387,7 +3919,7 @@ JavaScriptParser::TryStatementContext* JavaScriptParser::tryStatement() {
       }
 
       case JavaScriptParser::Finally: {
-        setState(415);
+        setState(445);
         finallyProduction();
         break;
       }
@@ -3416,20 +3948,20 @@ tree::TerminalNode* JavaScriptParser::CatchProductionContext::Catch() {
   return getToken(JavaScriptParser::Catch, 0);
 }
 
-tree::TerminalNode* JavaScriptParser::CatchProductionContext::OpenParen() {
-  return getToken(JavaScriptParser::OpenParen, 0);
+JavaScriptParser::BlockContext* JavaScriptParser::CatchProductionContext::block() {
+  return getRuleContext<JavaScriptParser::BlockContext>(0);
 }
 
-tree::TerminalNode* JavaScriptParser::CatchProductionContext::Identifier() {
-  return getToken(JavaScriptParser::Identifier, 0);
+tree::TerminalNode* JavaScriptParser::CatchProductionContext::OpenParen() {
+  return getToken(JavaScriptParser::OpenParen, 0);
 }
 
 tree::TerminalNode* JavaScriptParser::CatchProductionContext::CloseParen() {
   return getToken(JavaScriptParser::CloseParen, 0);
 }
 
-JavaScriptParser::BlockContext* JavaScriptParser::CatchProductionContext::block() {
-  return getRuleContext<JavaScriptParser::BlockContext>(0);
+JavaScriptParser::AssignableContext* JavaScriptParser::CatchProductionContext::assignable() {
+  return getRuleContext<JavaScriptParser::AssignableContext>(0);
 }
 
 
@@ -3459,22 +3991,37 @@ antlrcpp::Any JavaScriptParser::CatchProductionContext::accept(tree::ParseTreeVi
 
 JavaScriptParser::CatchProductionContext* JavaScriptParser::catchProduction() {
   CatchProductionContext *_localctx = _tracker.createInstance<CatchProductionContext>(_ctx, getState());
-  enterRule(_localctx, 60, JavaScriptParser::RuleCatchProduction);
+  enterRule(_localctx, 72, JavaScriptParser::RuleCatchProduction);
+  size_t _la = 0;
 
   auto onExit = finally([=] {
     exitRule();
   });
   try {
     enterOuterAlt(_localctx, 1);
-    setState(418);
+    setState(448);
     match(JavaScriptParser::Catch);
-    setState(419);
-    match(JavaScriptParser::OpenParen);
-    setState(420);
-    match(JavaScriptParser::Identifier);
-    setState(421);
-    match(JavaScriptParser::CloseParen);
-    setState(422);
+    setState(454);
+    _errHandler->sync(this);
+
+    _la = _input->LA(1);
+    if (_la == JavaScriptParser::OpenParen) {
+      setState(449);
+      match(JavaScriptParser::OpenParen);
+      setState(451);
+      _errHandler->sync(this);
+
+      _la = _input->LA(1);
+      if (_la == JavaScriptParser::OpenBracket
+
+      || _la == JavaScriptParser::OpenBrace || _la == JavaScriptParser::Identifier) {
+        setState(450);
+        assignable();
+      }
+      setState(453);
+      match(JavaScriptParser::CloseParen);
+    }
+    setState(456);
     block();
    
   }
@@ -3528,16 +4075,16 @@ antlrcpp::Any JavaScriptParser::FinallyProductionContext::accept(tree::ParseTree
 
 JavaScriptParser::FinallyProductionContext* JavaScriptParser::finallyProduction() {
   FinallyProductionContext *_localctx = _tracker.createInstance<FinallyProductionContext>(_ctx, getState());
-  enterRule(_localctx, 62, JavaScriptParser::RuleFinallyProduction);
+  enterRule(_localctx, 74, JavaScriptParser::RuleFinallyProduction);
 
   auto onExit = finally([=] {
     exitRule();
   });
   try {
     enterOuterAlt(_localctx, 1);
-    setState(424);
+    setState(458);
     match(JavaScriptParser::Finally);
-    setState(425);
+    setState(459);
     block();
    
   }
@@ -3591,16 +4138,16 @@ antlrcpp::Any JavaScriptParser::DebuggerStatementContext::accept(tree::ParseTree
 
 JavaScriptParser::DebuggerStatementContext* JavaScriptParser::debuggerStatement() {
   DebuggerStatementContext *_localctx = _tracker.createInstance<DebuggerStatementContext>(_ctx, getState());
-  enterRule(_localctx, 64, JavaScriptParser::RuleDebuggerStatement);
+  enterRule(_localctx, 76, JavaScriptParser::RuleDebuggerStatement);
 
   auto onExit = finally([=] {
     exitRule();
   });
   try {
     enterOuterAlt(_localctx, 1);
-    setState(427);
+    setState(461);
     match(JavaScriptParser::Debugger);
-    setState(428);
+    setState(462);
     eos();
    
   }
@@ -3647,6 +4194,14 @@ tree::TerminalNode* JavaScriptParser::FunctionDeclarationContext::CloseBrace() {
   return getToken(JavaScriptParser::CloseBrace, 0);
 }
 
+tree::TerminalNode* JavaScriptParser::FunctionDeclarationContext::Async() {
+  return getToken(JavaScriptParser::Async, 0);
+}
+
+tree::TerminalNode* JavaScriptParser::FunctionDeclarationContext::Multiply() {
+  return getToken(JavaScriptParser::Multiply, 0);
+}
+
 JavaScriptParser::FormalParameterListContext* JavaScriptParser::FunctionDeclarationContext::formalParameterList() {
   return getRuleContext<JavaScriptParser::FormalParameterListContext>(0);
 }
@@ -3678,7 +4233,7 @@ antlrcpp::Any JavaScriptParser::FunctionDeclarationContext::accept(tree::ParseTr
 
 JavaScriptParser::FunctionDeclarationContext* JavaScriptParser::functionDeclaration() {
   FunctionDeclarationContext *_localctx = _tracker.createInstance<FunctionDeclarationContext>(_ctx, getState());
-  enterRule(_localctx, 66, JavaScriptParser::RuleFunctionDeclaration);
+  enterRule(_localctx, 78, JavaScriptParser::RuleFunctionDeclaration);
   size_t _la = 0;
 
   auto onExit = finally([=] {
@@ -3686,13 +4241,29 @@ JavaScriptParser::FunctionDeclarationContext* JavaScriptParser::functionDeclarat
   });
   try {
     enterOuterAlt(_localctx, 1);
-    setState(430);
+    setState(465);
+    _errHandler->sync(this);
+
+    _la = _input->LA(1);
+    if (_la == JavaScriptParser::Async) {
+      setState(464);
+      match(JavaScriptParser::Async);
+    }
+    setState(467);
     match(JavaScriptParser::Function);
-    setState(431);
+    setState(469);
+    _errHandler->sync(this);
+
+    _la = _input->LA(1);
+    if (_la == JavaScriptParser::Multiply) {
+      setState(468);
+      match(JavaScriptParser::Multiply);
+    }
+    setState(471);
     match(JavaScriptParser::Identifier);
-    setState(432);
+    setState(472);
     match(JavaScriptParser::OpenParen);
-    setState(434);
+    setState(474);
     _errHandler->sync(this);
 
     _la = _input->LA(1);
@@ -3700,16 +4271,16 @@ JavaScriptParser::FunctionDeclarationContext* JavaScriptParser::functionDeclarat
       ((1ULL << _la) & ((1ULL << JavaScriptParser::OpenBracket)
       | (1ULL << JavaScriptParser::OpenBrace)
       | (1ULL << JavaScriptParser::Ellipsis))) != 0) || _la == JavaScriptParser::Identifier) {
-      setState(433);
+      setState(473);
       formalParameterList();
     }
-    setState(436);
+    setState(476);
     match(JavaScriptParser::CloseParen);
-    setState(437);
+    setState(477);
     match(JavaScriptParser::OpenBrace);
-    setState(438);
+    setState(478);
     functionBody();
-    setState(439);
+    setState(479);
     match(JavaScriptParser::CloseBrace);
    
   }
@@ -3767,18 +4338,18 @@ antlrcpp::Any JavaScriptParser::ClassDeclarationContext::accept(tree::ParseTreeV
 
 JavaScriptParser::ClassDeclarationContext* JavaScriptParser::classDeclaration() {
   ClassDeclarationContext *_localctx = _tracker.createInstance<ClassDeclarationContext>(_ctx, getState());
-  enterRule(_localctx, 68, JavaScriptParser::RuleClassDeclaration);
+  enterRule(_localctx, 80, JavaScriptParser::RuleClassDeclaration);
 
   auto onExit = finally([=] {
     exitRule();
   });
   try {
     enterOuterAlt(_localctx, 1);
-    setState(441);
+    setState(481);
     match(JavaScriptParser::Class);
-    setState(442);
+    setState(482);
     match(JavaScriptParser::Identifier);
-    setState(443);
+    setState(483);
     classTail();
    
   }
@@ -3848,7 +4419,7 @@ antlrcpp::Any JavaScriptParser::ClassTailContext::accept(tree::ParseTreeVisitor 
 
 JavaScriptParser::ClassTailContext* JavaScriptParser::classTail() {
   ClassTailContext *_localctx = _tracker.createInstance<ClassTailContext>(_ctx, getState());
-  enterRule(_localctx, 70, JavaScriptParser::RuleClassTail);
+  enterRule(_localctx, 82, JavaScriptParser::RuleClassTail);
   size_t _la = 0;
 
   auto onExit = finally([=] {
@@ -3857,31 +4428,31 @@ JavaScriptParser::ClassTailContext* JavaScriptParser::classTail() {
   try {
     size_t alt;
     enterOuterAlt(_localctx, 1);
-    setState(447);
+    setState(487);
     _errHandler->sync(this);
 
     _la = _input->LA(1);
     if (_la == JavaScriptParser::Extends) {
-      setState(445);
+      setState(485);
       match(JavaScriptParser::Extends);
-      setState(446);
+      setState(486);
       singleExpression(0);
     }
-    setState(449);
+    setState(489);
     match(JavaScriptParser::OpenBrace);
-    setState(453);
+    setState(493);
     _errHandler->sync(this);
-    alt = getInterpreter<atn::ParserATNSimulator>()->adaptivePredict(_input, 37, _ctx);
+    alt = getInterpreter<atn::ParserATNSimulator>()->adaptivePredict(_input, 46, _ctx);
     while (alt != 2 && alt != atn::ATN::INVALID_ALT_NUMBER) {
       if (alt == 1) {
-        setState(450);
+        setState(490);
         classElement(); 
       }
-      setState(455);
+      setState(495);
       _errHandler->sync(this);
-      alt = getInterpreter<atn::ParserATNSimulator>()->adaptivePredict(_input, 37, _ctx);
+      alt = getInterpreter<atn::ParserATNSimulator>()->adaptivePredict(_input, 46, _ctx);
     }
-    setState(456);
+    setState(496);
     match(JavaScriptParser::CloseBrace);
    
   }
@@ -3904,16 +4475,48 @@ JavaScriptParser::MethodDefinitionContext* JavaScriptParser::ClassElementContext
   return getRuleContext<JavaScriptParser::MethodDefinitionContext>(0);
 }
 
-tree::TerminalNode* JavaScriptParser::ClassElementContext::Static() {
-  return getToken(JavaScriptParser::Static, 0);
+std::vector<tree::TerminalNode *> JavaScriptParser::ClassElementContext::Static() {
+  return getTokens(JavaScriptParser::Static);
 }
 
-tree::TerminalNode* JavaScriptParser::ClassElementContext::Identifier() {
-  return getToken(JavaScriptParser::Identifier, 0);
+tree::TerminalNode* JavaScriptParser::ClassElementContext::Static(size_t i) {
+  return getToken(JavaScriptParser::Static, i);
+}
+
+std::vector<tree::TerminalNode *> JavaScriptParser::ClassElementContext::Identifier() {
+  return getTokens(JavaScriptParser::Identifier);
+}
+
+tree::TerminalNode* JavaScriptParser::ClassElementContext::Identifier(size_t i) {
+  return getToken(JavaScriptParser::Identifier, i);
+}
+
+std::vector<tree::TerminalNode *> JavaScriptParser::ClassElementContext::Async() {
+  return getTokens(JavaScriptParser::Async);
+}
+
+tree::TerminalNode* JavaScriptParser::ClassElementContext::Async(size_t i) {
+  return getToken(JavaScriptParser::Async, i);
 }
 
 JavaScriptParser::EmptyStatementContext* JavaScriptParser::ClassElementContext::emptyStatement() {
   return getRuleContext<JavaScriptParser::EmptyStatementContext>(0);
+}
+
+JavaScriptParser::PropertyNameContext* JavaScriptParser::ClassElementContext::propertyName() {
+  return getRuleContext<JavaScriptParser::PropertyNameContext>(0);
+}
+
+tree::TerminalNode* JavaScriptParser::ClassElementContext::Assign() {
+  return getToken(JavaScriptParser::Assign, 0);
+}
+
+JavaScriptParser::SingleExpressionContext* JavaScriptParser::ClassElementContext::singleExpression() {
+  return getRuleContext<JavaScriptParser::SingleExpressionContext>(0);
+}
+
+tree::TerminalNode* JavaScriptParser::ClassElementContext::Hashtag() {
+  return getToken(JavaScriptParser::Hashtag, 0);
 }
 
 
@@ -3943,46 +4546,82 @@ antlrcpp::Any JavaScriptParser::ClassElementContext::accept(tree::ParseTreeVisit
 
 JavaScriptParser::ClassElementContext* JavaScriptParser::classElement() {
   ClassElementContext *_localctx = _tracker.createInstance<ClassElementContext>(_ctx, getState());
-  enterRule(_localctx, 72, JavaScriptParser::RuleClassElement);
+  enterRule(_localctx, 84, JavaScriptParser::RuleClassElement);
+  size_t _la = 0;
 
   auto onExit = finally([=] {
     exitRule();
   });
   try {
-    setState(465);
+    size_t alt;
+    setState(516);
     _errHandler->sync(this);
-    switch (getInterpreter<atn::ParserATNSimulator>()->adaptivePredict(_input, 39, _ctx)) {
+    switch (getInterpreter<atn::ParserATNSimulator>()->adaptivePredict(_input, 50, _ctx)) {
     case 1: {
       enterOuterAlt(_localctx, 1);
-      setState(461);
+      setState(504);
       _errHandler->sync(this);
+      alt = getInterpreter<atn::ParserATNSimulator>()->adaptivePredict(_input, 48, _ctx);
+      while (alt != 2 && alt != atn::ATN::INVALID_ALT_NUMBER) {
+        if (alt == 1) {
+          setState(502);
+          _errHandler->sync(this);
+          switch (getInterpreter<atn::ParserATNSimulator>()->adaptivePredict(_input, 47, _ctx)) {
+          case 1: {
+            setState(498);
+            match(JavaScriptParser::Static);
+            break;
+          }
 
-      switch (getInterpreter<atn::ParserATNSimulator>()->adaptivePredict(_input, 38, _ctx)) {
-      case 1: {
-        setState(458);
-        match(JavaScriptParser::Static);
-        break;
+          case 2: {
+            setState(499);
+
+            if (!(this->n("static"))) throw FailedPredicateException(this, "this->n(\"static\")");
+            setState(500);
+            match(JavaScriptParser::Identifier);
+            break;
+          }
+
+          case 3: {
+            setState(501);
+            match(JavaScriptParser::Async);
+            break;
+          }
+
+          } 
+        }
+        setState(506);
+        _errHandler->sync(this);
+        alt = getInterpreter<atn::ParserATNSimulator>()->adaptivePredict(_input, 48, _ctx);
       }
-
-      case 2: {
-        setState(459);
-
-        if (!(this->n("static"))) throw FailedPredicateException(this, "this->n(\"static\")");
-        setState(460);
-        match(JavaScriptParser::Identifier);
-        break;
-      }
-
-      }
-      setState(463);
+      setState(507);
       methodDefinition();
       break;
     }
 
     case 2: {
       enterOuterAlt(_localctx, 2);
-      setState(464);
+      setState(508);
       emptyStatement();
+      break;
+    }
+
+    case 3: {
+      enterOuterAlt(_localctx, 3);
+      setState(510);
+      _errHandler->sync(this);
+
+      _la = _input->LA(1);
+      if (_la == JavaScriptParser::Hashtag) {
+        setState(509);
+        match(JavaScriptParser::Hashtag);
+      }
+      setState(512);
+      propertyName();
+      setState(513);
+      match(JavaScriptParser::Assign);
+      setState(514);
+      singleExpression(0);
       break;
     }
 
@@ -4028,6 +4667,14 @@ tree::TerminalNode* JavaScriptParser::MethodDefinitionContext::CloseBrace() {
   return getToken(JavaScriptParser::CloseBrace, 0);
 }
 
+tree::TerminalNode* JavaScriptParser::MethodDefinitionContext::Multiply() {
+  return getToken(JavaScriptParser::Multiply, 0);
+}
+
+tree::TerminalNode* JavaScriptParser::MethodDefinitionContext::Hashtag() {
+  return getToken(JavaScriptParser::Hashtag, 0);
+}
+
 JavaScriptParser::FormalParameterListContext* JavaScriptParser::MethodDefinitionContext::formalParameterList() {
   return getRuleContext<JavaScriptParser::FormalParameterListContext>(0);
 }
@@ -4038,10 +4685,6 @@ JavaScriptParser::GetterContext* JavaScriptParser::MethodDefinitionContext::gett
 
 JavaScriptParser::SetterContext* JavaScriptParser::MethodDefinitionContext::setter() {
   return getRuleContext<JavaScriptParser::SetterContext>(0);
-}
-
-JavaScriptParser::GeneratorMethodContext* JavaScriptParser::MethodDefinitionContext::generatorMethod() {
-  return getRuleContext<JavaScriptParser::GeneratorMethodContext>(0);
 }
 
 
@@ -4071,23 +4714,39 @@ antlrcpp::Any JavaScriptParser::MethodDefinitionContext::accept(tree::ParseTreeV
 
 JavaScriptParser::MethodDefinitionContext* JavaScriptParser::methodDefinition() {
   MethodDefinitionContext *_localctx = _tracker.createInstance<MethodDefinitionContext>(_ctx, getState());
-  enterRule(_localctx, 74, JavaScriptParser::RuleMethodDefinition);
+  enterRule(_localctx, 86, JavaScriptParser::RuleMethodDefinition);
   size_t _la = 0;
 
   auto onExit = finally([=] {
     exitRule();
   });
   try {
-    setState(495);
+    setState(563);
     _errHandler->sync(this);
-    switch (getInterpreter<atn::ParserATNSimulator>()->adaptivePredict(_input, 42, _ctx)) {
+    switch (getInterpreter<atn::ParserATNSimulator>()->adaptivePredict(_input, 59, _ctx)) {
     case 1: {
       enterOuterAlt(_localctx, 1);
-      setState(467);
+      setState(519);
+      _errHandler->sync(this);
+
+      _la = _input->LA(1);
+      if (_la == JavaScriptParser::Multiply) {
+        setState(518);
+        match(JavaScriptParser::Multiply);
+      }
+      setState(522);
+      _errHandler->sync(this);
+
+      _la = _input->LA(1);
+      if (_la == JavaScriptParser::Hashtag) {
+        setState(521);
+        match(JavaScriptParser::Hashtag);
+      }
+      setState(524);
       propertyName();
-      setState(468);
+      setState(525);
       match(JavaScriptParser::OpenParen);
-      setState(470);
+      setState(527);
       _errHandler->sync(this);
 
       _la = _input->LA(1);
@@ -4095,44 +4754,76 @@ JavaScriptParser::MethodDefinitionContext* JavaScriptParser::methodDefinition() 
         ((1ULL << _la) & ((1ULL << JavaScriptParser::OpenBracket)
         | (1ULL << JavaScriptParser::OpenBrace)
         | (1ULL << JavaScriptParser::Ellipsis))) != 0) || _la == JavaScriptParser::Identifier) {
-        setState(469);
+        setState(526);
         formalParameterList();
       }
-      setState(472);
+      setState(529);
       match(JavaScriptParser::CloseParen);
-      setState(473);
+      setState(530);
       match(JavaScriptParser::OpenBrace);
-      setState(474);
+      setState(531);
       functionBody();
-      setState(475);
+      setState(532);
       match(JavaScriptParser::CloseBrace);
       break;
     }
 
     case 2: {
       enterOuterAlt(_localctx, 2);
-      setState(477);
+      setState(535);
+      _errHandler->sync(this);
+
+      _la = _input->LA(1);
+      if (_la == JavaScriptParser::Multiply) {
+        setState(534);
+        match(JavaScriptParser::Multiply);
+      }
+      setState(538);
+      _errHandler->sync(this);
+
+      _la = _input->LA(1);
+      if (_la == JavaScriptParser::Hashtag) {
+        setState(537);
+        match(JavaScriptParser::Hashtag);
+      }
+      setState(540);
       getter();
-      setState(478);
+      setState(541);
       match(JavaScriptParser::OpenParen);
-      setState(479);
+      setState(542);
       match(JavaScriptParser::CloseParen);
-      setState(480);
+      setState(543);
       match(JavaScriptParser::OpenBrace);
-      setState(481);
+      setState(544);
       functionBody();
-      setState(482);
+      setState(545);
       match(JavaScriptParser::CloseBrace);
       break;
     }
 
     case 3: {
       enterOuterAlt(_localctx, 3);
-      setState(484);
+      setState(548);
+      _errHandler->sync(this);
+
+      _la = _input->LA(1);
+      if (_la == JavaScriptParser::Multiply) {
+        setState(547);
+        match(JavaScriptParser::Multiply);
+      }
+      setState(551);
+      _errHandler->sync(this);
+
+      _la = _input->LA(1);
+      if (_la == JavaScriptParser::Hashtag) {
+        setState(550);
+        match(JavaScriptParser::Hashtag);
+      }
+      setState(553);
       setter();
-      setState(485);
+      setState(554);
       match(JavaScriptParser::OpenParen);
-      setState(487);
+      setState(556);
       _errHandler->sync(this);
 
       _la = _input->LA(1);
@@ -4140,664 +4831,21 @@ JavaScriptParser::MethodDefinitionContext* JavaScriptParser::methodDefinition() 
         ((1ULL << _la) & ((1ULL << JavaScriptParser::OpenBracket)
         | (1ULL << JavaScriptParser::OpenBrace)
         | (1ULL << JavaScriptParser::Ellipsis))) != 0) || _la == JavaScriptParser::Identifier) {
-        setState(486);
+        setState(555);
         formalParameterList();
       }
-      setState(489);
+      setState(558);
       match(JavaScriptParser::CloseParen);
-      setState(490);
+      setState(559);
       match(JavaScriptParser::OpenBrace);
-      setState(491);
+      setState(560);
       functionBody();
-      setState(492);
+      setState(561);
       match(JavaScriptParser::CloseBrace);
       break;
     }
 
-    case 4: {
-      enterOuterAlt(_localctx, 4);
-      setState(494);
-      generatorMethod();
-      break;
     }
-
-    }
-   
-  }
-  catch (RecognitionException &e) {
-    _errHandler->reportError(this, e);
-    _localctx->exception = std::current_exception();
-    _errHandler->recover(this, _localctx->exception);
-  }
-
-  return _localctx;
-}
-
-//----------------- GeneratorMethodContext ------------------------------------------------------------------
-
-JavaScriptParser::GeneratorMethodContext::GeneratorMethodContext(ParserRuleContext *parent, size_t invokingState)
-  : ParserRuleContext(parent, invokingState) {
-}
-
-tree::TerminalNode* JavaScriptParser::GeneratorMethodContext::Identifier() {
-  return getToken(JavaScriptParser::Identifier, 0);
-}
-
-tree::TerminalNode* JavaScriptParser::GeneratorMethodContext::OpenParen() {
-  return getToken(JavaScriptParser::OpenParen, 0);
-}
-
-tree::TerminalNode* JavaScriptParser::GeneratorMethodContext::CloseParen() {
-  return getToken(JavaScriptParser::CloseParen, 0);
-}
-
-tree::TerminalNode* JavaScriptParser::GeneratorMethodContext::OpenBrace() {
-  return getToken(JavaScriptParser::OpenBrace, 0);
-}
-
-JavaScriptParser::FunctionBodyContext* JavaScriptParser::GeneratorMethodContext::functionBody() {
-  return getRuleContext<JavaScriptParser::FunctionBodyContext>(0);
-}
-
-tree::TerminalNode* JavaScriptParser::GeneratorMethodContext::CloseBrace() {
-  return getToken(JavaScriptParser::CloseBrace, 0);
-}
-
-tree::TerminalNode* JavaScriptParser::GeneratorMethodContext::Multiply() {
-  return getToken(JavaScriptParser::Multiply, 0);
-}
-
-JavaScriptParser::FormalParameterListContext* JavaScriptParser::GeneratorMethodContext::formalParameterList() {
-  return getRuleContext<JavaScriptParser::FormalParameterListContext>(0);
-}
-
-
-size_t JavaScriptParser::GeneratorMethodContext::getRuleIndex() const {
-  return JavaScriptParser::RuleGeneratorMethod;
-}
-
-void JavaScriptParser::GeneratorMethodContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<JavaScriptParserListener *>(listener);
-  if (parserListener != nullptr)
-    parserListener->enterGeneratorMethod(this);
-}
-
-void JavaScriptParser::GeneratorMethodContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<JavaScriptParserListener *>(listener);
-  if (parserListener != nullptr)
-    parserListener->exitGeneratorMethod(this);
-}
-
-
-antlrcpp::Any JavaScriptParser::GeneratorMethodContext::accept(tree::ParseTreeVisitor *visitor) {
-  if (auto parserVisitor = dynamic_cast<JavaScriptParserVisitor*>(visitor))
-    return parserVisitor->visitGeneratorMethod(this);
-  else
-    return visitor->visitChildren(this);
-}
-
-JavaScriptParser::GeneratorMethodContext* JavaScriptParser::generatorMethod() {
-  GeneratorMethodContext *_localctx = _tracker.createInstance<GeneratorMethodContext>(_ctx, getState());
-  enterRule(_localctx, 76, JavaScriptParser::RuleGeneratorMethod);
-  size_t _la = 0;
-
-  auto onExit = finally([=] {
-    exitRule();
-  });
-  try {
-    enterOuterAlt(_localctx, 1);
-    setState(498);
-    _errHandler->sync(this);
-
-    _la = _input->LA(1);
-    if (_la == JavaScriptParser::Multiply) {
-      setState(497);
-      match(JavaScriptParser::Multiply);
-    }
-    setState(500);
-    match(JavaScriptParser::Identifier);
-    setState(501);
-    match(JavaScriptParser::OpenParen);
-    setState(503);
-    _errHandler->sync(this);
-
-    _la = _input->LA(1);
-    if ((((_la & ~ 0x3fULL) == 0) &&
-      ((1ULL << _la) & ((1ULL << JavaScriptParser::OpenBracket)
-      | (1ULL << JavaScriptParser::OpenBrace)
-      | (1ULL << JavaScriptParser::Ellipsis))) != 0) || _la == JavaScriptParser::Identifier) {
-      setState(502);
-      formalParameterList();
-    }
-    setState(505);
-    match(JavaScriptParser::CloseParen);
-    setState(506);
-    match(JavaScriptParser::OpenBrace);
-    setState(507);
-    functionBody();
-    setState(508);
-    match(JavaScriptParser::CloseBrace);
-   
-  }
-  catch (RecognitionException &e) {
-    _errHandler->reportError(this, e);
-    _localctx->exception = std::current_exception();
-    _errHandler->recover(this, _localctx->exception);
-  }
-
-  return _localctx;
-}
-
-//----------------- GeneratorFunctionDeclarationContext ------------------------------------------------------------------
-
-JavaScriptParser::GeneratorFunctionDeclarationContext::GeneratorFunctionDeclarationContext(ParserRuleContext *parent, size_t invokingState)
-  : ParserRuleContext(parent, invokingState) {
-}
-
-tree::TerminalNode* JavaScriptParser::GeneratorFunctionDeclarationContext::Function() {
-  return getToken(JavaScriptParser::Function, 0);
-}
-
-tree::TerminalNode* JavaScriptParser::GeneratorFunctionDeclarationContext::Multiply() {
-  return getToken(JavaScriptParser::Multiply, 0);
-}
-
-tree::TerminalNode* JavaScriptParser::GeneratorFunctionDeclarationContext::OpenParen() {
-  return getToken(JavaScriptParser::OpenParen, 0);
-}
-
-tree::TerminalNode* JavaScriptParser::GeneratorFunctionDeclarationContext::CloseParen() {
-  return getToken(JavaScriptParser::CloseParen, 0);
-}
-
-tree::TerminalNode* JavaScriptParser::GeneratorFunctionDeclarationContext::OpenBrace() {
-  return getToken(JavaScriptParser::OpenBrace, 0);
-}
-
-JavaScriptParser::FunctionBodyContext* JavaScriptParser::GeneratorFunctionDeclarationContext::functionBody() {
-  return getRuleContext<JavaScriptParser::FunctionBodyContext>(0);
-}
-
-tree::TerminalNode* JavaScriptParser::GeneratorFunctionDeclarationContext::CloseBrace() {
-  return getToken(JavaScriptParser::CloseBrace, 0);
-}
-
-tree::TerminalNode* JavaScriptParser::GeneratorFunctionDeclarationContext::Identifier() {
-  return getToken(JavaScriptParser::Identifier, 0);
-}
-
-JavaScriptParser::FormalParameterListContext* JavaScriptParser::GeneratorFunctionDeclarationContext::formalParameterList() {
-  return getRuleContext<JavaScriptParser::FormalParameterListContext>(0);
-}
-
-
-size_t JavaScriptParser::GeneratorFunctionDeclarationContext::getRuleIndex() const {
-  return JavaScriptParser::RuleGeneratorFunctionDeclaration;
-}
-
-void JavaScriptParser::GeneratorFunctionDeclarationContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<JavaScriptParserListener *>(listener);
-  if (parserListener != nullptr)
-    parserListener->enterGeneratorFunctionDeclaration(this);
-}
-
-void JavaScriptParser::GeneratorFunctionDeclarationContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<JavaScriptParserListener *>(listener);
-  if (parserListener != nullptr)
-    parserListener->exitGeneratorFunctionDeclaration(this);
-}
-
-
-antlrcpp::Any JavaScriptParser::GeneratorFunctionDeclarationContext::accept(tree::ParseTreeVisitor *visitor) {
-  if (auto parserVisitor = dynamic_cast<JavaScriptParserVisitor*>(visitor))
-    return parserVisitor->visitGeneratorFunctionDeclaration(this);
-  else
-    return visitor->visitChildren(this);
-}
-
-JavaScriptParser::GeneratorFunctionDeclarationContext* JavaScriptParser::generatorFunctionDeclaration() {
-  GeneratorFunctionDeclarationContext *_localctx = _tracker.createInstance<GeneratorFunctionDeclarationContext>(_ctx, getState());
-  enterRule(_localctx, 78, JavaScriptParser::RuleGeneratorFunctionDeclaration);
-  size_t _la = 0;
-
-  auto onExit = finally([=] {
-    exitRule();
-  });
-  try {
-    enterOuterAlt(_localctx, 1);
-    setState(510);
-    match(JavaScriptParser::Function);
-    setState(511);
-    match(JavaScriptParser::Multiply);
-    setState(513);
-    _errHandler->sync(this);
-
-    _la = _input->LA(1);
-    if (_la == JavaScriptParser::Identifier) {
-      setState(512);
-      match(JavaScriptParser::Identifier);
-    }
-    setState(515);
-    match(JavaScriptParser::OpenParen);
-    setState(517);
-    _errHandler->sync(this);
-
-    _la = _input->LA(1);
-    if ((((_la & ~ 0x3fULL) == 0) &&
-      ((1ULL << _la) & ((1ULL << JavaScriptParser::OpenBracket)
-      | (1ULL << JavaScriptParser::OpenBrace)
-      | (1ULL << JavaScriptParser::Ellipsis))) != 0) || _la == JavaScriptParser::Identifier) {
-      setState(516);
-      formalParameterList();
-    }
-    setState(519);
-    match(JavaScriptParser::CloseParen);
-    setState(520);
-    match(JavaScriptParser::OpenBrace);
-    setState(521);
-    functionBody();
-    setState(522);
-    match(JavaScriptParser::CloseBrace);
-   
-  }
-  catch (RecognitionException &e) {
-    _errHandler->reportError(this, e);
-    _localctx->exception = std::current_exception();
-    _errHandler->recover(this, _localctx->exception);
-  }
-
-  return _localctx;
-}
-
-//----------------- GeneratorBlockContext ------------------------------------------------------------------
-
-JavaScriptParser::GeneratorBlockContext::GeneratorBlockContext(ParserRuleContext *parent, size_t invokingState)
-  : ParserRuleContext(parent, invokingState) {
-}
-
-tree::TerminalNode* JavaScriptParser::GeneratorBlockContext::OpenBrace() {
-  return getToken(JavaScriptParser::OpenBrace, 0);
-}
-
-tree::TerminalNode* JavaScriptParser::GeneratorBlockContext::CloseBrace() {
-  return getToken(JavaScriptParser::CloseBrace, 0);
-}
-
-std::vector<JavaScriptParser::GeneratorDefinitionContext *> JavaScriptParser::GeneratorBlockContext::generatorDefinition() {
-  return getRuleContexts<JavaScriptParser::GeneratorDefinitionContext>();
-}
-
-JavaScriptParser::GeneratorDefinitionContext* JavaScriptParser::GeneratorBlockContext::generatorDefinition(size_t i) {
-  return getRuleContext<JavaScriptParser::GeneratorDefinitionContext>(i);
-}
-
-std::vector<tree::TerminalNode *> JavaScriptParser::GeneratorBlockContext::Comma() {
-  return getTokens(JavaScriptParser::Comma);
-}
-
-tree::TerminalNode* JavaScriptParser::GeneratorBlockContext::Comma(size_t i) {
-  return getToken(JavaScriptParser::Comma, i);
-}
-
-
-size_t JavaScriptParser::GeneratorBlockContext::getRuleIndex() const {
-  return JavaScriptParser::RuleGeneratorBlock;
-}
-
-void JavaScriptParser::GeneratorBlockContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<JavaScriptParserListener *>(listener);
-  if (parserListener != nullptr)
-    parserListener->enterGeneratorBlock(this);
-}
-
-void JavaScriptParser::GeneratorBlockContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<JavaScriptParserListener *>(listener);
-  if (parserListener != nullptr)
-    parserListener->exitGeneratorBlock(this);
-}
-
-
-antlrcpp::Any JavaScriptParser::GeneratorBlockContext::accept(tree::ParseTreeVisitor *visitor) {
-  if (auto parserVisitor = dynamic_cast<JavaScriptParserVisitor*>(visitor))
-    return parserVisitor->visitGeneratorBlock(this);
-  else
-    return visitor->visitChildren(this);
-}
-
-JavaScriptParser::GeneratorBlockContext* JavaScriptParser::generatorBlock() {
-  GeneratorBlockContext *_localctx = _tracker.createInstance<GeneratorBlockContext>(_ctx, getState());
-  enterRule(_localctx, 80, JavaScriptParser::RuleGeneratorBlock);
-  size_t _la = 0;
-
-  auto onExit = finally([=] {
-    exitRule();
-  });
-  try {
-    size_t alt;
-    enterOuterAlt(_localctx, 1);
-    setState(524);
-    match(JavaScriptParser::OpenBrace);
-    setState(533);
-    _errHandler->sync(this);
-
-    _la = _input->LA(1);
-    if (_la == JavaScriptParser::Multiply) {
-      setState(525);
-      generatorDefinition();
-      setState(530);
-      _errHandler->sync(this);
-      alt = getInterpreter<atn::ParserATNSimulator>()->adaptivePredict(_input, 47, _ctx);
-      while (alt != 2 && alt != atn::ATN::INVALID_ALT_NUMBER) {
-        if (alt == 1) {
-          setState(526);
-          match(JavaScriptParser::Comma);
-          setState(527);
-          generatorDefinition(); 
-        }
-        setState(532);
-        _errHandler->sync(this);
-        alt = getInterpreter<atn::ParserATNSimulator>()->adaptivePredict(_input, 47, _ctx);
-      }
-    }
-    setState(536);
-    _errHandler->sync(this);
-
-    _la = _input->LA(1);
-    if (_la == JavaScriptParser::Comma) {
-      setState(535);
-      match(JavaScriptParser::Comma);
-    }
-    setState(538);
-    match(JavaScriptParser::CloseBrace);
-   
-  }
-  catch (RecognitionException &e) {
-    _errHandler->reportError(this, e);
-    _localctx->exception = std::current_exception();
-    _errHandler->recover(this, _localctx->exception);
-  }
-
-  return _localctx;
-}
-
-//----------------- GeneratorDefinitionContext ------------------------------------------------------------------
-
-JavaScriptParser::GeneratorDefinitionContext::GeneratorDefinitionContext(ParserRuleContext *parent, size_t invokingState)
-  : ParserRuleContext(parent, invokingState) {
-}
-
-tree::TerminalNode* JavaScriptParser::GeneratorDefinitionContext::Multiply() {
-  return getToken(JavaScriptParser::Multiply, 0);
-}
-
-JavaScriptParser::IteratorDefinitionContext* JavaScriptParser::GeneratorDefinitionContext::iteratorDefinition() {
-  return getRuleContext<JavaScriptParser::IteratorDefinitionContext>(0);
-}
-
-
-size_t JavaScriptParser::GeneratorDefinitionContext::getRuleIndex() const {
-  return JavaScriptParser::RuleGeneratorDefinition;
-}
-
-void JavaScriptParser::GeneratorDefinitionContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<JavaScriptParserListener *>(listener);
-  if (parserListener != nullptr)
-    parserListener->enterGeneratorDefinition(this);
-}
-
-void JavaScriptParser::GeneratorDefinitionContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<JavaScriptParserListener *>(listener);
-  if (parserListener != nullptr)
-    parserListener->exitGeneratorDefinition(this);
-}
-
-
-antlrcpp::Any JavaScriptParser::GeneratorDefinitionContext::accept(tree::ParseTreeVisitor *visitor) {
-  if (auto parserVisitor = dynamic_cast<JavaScriptParserVisitor*>(visitor))
-    return parserVisitor->visitGeneratorDefinition(this);
-  else
-    return visitor->visitChildren(this);
-}
-
-JavaScriptParser::GeneratorDefinitionContext* JavaScriptParser::generatorDefinition() {
-  GeneratorDefinitionContext *_localctx = _tracker.createInstance<GeneratorDefinitionContext>(_ctx, getState());
-  enterRule(_localctx, 82, JavaScriptParser::RuleGeneratorDefinition);
-
-  auto onExit = finally([=] {
-    exitRule();
-  });
-  try {
-    enterOuterAlt(_localctx, 1);
-    setState(540);
-    match(JavaScriptParser::Multiply);
-    setState(541);
-    iteratorDefinition();
-   
-  }
-  catch (RecognitionException &e) {
-    _errHandler->reportError(this, e);
-    _localctx->exception = std::current_exception();
-    _errHandler->recover(this, _localctx->exception);
-  }
-
-  return _localctx;
-}
-
-//----------------- IteratorBlockContext ------------------------------------------------------------------
-
-JavaScriptParser::IteratorBlockContext::IteratorBlockContext(ParserRuleContext *parent, size_t invokingState)
-  : ParserRuleContext(parent, invokingState) {
-}
-
-tree::TerminalNode* JavaScriptParser::IteratorBlockContext::OpenBrace() {
-  return getToken(JavaScriptParser::OpenBrace, 0);
-}
-
-tree::TerminalNode* JavaScriptParser::IteratorBlockContext::CloseBrace() {
-  return getToken(JavaScriptParser::CloseBrace, 0);
-}
-
-std::vector<JavaScriptParser::IteratorDefinitionContext *> JavaScriptParser::IteratorBlockContext::iteratorDefinition() {
-  return getRuleContexts<JavaScriptParser::IteratorDefinitionContext>();
-}
-
-JavaScriptParser::IteratorDefinitionContext* JavaScriptParser::IteratorBlockContext::iteratorDefinition(size_t i) {
-  return getRuleContext<JavaScriptParser::IteratorDefinitionContext>(i);
-}
-
-std::vector<tree::TerminalNode *> JavaScriptParser::IteratorBlockContext::Comma() {
-  return getTokens(JavaScriptParser::Comma);
-}
-
-tree::TerminalNode* JavaScriptParser::IteratorBlockContext::Comma(size_t i) {
-  return getToken(JavaScriptParser::Comma, i);
-}
-
-
-size_t JavaScriptParser::IteratorBlockContext::getRuleIndex() const {
-  return JavaScriptParser::RuleIteratorBlock;
-}
-
-void JavaScriptParser::IteratorBlockContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<JavaScriptParserListener *>(listener);
-  if (parserListener != nullptr)
-    parserListener->enterIteratorBlock(this);
-}
-
-void JavaScriptParser::IteratorBlockContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<JavaScriptParserListener *>(listener);
-  if (parserListener != nullptr)
-    parserListener->exitIteratorBlock(this);
-}
-
-
-antlrcpp::Any JavaScriptParser::IteratorBlockContext::accept(tree::ParseTreeVisitor *visitor) {
-  if (auto parserVisitor = dynamic_cast<JavaScriptParserVisitor*>(visitor))
-    return parserVisitor->visitIteratorBlock(this);
-  else
-    return visitor->visitChildren(this);
-}
-
-JavaScriptParser::IteratorBlockContext* JavaScriptParser::iteratorBlock() {
-  IteratorBlockContext *_localctx = _tracker.createInstance<IteratorBlockContext>(_ctx, getState());
-  enterRule(_localctx, 84, JavaScriptParser::RuleIteratorBlock);
-  size_t _la = 0;
-
-  auto onExit = finally([=] {
-    exitRule();
-  });
-  try {
-    size_t alt;
-    enterOuterAlt(_localctx, 1);
-    setState(543);
-    match(JavaScriptParser::OpenBrace);
-    setState(552);
-    _errHandler->sync(this);
-
-    _la = _input->LA(1);
-    if (_la == JavaScriptParser::OpenBracket) {
-      setState(544);
-      iteratorDefinition();
-      setState(549);
-      _errHandler->sync(this);
-      alt = getInterpreter<atn::ParserATNSimulator>()->adaptivePredict(_input, 50, _ctx);
-      while (alt != 2 && alt != atn::ATN::INVALID_ALT_NUMBER) {
-        if (alt == 1) {
-          setState(545);
-          match(JavaScriptParser::Comma);
-          setState(546);
-          iteratorDefinition(); 
-        }
-        setState(551);
-        _errHandler->sync(this);
-        alt = getInterpreter<atn::ParserATNSimulator>()->adaptivePredict(_input, 50, _ctx);
-      }
-    }
-    setState(555);
-    _errHandler->sync(this);
-
-    _la = _input->LA(1);
-    if (_la == JavaScriptParser::Comma) {
-      setState(554);
-      match(JavaScriptParser::Comma);
-    }
-    setState(557);
-    match(JavaScriptParser::CloseBrace);
-   
-  }
-  catch (RecognitionException &e) {
-    _errHandler->reportError(this, e);
-    _localctx->exception = std::current_exception();
-    _errHandler->recover(this, _localctx->exception);
-  }
-
-  return _localctx;
-}
-
-//----------------- IteratorDefinitionContext ------------------------------------------------------------------
-
-JavaScriptParser::IteratorDefinitionContext::IteratorDefinitionContext(ParserRuleContext *parent, size_t invokingState)
-  : ParserRuleContext(parent, invokingState) {
-}
-
-tree::TerminalNode* JavaScriptParser::IteratorDefinitionContext::OpenBracket() {
-  return getToken(JavaScriptParser::OpenBracket, 0);
-}
-
-JavaScriptParser::SingleExpressionContext* JavaScriptParser::IteratorDefinitionContext::singleExpression() {
-  return getRuleContext<JavaScriptParser::SingleExpressionContext>(0);
-}
-
-tree::TerminalNode* JavaScriptParser::IteratorDefinitionContext::CloseBracket() {
-  return getToken(JavaScriptParser::CloseBracket, 0);
-}
-
-tree::TerminalNode* JavaScriptParser::IteratorDefinitionContext::OpenParen() {
-  return getToken(JavaScriptParser::OpenParen, 0);
-}
-
-tree::TerminalNode* JavaScriptParser::IteratorDefinitionContext::CloseParen() {
-  return getToken(JavaScriptParser::CloseParen, 0);
-}
-
-tree::TerminalNode* JavaScriptParser::IteratorDefinitionContext::OpenBrace() {
-  return getToken(JavaScriptParser::OpenBrace, 0);
-}
-
-JavaScriptParser::FunctionBodyContext* JavaScriptParser::IteratorDefinitionContext::functionBody() {
-  return getRuleContext<JavaScriptParser::FunctionBodyContext>(0);
-}
-
-tree::TerminalNode* JavaScriptParser::IteratorDefinitionContext::CloseBrace() {
-  return getToken(JavaScriptParser::CloseBrace, 0);
-}
-
-JavaScriptParser::FormalParameterListContext* JavaScriptParser::IteratorDefinitionContext::formalParameterList() {
-  return getRuleContext<JavaScriptParser::FormalParameterListContext>(0);
-}
-
-
-size_t JavaScriptParser::IteratorDefinitionContext::getRuleIndex() const {
-  return JavaScriptParser::RuleIteratorDefinition;
-}
-
-void JavaScriptParser::IteratorDefinitionContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<JavaScriptParserListener *>(listener);
-  if (parserListener != nullptr)
-    parserListener->enterIteratorDefinition(this);
-}
-
-void JavaScriptParser::IteratorDefinitionContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<JavaScriptParserListener *>(listener);
-  if (parserListener != nullptr)
-    parserListener->exitIteratorDefinition(this);
-}
-
-
-antlrcpp::Any JavaScriptParser::IteratorDefinitionContext::accept(tree::ParseTreeVisitor *visitor) {
-  if (auto parserVisitor = dynamic_cast<JavaScriptParserVisitor*>(visitor))
-    return parserVisitor->visitIteratorDefinition(this);
-  else
-    return visitor->visitChildren(this);
-}
-
-JavaScriptParser::IteratorDefinitionContext* JavaScriptParser::iteratorDefinition() {
-  IteratorDefinitionContext *_localctx = _tracker.createInstance<IteratorDefinitionContext>(_ctx, getState());
-  enterRule(_localctx, 86, JavaScriptParser::RuleIteratorDefinition);
-  size_t _la = 0;
-
-  auto onExit = finally([=] {
-    exitRule();
-  });
-  try {
-    enterOuterAlt(_localctx, 1);
-    setState(559);
-    match(JavaScriptParser::OpenBracket);
-    setState(560);
-    singleExpression(0);
-    setState(561);
-    match(JavaScriptParser::CloseBracket);
-    setState(562);
-    match(JavaScriptParser::OpenParen);
-    setState(564);
-    _errHandler->sync(this);
-
-    _la = _input->LA(1);
-    if ((((_la & ~ 0x3fULL) == 0) &&
-      ((1ULL << _la) & ((1ULL << JavaScriptParser::OpenBracket)
-      | (1ULL << JavaScriptParser::OpenBrace)
-      | (1ULL << JavaScriptParser::Ellipsis))) != 0) || _la == JavaScriptParser::Identifier) {
-      setState(563);
-      formalParameterList();
-    }
-    setState(566);
-    match(JavaScriptParser::CloseParen);
-    setState(567);
-    match(JavaScriptParser::OpenBrace);
-    setState(568);
-    functionBody();
-    setState(569);
-    match(JavaScriptParser::CloseBrace);
    
   }
   catch (RecognitionException &e) {
@@ -4835,14 +4883,6 @@ JavaScriptParser::LastFormalParameterArgContext* JavaScriptParser::FormalParamet
   return getRuleContext<JavaScriptParser::LastFormalParameterArgContext>(0);
 }
 
-JavaScriptParser::ArrayLiteralContext* JavaScriptParser::FormalParameterListContext::arrayLiteral() {
-  return getRuleContext<JavaScriptParser::ArrayLiteralContext>(0);
-}
-
-JavaScriptParser::ObjectLiteralContext* JavaScriptParser::FormalParameterListContext::objectLiteral() {
-  return getRuleContext<JavaScriptParser::ObjectLiteralContext>(0);
-}
-
 
 size_t JavaScriptParser::FormalParameterListContext::getRuleIndex() const {
   return JavaScriptParser::RuleFormalParameterList;
@@ -4878,35 +4918,37 @@ JavaScriptParser::FormalParameterListContext* JavaScriptParser::formalParameterL
   });
   try {
     size_t alt;
-    setState(586);
+    setState(578);
     _errHandler->sync(this);
     switch (_input->LA(1)) {
+      case JavaScriptParser::OpenBracket:
+      case JavaScriptParser::OpenBrace:
       case JavaScriptParser::Identifier: {
         enterOuterAlt(_localctx, 1);
-        setState(571);
+        setState(565);
         formalParameterArg();
-        setState(576);
+        setState(570);
         _errHandler->sync(this);
-        alt = getInterpreter<atn::ParserATNSimulator>()->adaptivePredict(_input, 54, _ctx);
+        alt = getInterpreter<atn::ParserATNSimulator>()->adaptivePredict(_input, 60, _ctx);
         while (alt != 2 && alt != atn::ATN::INVALID_ALT_NUMBER) {
           if (alt == 1) {
-            setState(572);
+            setState(566);
             match(JavaScriptParser::Comma);
-            setState(573);
+            setState(567);
             formalParameterArg(); 
           }
-          setState(578);
+          setState(572);
           _errHandler->sync(this);
-          alt = getInterpreter<atn::ParserATNSimulator>()->adaptivePredict(_input, 54, _ctx);
+          alt = getInterpreter<atn::ParserATNSimulator>()->adaptivePredict(_input, 60, _ctx);
         }
-        setState(581);
+        setState(575);
         _errHandler->sync(this);
 
         _la = _input->LA(1);
         if (_la == JavaScriptParser::Comma) {
-          setState(579);
+          setState(573);
           match(JavaScriptParser::Comma);
-          setState(580);
+          setState(574);
           lastFormalParameterArg();
         }
         break;
@@ -4914,22 +4956,8 @@ JavaScriptParser::FormalParameterListContext* JavaScriptParser::formalParameterL
 
       case JavaScriptParser::Ellipsis: {
         enterOuterAlt(_localctx, 2);
-        setState(583);
+        setState(577);
         lastFormalParameterArg();
-        break;
-      }
-
-      case JavaScriptParser::OpenBracket: {
-        enterOuterAlt(_localctx, 3);
-        setState(584);
-        arrayLiteral();
-        break;
-      }
-
-      case JavaScriptParser::OpenBrace: {
-        enterOuterAlt(_localctx, 4);
-        setState(585);
-        objectLiteral();
         break;
       }
 
@@ -4953,8 +4981,8 @@ JavaScriptParser::FormalParameterArgContext::FormalParameterArgContext(ParserRul
   : ParserRuleContext(parent, invokingState) {
 }
 
-tree::TerminalNode* JavaScriptParser::FormalParameterArgContext::Identifier() {
-  return getToken(JavaScriptParser::Identifier, 0);
+JavaScriptParser::AssignableContext* JavaScriptParser::FormalParameterArgContext::assignable() {
+  return getRuleContext<JavaScriptParser::AssignableContext>(0);
 }
 
 tree::TerminalNode* JavaScriptParser::FormalParameterArgContext::Assign() {
@@ -5000,16 +5028,16 @@ JavaScriptParser::FormalParameterArgContext* JavaScriptParser::formalParameterAr
   });
   try {
     enterOuterAlt(_localctx, 1);
-    setState(588);
-    match(JavaScriptParser::Identifier);
-    setState(591);
+    setState(580);
+    assignable();
+    setState(583);
     _errHandler->sync(this);
 
     _la = _input->LA(1);
     if (_la == JavaScriptParser::Assign) {
-      setState(589);
+      setState(581);
       match(JavaScriptParser::Assign);
-      setState(590);
+      setState(582);
       singleExpression(0);
     }
    
@@ -5033,8 +5061,8 @@ tree::TerminalNode* JavaScriptParser::LastFormalParameterArgContext::Ellipsis() 
   return getToken(JavaScriptParser::Ellipsis, 0);
 }
 
-tree::TerminalNode* JavaScriptParser::LastFormalParameterArgContext::Identifier() {
-  return getToken(JavaScriptParser::Identifier, 0);
+JavaScriptParser::SingleExpressionContext* JavaScriptParser::LastFormalParameterArgContext::singleExpression() {
+  return getRuleContext<JavaScriptParser::SingleExpressionContext>(0);
 }
 
 
@@ -5071,10 +5099,10 @@ JavaScriptParser::LastFormalParameterArgContext* JavaScriptParser::lastFormalPar
   });
   try {
     enterOuterAlt(_localctx, 1);
-    setState(593);
+    setState(585);
     match(JavaScriptParser::Ellipsis);
-    setState(594);
-    match(JavaScriptParser::Identifier);
+    setState(586);
+    singleExpression(0);
    
   }
   catch (RecognitionException &e) {
@@ -5130,12 +5158,12 @@ JavaScriptParser::FunctionBodyContext* JavaScriptParser::functionBody() {
   });
   try {
     enterOuterAlt(_localctx, 1);
-    setState(597);
+    setState(589);
     _errHandler->sync(this);
 
-    switch (getInterpreter<atn::ParserATNSimulator>()->adaptivePredict(_input, 58, _ctx)) {
+    switch (getInterpreter<atn::ParserATNSimulator>()->adaptivePredict(_input, 64, _ctx)) {
     case 1: {
-      setState(596);
+      setState(588);
       sourceElements();
       break;
     }
@@ -5201,13 +5229,13 @@ JavaScriptParser::SourceElementsContext* JavaScriptParser::sourceElements() {
   try {
     size_t alt;
     enterOuterAlt(_localctx, 1);
-    setState(600); 
+    setState(592); 
     _errHandler->sync(this);
     alt = 1;
     do {
       switch (alt) {
         case 1: {
-              setState(599);
+              setState(591);
               sourceElement();
               break;
             }
@@ -5215,9 +5243,9 @@ JavaScriptParser::SourceElementsContext* JavaScriptParser::sourceElements() {
       default:
         throw NoViableAltException(this);
       }
-      setState(602); 
+      setState(594); 
       _errHandler->sync(this);
-      alt = getInterpreter<atn::ParserATNSimulator>()->adaptivePredict(_input, 59, _ctx);
+      alt = getInterpreter<atn::ParserATNSimulator>()->adaptivePredict(_input, 65, _ctx);
     } while (alt != 2 && alt != atn::ATN::INVALID_ALT_NUMBER);
    
   }
@@ -5240,12 +5268,12 @@ tree::TerminalNode* JavaScriptParser::ArrayLiteralContext::OpenBracket() {
   return getToken(JavaScriptParser::OpenBracket, 0);
 }
 
-tree::TerminalNode* JavaScriptParser::ArrayLiteralContext::CloseBracket() {
-  return getToken(JavaScriptParser::CloseBracket, 0);
-}
-
 JavaScriptParser::ElementListContext* JavaScriptParser::ArrayLiteralContext::elementList() {
   return getRuleContext<JavaScriptParser::ElementListContext>(0);
+}
+
+tree::TerminalNode* JavaScriptParser::ArrayLiteralContext::CloseBracket() {
+  return getToken(JavaScriptParser::CloseBracket, 0);
 }
 
 
@@ -5276,54 +5304,17 @@ antlrcpp::Any JavaScriptParser::ArrayLiteralContext::accept(tree::ParseTreeVisit
 JavaScriptParser::ArrayLiteralContext* JavaScriptParser::arrayLiteral() {
   ArrayLiteralContext *_localctx = _tracker.createInstance<ArrayLiteralContext>(_ctx, getState());
   enterRule(_localctx, 98, JavaScriptParser::RuleArrayLiteral);
-  size_t _la = 0;
 
   auto onExit = finally([=] {
     exitRule();
   });
   try {
     enterOuterAlt(_localctx, 1);
-    setState(604);
+    setState(596);
     match(JavaScriptParser::OpenBracket);
-    setState(606);
-    _errHandler->sync(this);
-
-    _la = _input->LA(1);
-    if ((((_la & ~ 0x3fULL) == 0) &&
-      ((1ULL << _la) & ((1ULL << JavaScriptParser::RegularExpressionLiteral)
-      | (1ULL << JavaScriptParser::OpenBracket)
-      | (1ULL << JavaScriptParser::OpenParen)
-      | (1ULL << JavaScriptParser::OpenBrace)
-      | (1ULL << JavaScriptParser::Ellipsis)
-      | (1ULL << JavaScriptParser::PlusPlus)
-      | (1ULL << JavaScriptParser::MinusMinus)
-      | (1ULL << JavaScriptParser::Plus)
-      | (1ULL << JavaScriptParser::Minus)
-      | (1ULL << JavaScriptParser::BitNot)
-      | (1ULL << JavaScriptParser::Not)
-      | (1ULL << JavaScriptParser::NullLiteral)
-      | (1ULL << JavaScriptParser::BooleanLiteral)
-      | (1ULL << JavaScriptParser::DecimalLiteral)
-      | (1ULL << JavaScriptParser::HexIntegerLiteral)
-      | (1ULL << JavaScriptParser::OctalIntegerLiteral)
-      | (1ULL << JavaScriptParser::OctalIntegerLiteral2)
-      | (1ULL << JavaScriptParser::BinaryIntegerLiteral))) != 0) || ((((_la - 64) & ~ 0x3fULL) == 0) &&
-      ((1ULL << (_la - 64)) & ((1ULL << (JavaScriptParser::Typeof - 64))
-      | (1ULL << (JavaScriptParser::New - 64))
-      | (1ULL << (JavaScriptParser::Void - 64))
-      | (1ULL << (JavaScriptParser::Function - 64))
-      | (1ULL << (JavaScriptParser::This - 64))
-      | (1ULL << (JavaScriptParser::Delete - 64))
-      | (1ULL << (JavaScriptParser::Class - 64))
-      | (1ULL << (JavaScriptParser::Super - 64))
-      | (1ULL << (JavaScriptParser::Yield - 64))
-      | (1ULL << (JavaScriptParser::Identifier - 64))
-      | (1ULL << (JavaScriptParser::StringLiteral - 64))
-      | (1ULL << (JavaScriptParser::TemplateStringLiteral - 64)))) != 0)) {
-      setState(605);
-      elementList();
-    }
-    setState(608);
+    setState(597);
+    elementList();
+    setState(598);
     match(JavaScriptParser::CloseBracket);
    
   }
@@ -5342,24 +5333,20 @@ JavaScriptParser::ElementListContext::ElementListContext(ParserRuleContext *pare
   : ParserRuleContext(parent, invokingState) {
 }
 
-std::vector<JavaScriptParser::SingleExpressionContext *> JavaScriptParser::ElementListContext::singleExpression() {
-  return getRuleContexts<JavaScriptParser::SingleExpressionContext>();
-}
-
-JavaScriptParser::SingleExpressionContext* JavaScriptParser::ElementListContext::singleExpression(size_t i) {
-  return getRuleContext<JavaScriptParser::SingleExpressionContext>(i);
-}
-
-JavaScriptParser::LastElementContext* JavaScriptParser::ElementListContext::lastElement() {
-  return getRuleContext<JavaScriptParser::LastElementContext>(0);
-}
-
 std::vector<tree::TerminalNode *> JavaScriptParser::ElementListContext::Comma() {
   return getTokens(JavaScriptParser::Comma);
 }
 
 tree::TerminalNode* JavaScriptParser::ElementListContext::Comma(size_t i) {
   return getToken(JavaScriptParser::Comma, i);
+}
+
+std::vector<JavaScriptParser::ArrayElementContext *> JavaScriptParser::ElementListContext::arrayElement() {
+  return getRuleContexts<JavaScriptParser::ArrayElementContext>();
+}
+
+JavaScriptParser::ArrayElementContext* JavaScriptParser::ElementListContext::arrayElement(size_t i) {
+  return getRuleContext<JavaScriptParser::ArrayElementContext>(i);
 }
 
 
@@ -5397,93 +5384,95 @@ JavaScriptParser::ElementListContext* JavaScriptParser::elementList() {
   });
   try {
     size_t alt;
-    setState(631);
+    enterOuterAlt(_localctx, 1);
+    setState(603);
     _errHandler->sync(this);
-    switch (_input->LA(1)) {
-      case JavaScriptParser::RegularExpressionLiteral:
-      case JavaScriptParser::OpenBracket:
-      case JavaScriptParser::OpenParen:
-      case JavaScriptParser::OpenBrace:
-      case JavaScriptParser::PlusPlus:
-      case JavaScriptParser::MinusMinus:
-      case JavaScriptParser::Plus:
-      case JavaScriptParser::Minus:
-      case JavaScriptParser::BitNot:
-      case JavaScriptParser::Not:
-      case JavaScriptParser::NullLiteral:
-      case JavaScriptParser::BooleanLiteral:
-      case JavaScriptParser::DecimalLiteral:
-      case JavaScriptParser::HexIntegerLiteral:
-      case JavaScriptParser::OctalIntegerLiteral:
-      case JavaScriptParser::OctalIntegerLiteral2:
-      case JavaScriptParser::BinaryIntegerLiteral:
-      case JavaScriptParser::Typeof:
-      case JavaScriptParser::New:
-      case JavaScriptParser::Void:
-      case JavaScriptParser::Function:
-      case JavaScriptParser::This:
-      case JavaScriptParser::Delete:
-      case JavaScriptParser::Class:
-      case JavaScriptParser::Super:
-      case JavaScriptParser::Yield:
-      case JavaScriptParser::Identifier:
-      case JavaScriptParser::StringLiteral:
-      case JavaScriptParser::TemplateStringLiteral: {
-        enterOuterAlt(_localctx, 1);
-        setState(610);
-        singleExpression(0);
-        setState(619);
-        _errHandler->sync(this);
-        alt = getInterpreter<atn::ParserATNSimulator>()->adaptivePredict(_input, 62, _ctx);
-        while (alt != 2 && alt != atn::ATN::INVALID_ALT_NUMBER) {
-          if (alt == 1) {
-            setState(612); 
-            _errHandler->sync(this);
-            _la = _input->LA(1);
-            do {
-              setState(611);
-              match(JavaScriptParser::Comma);
-              setState(614); 
-              _errHandler->sync(this);
-              _la = _input->LA(1);
-            } while (_la == JavaScriptParser::Comma);
-            setState(616);
-            singleExpression(0); 
-          }
-          setState(621);
-          _errHandler->sync(this);
-          alt = getInterpreter<atn::ParserATNSimulator>()->adaptivePredict(_input, 62, _ctx);
-        }
-        setState(628);
-        _errHandler->sync(this);
+    alt = getInterpreter<atn::ParserATNSimulator>()->adaptivePredict(_input, 66, _ctx);
+    while (alt != 2 && alt != atn::ATN::INVALID_ALT_NUMBER) {
+      if (alt == 1) {
+        setState(600);
+        match(JavaScriptParser::Comma); 
+      }
+      setState(605);
+      _errHandler->sync(this);
+      alt = getInterpreter<atn::ParserATNSimulator>()->adaptivePredict(_input, 66, _ctx);
+    }
+    setState(607);
+    _errHandler->sync(this);
 
+    _la = _input->LA(1);
+    if ((((_la & ~ 0x3fULL) == 0) &&
+      ((1ULL << _la) & ((1ULL << JavaScriptParser::RegularExpressionLiteral)
+      | (1ULL << JavaScriptParser::OpenBracket)
+      | (1ULL << JavaScriptParser::OpenParen)
+      | (1ULL << JavaScriptParser::OpenBrace)
+      | (1ULL << JavaScriptParser::Ellipsis)
+      | (1ULL << JavaScriptParser::PlusPlus)
+      | (1ULL << JavaScriptParser::MinusMinus)
+      | (1ULL << JavaScriptParser::Plus)
+      | (1ULL << JavaScriptParser::Minus)
+      | (1ULL << JavaScriptParser::BitNot)
+      | (1ULL << JavaScriptParser::Not)
+      | (1ULL << JavaScriptParser::NullLiteral)
+      | (1ULL << JavaScriptParser::BooleanLiteral)
+      | (1ULL << JavaScriptParser::DecimalLiteral)
+      | (1ULL << JavaScriptParser::HexIntegerLiteral)
+      | (1ULL << JavaScriptParser::OctalIntegerLiteral))) != 0) || ((((_la - 64) & ~ 0x3fULL) == 0) &&
+      ((1ULL << (_la - 64)) & ((1ULL << (JavaScriptParser::OctalIntegerLiteral2 - 64))
+      | (1ULL << (JavaScriptParser::BinaryIntegerLiteral - 64))
+      | (1ULL << (JavaScriptParser::BigHexIntegerLiteral - 64))
+      | (1ULL << (JavaScriptParser::BigOctalIntegerLiteral - 64))
+      | (1ULL << (JavaScriptParser::BigBinaryIntegerLiteral - 64))
+      | (1ULL << (JavaScriptParser::BigDecimalIntegerLiteral - 64))
+      | (1ULL << (JavaScriptParser::Typeof - 64))
+      | (1ULL << (JavaScriptParser::New - 64))
+      | (1ULL << (JavaScriptParser::Void - 64))
+      | (1ULL << (JavaScriptParser::Function - 64))
+      | (1ULL << (JavaScriptParser::This - 64))
+      | (1ULL << (JavaScriptParser::Delete - 64))
+      | (1ULL << (JavaScriptParser::Class - 64))
+      | (1ULL << (JavaScriptParser::Super - 64))
+      | (1ULL << (JavaScriptParser::Import - 64))
+      | (1ULL << (JavaScriptParser::Async - 64))
+      | (1ULL << (JavaScriptParser::Await - 64))
+      | (1ULL << (JavaScriptParser::Yield - 64))
+      | (1ULL << (JavaScriptParser::Identifier - 64))
+      | (1ULL << (JavaScriptParser::StringLiteral - 64))
+      | (1ULL << (JavaScriptParser::TemplateStringLiteral - 64)))) != 0)) {
+      setState(606);
+      arrayElement();
+    }
+    setState(617);
+    _errHandler->sync(this);
+    alt = getInterpreter<atn::ParserATNSimulator>()->adaptivePredict(_input, 69, _ctx);
+    while (alt != 2 && alt != atn::ATN::INVALID_ALT_NUMBER) {
+      if (alt == 1) {
+        setState(610); 
+        _errHandler->sync(this);
         _la = _input->LA(1);
-        if (_la == JavaScriptParser::Comma) {
-          setState(623); 
+        do {
+          setState(609);
+          match(JavaScriptParser::Comma);
+          setState(612); 
           _errHandler->sync(this);
           _la = _input->LA(1);
-          do {
-            setState(622);
-            match(JavaScriptParser::Comma);
-            setState(625); 
-            _errHandler->sync(this);
-            _la = _input->LA(1);
-          } while (_la == JavaScriptParser::Comma);
-          setState(627);
-          lastElement();
-        }
-        break;
+        } while (_la == JavaScriptParser::Comma);
+        setState(614);
+        arrayElement(); 
       }
-
-      case JavaScriptParser::Ellipsis: {
-        enterOuterAlt(_localctx, 2);
-        setState(630);
-        lastElement();
-        break;
-      }
-
-    default:
-      throw NoViableAltException(this);
+      setState(619);
+      _errHandler->sync(this);
+      alt = getInterpreter<atn::ParserATNSimulator>()->adaptivePredict(_input, 69, _ctx);
+    }
+    setState(623);
+    _errHandler->sync(this);
+    _la = _input->LA(1);
+    while (_la == JavaScriptParser::Comma) {
+      setState(620);
+      match(JavaScriptParser::Comma);
+      setState(625);
+      _errHandler->sync(this);
+      _la = _input->LA(1);
     }
    
   }
@@ -5496,76 +5485,65 @@ JavaScriptParser::ElementListContext* JavaScriptParser::elementList() {
   return _localctx;
 }
 
-//----------------- LastElementContext ------------------------------------------------------------------
+//----------------- ArrayElementContext ------------------------------------------------------------------
 
-JavaScriptParser::LastElementContext::LastElementContext(ParserRuleContext *parent, size_t invokingState)
+JavaScriptParser::ArrayElementContext::ArrayElementContext(ParserRuleContext *parent, size_t invokingState)
   : ParserRuleContext(parent, invokingState) {
 }
 
-tree::TerminalNode* JavaScriptParser::LastElementContext::Ellipsis() {
-  return getToken(JavaScriptParser::Ellipsis, 0);
-}
-
-tree::TerminalNode* JavaScriptParser::LastElementContext::Identifier() {
-  return getToken(JavaScriptParser::Identifier, 0);
-}
-
-JavaScriptParser::SingleExpressionContext* JavaScriptParser::LastElementContext::singleExpression() {
+JavaScriptParser::SingleExpressionContext* JavaScriptParser::ArrayElementContext::singleExpression() {
   return getRuleContext<JavaScriptParser::SingleExpressionContext>(0);
 }
 
-
-size_t JavaScriptParser::LastElementContext::getRuleIndex() const {
-  return JavaScriptParser::RuleLastElement;
+tree::TerminalNode* JavaScriptParser::ArrayElementContext::Ellipsis() {
+  return getToken(JavaScriptParser::Ellipsis, 0);
 }
 
-void JavaScriptParser::LastElementContext::enterRule(tree::ParseTreeListener *listener) {
+
+size_t JavaScriptParser::ArrayElementContext::getRuleIndex() const {
+  return JavaScriptParser::RuleArrayElement;
+}
+
+void JavaScriptParser::ArrayElementContext::enterRule(tree::ParseTreeListener *listener) {
   auto parserListener = dynamic_cast<JavaScriptParserListener *>(listener);
   if (parserListener != nullptr)
-    parserListener->enterLastElement(this);
+    parserListener->enterArrayElement(this);
 }
 
-void JavaScriptParser::LastElementContext::exitRule(tree::ParseTreeListener *listener) {
+void JavaScriptParser::ArrayElementContext::exitRule(tree::ParseTreeListener *listener) {
   auto parserListener = dynamic_cast<JavaScriptParserListener *>(listener);
   if (parserListener != nullptr)
-    parserListener->exitLastElement(this);
+    parserListener->exitArrayElement(this);
 }
 
 
-antlrcpp::Any JavaScriptParser::LastElementContext::accept(tree::ParseTreeVisitor *visitor) {
+antlrcpp::Any JavaScriptParser::ArrayElementContext::accept(tree::ParseTreeVisitor *visitor) {
   if (auto parserVisitor = dynamic_cast<JavaScriptParserVisitor*>(visitor))
-    return parserVisitor->visitLastElement(this);
+    return parserVisitor->visitArrayElement(this);
   else
     return visitor->visitChildren(this);
 }
 
-JavaScriptParser::LastElementContext* JavaScriptParser::lastElement() {
-  LastElementContext *_localctx = _tracker.createInstance<LastElementContext>(_ctx, getState());
-  enterRule(_localctx, 102, JavaScriptParser::RuleLastElement);
+JavaScriptParser::ArrayElementContext* JavaScriptParser::arrayElement() {
+  ArrayElementContext *_localctx = _tracker.createInstance<ArrayElementContext>(_ctx, getState());
+  enterRule(_localctx, 102, JavaScriptParser::RuleArrayElement);
+  size_t _la = 0;
 
   auto onExit = finally([=] {
     exitRule();
   });
   try {
     enterOuterAlt(_localctx, 1);
-    setState(633);
-    match(JavaScriptParser::Ellipsis);
-    setState(636);
+    setState(627);
     _errHandler->sync(this);
-    switch (getInterpreter<atn::ParserATNSimulator>()->adaptivePredict(_input, 66, _ctx)) {
-    case 1: {
-      setState(634);
-      match(JavaScriptParser::Identifier);
-      break;
-    }
 
-    case 2: {
-      setState(635);
-      singleExpression(0);
-      break;
+    _la = _input->LA(1);
+    if (_la == JavaScriptParser::Ellipsis) {
+      setState(626);
+      match(JavaScriptParser::Ellipsis);
     }
-
-    }
+    setState(629);
+    singleExpression(0);
    
   }
   catch (RecognitionException &e) {
@@ -5643,26 +5621,40 @@ JavaScriptParser::ObjectLiteralContext* JavaScriptParser::objectLiteral() {
   try {
     size_t alt;
     enterOuterAlt(_localctx, 1);
-    setState(638);
+    setState(631);
     match(JavaScriptParser::OpenBrace);
-    setState(647);
+    setState(640);
     _errHandler->sync(this);
 
     _la = _input->LA(1);
     if ((((_la & ~ 0x3fULL) == 0) &&
-      ((1ULL << _la) & ((1ULL << JavaScriptParser::OpenBracket)
+      ((1ULL << _la) & ((1ULL << JavaScriptParser::RegularExpressionLiteral)
+      | (1ULL << JavaScriptParser::OpenBracket)
+      | (1ULL << JavaScriptParser::OpenParen)
+      | (1ULL << JavaScriptParser::OpenBrace)
+      | (1ULL << JavaScriptParser::Ellipsis)
+      | (1ULL << JavaScriptParser::PlusPlus)
+      | (1ULL << JavaScriptParser::MinusMinus)
+      | (1ULL << JavaScriptParser::Plus)
+      | (1ULL << JavaScriptParser::Minus)
+      | (1ULL << JavaScriptParser::BitNot)
+      | (1ULL << JavaScriptParser::Not)
       | (1ULL << JavaScriptParser::Multiply)
       | (1ULL << JavaScriptParser::NullLiteral)
       | (1ULL << JavaScriptParser::BooleanLiteral)
       | (1ULL << JavaScriptParser::DecimalLiteral)
       | (1ULL << JavaScriptParser::HexIntegerLiteral)
-      | (1ULL << JavaScriptParser::OctalIntegerLiteral)
-      | (1ULL << JavaScriptParser::OctalIntegerLiteral2)
-      | (1ULL << JavaScriptParser::BinaryIntegerLiteral)
-      | (1ULL << JavaScriptParser::Break)
-      | (1ULL << JavaScriptParser::Do)
-      | (1ULL << JavaScriptParser::Instanceof))) != 0) || ((((_la - 64) & ~ 0x3fULL) == 0) &&
-      ((1ULL << (_la - 64)) & ((1ULL << (JavaScriptParser::Typeof - 64))
+      | (1ULL << JavaScriptParser::OctalIntegerLiteral))) != 0) || ((((_la - 64) & ~ 0x3fULL) == 0) &&
+      ((1ULL << (_la - 64)) & ((1ULL << (JavaScriptParser::OctalIntegerLiteral2 - 64))
+      | (1ULL << (JavaScriptParser::BinaryIntegerLiteral - 64))
+      | (1ULL << (JavaScriptParser::BigHexIntegerLiteral - 64))
+      | (1ULL << (JavaScriptParser::BigOctalIntegerLiteral - 64))
+      | (1ULL << (JavaScriptParser::BigBinaryIntegerLiteral - 64))
+      | (1ULL << (JavaScriptParser::BigDecimalIntegerLiteral - 64))
+      | (1ULL << (JavaScriptParser::Break - 64))
+      | (1ULL << (JavaScriptParser::Do - 64))
+      | (1ULL << (JavaScriptParser::Instanceof - 64))
+      | (1ULL << (JavaScriptParser::Typeof - 64))
       | (1ULL << (JavaScriptParser::Case - 64))
       | (1ULL << (JavaScriptParser::Else - 64))
       | (1ULL << (JavaScriptParser::New - 64))
@@ -5685,6 +5677,8 @@ JavaScriptParser::ObjectLiteralContext* JavaScriptParser::objectLiteral() {
       | (1ULL << (JavaScriptParser::Delete - 64))
       | (1ULL << (JavaScriptParser::In - 64))
       | (1ULL << (JavaScriptParser::Try - 64))
+      | (1ULL << (JavaScriptParser::As - 64))
+      | (1ULL << (JavaScriptParser::From - 64))
       | (1ULL << (JavaScriptParser::Class - 64))
       | (1ULL << (JavaScriptParser::Enum - 64))
       | (1ULL << (JavaScriptParser::Extends - 64))
@@ -5692,6 +5686,8 @@ JavaScriptParser::ObjectLiteralContext* JavaScriptParser::objectLiteral() {
       | (1ULL << (JavaScriptParser::Const - 64))
       | (1ULL << (JavaScriptParser::Export - 64))
       | (1ULL << (JavaScriptParser::Import - 64))
+      | (1ULL << (JavaScriptParser::Async - 64))
+      | (1ULL << (JavaScriptParser::Await - 64))
       | (1ULL << (JavaScriptParser::Implements - 64))
       | (1ULL << (JavaScriptParser::Let - 64))
       | (1ULL << (JavaScriptParser::Private - 64))
@@ -5702,33 +5698,34 @@ JavaScriptParser::ObjectLiteralContext* JavaScriptParser::objectLiteral() {
       | (1ULL << (JavaScriptParser::Static - 64))
       | (1ULL << (JavaScriptParser::Yield - 64))
       | (1ULL << (JavaScriptParser::Identifier - 64))
-      | (1ULL << (JavaScriptParser::StringLiteral - 64)))) != 0)) {
-      setState(639);
+      | (1ULL << (JavaScriptParser::StringLiteral - 64))
+      | (1ULL << (JavaScriptParser::TemplateStringLiteral - 64)))) != 0)) {
+      setState(632);
       propertyAssignment();
-      setState(644);
+      setState(637);
       _errHandler->sync(this);
-      alt = getInterpreter<atn::ParserATNSimulator>()->adaptivePredict(_input, 67, _ctx);
+      alt = getInterpreter<atn::ParserATNSimulator>()->adaptivePredict(_input, 72, _ctx);
       while (alt != 2 && alt != atn::ATN::INVALID_ALT_NUMBER) {
         if (alt == 1) {
-          setState(640);
+          setState(633);
           match(JavaScriptParser::Comma);
-          setState(641);
+          setState(634);
           propertyAssignment(); 
         }
-        setState(646);
+        setState(639);
         _errHandler->sync(this);
-        alt = getInterpreter<atn::ParserATNSimulator>()->adaptivePredict(_input, 67, _ctx);
+        alt = getInterpreter<atn::ParserATNSimulator>()->adaptivePredict(_input, 72, _ctx);
       }
     }
-    setState(650);
+    setState(643);
     _errHandler->sync(this);
 
     _la = _input->LA(1);
     if (_la == JavaScriptParser::Comma) {
-      setState(649);
+      setState(642);
       match(JavaScriptParser::Comma);
     }
-    setState(652);
+    setState(645);
     match(JavaScriptParser::CloseBrace);
    
   }
@@ -5762,16 +5759,12 @@ JavaScriptParser::PropertyNameContext* JavaScriptParser::PropertyExpressionAssig
   return getRuleContext<JavaScriptParser::PropertyNameContext>(0);
 }
 
-JavaScriptParser::SingleExpressionContext* JavaScriptParser::PropertyExpressionAssignmentContext::singleExpression() {
-  return getRuleContext<JavaScriptParser::SingleExpressionContext>(0);
-}
-
 tree::TerminalNode* JavaScriptParser::PropertyExpressionAssignmentContext::Colon() {
   return getToken(JavaScriptParser::Colon, 0);
 }
 
-tree::TerminalNode* JavaScriptParser::PropertyExpressionAssignmentContext::Assign() {
-  return getToken(JavaScriptParser::Assign, 0);
+JavaScriptParser::SingleExpressionContext* JavaScriptParser::PropertyExpressionAssignmentContext::singleExpression() {
+  return getRuleContext<JavaScriptParser::SingleExpressionContext>(0);
 }
 
 JavaScriptParser::PropertyExpressionAssignmentContext::PropertyExpressionAssignmentContext(PropertyAssignmentContext *ctx) { copyFrom(ctx); }
@@ -5836,8 +5829,12 @@ antlrcpp::Any JavaScriptParser::ComputedPropertyExpressionAssignmentContext::acc
 }
 //----------------- PropertyShorthandContext ------------------------------------------------------------------
 
-tree::TerminalNode* JavaScriptParser::PropertyShorthandContext::Identifier() {
-  return getToken(JavaScriptParser::Identifier, 0);
+JavaScriptParser::SingleExpressionContext* JavaScriptParser::PropertyShorthandContext::singleExpression() {
+  return getRuleContext<JavaScriptParser::SingleExpressionContext>(0);
+}
+
+tree::TerminalNode* JavaScriptParser::PropertyShorthandContext::Ellipsis() {
+  return getToken(JavaScriptParser::Ellipsis, 0);
 }
 
 JavaScriptParser::PropertyShorthandContext::PropertyShorthandContext(PropertyAssignmentContext *ctx) { copyFrom(ctx); }
@@ -5869,8 +5866,8 @@ tree::TerminalNode* JavaScriptParser::PropertySetterContext::OpenParen() {
   return getToken(JavaScriptParser::OpenParen, 0);
 }
 
-tree::TerminalNode* JavaScriptParser::PropertySetterContext::Identifier() {
-  return getToken(JavaScriptParser::Identifier, 0);
+JavaScriptParser::FormalParameterArgContext* JavaScriptParser::PropertySetterContext::formalParameterArg() {
+  return getRuleContext<JavaScriptParser::FormalParameterArgContext>(0);
 }
 
 tree::TerminalNode* JavaScriptParser::PropertySetterContext::CloseParen() {
@@ -5953,28 +5950,60 @@ antlrcpp::Any JavaScriptParser::PropertyGetterContext::accept(tree::ParseTreeVis
   else
     return visitor->visitChildren(this);
 }
-//----------------- MethodPropertyContext ------------------------------------------------------------------
+//----------------- FunctionPropertyContext ------------------------------------------------------------------
 
-JavaScriptParser::GeneratorMethodContext* JavaScriptParser::MethodPropertyContext::generatorMethod() {
-  return getRuleContext<JavaScriptParser::GeneratorMethodContext>(0);
+JavaScriptParser::PropertyNameContext* JavaScriptParser::FunctionPropertyContext::propertyName() {
+  return getRuleContext<JavaScriptParser::PropertyNameContext>(0);
 }
 
-JavaScriptParser::MethodPropertyContext::MethodPropertyContext(PropertyAssignmentContext *ctx) { copyFrom(ctx); }
+tree::TerminalNode* JavaScriptParser::FunctionPropertyContext::OpenParen() {
+  return getToken(JavaScriptParser::OpenParen, 0);
+}
 
-void JavaScriptParser::MethodPropertyContext::enterRule(tree::ParseTreeListener *listener) {
+tree::TerminalNode* JavaScriptParser::FunctionPropertyContext::CloseParen() {
+  return getToken(JavaScriptParser::CloseParen, 0);
+}
+
+tree::TerminalNode* JavaScriptParser::FunctionPropertyContext::OpenBrace() {
+  return getToken(JavaScriptParser::OpenBrace, 0);
+}
+
+JavaScriptParser::FunctionBodyContext* JavaScriptParser::FunctionPropertyContext::functionBody() {
+  return getRuleContext<JavaScriptParser::FunctionBodyContext>(0);
+}
+
+tree::TerminalNode* JavaScriptParser::FunctionPropertyContext::CloseBrace() {
+  return getToken(JavaScriptParser::CloseBrace, 0);
+}
+
+tree::TerminalNode* JavaScriptParser::FunctionPropertyContext::Async() {
+  return getToken(JavaScriptParser::Async, 0);
+}
+
+tree::TerminalNode* JavaScriptParser::FunctionPropertyContext::Multiply() {
+  return getToken(JavaScriptParser::Multiply, 0);
+}
+
+JavaScriptParser::FormalParameterListContext* JavaScriptParser::FunctionPropertyContext::formalParameterList() {
+  return getRuleContext<JavaScriptParser::FormalParameterListContext>(0);
+}
+
+JavaScriptParser::FunctionPropertyContext::FunctionPropertyContext(PropertyAssignmentContext *ctx) { copyFrom(ctx); }
+
+void JavaScriptParser::FunctionPropertyContext::enterRule(tree::ParseTreeListener *listener) {
   auto parserListener = dynamic_cast<JavaScriptParserListener *>(listener);
   if (parserListener != nullptr)
-    parserListener->enterMethodProperty(this);
+    parserListener->enterFunctionProperty(this);
 }
-void JavaScriptParser::MethodPropertyContext::exitRule(tree::ParseTreeListener *listener) {
+void JavaScriptParser::FunctionPropertyContext::exitRule(tree::ParseTreeListener *listener) {
   auto parserListener = dynamic_cast<JavaScriptParserListener *>(listener);
   if (parserListener != nullptr)
-    parserListener->exitMethodProperty(this);
+    parserListener->exitFunctionProperty(this);
 }
 
-antlrcpp::Any JavaScriptParser::MethodPropertyContext::accept(tree::ParseTreeVisitor *visitor) {
+antlrcpp::Any JavaScriptParser::FunctionPropertyContext::accept(tree::ParseTreeVisitor *visitor) {
   if (auto parserVisitor = dynamic_cast<JavaScriptParserVisitor*>(visitor))
-    return parserVisitor->visitMethodProperty(this);
+    return parserVisitor->visitFunctionProperty(this);
   else
     return visitor->visitChildren(this);
 }
@@ -5987,26 +6016,17 @@ JavaScriptParser::PropertyAssignmentContext* JavaScriptParser::propertyAssignmen
     exitRule();
   });
   try {
-    setState(681);
+    setState(692);
     _errHandler->sync(this);
-    switch (getInterpreter<atn::ParserATNSimulator>()->adaptivePredict(_input, 70, _ctx)) {
+    switch (getInterpreter<atn::ParserATNSimulator>()->adaptivePredict(_input, 79, _ctx)) {
     case 1: {
       _localctx = dynamic_cast<PropertyAssignmentContext *>(_tracker.createInstance<JavaScriptParser::PropertyExpressionAssignmentContext>(_localctx));
       enterOuterAlt(_localctx, 1);
-      setState(654);
+      setState(647);
       propertyName();
-      setState(655);
-      _la = _input->LA(1);
-      if (!(_la == JavaScriptParser::Assign
-
-      || _la == JavaScriptParser::Colon)) {
-      _errHandler->recoverInline(this);
-      }
-      else {
-        _errHandler->reportMatch(this);
-        consume();
-      }
-      setState(656);
+      setState(648);
+      match(JavaScriptParser::Colon);
+      setState(649);
       singleExpression(0);
       break;
     }
@@ -6014,70 +6034,118 @@ JavaScriptParser::PropertyAssignmentContext* JavaScriptParser::propertyAssignmen
     case 2: {
       _localctx = dynamic_cast<PropertyAssignmentContext *>(_tracker.createInstance<JavaScriptParser::ComputedPropertyExpressionAssignmentContext>(_localctx));
       enterOuterAlt(_localctx, 2);
-      setState(658);
+      setState(651);
       match(JavaScriptParser::OpenBracket);
-      setState(659);
+      setState(652);
       singleExpression(0);
-      setState(660);
+      setState(653);
       match(JavaScriptParser::CloseBracket);
-      setState(661);
+      setState(654);
       match(JavaScriptParser::Colon);
-      setState(662);
+      setState(655);
       singleExpression(0);
       break;
     }
 
     case 3: {
-      _localctx = dynamic_cast<PropertyAssignmentContext *>(_tracker.createInstance<JavaScriptParser::PropertyGetterContext>(_localctx));
+      _localctx = dynamic_cast<PropertyAssignmentContext *>(_tracker.createInstance<JavaScriptParser::FunctionPropertyContext>(_localctx));
       enterOuterAlt(_localctx, 3);
+      setState(658);
+      _errHandler->sync(this);
+
+      switch (getInterpreter<atn::ParserATNSimulator>()->adaptivePredict(_input, 75, _ctx)) {
+      case 1: {
+        setState(657);
+        match(JavaScriptParser::Async);
+        break;
+      }
+
+      }
+      setState(661);
+      _errHandler->sync(this);
+
+      _la = _input->LA(1);
+      if (_la == JavaScriptParser::Multiply) {
+        setState(660);
+        match(JavaScriptParser::Multiply);
+      }
+      setState(663);
+      propertyName();
       setState(664);
-      getter();
-      setState(665);
       match(JavaScriptParser::OpenParen);
       setState(666);
-      match(JavaScriptParser::CloseParen);
-      setState(667);
-      match(JavaScriptParser::OpenBrace);
+      _errHandler->sync(this);
+
+      _la = _input->LA(1);
+      if ((((_la & ~ 0x3fULL) == 0) &&
+        ((1ULL << _la) & ((1ULL << JavaScriptParser::OpenBracket)
+        | (1ULL << JavaScriptParser::OpenBrace)
+        | (1ULL << JavaScriptParser::Ellipsis))) != 0) || _la == JavaScriptParser::Identifier) {
+        setState(665);
+        formalParameterList();
+      }
       setState(668);
-      functionBody();
+      match(JavaScriptParser::CloseParen);
       setState(669);
+      match(JavaScriptParser::OpenBrace);
+      setState(670);
+      functionBody();
+      setState(671);
       match(JavaScriptParser::CloseBrace);
       break;
     }
 
     case 4: {
-      _localctx = dynamic_cast<PropertyAssignmentContext *>(_tracker.createInstance<JavaScriptParser::PropertySetterContext>(_localctx));
+      _localctx = dynamic_cast<PropertyAssignmentContext *>(_tracker.createInstance<JavaScriptParser::PropertyGetterContext>(_localctx));
       enterOuterAlt(_localctx, 4);
-      setState(671);
-      setter();
-      setState(672);
-      match(JavaScriptParser::OpenParen);
       setState(673);
-      match(JavaScriptParser::Identifier);
+      getter();
       setState(674);
-      match(JavaScriptParser::CloseParen);
+      match(JavaScriptParser::OpenParen);
       setState(675);
-      match(JavaScriptParser::OpenBrace);
+      match(JavaScriptParser::CloseParen);
       setState(676);
-      functionBody();
+      match(JavaScriptParser::OpenBrace);
       setState(677);
+      functionBody();
+      setState(678);
       match(JavaScriptParser::CloseBrace);
       break;
     }
 
     case 5: {
-      _localctx = dynamic_cast<PropertyAssignmentContext *>(_tracker.createInstance<JavaScriptParser::MethodPropertyContext>(_localctx));
+      _localctx = dynamic_cast<PropertyAssignmentContext *>(_tracker.createInstance<JavaScriptParser::PropertySetterContext>(_localctx));
       enterOuterAlt(_localctx, 5);
-      setState(679);
-      generatorMethod();
+      setState(680);
+      setter();
+      setState(681);
+      match(JavaScriptParser::OpenParen);
+      setState(682);
+      formalParameterArg();
+      setState(683);
+      match(JavaScriptParser::CloseParen);
+      setState(684);
+      match(JavaScriptParser::OpenBrace);
+      setState(685);
+      functionBody();
+      setState(686);
+      match(JavaScriptParser::CloseBrace);
       break;
     }
 
     case 6: {
       _localctx = dynamic_cast<PropertyAssignmentContext *>(_tracker.createInstance<JavaScriptParser::PropertyShorthandContext>(_localctx));
       enterOuterAlt(_localctx, 6);
-      setState(680);
-      match(JavaScriptParser::Identifier);
+      setState(689);
+      _errHandler->sync(this);
+
+      _la = _input->LA(1);
+      if (_la == JavaScriptParser::Ellipsis) {
+        setState(688);
+        match(JavaScriptParser::Ellipsis);
+      }
+      setState(691);
+      singleExpression(0);
       break;
     }
 
@@ -6109,6 +6177,18 @@ tree::TerminalNode* JavaScriptParser::PropertyNameContext::StringLiteral() {
 
 JavaScriptParser::NumericLiteralContext* JavaScriptParser::PropertyNameContext::numericLiteral() {
   return getRuleContext<JavaScriptParser::NumericLiteralContext>(0);
+}
+
+tree::TerminalNode* JavaScriptParser::PropertyNameContext::OpenBracket() {
+  return getToken(JavaScriptParser::OpenBracket, 0);
+}
+
+JavaScriptParser::SingleExpressionContext* JavaScriptParser::PropertyNameContext::singleExpression() {
+  return getRuleContext<JavaScriptParser::SingleExpressionContext>(0);
+}
+
+tree::TerminalNode* JavaScriptParser::PropertyNameContext::CloseBracket() {
+  return getToken(JavaScriptParser::CloseBracket, 0);
 }
 
 
@@ -6144,7 +6224,7 @@ JavaScriptParser::PropertyNameContext* JavaScriptParser::propertyName() {
     exitRule();
   });
   try {
-    setState(686);
+    setState(701);
     _errHandler->sync(this);
     switch (_input->LA(1)) {
       case JavaScriptParser::NullLiteral:
@@ -6175,6 +6255,8 @@ JavaScriptParser::PropertyNameContext* JavaScriptParser::propertyName() {
       case JavaScriptParser::Delete:
       case JavaScriptParser::In:
       case JavaScriptParser::Try:
+      case JavaScriptParser::As:
+      case JavaScriptParser::From:
       case JavaScriptParser::Class:
       case JavaScriptParser::Enum:
       case JavaScriptParser::Extends:
@@ -6182,6 +6264,8 @@ JavaScriptParser::PropertyNameContext* JavaScriptParser::propertyName() {
       case JavaScriptParser::Const:
       case JavaScriptParser::Export:
       case JavaScriptParser::Import:
+      case JavaScriptParser::Async:
+      case JavaScriptParser::Await:
       case JavaScriptParser::Implements:
       case JavaScriptParser::Let:
       case JavaScriptParser::Private:
@@ -6193,14 +6277,14 @@ JavaScriptParser::PropertyNameContext* JavaScriptParser::propertyName() {
       case JavaScriptParser::Yield:
       case JavaScriptParser::Identifier: {
         enterOuterAlt(_localctx, 1);
-        setState(683);
+        setState(694);
         identifierName();
         break;
       }
 
       case JavaScriptParser::StringLiteral: {
         enterOuterAlt(_localctx, 2);
-        setState(684);
+        setState(695);
         match(JavaScriptParser::StringLiteral);
         break;
       }
@@ -6211,8 +6295,19 @@ JavaScriptParser::PropertyNameContext* JavaScriptParser::propertyName() {
       case JavaScriptParser::OctalIntegerLiteral2:
       case JavaScriptParser::BinaryIntegerLiteral: {
         enterOuterAlt(_localctx, 3);
-        setState(685);
+        setState(696);
         numericLiteral();
+        break;
+      }
+
+      case JavaScriptParser::OpenBracket: {
+        enterOuterAlt(_localctx, 4);
+        setState(697);
+        match(JavaScriptParser::OpenBracket);
+        setState(698);
+        singleExpression(0);
+        setState(699);
+        match(JavaScriptParser::CloseBracket);
         break;
       }
 
@@ -6244,16 +6339,12 @@ tree::TerminalNode* JavaScriptParser::ArgumentsContext::CloseParen() {
   return getToken(JavaScriptParser::CloseParen, 0);
 }
 
-std::vector<JavaScriptParser::SingleExpressionContext *> JavaScriptParser::ArgumentsContext::singleExpression() {
-  return getRuleContexts<JavaScriptParser::SingleExpressionContext>();
+std::vector<JavaScriptParser::ArgumentContext *> JavaScriptParser::ArgumentsContext::argument() {
+  return getRuleContexts<JavaScriptParser::ArgumentContext>();
 }
 
-JavaScriptParser::SingleExpressionContext* JavaScriptParser::ArgumentsContext::singleExpression(size_t i) {
-  return getRuleContext<JavaScriptParser::SingleExpressionContext>(i);
-}
-
-JavaScriptParser::LastArgumentContext* JavaScriptParser::ArgumentsContext::lastArgument() {
-  return getRuleContext<JavaScriptParser::LastArgumentContext>(0);
+JavaScriptParser::ArgumentContext* JavaScriptParser::ArgumentsContext::argument(size_t i) {
+  return getRuleContext<JavaScriptParser::ArgumentContext>(i);
 }
 
 std::vector<tree::TerminalNode *> JavaScriptParser::ArgumentsContext::Comma() {
@@ -6300,83 +6391,76 @@ JavaScriptParser::ArgumentsContext* JavaScriptParser::arguments() {
   try {
     size_t alt;
     enterOuterAlt(_localctx, 1);
-    setState(688);
+    setState(703);
     match(JavaScriptParser::OpenParen);
-    setState(702);
+    setState(715);
     _errHandler->sync(this);
-    switch (_input->LA(1)) {
-      case JavaScriptParser::RegularExpressionLiteral:
-      case JavaScriptParser::OpenBracket:
-      case JavaScriptParser::OpenParen:
-      case JavaScriptParser::OpenBrace:
-      case JavaScriptParser::PlusPlus:
-      case JavaScriptParser::MinusMinus:
-      case JavaScriptParser::Plus:
-      case JavaScriptParser::Minus:
-      case JavaScriptParser::BitNot:
-      case JavaScriptParser::Not:
-      case JavaScriptParser::NullLiteral:
-      case JavaScriptParser::BooleanLiteral:
-      case JavaScriptParser::DecimalLiteral:
-      case JavaScriptParser::HexIntegerLiteral:
-      case JavaScriptParser::OctalIntegerLiteral:
-      case JavaScriptParser::OctalIntegerLiteral2:
-      case JavaScriptParser::BinaryIntegerLiteral:
-      case JavaScriptParser::Typeof:
-      case JavaScriptParser::New:
-      case JavaScriptParser::Void:
-      case JavaScriptParser::Function:
-      case JavaScriptParser::This:
-      case JavaScriptParser::Delete:
-      case JavaScriptParser::Class:
-      case JavaScriptParser::Super:
-      case JavaScriptParser::Yield:
-      case JavaScriptParser::Identifier:
-      case JavaScriptParser::StringLiteral:
-      case JavaScriptParser::TemplateStringLiteral: {
-        setState(689);
-        singleExpression(0);
-        setState(694);
-        _errHandler->sync(this);
-        alt = getInterpreter<atn::ParserATNSimulator>()->adaptivePredict(_input, 72, _ctx);
-        while (alt != 2 && alt != atn::ATN::INVALID_ALT_NUMBER) {
-          if (alt == 1) {
-            setState(690);
-            match(JavaScriptParser::Comma);
-            setState(691);
-            singleExpression(0); 
-          }
-          setState(696);
-          _errHandler->sync(this);
-          alt = getInterpreter<atn::ParserATNSimulator>()->adaptivePredict(_input, 72, _ctx);
-        }
-        setState(699);
-        _errHandler->sync(this);
 
-        _la = _input->LA(1);
-        if (_la == JavaScriptParser::Comma) {
-          setState(697);
+    _la = _input->LA(1);
+    if ((((_la & ~ 0x3fULL) == 0) &&
+      ((1ULL << _la) & ((1ULL << JavaScriptParser::RegularExpressionLiteral)
+      | (1ULL << JavaScriptParser::OpenBracket)
+      | (1ULL << JavaScriptParser::OpenParen)
+      | (1ULL << JavaScriptParser::OpenBrace)
+      | (1ULL << JavaScriptParser::Ellipsis)
+      | (1ULL << JavaScriptParser::PlusPlus)
+      | (1ULL << JavaScriptParser::MinusMinus)
+      | (1ULL << JavaScriptParser::Plus)
+      | (1ULL << JavaScriptParser::Minus)
+      | (1ULL << JavaScriptParser::BitNot)
+      | (1ULL << JavaScriptParser::Not)
+      | (1ULL << JavaScriptParser::NullLiteral)
+      | (1ULL << JavaScriptParser::BooleanLiteral)
+      | (1ULL << JavaScriptParser::DecimalLiteral)
+      | (1ULL << JavaScriptParser::HexIntegerLiteral)
+      | (1ULL << JavaScriptParser::OctalIntegerLiteral))) != 0) || ((((_la - 64) & ~ 0x3fULL) == 0) &&
+      ((1ULL << (_la - 64)) & ((1ULL << (JavaScriptParser::OctalIntegerLiteral2 - 64))
+      | (1ULL << (JavaScriptParser::BinaryIntegerLiteral - 64))
+      | (1ULL << (JavaScriptParser::BigHexIntegerLiteral - 64))
+      | (1ULL << (JavaScriptParser::BigOctalIntegerLiteral - 64))
+      | (1ULL << (JavaScriptParser::BigBinaryIntegerLiteral - 64))
+      | (1ULL << (JavaScriptParser::BigDecimalIntegerLiteral - 64))
+      | (1ULL << (JavaScriptParser::Typeof - 64))
+      | (1ULL << (JavaScriptParser::New - 64))
+      | (1ULL << (JavaScriptParser::Void - 64))
+      | (1ULL << (JavaScriptParser::Function - 64))
+      | (1ULL << (JavaScriptParser::This - 64))
+      | (1ULL << (JavaScriptParser::Delete - 64))
+      | (1ULL << (JavaScriptParser::Class - 64))
+      | (1ULL << (JavaScriptParser::Super - 64))
+      | (1ULL << (JavaScriptParser::Import - 64))
+      | (1ULL << (JavaScriptParser::Async - 64))
+      | (1ULL << (JavaScriptParser::Await - 64))
+      | (1ULL << (JavaScriptParser::Yield - 64))
+      | (1ULL << (JavaScriptParser::Identifier - 64))
+      | (1ULL << (JavaScriptParser::StringLiteral - 64))
+      | (1ULL << (JavaScriptParser::TemplateStringLiteral - 64)))) != 0)) {
+      setState(704);
+      argument();
+      setState(709);
+      _errHandler->sync(this);
+      alt = getInterpreter<atn::ParserATNSimulator>()->adaptivePredict(_input, 81, _ctx);
+      while (alt != 2 && alt != atn::ATN::INVALID_ALT_NUMBER) {
+        if (alt == 1) {
+          setState(705);
           match(JavaScriptParser::Comma);
-          setState(698);
-          lastArgument();
+          setState(706);
+          argument(); 
         }
-        break;
+        setState(711);
+        _errHandler->sync(this);
+        alt = getInterpreter<atn::ParserATNSimulator>()->adaptivePredict(_input, 81, _ctx);
       }
+      setState(713);
+      _errHandler->sync(this);
 
-      case JavaScriptParser::Ellipsis: {
-        setState(701);
-        lastArgument();
-        break;
+      _la = _input->LA(1);
+      if (_la == JavaScriptParser::Comma) {
+        setState(712);
+        match(JavaScriptParser::Comma);
       }
-
-      case JavaScriptParser::CloseParen: {
-        break;
-      }
-
-    default:
-      break;
     }
-    setState(704);
+    setState(717);
     match(JavaScriptParser::CloseParen);
    
   }
@@ -6389,58 +6473,83 @@ JavaScriptParser::ArgumentsContext* JavaScriptParser::arguments() {
   return _localctx;
 }
 
-//----------------- LastArgumentContext ------------------------------------------------------------------
+//----------------- ArgumentContext ------------------------------------------------------------------
 
-JavaScriptParser::LastArgumentContext::LastArgumentContext(ParserRuleContext *parent, size_t invokingState)
+JavaScriptParser::ArgumentContext::ArgumentContext(ParserRuleContext *parent, size_t invokingState)
   : ParserRuleContext(parent, invokingState) {
 }
 
-tree::TerminalNode* JavaScriptParser::LastArgumentContext::Ellipsis() {
-  return getToken(JavaScriptParser::Ellipsis, 0);
+JavaScriptParser::SingleExpressionContext* JavaScriptParser::ArgumentContext::singleExpression() {
+  return getRuleContext<JavaScriptParser::SingleExpressionContext>(0);
 }
 
-tree::TerminalNode* JavaScriptParser::LastArgumentContext::Identifier() {
+tree::TerminalNode* JavaScriptParser::ArgumentContext::Identifier() {
   return getToken(JavaScriptParser::Identifier, 0);
 }
 
-
-size_t JavaScriptParser::LastArgumentContext::getRuleIndex() const {
-  return JavaScriptParser::RuleLastArgument;
+tree::TerminalNode* JavaScriptParser::ArgumentContext::Ellipsis() {
+  return getToken(JavaScriptParser::Ellipsis, 0);
 }
 
-void JavaScriptParser::LastArgumentContext::enterRule(tree::ParseTreeListener *listener) {
+
+size_t JavaScriptParser::ArgumentContext::getRuleIndex() const {
+  return JavaScriptParser::RuleArgument;
+}
+
+void JavaScriptParser::ArgumentContext::enterRule(tree::ParseTreeListener *listener) {
   auto parserListener = dynamic_cast<JavaScriptParserListener *>(listener);
   if (parserListener != nullptr)
-    parserListener->enterLastArgument(this);
+    parserListener->enterArgument(this);
 }
 
-void JavaScriptParser::LastArgumentContext::exitRule(tree::ParseTreeListener *listener) {
+void JavaScriptParser::ArgumentContext::exitRule(tree::ParseTreeListener *listener) {
   auto parserListener = dynamic_cast<JavaScriptParserListener *>(listener);
   if (parserListener != nullptr)
-    parserListener->exitLastArgument(this);
+    parserListener->exitArgument(this);
 }
 
 
-antlrcpp::Any JavaScriptParser::LastArgumentContext::accept(tree::ParseTreeVisitor *visitor) {
+antlrcpp::Any JavaScriptParser::ArgumentContext::accept(tree::ParseTreeVisitor *visitor) {
   if (auto parserVisitor = dynamic_cast<JavaScriptParserVisitor*>(visitor))
-    return parserVisitor->visitLastArgument(this);
+    return parserVisitor->visitArgument(this);
   else
     return visitor->visitChildren(this);
 }
 
-JavaScriptParser::LastArgumentContext* JavaScriptParser::lastArgument() {
-  LastArgumentContext *_localctx = _tracker.createInstance<LastArgumentContext>(_ctx, getState());
-  enterRule(_localctx, 112, JavaScriptParser::RuleLastArgument);
+JavaScriptParser::ArgumentContext* JavaScriptParser::argument() {
+  ArgumentContext *_localctx = _tracker.createInstance<ArgumentContext>(_ctx, getState());
+  enterRule(_localctx, 112, JavaScriptParser::RuleArgument);
+  size_t _la = 0;
 
   auto onExit = finally([=] {
     exitRule();
   });
   try {
     enterOuterAlt(_localctx, 1);
-    setState(706);
-    match(JavaScriptParser::Ellipsis);
-    setState(707);
-    match(JavaScriptParser::Identifier);
+    setState(720);
+    _errHandler->sync(this);
+
+    _la = _input->LA(1);
+    if (_la == JavaScriptParser::Ellipsis) {
+      setState(719);
+      match(JavaScriptParser::Ellipsis);
+    }
+    setState(724);
+    _errHandler->sync(this);
+    switch (getInterpreter<atn::ParserATNSimulator>()->adaptivePredict(_input, 85, _ctx)) {
+    case 1: {
+      setState(722);
+      singleExpression(0);
+      break;
+    }
+
+    case 2: {
+      setState(723);
+      match(JavaScriptParser::Identifier);
+      break;
+    }
+
+    }
    
   }
   catch (RecognitionException &e) {
@@ -6509,21 +6618,21 @@ JavaScriptParser::ExpressionSequenceContext* JavaScriptParser::expressionSequenc
   try {
     size_t alt;
     enterOuterAlt(_localctx, 1);
-    setState(709);
+    setState(726);
     singleExpression(0);
-    setState(714);
+    setState(731);
     _errHandler->sync(this);
-    alt = getInterpreter<atn::ParserATNSimulator>()->adaptivePredict(_input, 75, _ctx);
+    alt = getInterpreter<atn::ParserATNSimulator>()->adaptivePredict(_input, 86, _ctx);
     while (alt != 2 && alt != atn::ATN::INVALID_ALT_NUMBER) {
       if (alt == 1) {
-        setState(710);
+        setState(727);
         match(JavaScriptParser::Comma);
-        setState(711);
+        setState(728);
         singleExpression(0); 
       }
-      setState(716);
+      setState(733);
       _errHandler->sync(this);
-      alt = getInterpreter<atn::ParserATNSimulator>()->adaptivePredict(_input, 75, _ctx);
+      alt = getInterpreter<atn::ParserATNSimulator>()->adaptivePredict(_input, 86, _ctx);
     }
    
   }
@@ -6650,28 +6759,36 @@ antlrcpp::Any JavaScriptParser::LogicalAndExpressionContext::accept(tree::ParseT
   else
     return visitor->visitChildren(this);
 }
-//----------------- GeneratorsExpressionContext ------------------------------------------------------------------
+//----------------- PowerExpressionContext ------------------------------------------------------------------
 
-JavaScriptParser::GeneratorBlockContext* JavaScriptParser::GeneratorsExpressionContext::generatorBlock() {
-  return getRuleContext<JavaScriptParser::GeneratorBlockContext>(0);
+std::vector<JavaScriptParser::SingleExpressionContext *> JavaScriptParser::PowerExpressionContext::singleExpression() {
+  return getRuleContexts<JavaScriptParser::SingleExpressionContext>();
 }
 
-JavaScriptParser::GeneratorsExpressionContext::GeneratorsExpressionContext(SingleExpressionContext *ctx) { copyFrom(ctx); }
+JavaScriptParser::SingleExpressionContext* JavaScriptParser::PowerExpressionContext::singleExpression(size_t i) {
+  return getRuleContext<JavaScriptParser::SingleExpressionContext>(i);
+}
 
-void JavaScriptParser::GeneratorsExpressionContext::enterRule(tree::ParseTreeListener *listener) {
+tree::TerminalNode* JavaScriptParser::PowerExpressionContext::Power() {
+  return getToken(JavaScriptParser::Power, 0);
+}
+
+JavaScriptParser::PowerExpressionContext::PowerExpressionContext(SingleExpressionContext *ctx) { copyFrom(ctx); }
+
+void JavaScriptParser::PowerExpressionContext::enterRule(tree::ParseTreeListener *listener) {
   auto parserListener = dynamic_cast<JavaScriptParserListener *>(listener);
   if (parserListener != nullptr)
-    parserListener->enterGeneratorsExpression(this);
+    parserListener->enterPowerExpression(this);
 }
-void JavaScriptParser::GeneratorsExpressionContext::exitRule(tree::ParseTreeListener *listener) {
+void JavaScriptParser::PowerExpressionContext::exitRule(tree::ParseTreeListener *listener) {
   auto parserListener = dynamic_cast<JavaScriptParserListener *>(listener);
   if (parserListener != nullptr)
-    parserListener->exitGeneratorsExpression(this);
+    parserListener->exitPowerExpression(this);
 }
 
-antlrcpp::Any JavaScriptParser::GeneratorsExpressionContext::accept(tree::ParseTreeVisitor *visitor) {
+antlrcpp::Any JavaScriptParser::PowerExpressionContext::accept(tree::ParseTreeVisitor *visitor) {
   if (auto parserVisitor = dynamic_cast<JavaScriptParserVisitor*>(visitor))
-    return parserVisitor->visitGeneratorsExpression(this);
+    return parserVisitor->visitPowerExpression(this);
   else
     return visitor->visitChildren(this);
 }
@@ -6726,6 +6843,39 @@ void JavaScriptParser::ObjectLiteralExpressionContext::exitRule(tree::ParseTreeL
 antlrcpp::Any JavaScriptParser::ObjectLiteralExpressionContext::accept(tree::ParseTreeVisitor *visitor) {
   if (auto parserVisitor = dynamic_cast<JavaScriptParserVisitor*>(visitor))
     return parserVisitor->visitObjectLiteralExpression(this);
+  else
+    return visitor->visitChildren(this);
+}
+//----------------- MetaExpressionContext ------------------------------------------------------------------
+
+tree::TerminalNode* JavaScriptParser::MetaExpressionContext::New() {
+  return getToken(JavaScriptParser::New, 0);
+}
+
+tree::TerminalNode* JavaScriptParser::MetaExpressionContext::Dot() {
+  return getToken(JavaScriptParser::Dot, 0);
+}
+
+tree::TerminalNode* JavaScriptParser::MetaExpressionContext::Identifier() {
+  return getToken(JavaScriptParser::Identifier, 0);
+}
+
+JavaScriptParser::MetaExpressionContext::MetaExpressionContext(SingleExpressionContext *ctx) { copyFrom(ctx); }
+
+void JavaScriptParser::MetaExpressionContext::enterRule(tree::ParseTreeListener *listener) {
+  auto parserListener = dynamic_cast<JavaScriptParserListener *>(listener);
+  if (parserListener != nullptr)
+    parserListener->enterMetaExpression(this);
+}
+void JavaScriptParser::MetaExpressionContext::exitRule(tree::ParseTreeListener *listener) {
+  auto parserListener = dynamic_cast<JavaScriptParserListener *>(listener);
+  if (parserListener != nullptr)
+    parserListener->exitMetaExpression(this);
+}
+
+antlrcpp::Any JavaScriptParser::MetaExpressionContext::accept(tree::ParseTreeVisitor *visitor) {
+  if (auto parserVisitor = dynamic_cast<JavaScriptParserVisitor*>(visitor))
+    return parserVisitor->visitMetaExpression(this);
   else
     return visitor->visitChildren(this);
 }
@@ -6882,6 +7032,35 @@ antlrcpp::Any JavaScriptParser::ArgumentsExpressionContext::accept(tree::ParseTr
   else
     return visitor->visitChildren(this);
 }
+//----------------- AwaitExpressionContext ------------------------------------------------------------------
+
+tree::TerminalNode* JavaScriptParser::AwaitExpressionContext::Await() {
+  return getToken(JavaScriptParser::Await, 0);
+}
+
+JavaScriptParser::SingleExpressionContext* JavaScriptParser::AwaitExpressionContext::singleExpression() {
+  return getRuleContext<JavaScriptParser::SingleExpressionContext>(0);
+}
+
+JavaScriptParser::AwaitExpressionContext::AwaitExpressionContext(SingleExpressionContext *ctx) { copyFrom(ctx); }
+
+void JavaScriptParser::AwaitExpressionContext::enterRule(tree::ParseTreeListener *listener) {
+  auto parserListener = dynamic_cast<JavaScriptParserListener *>(listener);
+  if (parserListener != nullptr)
+    parserListener->enterAwaitExpression(this);
+}
+void JavaScriptParser::AwaitExpressionContext::exitRule(tree::ParseTreeListener *listener) {
+  auto parserListener = dynamic_cast<JavaScriptParserListener *>(listener);
+  if (parserListener != nullptr)
+    parserListener->exitAwaitExpression(this);
+}
+
+antlrcpp::Any JavaScriptParser::AwaitExpressionContext::accept(tree::ParseTreeVisitor *visitor) {
+  if (auto parserVisitor = dynamic_cast<JavaScriptParserVisitor*>(visitor))
+    return parserVisitor->visitAwaitExpression(this);
+  else
+    return visitor->visitChildren(this);
+}
 //----------------- ThisExpressionContext ------------------------------------------------------------------
 
 tree::TerminalNode* JavaScriptParser::ThisExpressionContext::This() {
@@ -6909,36 +7088,8 @@ antlrcpp::Any JavaScriptParser::ThisExpressionContext::accept(tree::ParseTreeVis
 }
 //----------------- FunctionExpressionContext ------------------------------------------------------------------
 
-tree::TerminalNode* JavaScriptParser::FunctionExpressionContext::Function() {
-  return getToken(JavaScriptParser::Function, 0);
-}
-
-tree::TerminalNode* JavaScriptParser::FunctionExpressionContext::OpenParen() {
-  return getToken(JavaScriptParser::OpenParen, 0);
-}
-
-tree::TerminalNode* JavaScriptParser::FunctionExpressionContext::CloseParen() {
-  return getToken(JavaScriptParser::CloseParen, 0);
-}
-
-tree::TerminalNode* JavaScriptParser::FunctionExpressionContext::OpenBrace() {
-  return getToken(JavaScriptParser::OpenBrace, 0);
-}
-
-JavaScriptParser::FunctionBodyContext* JavaScriptParser::FunctionExpressionContext::functionBody() {
-  return getRuleContext<JavaScriptParser::FunctionBodyContext>(0);
-}
-
-tree::TerminalNode* JavaScriptParser::FunctionExpressionContext::CloseBrace() {
-  return getToken(JavaScriptParser::CloseBrace, 0);
-}
-
-tree::TerminalNode* JavaScriptParser::FunctionExpressionContext::Identifier() {
-  return getToken(JavaScriptParser::Identifier, 0);
-}
-
-JavaScriptParser::FormalParameterListContext* JavaScriptParser::FunctionExpressionContext::formalParameterList() {
-  return getRuleContext<JavaScriptParser::FormalParameterListContext>(0);
+JavaScriptParser::AnoymousFunctionContext* JavaScriptParser::FunctionExpressionContext::anoymousFunction() {
+  return getRuleContext<JavaScriptParser::AnoymousFunctionContext>(0);
 }
 
 JavaScriptParser::FunctionExpressionContext::FunctionExpressionContext(SingleExpressionContext *ctx) { copyFrom(ctx); }
@@ -7171,86 +7322,40 @@ antlrcpp::Any JavaScriptParser::DeleteExpressionContext::accept(tree::ParseTreeV
   else
     return visitor->visitChildren(this);
 }
-//----------------- GeneratorsFunctionExpressionContext ------------------------------------------------------------------
+//----------------- ImportExpressionContext ------------------------------------------------------------------
 
-JavaScriptParser::GeneratorFunctionDeclarationContext* JavaScriptParser::GeneratorsFunctionExpressionContext::generatorFunctionDeclaration() {
-  return getRuleContext<JavaScriptParser::GeneratorFunctionDeclarationContext>(0);
+tree::TerminalNode* JavaScriptParser::ImportExpressionContext::Import() {
+  return getToken(JavaScriptParser::Import, 0);
 }
 
-JavaScriptParser::GeneratorsFunctionExpressionContext::GeneratorsFunctionExpressionContext(SingleExpressionContext *ctx) { copyFrom(ctx); }
+tree::TerminalNode* JavaScriptParser::ImportExpressionContext::OpenParen() {
+  return getToken(JavaScriptParser::OpenParen, 0);
+}
 
-void JavaScriptParser::GeneratorsFunctionExpressionContext::enterRule(tree::ParseTreeListener *listener) {
+JavaScriptParser::SingleExpressionContext* JavaScriptParser::ImportExpressionContext::singleExpression() {
+  return getRuleContext<JavaScriptParser::SingleExpressionContext>(0);
+}
+
+tree::TerminalNode* JavaScriptParser::ImportExpressionContext::CloseParen() {
+  return getToken(JavaScriptParser::CloseParen, 0);
+}
+
+JavaScriptParser::ImportExpressionContext::ImportExpressionContext(SingleExpressionContext *ctx) { copyFrom(ctx); }
+
+void JavaScriptParser::ImportExpressionContext::enterRule(tree::ParseTreeListener *listener) {
   auto parserListener = dynamic_cast<JavaScriptParserListener *>(listener);
   if (parserListener != nullptr)
-    parserListener->enterGeneratorsFunctionExpression(this);
+    parserListener->enterImportExpression(this);
 }
-void JavaScriptParser::GeneratorsFunctionExpressionContext::exitRule(tree::ParseTreeListener *listener) {
+void JavaScriptParser::ImportExpressionContext::exitRule(tree::ParseTreeListener *listener) {
   auto parserListener = dynamic_cast<JavaScriptParserListener *>(listener);
   if (parserListener != nullptr)
-    parserListener->exitGeneratorsFunctionExpression(this);
+    parserListener->exitImportExpression(this);
 }
 
-antlrcpp::Any JavaScriptParser::GeneratorsFunctionExpressionContext::accept(tree::ParseTreeVisitor *visitor) {
+antlrcpp::Any JavaScriptParser::ImportExpressionContext::accept(tree::ParseTreeVisitor *visitor) {
   if (auto parserVisitor = dynamic_cast<JavaScriptParserVisitor*>(visitor))
-    return parserVisitor->visitGeneratorsFunctionExpression(this);
-  else
-    return visitor->visitChildren(this);
-}
-//----------------- IteratorsExpressionContext ------------------------------------------------------------------
-
-JavaScriptParser::IteratorBlockContext* JavaScriptParser::IteratorsExpressionContext::iteratorBlock() {
-  return getRuleContext<JavaScriptParser::IteratorBlockContext>(0);
-}
-
-JavaScriptParser::IteratorsExpressionContext::IteratorsExpressionContext(SingleExpressionContext *ctx) { copyFrom(ctx); }
-
-void JavaScriptParser::IteratorsExpressionContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<JavaScriptParserListener *>(listener);
-  if (parserListener != nullptr)
-    parserListener->enterIteratorsExpression(this);
-}
-void JavaScriptParser::IteratorsExpressionContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<JavaScriptParserListener *>(listener);
-  if (parserListener != nullptr)
-    parserListener->exitIteratorsExpression(this);
-}
-
-antlrcpp::Any JavaScriptParser::IteratorsExpressionContext::accept(tree::ParseTreeVisitor *visitor) {
-  if (auto parserVisitor = dynamic_cast<JavaScriptParserVisitor*>(visitor))
-    return parserVisitor->visitIteratorsExpression(this);
-  else
-    return visitor->visitChildren(this);
-}
-//----------------- ArrowFunctionExpressionContext ------------------------------------------------------------------
-
-JavaScriptParser::ArrowFunctionParametersContext* JavaScriptParser::ArrowFunctionExpressionContext::arrowFunctionParameters() {
-  return getRuleContext<JavaScriptParser::ArrowFunctionParametersContext>(0);
-}
-
-tree::TerminalNode* JavaScriptParser::ArrowFunctionExpressionContext::ARROW() {
-  return getToken(JavaScriptParser::ARROW, 0);
-}
-
-JavaScriptParser::ArrowFunctionBodyContext* JavaScriptParser::ArrowFunctionExpressionContext::arrowFunctionBody() {
-  return getRuleContext<JavaScriptParser::ArrowFunctionBodyContext>(0);
-}
-
-JavaScriptParser::ArrowFunctionExpressionContext::ArrowFunctionExpressionContext(SingleExpressionContext *ctx) { copyFrom(ctx); }
-
-void JavaScriptParser::ArrowFunctionExpressionContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<JavaScriptParserListener *>(listener);
-  if (parserListener != nullptr)
-    parserListener->enterArrowFunctionExpression(this);
-}
-void JavaScriptParser::ArrowFunctionExpressionContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<JavaScriptParserListener *>(listener);
-  if (parserListener != nullptr)
-    parserListener->exitArrowFunctionExpression(this);
-}
-
-antlrcpp::Any JavaScriptParser::ArrowFunctionExpressionContext::accept(tree::ParseTreeVisitor *visitor) {
-  if (auto parserVisitor = dynamic_cast<JavaScriptParserVisitor*>(visitor))
-    return parserVisitor->visitArrowFunctionExpression(this);
+    return parserVisitor->visitImportExpression(this);
   else
     return visitor->visitChildren(this);
 }
@@ -7734,6 +7839,14 @@ JavaScriptParser::IdentifierNameContext* JavaScriptParser::MemberDotExpressionCo
   return getRuleContext<JavaScriptParser::IdentifierNameContext>(0);
 }
 
+tree::TerminalNode* JavaScriptParser::MemberDotExpressionContext::QuestionMark() {
+  return getToken(JavaScriptParser::QuestionMark, 0);
+}
+
+tree::TerminalNode* JavaScriptParser::MemberDotExpressionContext::Hashtag() {
+  return getToken(JavaScriptParser::Hashtag, 0);
+}
+
 JavaScriptParser::MemberDotExpressionContext::MemberDotExpressionContext(SingleExpressionContext *ctx) { copyFrom(ctx); }
 
 void JavaScriptParser::MemberDotExpressionContext::enterRule(tree::ParseTreeListener *listener) {
@@ -7976,6 +8089,39 @@ antlrcpp::Any JavaScriptParser::VoidExpressionContext::accept(tree::ParseTreeVis
   else
     return visitor->visitChildren(this);
 }
+//----------------- CoalesceExpressionContext ------------------------------------------------------------------
+
+std::vector<JavaScriptParser::SingleExpressionContext *> JavaScriptParser::CoalesceExpressionContext::singleExpression() {
+  return getRuleContexts<JavaScriptParser::SingleExpressionContext>();
+}
+
+JavaScriptParser::SingleExpressionContext* JavaScriptParser::CoalesceExpressionContext::singleExpression(size_t i) {
+  return getRuleContext<JavaScriptParser::SingleExpressionContext>(i);
+}
+
+tree::TerminalNode* JavaScriptParser::CoalesceExpressionContext::NullCoalesce() {
+  return getToken(JavaScriptParser::NullCoalesce, 0);
+}
+
+JavaScriptParser::CoalesceExpressionContext::CoalesceExpressionContext(SingleExpressionContext *ctx) { copyFrom(ctx); }
+
+void JavaScriptParser::CoalesceExpressionContext::enterRule(tree::ParseTreeListener *listener) {
+  auto parserListener = dynamic_cast<JavaScriptParserListener *>(listener);
+  if (parserListener != nullptr)
+    parserListener->enterCoalesceExpression(this);
+}
+void JavaScriptParser::CoalesceExpressionContext::exitRule(tree::ParseTreeListener *listener) {
+  auto parserListener = dynamic_cast<JavaScriptParserListener *>(listener);
+  if (parserListener != nullptr)
+    parserListener->exitCoalesceExpression(this);
+}
+
+antlrcpp::Any JavaScriptParser::CoalesceExpressionContext::accept(tree::ParseTreeVisitor *visitor) {
+  if (auto parserVisitor = dynamic_cast<JavaScriptParserVisitor*>(visitor))
+    return parserVisitor->visitCoalesceExpression(this);
+  else
+    return visitor->visitChildren(this);
+}
 
 JavaScriptParser::SingleExpressionContext* JavaScriptParser::singleExpression() {
    return singleExpression(0);
@@ -7998,45 +8144,16 @@ JavaScriptParser::SingleExpressionContext* JavaScriptParser::singleExpression(in
   try {
     size_t alt;
     enterOuterAlt(_localctx, 1);
-    setState(777);
+    setState(785);
     _errHandler->sync(this);
-    switch (getInterpreter<atn::ParserATNSimulator>()->adaptivePredict(_input, 80, _ctx)) {
+    switch (getInterpreter<atn::ParserATNSimulator>()->adaptivePredict(_input, 89, _ctx)) {
     case 1: {
       _localctx = _tracker.createInstance<FunctionExpressionContext>(_localctx);
       _ctx = _localctx;
       previousContext = _localctx;
 
-      setState(718);
-      match(JavaScriptParser::Function);
-      setState(720);
-      _errHandler->sync(this);
-
-      _la = _input->LA(1);
-      if (_la == JavaScriptParser::Identifier) {
-        setState(719);
-        match(JavaScriptParser::Identifier);
-      }
-      setState(722);
-      match(JavaScriptParser::OpenParen);
-      setState(724);
-      _errHandler->sync(this);
-
-      _la = _input->LA(1);
-      if ((((_la & ~ 0x3fULL) == 0) &&
-        ((1ULL << _la) & ((1ULL << JavaScriptParser::OpenBracket)
-        | (1ULL << JavaScriptParser::OpenBrace)
-        | (1ULL << JavaScriptParser::Ellipsis))) != 0) || _la == JavaScriptParser::Identifier) {
-        setState(723);
-        formalParameterList();
-      }
-      setState(726);
-      match(JavaScriptParser::CloseParen);
-      setState(727);
-      match(JavaScriptParser::OpenBrace);
-      setState(728);
-      functionBody();
-      setState(729);
-      match(JavaScriptParser::CloseBrace);
+      setState(735);
+      anoymousFunction();
       break;
     }
 
@@ -8044,17 +8161,17 @@ JavaScriptParser::SingleExpressionContext* JavaScriptParser::singleExpression(in
       _localctx = _tracker.createInstance<ClassExpressionContext>(_localctx);
       _ctx = _localctx;
       previousContext = _localctx;
-      setState(731);
+      setState(736);
       match(JavaScriptParser::Class);
-      setState(733);
+      setState(738);
       _errHandler->sync(this);
 
       _la = _input->LA(1);
       if (_la == JavaScriptParser::Identifier) {
-        setState(732);
+        setState(737);
         match(JavaScriptParser::Identifier);
       }
-      setState(735);
+      setState(740);
       classTail();
       break;
     }
@@ -8063,16 +8180,16 @@ JavaScriptParser::SingleExpressionContext* JavaScriptParser::singleExpression(in
       _localctx = _tracker.createInstance<NewExpressionContext>(_localctx);
       _ctx = _localctx;
       previousContext = _localctx;
-      setState(736);
+      setState(741);
       match(JavaScriptParser::New);
-      setState(737);
+      setState(742);
       singleExpression(0);
-      setState(739);
+      setState(744);
       _errHandler->sync(this);
 
-      switch (getInterpreter<atn::ParserATNSimulator>()->adaptivePredict(_input, 79, _ctx)) {
+      switch (getInterpreter<atn::ParserATNSimulator>()->adaptivePredict(_input, 88, _ctx)) {
       case 1: {
-        setState(738);
+        setState(743);
         arguments();
         break;
       }
@@ -8082,128 +8199,140 @@ JavaScriptParser::SingleExpressionContext* JavaScriptParser::singleExpression(in
     }
 
     case 4: {
-      _localctx = _tracker.createInstance<DeleteExpressionContext>(_localctx);
+      _localctx = _tracker.createInstance<MetaExpressionContext>(_localctx);
       _ctx = _localctx;
       previousContext = _localctx;
-      setState(741);
-      match(JavaScriptParser::Delete);
-      setState(742);
-      singleExpression(37);
+      setState(746);
+      match(JavaScriptParser::New);
+      setState(747);
+      match(JavaScriptParser::Dot);
+      setState(748);
+      match(JavaScriptParser::Identifier);
       break;
     }
 
     case 5: {
-      _localctx = _tracker.createInstance<VoidExpressionContext>(_localctx);
+      _localctx = _tracker.createInstance<DeleteExpressionContext>(_localctx);
       _ctx = _localctx;
       previousContext = _localctx;
-      setState(743);
-      match(JavaScriptParser::Void);
-      setState(744);
-      singleExpression(36);
+      setState(749);
+      match(JavaScriptParser::Delete);
+      setState(750);
+      singleExpression(37);
       break;
     }
 
     case 6: {
-      _localctx = _tracker.createInstance<TypeofExpressionContext>(_localctx);
+      _localctx = _tracker.createInstance<VoidExpressionContext>(_localctx);
       _ctx = _localctx;
       previousContext = _localctx;
-      setState(745);
-      match(JavaScriptParser::Typeof);
-      setState(746);
-      singleExpression(35);
+      setState(751);
+      match(JavaScriptParser::Void);
+      setState(752);
+      singleExpression(36);
       break;
     }
 
     case 7: {
-      _localctx = _tracker.createInstance<PreIncrementExpressionContext>(_localctx);
+      _localctx = _tracker.createInstance<TypeofExpressionContext>(_localctx);
       _ctx = _localctx;
       previousContext = _localctx;
-      setState(747);
-      match(JavaScriptParser::PlusPlus);
-      setState(748);
-      singleExpression(34);
+      setState(753);
+      match(JavaScriptParser::Typeof);
+      setState(754);
+      singleExpression(35);
       break;
     }
 
     case 8: {
-      _localctx = _tracker.createInstance<PreDecreaseExpressionContext>(_localctx);
+      _localctx = _tracker.createInstance<PreIncrementExpressionContext>(_localctx);
       _ctx = _localctx;
       previousContext = _localctx;
-      setState(749);
-      match(JavaScriptParser::MinusMinus);
-      setState(750);
-      singleExpression(33);
+      setState(755);
+      match(JavaScriptParser::PlusPlus);
+      setState(756);
+      singleExpression(34);
       break;
     }
 
     case 9: {
-      _localctx = _tracker.createInstance<UnaryPlusExpressionContext>(_localctx);
+      _localctx = _tracker.createInstance<PreDecreaseExpressionContext>(_localctx);
       _ctx = _localctx;
       previousContext = _localctx;
-      setState(751);
-      match(JavaScriptParser::Plus);
-      setState(752);
-      singleExpression(32);
+      setState(757);
+      match(JavaScriptParser::MinusMinus);
+      setState(758);
+      singleExpression(33);
       break;
     }
 
     case 10: {
-      _localctx = _tracker.createInstance<UnaryMinusExpressionContext>(_localctx);
+      _localctx = _tracker.createInstance<UnaryPlusExpressionContext>(_localctx);
       _ctx = _localctx;
       previousContext = _localctx;
-      setState(753);
-      match(JavaScriptParser::Minus);
-      setState(754);
-      singleExpression(31);
+      setState(759);
+      match(JavaScriptParser::Plus);
+      setState(760);
+      singleExpression(32);
       break;
     }
 
     case 11: {
-      _localctx = _tracker.createInstance<BitNotExpressionContext>(_localctx);
+      _localctx = _tracker.createInstance<UnaryMinusExpressionContext>(_localctx);
       _ctx = _localctx;
       previousContext = _localctx;
-      setState(755);
-      match(JavaScriptParser::BitNot);
-      setState(756);
-      singleExpression(30);
+      setState(761);
+      match(JavaScriptParser::Minus);
+      setState(762);
+      singleExpression(31);
       break;
     }
 
     case 12: {
-      _localctx = _tracker.createInstance<NotExpressionContext>(_localctx);
+      _localctx = _tracker.createInstance<BitNotExpressionContext>(_localctx);
       _ctx = _localctx;
       previousContext = _localctx;
-      setState(757);
-      match(JavaScriptParser::Not);
-      setState(758);
-      singleExpression(29);
+      setState(763);
+      match(JavaScriptParser::BitNot);
+      setState(764);
+      singleExpression(30);
       break;
     }
 
     case 13: {
-      _localctx = _tracker.createInstance<IteratorsExpressionContext>(_localctx);
+      _localctx = _tracker.createInstance<NotExpressionContext>(_localctx);
       _ctx = _localctx;
       previousContext = _localctx;
-      setState(759);
-      iteratorBlock();
+      setState(765);
+      match(JavaScriptParser::Not);
+      setState(766);
+      singleExpression(29);
       break;
     }
 
     case 14: {
-      _localctx = _tracker.createInstance<GeneratorsExpressionContext>(_localctx);
+      _localctx = _tracker.createInstance<AwaitExpressionContext>(_localctx);
       _ctx = _localctx;
       previousContext = _localctx;
-      setState(760);
-      generatorBlock();
+      setState(767);
+      match(JavaScriptParser::Await);
+      setState(768);
+      singleExpression(28);
       break;
     }
 
     case 15: {
-      _localctx = _tracker.createInstance<GeneratorsFunctionExpressionContext>(_localctx);
+      _localctx = _tracker.createInstance<ImportExpressionContext>(_localctx);
       _ctx = _localctx;
       previousContext = _localctx;
-      setState(761);
-      generatorFunctionDeclaration();
+      setState(769);
+      match(JavaScriptParser::Import);
+      setState(770);
+      match(JavaScriptParser::OpenParen);
+      setState(771);
+      singleExpression(0);
+      setState(772);
+      match(JavaScriptParser::CloseParen);
       break;
     }
 
@@ -8211,7 +8340,7 @@ JavaScriptParser::SingleExpressionContext* JavaScriptParser::singleExpression(in
       _localctx = _tracker.createInstance<YieldExpressionContext>(_localctx);
       _ctx = _localctx;
       previousContext = _localctx;
-      setState(762);
+      setState(774);
       yieldStatement();
       break;
     }
@@ -8220,7 +8349,7 @@ JavaScriptParser::SingleExpressionContext* JavaScriptParser::singleExpression(in
       _localctx = _tracker.createInstance<ThisExpressionContext>(_localctx);
       _ctx = _localctx;
       previousContext = _localctx;
-      setState(763);
+      setState(775);
       match(JavaScriptParser::This);
       break;
     }
@@ -8229,7 +8358,7 @@ JavaScriptParser::SingleExpressionContext* JavaScriptParser::singleExpression(in
       _localctx = _tracker.createInstance<IdentifierExpressionContext>(_localctx);
       _ctx = _localctx;
       previousContext = _localctx;
-      setState(764);
+      setState(776);
       match(JavaScriptParser::Identifier);
       break;
     }
@@ -8238,7 +8367,7 @@ JavaScriptParser::SingleExpressionContext* JavaScriptParser::singleExpression(in
       _localctx = _tracker.createInstance<SuperExpressionContext>(_localctx);
       _ctx = _localctx;
       previousContext = _localctx;
-      setState(765);
+      setState(777);
       match(JavaScriptParser::Super);
       break;
     }
@@ -8247,7 +8376,7 @@ JavaScriptParser::SingleExpressionContext* JavaScriptParser::singleExpression(in
       _localctx = _tracker.createInstance<LiteralExpressionContext>(_localctx);
       _ctx = _localctx;
       previousContext = _localctx;
-      setState(766);
+      setState(778);
       literal();
       break;
     }
@@ -8256,7 +8385,7 @@ JavaScriptParser::SingleExpressionContext* JavaScriptParser::singleExpression(in
       _localctx = _tracker.createInstance<ArrayLiteralExpressionContext>(_localctx);
       _ctx = _localctx;
       previousContext = _localctx;
-      setState(767);
+      setState(779);
       arrayLiteral();
       break;
     }
@@ -8265,7 +8394,7 @@ JavaScriptParser::SingleExpressionContext* JavaScriptParser::singleExpression(in
       _localctx = _tracker.createInstance<ObjectLiteralExpressionContext>(_localctx);
       _ctx = _localctx;
       previousContext = _localctx;
-      setState(768);
+      setState(780);
       objectLiteral();
       break;
     }
@@ -8274,49 +8403,50 @@ JavaScriptParser::SingleExpressionContext* JavaScriptParser::singleExpression(in
       _localctx = _tracker.createInstance<ParenthesizedExpressionContext>(_localctx);
       _ctx = _localctx;
       previousContext = _localctx;
-      setState(769);
+      setState(781);
       match(JavaScriptParser::OpenParen);
-      setState(770);
+      setState(782);
       expressionSequence();
-      setState(771);
+      setState(783);
       match(JavaScriptParser::CloseParen);
-      break;
-    }
-
-    case 24: {
-      _localctx = _tracker.createInstance<ArrowFunctionExpressionContext>(_localctx);
-      _ctx = _localctx;
-      previousContext = _localctx;
-      setState(773);
-      arrowFunctionParameters();
-      setState(774);
-      match(JavaScriptParser::ARROW);
-      setState(775);
-      arrowFunctionBody();
       break;
     }
 
     }
     _ctx->stop = _input->LT(-1);
-    setState(848);
+    setState(868);
     _errHandler->sync(this);
-    alt = getInterpreter<atn::ParserATNSimulator>()->adaptivePredict(_input, 82, _ctx);
+    alt = getInterpreter<atn::ParserATNSimulator>()->adaptivePredict(_input, 93, _ctx);
     while (alt != 2 && alt != atn::ATN::INVALID_ALT_NUMBER) {
       if (alt == 1) {
         if (!_parseListeners.empty())
           triggerExitRuleEvent();
         previousContext = _localctx;
-        setState(846);
+        setState(866);
         _errHandler->sync(this);
-        switch (getInterpreter<atn::ParserATNSimulator>()->adaptivePredict(_input, 81, _ctx)) {
+        switch (getInterpreter<atn::ParserATNSimulator>()->adaptivePredict(_input, 92, _ctx)) {
         case 1: {
+          auto newContext = _tracker.createInstance<PowerExpressionContext>(_tracker.createInstance<SingleExpressionContext>(parentContext, parentState));
+          _localctx = newContext;
+          pushNewRecursionContext(newContext, startState, RuleSingleExpression);
+          setState(787);
+
+          if (!(precpred(_ctx, 27))) throw FailedPredicateException(this, "precpred(_ctx, 27)");
+          setState(788);
+          match(JavaScriptParser::Power);
+          setState(789);
+          singleExpression(27);
+          break;
+        }
+
+        case 2: {
           auto newContext = _tracker.createInstance<MultiplicativeExpressionContext>(_tracker.createInstance<SingleExpressionContext>(parentContext, parentState));
           _localctx = newContext;
           pushNewRecursionContext(newContext, startState, RuleSingleExpression);
-          setState(779);
+          setState(790);
 
-          if (!(precpred(_ctx, 28))) throw FailedPredicateException(this, "precpred(_ctx, 28)");
-          setState(780);
+          if (!(precpred(_ctx, 26))) throw FailedPredicateException(this, "precpred(_ctx, 26)");
+          setState(791);
           _la = _input->LA(1);
           if (!((((_la & ~ 0x3fULL) == 0) &&
             ((1ULL << _la) & ((1ULL << JavaScriptParser::Multiply)
@@ -8328,19 +8458,19 @@ JavaScriptParser::SingleExpressionContext* JavaScriptParser::singleExpression(in
             _errHandler->reportMatch(this);
             consume();
           }
-          setState(781);
-          singleExpression(29);
+          setState(792);
+          singleExpression(27);
           break;
         }
 
-        case 2: {
+        case 3: {
           auto newContext = _tracker.createInstance<AdditiveExpressionContext>(_tracker.createInstance<SingleExpressionContext>(parentContext, parentState));
           _localctx = newContext;
           pushNewRecursionContext(newContext, startState, RuleSingleExpression);
-          setState(782);
+          setState(793);
 
-          if (!(precpred(_ctx, 27))) throw FailedPredicateException(this, "precpred(_ctx, 27)");
-          setState(783);
+          if (!(precpred(_ctx, 25))) throw FailedPredicateException(this, "precpred(_ctx, 25)");
+          setState(794);
           _la = _input->LA(1);
           if (!(_la == JavaScriptParser::Plus
 
@@ -8351,19 +8481,33 @@ JavaScriptParser::SingleExpressionContext* JavaScriptParser::singleExpression(in
             _errHandler->reportMatch(this);
             consume();
           }
-          setState(784);
-          singleExpression(28);
+          setState(795);
+          singleExpression(26);
           break;
         }
 
-        case 3: {
+        case 4: {
+          auto newContext = _tracker.createInstance<CoalesceExpressionContext>(_tracker.createInstance<SingleExpressionContext>(parentContext, parentState));
+          _localctx = newContext;
+          pushNewRecursionContext(newContext, startState, RuleSingleExpression);
+          setState(796);
+
+          if (!(precpred(_ctx, 24))) throw FailedPredicateException(this, "precpred(_ctx, 24)");
+          setState(797);
+          match(JavaScriptParser::NullCoalesce);
+          setState(798);
+          singleExpression(25);
+          break;
+        }
+
+        case 5: {
           auto newContext = _tracker.createInstance<BitShiftExpressionContext>(_tracker.createInstance<SingleExpressionContext>(parentContext, parentState));
           _localctx = newContext;
           pushNewRecursionContext(newContext, startState, RuleSingleExpression);
-          setState(785);
+          setState(799);
 
-          if (!(precpred(_ctx, 26))) throw FailedPredicateException(this, "precpred(_ctx, 26)");
-          setState(786);
+          if (!(precpred(_ctx, 23))) throw FailedPredicateException(this, "precpred(_ctx, 23)");
+          setState(800);
           _la = _input->LA(1);
           if (!((((_la & ~ 0x3fULL) == 0) &&
             ((1ULL << _la) & ((1ULL << JavaScriptParser::RightShiftArithmetic)
@@ -8375,19 +8519,19 @@ JavaScriptParser::SingleExpressionContext* JavaScriptParser::singleExpression(in
             _errHandler->reportMatch(this);
             consume();
           }
-          setState(787);
-          singleExpression(27);
+          setState(801);
+          singleExpression(24);
           break;
         }
 
-        case 4: {
+        case 6: {
           auto newContext = _tracker.createInstance<RelationalExpressionContext>(_tracker.createInstance<SingleExpressionContext>(parentContext, parentState));
           _localctx = newContext;
           pushNewRecursionContext(newContext, startState, RuleSingleExpression);
-          setState(788);
+          setState(802);
 
-          if (!(precpred(_ctx, 25))) throw FailedPredicateException(this, "precpred(_ctx, 25)");
-          setState(789);
+          if (!(precpred(_ctx, 22))) throw FailedPredicateException(this, "precpred(_ctx, 22)");
+          setState(803);
           _la = _input->LA(1);
           if (!((((_la & ~ 0x3fULL) == 0) &&
             ((1ULL << _la) & ((1ULL << JavaScriptParser::LessThan)
@@ -8400,47 +8544,47 @@ JavaScriptParser::SingleExpressionContext* JavaScriptParser::singleExpression(in
             _errHandler->reportMatch(this);
             consume();
           }
-          setState(790);
-          singleExpression(26);
-          break;
-        }
-
-        case 5: {
-          auto newContext = _tracker.createInstance<InstanceofExpressionContext>(_tracker.createInstance<SingleExpressionContext>(parentContext, parentState));
-          _localctx = newContext;
-          pushNewRecursionContext(newContext, startState, RuleSingleExpression);
-          setState(791);
-
-          if (!(precpred(_ctx, 24))) throw FailedPredicateException(this, "precpred(_ctx, 24)");
-          setState(792);
-          match(JavaScriptParser::Instanceof);
-          setState(793);
-          singleExpression(25);
-          break;
-        }
-
-        case 6: {
-          auto newContext = _tracker.createInstance<InExpressionContext>(_tracker.createInstance<SingleExpressionContext>(parentContext, parentState));
-          _localctx = newContext;
-          pushNewRecursionContext(newContext, startState, RuleSingleExpression);
-          setState(794);
-
-          if (!(precpred(_ctx, 23))) throw FailedPredicateException(this, "precpred(_ctx, 23)");
-          setState(795);
-          match(JavaScriptParser::In);
-          setState(796);
-          singleExpression(24);
+          setState(804);
+          singleExpression(23);
           break;
         }
 
         case 7: {
+          auto newContext = _tracker.createInstance<InstanceofExpressionContext>(_tracker.createInstance<SingleExpressionContext>(parentContext, parentState));
+          _localctx = newContext;
+          pushNewRecursionContext(newContext, startState, RuleSingleExpression);
+          setState(805);
+
+          if (!(precpred(_ctx, 21))) throw FailedPredicateException(this, "precpred(_ctx, 21)");
+          setState(806);
+          match(JavaScriptParser::Instanceof);
+          setState(807);
+          singleExpression(22);
+          break;
+        }
+
+        case 8: {
+          auto newContext = _tracker.createInstance<InExpressionContext>(_tracker.createInstance<SingleExpressionContext>(parentContext, parentState));
+          _localctx = newContext;
+          pushNewRecursionContext(newContext, startState, RuleSingleExpression);
+          setState(808);
+
+          if (!(precpred(_ctx, 20))) throw FailedPredicateException(this, "precpred(_ctx, 20)");
+          setState(809);
+          match(JavaScriptParser::In);
+          setState(810);
+          singleExpression(21);
+          break;
+        }
+
+        case 9: {
           auto newContext = _tracker.createInstance<EqualityExpressionContext>(_tracker.createInstance<SingleExpressionContext>(parentContext, parentState));
           _localctx = newContext;
           pushNewRecursionContext(newContext, startState, RuleSingleExpression);
-          setState(797);
+          setState(811);
 
-          if (!(precpred(_ctx, 22))) throw FailedPredicateException(this, "precpred(_ctx, 22)");
-          setState(798);
+          if (!(precpred(_ctx, 19))) throw FailedPredicateException(this, "precpred(_ctx, 19)");
+          setState(812);
           _la = _input->LA(1);
           if (!((((_la & ~ 0x3fULL) == 0) &&
             ((1ULL << _la) & ((1ULL << JavaScriptParser::Equals_)
@@ -8453,216 +8597,232 @@ JavaScriptParser::SingleExpressionContext* JavaScriptParser::singleExpression(in
             _errHandler->reportMatch(this);
             consume();
           }
-          setState(799);
-          singleExpression(23);
-          break;
-        }
-
-        case 8: {
-          auto newContext = _tracker.createInstance<BitAndExpressionContext>(_tracker.createInstance<SingleExpressionContext>(parentContext, parentState));
-          _localctx = newContext;
-          pushNewRecursionContext(newContext, startState, RuleSingleExpression);
-          setState(800);
-
-          if (!(precpred(_ctx, 21))) throw FailedPredicateException(this, "precpred(_ctx, 21)");
-          setState(801);
-          match(JavaScriptParser::BitAnd);
-          setState(802);
-          singleExpression(22);
-          break;
-        }
-
-        case 9: {
-          auto newContext = _tracker.createInstance<BitXOrExpressionContext>(_tracker.createInstance<SingleExpressionContext>(parentContext, parentState));
-          _localctx = newContext;
-          pushNewRecursionContext(newContext, startState, RuleSingleExpression);
-          setState(803);
-
-          if (!(precpred(_ctx, 20))) throw FailedPredicateException(this, "precpred(_ctx, 20)");
-          setState(804);
-          match(JavaScriptParser::BitXOr);
-          setState(805);
-          singleExpression(21);
-          break;
-        }
-
-        case 10: {
-          auto newContext = _tracker.createInstance<BitOrExpressionContext>(_tracker.createInstance<SingleExpressionContext>(parentContext, parentState));
-          _localctx = newContext;
-          pushNewRecursionContext(newContext, startState, RuleSingleExpression);
-          setState(806);
-
-          if (!(precpred(_ctx, 19))) throw FailedPredicateException(this, "precpred(_ctx, 19)");
-          setState(807);
-          match(JavaScriptParser::BitOr);
-          setState(808);
+          setState(813);
           singleExpression(20);
           break;
         }
 
-        case 11: {
-          auto newContext = _tracker.createInstance<LogicalAndExpressionContext>(_tracker.createInstance<SingleExpressionContext>(parentContext, parentState));
+        case 10: {
+          auto newContext = _tracker.createInstance<BitAndExpressionContext>(_tracker.createInstance<SingleExpressionContext>(parentContext, parentState));
           _localctx = newContext;
           pushNewRecursionContext(newContext, startState, RuleSingleExpression);
-          setState(809);
+          setState(814);
 
           if (!(precpred(_ctx, 18))) throw FailedPredicateException(this, "precpred(_ctx, 18)");
-          setState(810);
-          match(JavaScriptParser::And);
-          setState(811);
+          setState(815);
+          match(JavaScriptParser::BitAnd);
+          setState(816);
           singleExpression(19);
           break;
         }
 
-        case 12: {
-          auto newContext = _tracker.createInstance<LogicalOrExpressionContext>(_tracker.createInstance<SingleExpressionContext>(parentContext, parentState));
+        case 11: {
+          auto newContext = _tracker.createInstance<BitXOrExpressionContext>(_tracker.createInstance<SingleExpressionContext>(parentContext, parentState));
           _localctx = newContext;
           pushNewRecursionContext(newContext, startState, RuleSingleExpression);
-          setState(812);
+          setState(817);
 
           if (!(precpred(_ctx, 17))) throw FailedPredicateException(this, "precpred(_ctx, 17)");
-          setState(813);
-          match(JavaScriptParser::Or);
-          setState(814);
+          setState(818);
+          match(JavaScriptParser::BitXOr);
+          setState(819);
           singleExpression(18);
           break;
         }
 
-        case 13: {
-          auto newContext = _tracker.createInstance<TernaryExpressionContext>(_tracker.createInstance<SingleExpressionContext>(parentContext, parentState));
+        case 12: {
+          auto newContext = _tracker.createInstance<BitOrExpressionContext>(_tracker.createInstance<SingleExpressionContext>(parentContext, parentState));
           _localctx = newContext;
           pushNewRecursionContext(newContext, startState, RuleSingleExpression);
-          setState(815);
+          setState(820);
 
           if (!(precpred(_ctx, 16))) throw FailedPredicateException(this, "precpred(_ctx, 16)");
-          setState(816);
-          match(JavaScriptParser::QuestionMark);
-          setState(817);
-          singleExpression(0);
-          setState(818);
-          match(JavaScriptParser::Colon);
-          setState(819);
+          setState(821);
+          match(JavaScriptParser::BitOr);
+          setState(822);
           singleExpression(17);
           break;
         }
 
-        case 14: {
-          auto newContext = _tracker.createInstance<AssignmentExpressionContext>(_tracker.createInstance<SingleExpressionContext>(parentContext, parentState));
+        case 13: {
+          auto newContext = _tracker.createInstance<LogicalAndExpressionContext>(_tracker.createInstance<SingleExpressionContext>(parentContext, parentState));
           _localctx = newContext;
           pushNewRecursionContext(newContext, startState, RuleSingleExpression);
-          setState(821);
+          setState(823);
 
           if (!(precpred(_ctx, 15))) throw FailedPredicateException(this, "precpred(_ctx, 15)");
-          setState(822);
-          match(JavaScriptParser::Assign);
-          setState(823);
+          setState(824);
+          match(JavaScriptParser::And);
+          setState(825);
+          singleExpression(16);
+          break;
+        }
+
+        case 14: {
+          auto newContext = _tracker.createInstance<LogicalOrExpressionContext>(_tracker.createInstance<SingleExpressionContext>(parentContext, parentState));
+          _localctx = newContext;
+          pushNewRecursionContext(newContext, startState, RuleSingleExpression);
+          setState(826);
+
+          if (!(precpred(_ctx, 14))) throw FailedPredicateException(this, "precpred(_ctx, 14)");
+          setState(827);
+          match(JavaScriptParser::Or);
+          setState(828);
           singleExpression(15);
           break;
         }
 
         case 15: {
-          auto newContext = _tracker.createInstance<AssignmentOperatorExpressionContext>(_tracker.createInstance<SingleExpressionContext>(parentContext, parentState));
+          auto newContext = _tracker.createInstance<TernaryExpressionContext>(_tracker.createInstance<SingleExpressionContext>(parentContext, parentState));
           _localctx = newContext;
           pushNewRecursionContext(newContext, startState, RuleSingleExpression);
-          setState(824);
+          setState(829);
 
-          if (!(precpred(_ctx, 14))) throw FailedPredicateException(this, "precpred(_ctx, 14)");
-          setState(825);
-          assignmentOperator();
-          setState(826);
+          if (!(precpred(_ctx, 13))) throw FailedPredicateException(this, "precpred(_ctx, 13)");
+          setState(830);
+          match(JavaScriptParser::QuestionMark);
+          setState(831);
+          singleExpression(0);
+          setState(832);
+          match(JavaScriptParser::Colon);
+          setState(833);
           singleExpression(14);
           break;
         }
 
         case 16: {
-          auto newContext = _tracker.createInstance<MemberIndexExpressionContext>(_tracker.createInstance<SingleExpressionContext>(parentContext, parentState));
+          auto newContext = _tracker.createInstance<AssignmentExpressionContext>(_tracker.createInstance<SingleExpressionContext>(parentContext, parentState));
           _localctx = newContext;
           pushNewRecursionContext(newContext, startState, RuleSingleExpression);
-          setState(828);
+          setState(835);
 
-          if (!(precpred(_ctx, 43))) throw FailedPredicateException(this, "precpred(_ctx, 43)");
-          setState(829);
-          match(JavaScriptParser::OpenBracket);
-          setState(830);
-          expressionSequence();
-          setState(831);
-          match(JavaScriptParser::CloseBracket);
+          if (!(precpred(_ctx, 12))) throw FailedPredicateException(this, "precpred(_ctx, 12)");
+          setState(836);
+          match(JavaScriptParser::Assign);
+          setState(837);
+          singleExpression(12);
           break;
         }
 
         case 17: {
-          auto newContext = _tracker.createInstance<MemberDotExpressionContext>(_tracker.createInstance<SingleExpressionContext>(parentContext, parentState));
-          _localctx = newContext;
-          pushNewRecursionContext(newContext, startState, RuleSingleExpression);
-          setState(833);
-
-          if (!(precpred(_ctx, 42))) throw FailedPredicateException(this, "precpred(_ctx, 42)");
-          setState(834);
-          match(JavaScriptParser::Dot);
-          setState(835);
-          identifierName();
-          break;
-        }
-
-        case 18: {
-          auto newContext = _tracker.createInstance<ArgumentsExpressionContext>(_tracker.createInstance<SingleExpressionContext>(parentContext, parentState));
-          _localctx = newContext;
-          pushNewRecursionContext(newContext, startState, RuleSingleExpression);
-          setState(836);
-
-          if (!(precpred(_ctx, 41))) throw FailedPredicateException(this, "precpred(_ctx, 41)");
-          setState(837);
-          arguments();
-          break;
-        }
-
-        case 19: {
-          auto newContext = _tracker.createInstance<PostIncrementExpressionContext>(_tracker.createInstance<SingleExpressionContext>(parentContext, parentState));
+          auto newContext = _tracker.createInstance<AssignmentOperatorExpressionContext>(_tracker.createInstance<SingleExpressionContext>(parentContext, parentState));
           _localctx = newContext;
           pushNewRecursionContext(newContext, startState, RuleSingleExpression);
           setState(838);
 
-          if (!(precpred(_ctx, 39))) throw FailedPredicateException(this, "precpred(_ctx, 39)");
+          if (!(precpred(_ctx, 11))) throw FailedPredicateException(this, "precpred(_ctx, 11)");
           setState(839);
-
-          if (!(this->notLineTerminator())) throw FailedPredicateException(this, "this->notLineTerminator()");
+          assignmentOperator();
           setState(840);
-          match(JavaScriptParser::PlusPlus);
+          singleExpression(11);
+          break;
+        }
+
+        case 18: {
+          auto newContext = _tracker.createInstance<MemberIndexExpressionContext>(_tracker.createInstance<SingleExpressionContext>(parentContext, parentState));
+          _localctx = newContext;
+          pushNewRecursionContext(newContext, startState, RuleSingleExpression);
+          setState(842);
+
+          if (!(precpred(_ctx, 44))) throw FailedPredicateException(this, "precpred(_ctx, 44)");
+          setState(843);
+          match(JavaScriptParser::OpenBracket);
+          setState(844);
+          expressionSequence();
+          setState(845);
+          match(JavaScriptParser::CloseBracket);
+          break;
+        }
+
+        case 19: {
+          auto newContext = _tracker.createInstance<MemberDotExpressionContext>(_tracker.createInstance<SingleExpressionContext>(parentContext, parentState));
+          _localctx = newContext;
+          pushNewRecursionContext(newContext, startState, RuleSingleExpression);
+          setState(847);
+
+          if (!(precpred(_ctx, 43))) throw FailedPredicateException(this, "precpred(_ctx, 43)");
+          setState(849);
+          _errHandler->sync(this);
+
+          _la = _input->LA(1);
+          if (_la == JavaScriptParser::QuestionMark) {
+            setState(848);
+            match(JavaScriptParser::QuestionMark);
+          }
+          setState(851);
+          match(JavaScriptParser::Dot);
+          setState(853);
+          _errHandler->sync(this);
+
+          _la = _input->LA(1);
+          if (_la == JavaScriptParser::Hashtag) {
+            setState(852);
+            match(JavaScriptParser::Hashtag);
+          }
+          setState(855);
+          identifierName();
           break;
         }
 
         case 20: {
-          auto newContext = _tracker.createInstance<PostDecreaseExpressionContext>(_tracker.createInstance<SingleExpressionContext>(parentContext, parentState));
+          auto newContext = _tracker.createInstance<ArgumentsExpressionContext>(_tracker.createInstance<SingleExpressionContext>(parentContext, parentState));
           _localctx = newContext;
           pushNewRecursionContext(newContext, startState, RuleSingleExpression);
-          setState(841);
+          setState(856);
 
-          if (!(precpred(_ctx, 38))) throw FailedPredicateException(this, "precpred(_ctx, 38)");
-          setState(842);
-
-          if (!(this->notLineTerminator())) throw FailedPredicateException(this, "this->notLineTerminator()");
-          setState(843);
-          match(JavaScriptParser::MinusMinus);
+          if (!(precpred(_ctx, 42))) throw FailedPredicateException(this, "precpred(_ctx, 42)");
+          setState(857);
+          arguments();
           break;
         }
 
         case 21: {
+          auto newContext = _tracker.createInstance<PostIncrementExpressionContext>(_tracker.createInstance<SingleExpressionContext>(parentContext, parentState));
+          _localctx = newContext;
+          pushNewRecursionContext(newContext, startState, RuleSingleExpression);
+          setState(858);
+
+          if (!(precpred(_ctx, 39))) throw FailedPredicateException(this, "precpred(_ctx, 39)");
+          setState(859);
+
+          if (!(this->notLineTerminator())) throw FailedPredicateException(this, "this->notLineTerminator()");
+          setState(860);
+          match(JavaScriptParser::PlusPlus);
+          break;
+        }
+
+        case 22: {
+          auto newContext = _tracker.createInstance<PostDecreaseExpressionContext>(_tracker.createInstance<SingleExpressionContext>(parentContext, parentState));
+          _localctx = newContext;
+          pushNewRecursionContext(newContext, startState, RuleSingleExpression);
+          setState(861);
+
+          if (!(precpred(_ctx, 38))) throw FailedPredicateException(this, "precpred(_ctx, 38)");
+          setState(862);
+
+          if (!(this->notLineTerminator())) throw FailedPredicateException(this, "this->notLineTerminator()");
+          setState(863);
+          match(JavaScriptParser::MinusMinus);
+          break;
+        }
+
+        case 23: {
           auto newContext = _tracker.createInstance<TemplateStringExpressionContext>(_tracker.createInstance<SingleExpressionContext>(parentContext, parentState));
           _localctx = newContext;
           pushNewRecursionContext(newContext, startState, RuleSingleExpression);
-          setState(844);
+          setState(864);
 
-          if (!(precpred(_ctx, 13))) throw FailedPredicateException(this, "precpred(_ctx, 13)");
-          setState(845);
+          if (!(precpred(_ctx, 9))) throw FailedPredicateException(this, "precpred(_ctx, 9)");
+          setState(865);
           match(JavaScriptParser::TemplateStringLiteral);
           break;
         }
 
         } 
       }
-      setState(850);
+      setState(870);
       _errHandler->sync(this);
-      alt = getInterpreter<atn::ParserATNSimulator>()->adaptivePredict(_input, 82, _ctx);
+      alt = getInterpreter<atn::ParserATNSimulator>()->adaptivePredict(_input, 93, _ctx);
     }
   }
   catch (RecognitionException &e) {
@@ -8670,6 +8830,326 @@ JavaScriptParser::SingleExpressionContext* JavaScriptParser::singleExpression(in
     _localctx->exception = std::current_exception();
     _errHandler->recover(this, _localctx->exception);
   }
+  return _localctx;
+}
+
+//----------------- AssignableContext ------------------------------------------------------------------
+
+JavaScriptParser::AssignableContext::AssignableContext(ParserRuleContext *parent, size_t invokingState)
+  : ParserRuleContext(parent, invokingState) {
+}
+
+tree::TerminalNode* JavaScriptParser::AssignableContext::Identifier() {
+  return getToken(JavaScriptParser::Identifier, 0);
+}
+
+JavaScriptParser::ArrayLiteralContext* JavaScriptParser::AssignableContext::arrayLiteral() {
+  return getRuleContext<JavaScriptParser::ArrayLiteralContext>(0);
+}
+
+JavaScriptParser::ObjectLiteralContext* JavaScriptParser::AssignableContext::objectLiteral() {
+  return getRuleContext<JavaScriptParser::ObjectLiteralContext>(0);
+}
+
+
+size_t JavaScriptParser::AssignableContext::getRuleIndex() const {
+  return JavaScriptParser::RuleAssignable;
+}
+
+void JavaScriptParser::AssignableContext::enterRule(tree::ParseTreeListener *listener) {
+  auto parserListener = dynamic_cast<JavaScriptParserListener *>(listener);
+  if (parserListener != nullptr)
+    parserListener->enterAssignable(this);
+}
+
+void JavaScriptParser::AssignableContext::exitRule(tree::ParseTreeListener *listener) {
+  auto parserListener = dynamic_cast<JavaScriptParserListener *>(listener);
+  if (parserListener != nullptr)
+    parserListener->exitAssignable(this);
+}
+
+
+antlrcpp::Any JavaScriptParser::AssignableContext::accept(tree::ParseTreeVisitor *visitor) {
+  if (auto parserVisitor = dynamic_cast<JavaScriptParserVisitor*>(visitor))
+    return parserVisitor->visitAssignable(this);
+  else
+    return visitor->visitChildren(this);
+}
+
+JavaScriptParser::AssignableContext* JavaScriptParser::assignable() {
+  AssignableContext *_localctx = _tracker.createInstance<AssignableContext>(_ctx, getState());
+  enterRule(_localctx, 118, JavaScriptParser::RuleAssignable);
+
+  auto onExit = finally([=] {
+    exitRule();
+  });
+  try {
+    setState(874);
+    _errHandler->sync(this);
+    switch (_input->LA(1)) {
+      case JavaScriptParser::Identifier: {
+        enterOuterAlt(_localctx, 1);
+        setState(871);
+        match(JavaScriptParser::Identifier);
+        break;
+      }
+
+      case JavaScriptParser::OpenBracket: {
+        enterOuterAlt(_localctx, 2);
+        setState(872);
+        arrayLiteral();
+        break;
+      }
+
+      case JavaScriptParser::OpenBrace: {
+        enterOuterAlt(_localctx, 3);
+        setState(873);
+        objectLiteral();
+        break;
+      }
+
+    default:
+      throw NoViableAltException(this);
+    }
+   
+  }
+  catch (RecognitionException &e) {
+    _errHandler->reportError(this, e);
+    _localctx->exception = std::current_exception();
+    _errHandler->recover(this, _localctx->exception);
+  }
+
+  return _localctx;
+}
+
+//----------------- AnoymousFunctionContext ------------------------------------------------------------------
+
+JavaScriptParser::AnoymousFunctionContext::AnoymousFunctionContext(ParserRuleContext *parent, size_t invokingState)
+  : ParserRuleContext(parent, invokingState) {
+}
+
+
+size_t JavaScriptParser::AnoymousFunctionContext::getRuleIndex() const {
+  return JavaScriptParser::RuleAnoymousFunction;
+}
+
+void JavaScriptParser::AnoymousFunctionContext::copyFrom(AnoymousFunctionContext *ctx) {
+  ParserRuleContext::copyFrom(ctx);
+}
+
+//----------------- AnoymousFunctionDeclContext ------------------------------------------------------------------
+
+tree::TerminalNode* JavaScriptParser::AnoymousFunctionDeclContext::Function() {
+  return getToken(JavaScriptParser::Function, 0);
+}
+
+tree::TerminalNode* JavaScriptParser::AnoymousFunctionDeclContext::OpenParen() {
+  return getToken(JavaScriptParser::OpenParen, 0);
+}
+
+tree::TerminalNode* JavaScriptParser::AnoymousFunctionDeclContext::CloseParen() {
+  return getToken(JavaScriptParser::CloseParen, 0);
+}
+
+tree::TerminalNode* JavaScriptParser::AnoymousFunctionDeclContext::OpenBrace() {
+  return getToken(JavaScriptParser::OpenBrace, 0);
+}
+
+JavaScriptParser::FunctionBodyContext* JavaScriptParser::AnoymousFunctionDeclContext::functionBody() {
+  return getRuleContext<JavaScriptParser::FunctionBodyContext>(0);
+}
+
+tree::TerminalNode* JavaScriptParser::AnoymousFunctionDeclContext::CloseBrace() {
+  return getToken(JavaScriptParser::CloseBrace, 0);
+}
+
+tree::TerminalNode* JavaScriptParser::AnoymousFunctionDeclContext::Async() {
+  return getToken(JavaScriptParser::Async, 0);
+}
+
+tree::TerminalNode* JavaScriptParser::AnoymousFunctionDeclContext::Multiply() {
+  return getToken(JavaScriptParser::Multiply, 0);
+}
+
+JavaScriptParser::FormalParameterListContext* JavaScriptParser::AnoymousFunctionDeclContext::formalParameterList() {
+  return getRuleContext<JavaScriptParser::FormalParameterListContext>(0);
+}
+
+JavaScriptParser::AnoymousFunctionDeclContext::AnoymousFunctionDeclContext(AnoymousFunctionContext *ctx) { copyFrom(ctx); }
+
+void JavaScriptParser::AnoymousFunctionDeclContext::enterRule(tree::ParseTreeListener *listener) {
+  auto parserListener = dynamic_cast<JavaScriptParserListener *>(listener);
+  if (parserListener != nullptr)
+    parserListener->enterAnoymousFunctionDecl(this);
+}
+void JavaScriptParser::AnoymousFunctionDeclContext::exitRule(tree::ParseTreeListener *listener) {
+  auto parserListener = dynamic_cast<JavaScriptParserListener *>(listener);
+  if (parserListener != nullptr)
+    parserListener->exitAnoymousFunctionDecl(this);
+}
+
+antlrcpp::Any JavaScriptParser::AnoymousFunctionDeclContext::accept(tree::ParseTreeVisitor *visitor) {
+  if (auto parserVisitor = dynamic_cast<JavaScriptParserVisitor*>(visitor))
+    return parserVisitor->visitAnoymousFunctionDecl(this);
+  else
+    return visitor->visitChildren(this);
+}
+//----------------- ArrowFunctionContext ------------------------------------------------------------------
+
+JavaScriptParser::ArrowFunctionParametersContext* JavaScriptParser::ArrowFunctionContext::arrowFunctionParameters() {
+  return getRuleContext<JavaScriptParser::ArrowFunctionParametersContext>(0);
+}
+
+tree::TerminalNode* JavaScriptParser::ArrowFunctionContext::ARROW() {
+  return getToken(JavaScriptParser::ARROW, 0);
+}
+
+JavaScriptParser::ArrowFunctionBodyContext* JavaScriptParser::ArrowFunctionContext::arrowFunctionBody() {
+  return getRuleContext<JavaScriptParser::ArrowFunctionBodyContext>(0);
+}
+
+tree::TerminalNode* JavaScriptParser::ArrowFunctionContext::Async() {
+  return getToken(JavaScriptParser::Async, 0);
+}
+
+JavaScriptParser::ArrowFunctionContext::ArrowFunctionContext(AnoymousFunctionContext *ctx) { copyFrom(ctx); }
+
+void JavaScriptParser::ArrowFunctionContext::enterRule(tree::ParseTreeListener *listener) {
+  auto parserListener = dynamic_cast<JavaScriptParserListener *>(listener);
+  if (parserListener != nullptr)
+    parserListener->enterArrowFunction(this);
+}
+void JavaScriptParser::ArrowFunctionContext::exitRule(tree::ParseTreeListener *listener) {
+  auto parserListener = dynamic_cast<JavaScriptParserListener *>(listener);
+  if (parserListener != nullptr)
+    parserListener->exitArrowFunction(this);
+}
+
+antlrcpp::Any JavaScriptParser::ArrowFunctionContext::accept(tree::ParseTreeVisitor *visitor) {
+  if (auto parserVisitor = dynamic_cast<JavaScriptParserVisitor*>(visitor))
+    return parserVisitor->visitArrowFunction(this);
+  else
+    return visitor->visitChildren(this);
+}
+//----------------- FunctionDeclContext ------------------------------------------------------------------
+
+JavaScriptParser::FunctionDeclarationContext* JavaScriptParser::FunctionDeclContext::functionDeclaration() {
+  return getRuleContext<JavaScriptParser::FunctionDeclarationContext>(0);
+}
+
+JavaScriptParser::FunctionDeclContext::FunctionDeclContext(AnoymousFunctionContext *ctx) { copyFrom(ctx); }
+
+void JavaScriptParser::FunctionDeclContext::enterRule(tree::ParseTreeListener *listener) {
+  auto parserListener = dynamic_cast<JavaScriptParserListener *>(listener);
+  if (parserListener != nullptr)
+    parserListener->enterFunctionDecl(this);
+}
+void JavaScriptParser::FunctionDeclContext::exitRule(tree::ParseTreeListener *listener) {
+  auto parserListener = dynamic_cast<JavaScriptParserListener *>(listener);
+  if (parserListener != nullptr)
+    parserListener->exitFunctionDecl(this);
+}
+
+antlrcpp::Any JavaScriptParser::FunctionDeclContext::accept(tree::ParseTreeVisitor *visitor) {
+  if (auto parserVisitor = dynamic_cast<JavaScriptParserVisitor*>(visitor))
+    return parserVisitor->visitFunctionDecl(this);
+  else
+    return visitor->visitChildren(this);
+}
+JavaScriptParser::AnoymousFunctionContext* JavaScriptParser::anoymousFunction() {
+  AnoymousFunctionContext *_localctx = _tracker.createInstance<AnoymousFunctionContext>(_ctx, getState());
+  enterRule(_localctx, 120, JavaScriptParser::RuleAnoymousFunction);
+  size_t _la = 0;
+
+  auto onExit = finally([=] {
+    exitRule();
+  });
+  try {
+    setState(900);
+    _errHandler->sync(this);
+    switch (getInterpreter<atn::ParserATNSimulator>()->adaptivePredict(_input, 99, _ctx)) {
+    case 1: {
+      _localctx = dynamic_cast<AnoymousFunctionContext *>(_tracker.createInstance<JavaScriptParser::FunctionDeclContext>(_localctx));
+      enterOuterAlt(_localctx, 1);
+      setState(876);
+      functionDeclaration();
+      break;
+    }
+
+    case 2: {
+      _localctx = dynamic_cast<AnoymousFunctionContext *>(_tracker.createInstance<JavaScriptParser::AnoymousFunctionDeclContext>(_localctx));
+      enterOuterAlt(_localctx, 2);
+      setState(878);
+      _errHandler->sync(this);
+
+      _la = _input->LA(1);
+      if (_la == JavaScriptParser::Async) {
+        setState(877);
+        match(JavaScriptParser::Async);
+      }
+      setState(880);
+      match(JavaScriptParser::Function);
+      setState(882);
+      _errHandler->sync(this);
+
+      _la = _input->LA(1);
+      if (_la == JavaScriptParser::Multiply) {
+        setState(881);
+        match(JavaScriptParser::Multiply);
+      }
+      setState(884);
+      match(JavaScriptParser::OpenParen);
+      setState(886);
+      _errHandler->sync(this);
+
+      _la = _input->LA(1);
+      if ((((_la & ~ 0x3fULL) == 0) &&
+        ((1ULL << _la) & ((1ULL << JavaScriptParser::OpenBracket)
+        | (1ULL << JavaScriptParser::OpenBrace)
+        | (1ULL << JavaScriptParser::Ellipsis))) != 0) || _la == JavaScriptParser::Identifier) {
+        setState(885);
+        formalParameterList();
+      }
+      setState(888);
+      match(JavaScriptParser::CloseParen);
+      setState(889);
+      match(JavaScriptParser::OpenBrace);
+      setState(890);
+      functionBody();
+      setState(891);
+      match(JavaScriptParser::CloseBrace);
+      break;
+    }
+
+    case 3: {
+      _localctx = dynamic_cast<AnoymousFunctionContext *>(_tracker.createInstance<JavaScriptParser::ArrowFunctionContext>(_localctx));
+      enterOuterAlt(_localctx, 3);
+      setState(894);
+      _errHandler->sync(this);
+
+      _la = _input->LA(1);
+      if (_la == JavaScriptParser::Async) {
+        setState(893);
+        match(JavaScriptParser::Async);
+      }
+      setState(896);
+      arrowFunctionParameters();
+      setState(897);
+      match(JavaScriptParser::ARROW);
+      setState(898);
+      arrowFunctionBody();
+      break;
+    }
+
+    }
+   
+  }
+  catch (RecognitionException &e) {
+    _errHandler->reportError(this, e);
+    _localctx->exception = std::current_exception();
+    _errHandler->recover(this, _localctx->exception);
+  }
+
   return _localctx;
 }
 
@@ -8722,28 +9202,28 @@ antlrcpp::Any JavaScriptParser::ArrowFunctionParametersContext::accept(tree::Par
 
 JavaScriptParser::ArrowFunctionParametersContext* JavaScriptParser::arrowFunctionParameters() {
   ArrowFunctionParametersContext *_localctx = _tracker.createInstance<ArrowFunctionParametersContext>(_ctx, getState());
-  enterRule(_localctx, 118, JavaScriptParser::RuleArrowFunctionParameters);
+  enterRule(_localctx, 122, JavaScriptParser::RuleArrowFunctionParameters);
   size_t _la = 0;
 
   auto onExit = finally([=] {
     exitRule();
   });
   try {
-    setState(857);
+    setState(908);
     _errHandler->sync(this);
     switch (_input->LA(1)) {
       case JavaScriptParser::Identifier: {
         enterOuterAlt(_localctx, 1);
-        setState(851);
+        setState(902);
         match(JavaScriptParser::Identifier);
         break;
       }
 
       case JavaScriptParser::OpenParen: {
         enterOuterAlt(_localctx, 2);
-        setState(852);
+        setState(903);
         match(JavaScriptParser::OpenParen);
-        setState(854);
+        setState(905);
         _errHandler->sync(this);
 
         _la = _input->LA(1);
@@ -8751,10 +9231,10 @@ JavaScriptParser::ArrowFunctionParametersContext* JavaScriptParser::arrowFunctio
           ((1ULL << _la) & ((1ULL << JavaScriptParser::OpenBracket)
           | (1ULL << JavaScriptParser::OpenBrace)
           | (1ULL << JavaScriptParser::Ellipsis))) != 0) || _la == JavaScriptParser::Identifier) {
-          setState(853);
+          setState(904);
           formalParameterList();
         }
-        setState(856);
+        setState(907);
         match(JavaScriptParser::CloseParen);
         break;
       }
@@ -8822,29 +9302,29 @@ antlrcpp::Any JavaScriptParser::ArrowFunctionBodyContext::accept(tree::ParseTree
 
 JavaScriptParser::ArrowFunctionBodyContext* JavaScriptParser::arrowFunctionBody() {
   ArrowFunctionBodyContext *_localctx = _tracker.createInstance<ArrowFunctionBodyContext>(_ctx, getState());
-  enterRule(_localctx, 120, JavaScriptParser::RuleArrowFunctionBody);
+  enterRule(_localctx, 124, JavaScriptParser::RuleArrowFunctionBody);
 
   auto onExit = finally([=] {
     exitRule();
   });
   try {
-    setState(864);
+    setState(915);
     _errHandler->sync(this);
-    switch (getInterpreter<atn::ParserATNSimulator>()->adaptivePredict(_input, 85, _ctx)) {
+    switch (getInterpreter<atn::ParserATNSimulator>()->adaptivePredict(_input, 102, _ctx)) {
     case 1: {
       enterOuterAlt(_localctx, 1);
-      setState(859);
+      setState(910);
       singleExpression(0);
       break;
     }
 
     case 2: {
       enterOuterAlt(_localctx, 2);
-      setState(860);
+      setState(911);
       match(JavaScriptParser::OpenBrace);
-      setState(861);
+      setState(912);
       functionBody();
-      setState(862);
+      setState(913);
       match(JavaScriptParser::CloseBrace);
       break;
     }
@@ -8911,6 +9391,10 @@ tree::TerminalNode* JavaScriptParser::AssignmentOperatorContext::BitOrAssign() {
   return getToken(JavaScriptParser::BitOrAssign, 0);
 }
 
+tree::TerminalNode* JavaScriptParser::AssignmentOperatorContext::PowerAssign() {
+  return getToken(JavaScriptParser::PowerAssign, 0);
+}
+
 
 size_t JavaScriptParser::AssignmentOperatorContext::getRuleIndex() const {
   return JavaScriptParser::RuleAssignmentOperator;
@@ -8938,7 +9422,7 @@ antlrcpp::Any JavaScriptParser::AssignmentOperatorContext::accept(tree::ParseTre
 
 JavaScriptParser::AssignmentOperatorContext* JavaScriptParser::assignmentOperator() {
   AssignmentOperatorContext *_localctx = _tracker.createInstance<AssignmentOperatorContext>(_ctx, getState());
-  enterRule(_localctx, 122, JavaScriptParser::RuleAssignmentOperator);
+  enterRule(_localctx, 126, JavaScriptParser::RuleAssignmentOperator);
   size_t _la = 0;
 
   auto onExit = finally([=] {
@@ -8946,7 +9430,7 @@ JavaScriptParser::AssignmentOperatorContext* JavaScriptParser::assignmentOperato
   });
   try {
     enterOuterAlt(_localctx, 1);
-    setState(866);
+    setState(917);
     _la = _input->LA(1);
     if (!((((_la & ~ 0x3fULL) == 0) &&
       ((1ULL << _la) & ((1ULL << JavaScriptParser::MultiplyAssign)
@@ -8959,7 +9443,8 @@ JavaScriptParser::AssignmentOperatorContext* JavaScriptParser::assignmentOperato
       | (1ULL << JavaScriptParser::RightShiftLogicalAssign)
       | (1ULL << JavaScriptParser::BitAndAssign)
       | (1ULL << JavaScriptParser::BitXorAssign)
-      | (1ULL << JavaScriptParser::BitOrAssign))) != 0))) {
+      | (1ULL << JavaScriptParser::BitOrAssign)
+      | (1ULL << JavaScriptParser::PowerAssign))) != 0))) {
     _errHandler->recoverInline(this);
     }
     else {
@@ -9007,6 +9492,10 @@ JavaScriptParser::NumericLiteralContext* JavaScriptParser::LiteralContext::numer
   return getRuleContext<JavaScriptParser::NumericLiteralContext>(0);
 }
 
+JavaScriptParser::BigintLiteralContext* JavaScriptParser::LiteralContext::bigintLiteral() {
+  return getRuleContext<JavaScriptParser::BigintLiteralContext>(0);
+}
+
 
 size_t JavaScriptParser::LiteralContext::getRuleIndex() const {
   return JavaScriptParser::RuleLiteral;
@@ -9034,46 +9523,46 @@ antlrcpp::Any JavaScriptParser::LiteralContext::accept(tree::ParseTreeVisitor *v
 
 JavaScriptParser::LiteralContext* JavaScriptParser::literal() {
   LiteralContext *_localctx = _tracker.createInstance<LiteralContext>(_ctx, getState());
-  enterRule(_localctx, 124, JavaScriptParser::RuleLiteral);
+  enterRule(_localctx, 128, JavaScriptParser::RuleLiteral);
 
   auto onExit = finally([=] {
     exitRule();
   });
   try {
-    setState(874);
+    setState(926);
     _errHandler->sync(this);
     switch (_input->LA(1)) {
       case JavaScriptParser::NullLiteral: {
         enterOuterAlt(_localctx, 1);
-        setState(868);
+        setState(919);
         match(JavaScriptParser::NullLiteral);
         break;
       }
 
       case JavaScriptParser::BooleanLiteral: {
         enterOuterAlt(_localctx, 2);
-        setState(869);
+        setState(920);
         match(JavaScriptParser::BooleanLiteral);
         break;
       }
 
       case JavaScriptParser::StringLiteral: {
         enterOuterAlt(_localctx, 3);
-        setState(870);
+        setState(921);
         match(JavaScriptParser::StringLiteral);
         break;
       }
 
       case JavaScriptParser::TemplateStringLiteral: {
         enterOuterAlt(_localctx, 4);
-        setState(871);
+        setState(922);
         match(JavaScriptParser::TemplateStringLiteral);
         break;
       }
 
       case JavaScriptParser::RegularExpressionLiteral: {
         enterOuterAlt(_localctx, 5);
-        setState(872);
+        setState(923);
         match(JavaScriptParser::RegularExpressionLiteral);
         break;
       }
@@ -9084,8 +9573,18 @@ JavaScriptParser::LiteralContext* JavaScriptParser::literal() {
       case JavaScriptParser::OctalIntegerLiteral2:
       case JavaScriptParser::BinaryIntegerLiteral: {
         enterOuterAlt(_localctx, 6);
-        setState(873);
+        setState(924);
         numericLiteral();
+        break;
+      }
+
+      case JavaScriptParser::BigHexIntegerLiteral:
+      case JavaScriptParser::BigOctalIntegerLiteral:
+      case JavaScriptParser::BigBinaryIntegerLiteral:
+      case JavaScriptParser::BigDecimalIntegerLiteral: {
+        enterOuterAlt(_localctx, 7);
+        setState(925);
+        bigintLiteral();
         break;
       }
 
@@ -9156,7 +9655,7 @@ antlrcpp::Any JavaScriptParser::NumericLiteralContext::accept(tree::ParseTreeVis
 
 JavaScriptParser::NumericLiteralContext* JavaScriptParser::numericLiteral() {
   NumericLiteralContext *_localctx = _tracker.createInstance<NumericLiteralContext>(_ctx, getState());
-  enterRule(_localctx, 126, JavaScriptParser::RuleNumericLiteral);
+  enterRule(_localctx, 130, JavaScriptParser::RuleNumericLiteral);
   size_t _la = 0;
 
   auto onExit = finally([=] {
@@ -9164,14 +9663,95 @@ JavaScriptParser::NumericLiteralContext* JavaScriptParser::numericLiteral() {
   });
   try {
     enterOuterAlt(_localctx, 1);
-    setState(876);
+    setState(928);
     _la = _input->LA(1);
-    if (!((((_la & ~ 0x3fULL) == 0) &&
-      ((1ULL << _la) & ((1ULL << JavaScriptParser::DecimalLiteral)
-      | (1ULL << JavaScriptParser::HexIntegerLiteral)
-      | (1ULL << JavaScriptParser::OctalIntegerLiteral)
-      | (1ULL << JavaScriptParser::OctalIntegerLiteral2)
-      | (1ULL << JavaScriptParser::BinaryIntegerLiteral))) != 0))) {
+    if (!(((((_la - 61) & ~ 0x3fULL) == 0) &&
+      ((1ULL << (_la - 61)) & ((1ULL << (JavaScriptParser::DecimalLiteral - 61))
+      | (1ULL << (JavaScriptParser::HexIntegerLiteral - 61))
+      | (1ULL << (JavaScriptParser::OctalIntegerLiteral - 61))
+      | (1ULL << (JavaScriptParser::OctalIntegerLiteral2 - 61))
+      | (1ULL << (JavaScriptParser::BinaryIntegerLiteral - 61)))) != 0))) {
+    _errHandler->recoverInline(this);
+    }
+    else {
+      _errHandler->reportMatch(this);
+      consume();
+    }
+   
+  }
+  catch (RecognitionException &e) {
+    _errHandler->reportError(this, e);
+    _localctx->exception = std::current_exception();
+    _errHandler->recover(this, _localctx->exception);
+  }
+
+  return _localctx;
+}
+
+//----------------- BigintLiteralContext ------------------------------------------------------------------
+
+JavaScriptParser::BigintLiteralContext::BigintLiteralContext(ParserRuleContext *parent, size_t invokingState)
+  : ParserRuleContext(parent, invokingState) {
+}
+
+tree::TerminalNode* JavaScriptParser::BigintLiteralContext::BigDecimalIntegerLiteral() {
+  return getToken(JavaScriptParser::BigDecimalIntegerLiteral, 0);
+}
+
+tree::TerminalNode* JavaScriptParser::BigintLiteralContext::BigHexIntegerLiteral() {
+  return getToken(JavaScriptParser::BigHexIntegerLiteral, 0);
+}
+
+tree::TerminalNode* JavaScriptParser::BigintLiteralContext::BigOctalIntegerLiteral() {
+  return getToken(JavaScriptParser::BigOctalIntegerLiteral, 0);
+}
+
+tree::TerminalNode* JavaScriptParser::BigintLiteralContext::BigBinaryIntegerLiteral() {
+  return getToken(JavaScriptParser::BigBinaryIntegerLiteral, 0);
+}
+
+
+size_t JavaScriptParser::BigintLiteralContext::getRuleIndex() const {
+  return JavaScriptParser::RuleBigintLiteral;
+}
+
+void JavaScriptParser::BigintLiteralContext::enterRule(tree::ParseTreeListener *listener) {
+  auto parserListener = dynamic_cast<JavaScriptParserListener *>(listener);
+  if (parserListener != nullptr)
+    parserListener->enterBigintLiteral(this);
+}
+
+void JavaScriptParser::BigintLiteralContext::exitRule(tree::ParseTreeListener *listener) {
+  auto parserListener = dynamic_cast<JavaScriptParserListener *>(listener);
+  if (parserListener != nullptr)
+    parserListener->exitBigintLiteral(this);
+}
+
+
+antlrcpp::Any JavaScriptParser::BigintLiteralContext::accept(tree::ParseTreeVisitor *visitor) {
+  if (auto parserVisitor = dynamic_cast<JavaScriptParserVisitor*>(visitor))
+    return parserVisitor->visitBigintLiteral(this);
+  else
+    return visitor->visitChildren(this);
+}
+
+JavaScriptParser::BigintLiteralContext* JavaScriptParser::bigintLiteral() {
+  BigintLiteralContext *_localctx = _tracker.createInstance<BigintLiteralContext>(_ctx, getState());
+  enterRule(_localctx, 132, JavaScriptParser::RuleBigintLiteral);
+  size_t _la = 0;
+
+  auto onExit = finally([=] {
+    exitRule();
+  });
+  try {
+    enterOuterAlt(_localctx, 1);
+    setState(930);
+    _la = _input->LA(1);
+    if (!(((((_la - 66) & ~ 0x3fULL) == 0) &&
+      ((1ULL << (_la - 66)) & ((1ULL << (JavaScriptParser::BigHexIntegerLiteral - 66))
+      | (1ULL << (JavaScriptParser::BigOctalIntegerLiteral - 66))
+      | (1ULL << (JavaScriptParser::BigBinaryIntegerLiteral - 66))
+      | (1ULL << (JavaScriptParser::BigDecimalIntegerLiteral - 66)))) != 0))) {
     _errHandler->recoverInline(this);
     }
     else {
@@ -9230,18 +9810,18 @@ antlrcpp::Any JavaScriptParser::IdentifierNameContext::accept(tree::ParseTreeVis
 
 JavaScriptParser::IdentifierNameContext* JavaScriptParser::identifierName() {
   IdentifierNameContext *_localctx = _tracker.createInstance<IdentifierNameContext>(_ctx, getState());
-  enterRule(_localctx, 128, JavaScriptParser::RuleIdentifierName);
+  enterRule(_localctx, 134, JavaScriptParser::RuleIdentifierName);
 
   auto onExit = finally([=] {
     exitRule();
   });
   try {
-    setState(880);
+    setState(934);
     _errHandler->sync(this);
     switch (_input->LA(1)) {
       case JavaScriptParser::Identifier: {
         enterOuterAlt(_localctx, 1);
-        setState(878);
+        setState(932);
         match(JavaScriptParser::Identifier);
         break;
       }
@@ -9274,6 +9854,8 @@ JavaScriptParser::IdentifierNameContext* JavaScriptParser::identifierName() {
       case JavaScriptParser::Delete:
       case JavaScriptParser::In:
       case JavaScriptParser::Try:
+      case JavaScriptParser::As:
+      case JavaScriptParser::From:
       case JavaScriptParser::Class:
       case JavaScriptParser::Enum:
       case JavaScriptParser::Extends:
@@ -9281,6 +9863,8 @@ JavaScriptParser::IdentifierNameContext* JavaScriptParser::identifierName() {
       case JavaScriptParser::Const:
       case JavaScriptParser::Export:
       case JavaScriptParser::Import:
+      case JavaScriptParser::Async:
+      case JavaScriptParser::Await:
       case JavaScriptParser::Implements:
       case JavaScriptParser::Let:
       case JavaScriptParser::Private:
@@ -9291,7 +9875,7 @@ JavaScriptParser::IdentifierNameContext* JavaScriptParser::identifierName() {
       case JavaScriptParser::Static:
       case JavaScriptParser::Yield: {
         enterOuterAlt(_localctx, 2);
-        setState(879);
+        setState(933);
         reservedWord();
         break;
       }
@@ -9355,13 +9939,13 @@ antlrcpp::Any JavaScriptParser::ReservedWordContext::accept(tree::ParseTreeVisit
 
 JavaScriptParser::ReservedWordContext* JavaScriptParser::reservedWord() {
   ReservedWordContext *_localctx = _tracker.createInstance<ReservedWordContext>(_ctx, getState());
-  enterRule(_localctx, 130, JavaScriptParser::RuleReservedWord);
+  enterRule(_localctx, 136, JavaScriptParser::RuleReservedWord);
 
   auto onExit = finally([=] {
     exitRule();
   });
   try {
-    setState(885);
+    setState(939);
     _errHandler->sync(this);
     switch (_input->LA(1)) {
       case JavaScriptParser::Break:
@@ -9390,6 +9974,8 @@ JavaScriptParser::ReservedWordContext* JavaScriptParser::reservedWord() {
       case JavaScriptParser::Delete:
       case JavaScriptParser::In:
       case JavaScriptParser::Try:
+      case JavaScriptParser::As:
+      case JavaScriptParser::From:
       case JavaScriptParser::Class:
       case JavaScriptParser::Enum:
       case JavaScriptParser::Extends:
@@ -9397,6 +9983,8 @@ JavaScriptParser::ReservedWordContext* JavaScriptParser::reservedWord() {
       case JavaScriptParser::Const:
       case JavaScriptParser::Export:
       case JavaScriptParser::Import:
+      case JavaScriptParser::Async:
+      case JavaScriptParser::Await:
       case JavaScriptParser::Implements:
       case JavaScriptParser::Let:
       case JavaScriptParser::Private:
@@ -9407,21 +9995,21 @@ JavaScriptParser::ReservedWordContext* JavaScriptParser::reservedWord() {
       case JavaScriptParser::Static:
       case JavaScriptParser::Yield: {
         enterOuterAlt(_localctx, 1);
-        setState(882);
+        setState(936);
         keyword();
         break;
       }
 
       case JavaScriptParser::NullLiteral: {
         enterOuterAlt(_localctx, 2);
-        setState(883);
+        setState(937);
         match(JavaScriptParser::NullLiteral);
         break;
       }
 
       case JavaScriptParser::BooleanLiteral: {
         enterOuterAlt(_localctx, 3);
-        setState(884);
+        setState(938);
         match(JavaScriptParser::BooleanLiteral);
         break;
       }
@@ -9614,6 +10202,22 @@ tree::TerminalNode* JavaScriptParser::KeywordContext::Yield() {
   return getToken(JavaScriptParser::Yield, 0);
 }
 
+tree::TerminalNode* JavaScriptParser::KeywordContext::Async() {
+  return getToken(JavaScriptParser::Async, 0);
+}
+
+tree::TerminalNode* JavaScriptParser::KeywordContext::Await() {
+  return getToken(JavaScriptParser::Await, 0);
+}
+
+tree::TerminalNode* JavaScriptParser::KeywordContext::From() {
+  return getToken(JavaScriptParser::From, 0);
+}
+
+tree::TerminalNode* JavaScriptParser::KeywordContext::As() {
+  return getToken(JavaScriptParser::As, 0);
+}
+
 
 size_t JavaScriptParser::KeywordContext::getRuleIndex() const {
   return JavaScriptParser::RuleKeyword;
@@ -9641,7 +10245,7 @@ antlrcpp::Any JavaScriptParser::KeywordContext::accept(tree::ParseTreeVisitor *v
 
 JavaScriptParser::KeywordContext* JavaScriptParser::keyword() {
   KeywordContext *_localctx = _tracker.createInstance<KeywordContext>(_ctx, getState());
-  enterRule(_localctx, 132, JavaScriptParser::RuleKeyword);
+  enterRule(_localctx, 138, JavaScriptParser::RuleKeyword);
   size_t _la = 0;
 
   auto onExit = finally([=] {
@@ -9649,51 +10253,55 @@ JavaScriptParser::KeywordContext* JavaScriptParser::keyword() {
   });
   try {
     enterOuterAlt(_localctx, 1);
-    setState(887);
+    setState(941);
     _la = _input->LA(1);
-    if (!(((((_la - 61) & ~ 0x3fULL) == 0) &&
-      ((1ULL << (_la - 61)) & ((1ULL << (JavaScriptParser::Break - 61))
-      | (1ULL << (JavaScriptParser::Do - 61))
-      | (1ULL << (JavaScriptParser::Instanceof - 61))
-      | (1ULL << (JavaScriptParser::Typeof - 61))
-      | (1ULL << (JavaScriptParser::Case - 61))
-      | (1ULL << (JavaScriptParser::Else - 61))
-      | (1ULL << (JavaScriptParser::New - 61))
-      | (1ULL << (JavaScriptParser::Var - 61))
-      | (1ULL << (JavaScriptParser::Catch - 61))
-      | (1ULL << (JavaScriptParser::Finally - 61))
-      | (1ULL << (JavaScriptParser::Return - 61))
-      | (1ULL << (JavaScriptParser::Void - 61))
-      | (1ULL << (JavaScriptParser::Continue - 61))
-      | (1ULL << (JavaScriptParser::For - 61))
-      | (1ULL << (JavaScriptParser::Switch - 61))
-      | (1ULL << (JavaScriptParser::While - 61))
-      | (1ULL << (JavaScriptParser::Debugger - 61))
-      | (1ULL << (JavaScriptParser::Function - 61))
-      | (1ULL << (JavaScriptParser::This - 61))
-      | (1ULL << (JavaScriptParser::With - 61))
-      | (1ULL << (JavaScriptParser::Default - 61))
-      | (1ULL << (JavaScriptParser::If - 61))
-      | (1ULL << (JavaScriptParser::Throw - 61))
-      | (1ULL << (JavaScriptParser::Delete - 61))
-      | (1ULL << (JavaScriptParser::In - 61))
-      | (1ULL << (JavaScriptParser::Try - 61))
-      | (1ULL << (JavaScriptParser::Class - 61))
-      | (1ULL << (JavaScriptParser::Enum - 61))
-      | (1ULL << (JavaScriptParser::Extends - 61))
-      | (1ULL << (JavaScriptParser::Super - 61))
-      | (1ULL << (JavaScriptParser::Const - 61))
-      | (1ULL << (JavaScriptParser::Export - 61))
-      | (1ULL << (JavaScriptParser::Import - 61))
-      | (1ULL << (JavaScriptParser::Implements - 61))
-      | (1ULL << (JavaScriptParser::Let - 61))
-      | (1ULL << (JavaScriptParser::Private - 61))
-      | (1ULL << (JavaScriptParser::Public - 61))
-      | (1ULL << (JavaScriptParser::Interface - 61))
-      | (1ULL << (JavaScriptParser::Package - 61))
-      | (1ULL << (JavaScriptParser::Protected - 61))
-      | (1ULL << (JavaScriptParser::Static - 61))
-      | (1ULL << (JavaScriptParser::Yield - 61)))) != 0))) {
+    if (!(((((_la - 70) & ~ 0x3fULL) == 0) &&
+      ((1ULL << (_la - 70)) & ((1ULL << (JavaScriptParser::Break - 70))
+      | (1ULL << (JavaScriptParser::Do - 70))
+      | (1ULL << (JavaScriptParser::Instanceof - 70))
+      | (1ULL << (JavaScriptParser::Typeof - 70))
+      | (1ULL << (JavaScriptParser::Case - 70))
+      | (1ULL << (JavaScriptParser::Else - 70))
+      | (1ULL << (JavaScriptParser::New - 70))
+      | (1ULL << (JavaScriptParser::Var - 70))
+      | (1ULL << (JavaScriptParser::Catch - 70))
+      | (1ULL << (JavaScriptParser::Finally - 70))
+      | (1ULL << (JavaScriptParser::Return - 70))
+      | (1ULL << (JavaScriptParser::Void - 70))
+      | (1ULL << (JavaScriptParser::Continue - 70))
+      | (1ULL << (JavaScriptParser::For - 70))
+      | (1ULL << (JavaScriptParser::Switch - 70))
+      | (1ULL << (JavaScriptParser::While - 70))
+      | (1ULL << (JavaScriptParser::Debugger - 70))
+      | (1ULL << (JavaScriptParser::Function - 70))
+      | (1ULL << (JavaScriptParser::This - 70))
+      | (1ULL << (JavaScriptParser::With - 70))
+      | (1ULL << (JavaScriptParser::Default - 70))
+      | (1ULL << (JavaScriptParser::If - 70))
+      | (1ULL << (JavaScriptParser::Throw - 70))
+      | (1ULL << (JavaScriptParser::Delete - 70))
+      | (1ULL << (JavaScriptParser::In - 70))
+      | (1ULL << (JavaScriptParser::Try - 70))
+      | (1ULL << (JavaScriptParser::As - 70))
+      | (1ULL << (JavaScriptParser::From - 70))
+      | (1ULL << (JavaScriptParser::Class - 70))
+      | (1ULL << (JavaScriptParser::Enum - 70))
+      | (1ULL << (JavaScriptParser::Extends - 70))
+      | (1ULL << (JavaScriptParser::Super - 70))
+      | (1ULL << (JavaScriptParser::Const - 70))
+      | (1ULL << (JavaScriptParser::Export - 70))
+      | (1ULL << (JavaScriptParser::Import - 70))
+      | (1ULL << (JavaScriptParser::Async - 70))
+      | (1ULL << (JavaScriptParser::Await - 70))
+      | (1ULL << (JavaScriptParser::Implements - 70))
+      | (1ULL << (JavaScriptParser::Let - 70))
+      | (1ULL << (JavaScriptParser::Private - 70))
+      | (1ULL << (JavaScriptParser::Public - 70))
+      | (1ULL << (JavaScriptParser::Interface - 70))
+      | (1ULL << (JavaScriptParser::Package - 70))
+      | (1ULL << (JavaScriptParser::Protected - 70))
+      | (1ULL << (JavaScriptParser::Static - 70))
+      | (1ULL << (JavaScriptParser::Yield - 70)))) != 0))) {
     _errHandler->recoverInline(this);
     }
     else {
@@ -9752,19 +10360,19 @@ antlrcpp::Any JavaScriptParser::GetterContext::accept(tree::ParseTreeVisitor *vi
 
 JavaScriptParser::GetterContext* JavaScriptParser::getter() {
   GetterContext *_localctx = _tracker.createInstance<GetterContext>(_ctx, getState());
-  enterRule(_localctx, 134, JavaScriptParser::RuleGetter);
+  enterRule(_localctx, 140, JavaScriptParser::RuleGetter);
 
   auto onExit = finally([=] {
     exitRule();
   });
   try {
     enterOuterAlt(_localctx, 1);
-    setState(889);
+    setState(943);
     match(JavaScriptParser::Identifier);
-    setState(890);
+    setState(944);
 
     if (!(this->p("get"))) throw FailedPredicateException(this, "this->p(\"get\")");
-    setState(891);
+    setState(945);
     propertyName();
    
   }
@@ -9818,19 +10426,19 @@ antlrcpp::Any JavaScriptParser::SetterContext::accept(tree::ParseTreeVisitor *vi
 
 JavaScriptParser::SetterContext* JavaScriptParser::setter() {
   SetterContext *_localctx = _tracker.createInstance<SetterContext>(_ctx, getState());
-  enterRule(_localctx, 136, JavaScriptParser::RuleSetter);
+  enterRule(_localctx, 142, JavaScriptParser::RuleSetter);
 
   auto onExit = finally([=] {
     exitRule();
   });
   try {
     enterOuterAlt(_localctx, 1);
-    setState(893);
+    setState(947);
     match(JavaScriptParser::Identifier);
-    setState(894);
+    setState(948);
 
     if (!(this->p("set"))) throw FailedPredicateException(this, "this->p(\"set\")");
-    setState(895);
+    setState(949);
     propertyName();
    
   }
@@ -9884,32 +10492,32 @@ antlrcpp::Any JavaScriptParser::EosContext::accept(tree::ParseTreeVisitor *visit
 
 JavaScriptParser::EosContext* JavaScriptParser::eos() {
   EosContext *_localctx = _tracker.createInstance<EosContext>(_ctx, getState());
-  enterRule(_localctx, 138, JavaScriptParser::RuleEos);
+  enterRule(_localctx, 144, JavaScriptParser::RuleEos);
 
   auto onExit = finally([=] {
     exitRule();
   });
   try {
-    setState(901);
+    setState(955);
     _errHandler->sync(this);
-    switch (getInterpreter<atn::ParserATNSimulator>()->adaptivePredict(_input, 89, _ctx)) {
+    switch (getInterpreter<atn::ParserATNSimulator>()->adaptivePredict(_input, 106, _ctx)) {
     case 1: {
       enterOuterAlt(_localctx, 1);
-      setState(897);
+      setState(951);
       match(JavaScriptParser::SemiColon);
       break;
     }
 
     case 2: {
       enterOuterAlt(_localctx, 2);
-      setState(898);
+      setState(952);
       match(JavaScriptParser::EOF);
       break;
     }
 
     case 3: {
       enterOuterAlt(_localctx, 3);
-      setState(899);
+      setState(953);
 
       if (!(this->lineTerminatorAhead())) throw FailedPredicateException(this, "this->lineTerminatorAhead()");
       break;
@@ -9917,7 +10525,7 @@ JavaScriptParser::EosContext* JavaScriptParser::eos() {
 
     case 4: {
       enterOuterAlt(_localctx, 4);
-      setState(900);
+      setState(954);
 
       if (!(this->closeBrace())) throw FailedPredicateException(this, "this->closeBrace()");
       break;
@@ -9937,18 +10545,18 @@ JavaScriptParser::EosContext* JavaScriptParser::eos() {
 
 bool JavaScriptParser::sempred(RuleContext *context, size_t ruleIndex, size_t predicateIndex) {
   switch (ruleIndex) {
-    case 13: return expressionStatementSempred(dynamic_cast<ExpressionStatementContext *>(context), predicateIndex);
-    case 15: return iterationStatementSempred(dynamic_cast<IterationStatementContext *>(context), predicateIndex);
-    case 17: return continueStatementSempred(dynamic_cast<ContinueStatementContext *>(context), predicateIndex);
-    case 18: return breakStatementSempred(dynamic_cast<BreakStatementContext *>(context), predicateIndex);
-    case 19: return returnStatementSempred(dynamic_cast<ReturnStatementContext *>(context), predicateIndex);
-    case 20: return yieldStatementSempred(dynamic_cast<YieldStatementContext *>(context), predicateIndex);
-    case 28: return throwStatementSempred(dynamic_cast<ThrowStatementContext *>(context), predicateIndex);
-    case 36: return classElementSempred(dynamic_cast<ClassElementContext *>(context), predicateIndex);
+    case 19: return expressionStatementSempred(dynamic_cast<ExpressionStatementContext *>(context), predicateIndex);
+    case 21: return iterationStatementSempred(dynamic_cast<IterationStatementContext *>(context), predicateIndex);
+    case 23: return continueStatementSempred(dynamic_cast<ContinueStatementContext *>(context), predicateIndex);
+    case 24: return breakStatementSempred(dynamic_cast<BreakStatementContext *>(context), predicateIndex);
+    case 25: return returnStatementSempred(dynamic_cast<ReturnStatementContext *>(context), predicateIndex);
+    case 26: return yieldStatementSempred(dynamic_cast<YieldStatementContext *>(context), predicateIndex);
+    case 34: return throwStatementSempred(dynamic_cast<ThrowStatementContext *>(context), predicateIndex);
+    case 42: return classElementSempred(dynamic_cast<ClassElementContext *>(context), predicateIndex);
     case 58: return singleExpressionSempred(dynamic_cast<SingleExpressionContext *>(context), predicateIndex);
-    case 67: return getterSempred(dynamic_cast<GetterContext *>(context), predicateIndex);
-    case 68: return setterSempred(dynamic_cast<SetterContext *>(context), predicateIndex);
-    case 69: return eosSempred(dynamic_cast<EosContext *>(context), predicateIndex);
+    case 70: return getterSempred(dynamic_cast<GetterContext *>(context), predicateIndex);
+    case 71: return setterSempred(dynamic_cast<SetterContext *>(context), predicateIndex);
+    case 72: return eosSempred(dynamic_cast<EosContext *>(context), predicateIndex);
 
   default:
     break;
@@ -9969,7 +10577,6 @@ bool JavaScriptParser::expressionStatementSempred(ExpressionStatementContext *_l
 bool JavaScriptParser::iterationStatementSempred(IterationStatementContext *_localctx, size_t predicateIndex) {
   switch (predicateIndex) {
     case 1: return this->p("of");
-    case 2: return this->p("of");
 
   default:
     break;
@@ -9979,7 +10586,7 @@ bool JavaScriptParser::iterationStatementSempred(IterationStatementContext *_loc
 
 bool JavaScriptParser::continueStatementSempred(ContinueStatementContext *_localctx, size_t predicateIndex) {
   switch (predicateIndex) {
-    case 3: return this->notLineTerminator();
+    case 2: return this->notLineTerminator();
 
   default:
     break;
@@ -9989,7 +10596,7 @@ bool JavaScriptParser::continueStatementSempred(ContinueStatementContext *_local
 
 bool JavaScriptParser::breakStatementSempred(BreakStatementContext *_localctx, size_t predicateIndex) {
   switch (predicateIndex) {
-    case 4: return this->notLineTerminator();
+    case 3: return this->notLineTerminator();
 
   default:
     break;
@@ -9999,7 +10606,7 @@ bool JavaScriptParser::breakStatementSempred(BreakStatementContext *_localctx, s
 
 bool JavaScriptParser::returnStatementSempred(ReturnStatementContext *_localctx, size_t predicateIndex) {
   switch (predicateIndex) {
-    case 5: return this->notLineTerminator();
+    case 4: return this->notLineTerminator();
 
   default:
     break;
@@ -10009,7 +10616,7 @@ bool JavaScriptParser::returnStatementSempred(ReturnStatementContext *_localctx,
 
 bool JavaScriptParser::yieldStatementSempred(YieldStatementContext *_localctx, size_t predicateIndex) {
   switch (predicateIndex) {
-    case 6: return this->notLineTerminator();
+    case 5: return this->notLineTerminator();
 
   default:
     break;
@@ -10019,7 +10626,7 @@ bool JavaScriptParser::yieldStatementSempred(YieldStatementContext *_localctx, s
 
 bool JavaScriptParser::throwStatementSempred(ThrowStatementContext *_localctx, size_t predicateIndex) {
   switch (predicateIndex) {
-    case 7: return this->notLineTerminator();
+    case 6: return this->notLineTerminator();
 
   default:
     break;
@@ -10029,7 +10636,7 @@ bool JavaScriptParser::throwStatementSempred(ThrowStatementContext *_localctx, s
 
 bool JavaScriptParser::classElementSempred(ClassElementContext *_localctx, size_t predicateIndex) {
   switch (predicateIndex) {
-    case 8: return this->n("static");
+    case 7: return this->n("static");
 
   default:
     break;
@@ -10039,29 +10646,31 @@ bool JavaScriptParser::classElementSempred(ClassElementContext *_localctx, size_
 
 bool JavaScriptParser::singleExpressionSempred(SingleExpressionContext *_localctx, size_t predicateIndex) {
   switch (predicateIndex) {
-    case 9: return precpred(_ctx, 28);
-    case 10: return precpred(_ctx, 27);
-    case 11: return precpred(_ctx, 26);
-    case 12: return precpred(_ctx, 25);
-    case 13: return precpred(_ctx, 24);
-    case 14: return precpred(_ctx, 23);
-    case 15: return precpred(_ctx, 22);
-    case 16: return precpred(_ctx, 21);
-    case 17: return precpred(_ctx, 20);
-    case 18: return precpred(_ctx, 19);
-    case 19: return precpred(_ctx, 18);
-    case 20: return precpred(_ctx, 17);
-    case 21: return precpred(_ctx, 16);
-    case 22: return precpred(_ctx, 15);
-    case 23: return precpred(_ctx, 14);
-    case 24: return precpred(_ctx, 43);
-    case 25: return precpred(_ctx, 42);
-    case 26: return precpred(_ctx, 41);
-    case 27: return precpred(_ctx, 39);
-    case 28: return this->notLineTerminator();
-    case 29: return precpred(_ctx, 38);
-    case 30: return this->notLineTerminator();
-    case 31: return precpred(_ctx, 13);
+    case 8: return precpred(_ctx, 27);
+    case 9: return precpred(_ctx, 26);
+    case 10: return precpred(_ctx, 25);
+    case 11: return precpred(_ctx, 24);
+    case 12: return precpred(_ctx, 23);
+    case 13: return precpred(_ctx, 22);
+    case 14: return precpred(_ctx, 21);
+    case 15: return precpred(_ctx, 20);
+    case 16: return precpred(_ctx, 19);
+    case 17: return precpred(_ctx, 18);
+    case 18: return precpred(_ctx, 17);
+    case 19: return precpred(_ctx, 16);
+    case 20: return precpred(_ctx, 15);
+    case 21: return precpred(_ctx, 14);
+    case 22: return precpred(_ctx, 13);
+    case 23: return precpred(_ctx, 12);
+    case 24: return precpred(_ctx, 11);
+    case 25: return precpred(_ctx, 44);
+    case 26: return precpred(_ctx, 43);
+    case 27: return precpred(_ctx, 42);
+    case 28: return precpred(_ctx, 39);
+    case 29: return this->notLineTerminator();
+    case 30: return precpred(_ctx, 38);
+    case 31: return this->notLineTerminator();
+    case 32: return precpred(_ctx, 9);
 
   default:
     break;
@@ -10071,7 +10680,7 @@ bool JavaScriptParser::singleExpressionSempred(SingleExpressionContext *_localct
 
 bool JavaScriptParser::getterSempred(GetterContext *_localctx, size_t predicateIndex) {
   switch (predicateIndex) {
-    case 32: return this->p("get");
+    case 33: return this->p("get");
 
   default:
     break;
@@ -10081,7 +10690,7 @@ bool JavaScriptParser::getterSempred(GetterContext *_localctx, size_t predicateI
 
 bool JavaScriptParser::setterSempred(SetterContext *_localctx, size_t predicateIndex) {
   switch (predicateIndex) {
-    case 33: return this->p("set");
+    case 34: return this->p("set");
 
   default:
     break;
@@ -10091,8 +10700,8 @@ bool JavaScriptParser::setterSempred(SetterContext *_localctx, size_t predicateI
 
 bool JavaScriptParser::eosSempred(EosContext *_localctx, size_t predicateIndex) {
   switch (predicateIndex) {
-    case 34: return this->lineTerminatorAhead();
-    case 35: return this->closeBrace();
+    case 35: return this->lineTerminatorAhead();
+    case 36: return this->closeBrace();
 
   default:
     break;
@@ -10110,59 +10719,64 @@ std::vector<uint16_t> JavaScriptParser::_serializedATN;
 
 std::vector<std::string> JavaScriptParser::_ruleNames = {
   "program", "sourceElement", "statement", "block", "statementList", "importStatement", 
-  "fromBlock", "multipleImportStatement", "exportStatement", "variableStatement", 
-  "variableDeclarationList", "variableDeclaration", "emptyStatement", "expressionStatement", 
-  "ifStatement", "iterationStatement", "varModifier", "continueStatement", 
-  "breakStatement", "returnStatement", "yieldStatement", "withStatement", 
-  "switchStatement", "caseBlock", "caseClauses", "caseClause", "defaultClause", 
-  "labelledStatement", "throwStatement", "tryStatement", "catchProduction", 
-  "finallyProduction", "debuggerStatement", "functionDeclaration", "classDeclaration", 
-  "classTail", "classElement", "methodDefinition", "generatorMethod", "generatorFunctionDeclaration", 
-  "generatorBlock", "generatorDefinition", "iteratorBlock", "iteratorDefinition", 
-  "formalParameterList", "formalParameterArg", "lastFormalParameterArg", 
-  "functionBody", "sourceElements", "arrayLiteral", "elementList", "lastElement", 
-  "objectLiteral", "propertyAssignment", "propertyName", "arguments", "lastArgument", 
-  "expressionSequence", "singleExpression", "arrowFunctionParameters", "arrowFunctionBody", 
-  "assignmentOperator", "literal", "numericLiteral", "identifierName", "reservedWord", 
+  "importFromBlock", "moduleItems", "importDefault", "importNamespace", 
+  "importFrom", "aliasName", "exportStatement", "exportFromBlock", "declaration", 
+  "variableStatement", "variableDeclarationList", "variableDeclaration", 
+  "emptyStatement", "expressionStatement", "ifStatement", "iterationStatement", 
+  "varModifier", "continueStatement", "breakStatement", "returnStatement", 
+  "yieldStatement", "withStatement", "switchStatement", "caseBlock", "caseClauses", 
+  "caseClause", "defaultClause", "labelledStatement", "throwStatement", 
+  "tryStatement", "catchProduction", "finallyProduction", "debuggerStatement", 
+  "functionDeclaration", "classDeclaration", "classTail", "classElement", 
+  "methodDefinition", "formalParameterList", "formalParameterArg", "lastFormalParameterArg", 
+  "functionBody", "sourceElements", "arrayLiteral", "elementList", "arrayElement", 
+  "objectLiteral", "propertyAssignment", "propertyName", "arguments", "argument", 
+  "expressionSequence", "singleExpression", "assignable", "anoymousFunction", 
+  "arrowFunctionParameters", "arrowFunctionBody", "assignmentOperator", 
+  "literal", "numericLiteral", "bigintLiteral", "identifierName", "reservedWord", 
   "keyword", "getter", "setter", "eos"
 };
 
 std::vector<std::string> JavaScriptParser::_literalNames = {
-  "", "", "", "", "'['", "']'", "'('", "')'", "'{'", "'}'", "';'", "','", 
+  "", "", "", "", "", "'['", "']'", "'('", "')'", "'{'", "'}'", "';'", "','", 
   "'='", "'?'", "':'", "'...'", "'.'", "'++'", "'--'", "'+'", "'-'", "'~'", 
-  "'!'", "'*'", "'/'", "'%'", "'>>'", "'<<'", "'>>>'", "'<'", "'>'", "'<='", 
-  "'>='", "'=='", "'!='", "'==='", "'!=='", "'&'", "'^'", "'|'", "'&&'", 
-  "'||'", "'*='", "'/='", "'%='", "'+='", "'-='", "'<<='", "'>>='", "'>>>='", 
-  "'&='", "'^='", "'|='", "'=>'", "'null'", "", "", "", "", "", "", "'break'", 
-  "'do'", "'instanceof'", "'typeof'", "'case'", "'else'", "'new'", "'var'", 
-  "'catch'", "'finally'", "'return'", "'void'", "'continue'", "'for'", "'switch'", 
-  "'while'", "'debugger'", "'function'", "'this'", "'with'", "'default'", 
-  "'if'", "'throw'", "'delete'", "'in'", "'try'", "'as'", "'from'", "'class'", 
-  "'enum'", "'extends'", "'super'", "'const'", "'export'", "'import'", "'implements'", 
+  "'!'", "'*'", "'/'", "'%'", "'**'", "'??'", "'#'", "'>>'", "'<<'", "'>>>'", 
+  "'<'", "'>'", "'<='", "'>='", "'=='", "'!='", "'==='", "'!=='", "'&'", 
+  "'^'", "'|'", "'&&'", "'||'", "'*='", "'/='", "'%='", "'+='", "'-='", 
+  "'<<='", "'>>='", "'>>>='", "'&='", "'^='", "'|='", "'**='", "'=>'", "'null'", 
+  "", "", "", "", "", "", "", "", "", "", "'break'", "'do'", "'instanceof'", 
+  "'typeof'", "'case'", "'else'", "'new'", "'var'", "'catch'", "'finally'", 
+  "'return'", "'void'", "'continue'", "'for'", "'switch'", "'while'", "'debugger'", 
+  "'function'", "'this'", "'with'", "'default'", "'if'", "'throw'", "'delete'", 
+  "'in'", "'try'", "'as'", "'from'", "'class'", "'enum'", "'extends'", "'super'", 
+  "'const'", "'export'", "'import'", "'async'", "'await'", "'implements'", 
   "'let'", "'private'", "'public'", "'interface'", "'package'", "'protected'", 
   "'static'", "'yield'"
 };
 
 std::vector<std::string> JavaScriptParser::_symbolicNames = {
-  "", "MultiLineComment", "SingleLineComment", "RegularExpressionLiteral", 
+  "", "HashBangLine", "MultiLineComment", "SingleLineComment", "RegularExpressionLiteral", 
   "OpenBracket", "CloseBracket", "OpenParen", "CloseParen", "OpenBrace", 
   "CloseBrace", "SemiColon", "Comma", "Assign", "QuestionMark", "Colon", 
   "Ellipsis", "Dot", "PlusPlus", "MinusMinus", "Plus", "Minus", "BitNot", 
-  "Not", "Multiply", "Divide", "Modulus", "RightShiftArithmetic", "LeftShiftArithmetic", 
-  "RightShiftLogical", "LessThan", "MoreThan", "LessThanEquals", "GreaterThanEquals", 
-  "Equals_", "NotEquals", "IdentityEquals", "IdentityNotEquals", "BitAnd", 
-  "BitXOr", "BitOr", "And", "Or", "MultiplyAssign", "DivideAssign", "ModulusAssign", 
-  "PlusAssign", "MinusAssign", "LeftShiftArithmeticAssign", "RightShiftArithmeticAssign", 
+  "Not", "Multiply", "Divide", "Modulus", "Power", "NullCoalesce", "Hashtag", 
+  "RightShiftArithmetic", "LeftShiftArithmetic", "RightShiftLogical", "LessThan", 
+  "MoreThan", "LessThanEquals", "GreaterThanEquals", "Equals_", "NotEquals", 
+  "IdentityEquals", "IdentityNotEquals", "BitAnd", "BitXOr", "BitOr", "And", 
+  "Or", "MultiplyAssign", "DivideAssign", "ModulusAssign", "PlusAssign", 
+  "MinusAssign", "LeftShiftArithmeticAssign", "RightShiftArithmeticAssign", 
   "RightShiftLogicalAssign", "BitAndAssign", "BitXorAssign", "BitOrAssign", 
-  "ARROW", "NullLiteral", "BooleanLiteral", "DecimalLiteral", "HexIntegerLiteral", 
-  "OctalIntegerLiteral", "OctalIntegerLiteral2", "BinaryIntegerLiteral", 
-  "Break", "Do", "Instanceof", "Typeof", "Case", "Else", "New", "Var", "Catch", 
-  "Finally", "Return", "Void", "Continue", "For", "Switch", "While", "Debugger", 
-  "Function", "This", "With", "Default", "If", "Throw", "Delete", "In", 
-  "Try", "As", "From", "Class", "Enum", "Extends", "Super", "Const", "Export", 
-  "Import", "Implements", "Let", "Private", "Public", "Interface", "Package", 
-  "Protected", "Static", "Yield", "Identifier", "StringLiteral", "TemplateStringLiteral", 
-  "WhiteSpaces", "LineTerminator", "HtmlComment", "CDataComment", "UnexpectedCharacter"
+  "PowerAssign", "ARROW", "NullLiteral", "BooleanLiteral", "DecimalLiteral", 
+  "HexIntegerLiteral", "OctalIntegerLiteral", "OctalIntegerLiteral2", "BinaryIntegerLiteral", 
+  "BigHexIntegerLiteral", "BigOctalIntegerLiteral", "BigBinaryIntegerLiteral", 
+  "BigDecimalIntegerLiteral", "Break", "Do", "Instanceof", "Typeof", "Case", 
+  "Else", "New", "Var", "Catch", "Finally", "Return", "Void", "Continue", 
+  "For", "Switch", "While", "Debugger", "Function", "This", "With", "Default", 
+  "If", "Throw", "Delete", "In", "Try", "As", "From", "Class", "Enum", "Extends", 
+  "Super", "Const", "Export", "Import", "Async", "Await", "Implements", 
+  "Let", "Private", "Public", "Interface", "Package", "Protected", "Static", 
+  "Yield", "Identifier", "StringLiteral", "TemplateStringLiteral", "WhiteSpaces", 
+  "LineTerminator", "HtmlComment", "CDataComment", "UnexpectedCharacter"
 };
 
 dfa::Vocabulary JavaScriptParser::_vocabulary(_literalNames, _symbolicNames);
@@ -10185,7 +10799,7 @@ JavaScriptParser::Initializer::Initializer() {
 
   _serializedATN = {
     0x3, 0x608b, 0xa72a, 0x8133, 0xb9ed, 0x417c, 0x3be7, 0x7786, 0x5964, 
-    0x3, 0x72, 0x38a, 0x4, 0x2, 0x9, 0x2, 0x4, 0x3, 0x9, 0x3, 0x4, 0x4, 
+    0x3, 0x7d, 0x3c0, 0x4, 0x2, 0x9, 0x2, 0x4, 0x3, 0x9, 0x3, 0x4, 0x4, 
     0x9, 0x4, 0x4, 0x5, 0x9, 0x5, 0x4, 0x6, 0x9, 0x6, 0x4, 0x7, 0x9, 0x7, 
     0x4, 0x8, 0x9, 0x8, 0x4, 0x9, 0x9, 0x9, 0x4, 0xa, 0x9, 0xa, 0x4, 0xb, 
     0x9, 0xb, 0x4, 0xc, 0x9, 0xc, 0x4, 0xd, 0x9, 0xd, 0x4, 0xe, 0x9, 0xe, 
@@ -10206,113 +10820,115 @@ JavaScriptParser::Initializer::Initializer() {
     0x9, 0x3c, 0x4, 0x3d, 0x9, 0x3d, 0x4, 0x3e, 0x9, 0x3e, 0x4, 0x3f, 0x9, 
     0x3f, 0x4, 0x40, 0x9, 0x40, 0x4, 0x41, 0x9, 0x41, 0x4, 0x42, 0x9, 0x42, 
     0x4, 0x43, 0x9, 0x43, 0x4, 0x44, 0x9, 0x44, 0x4, 0x45, 0x9, 0x45, 0x4, 
-    0x46, 0x9, 0x46, 0x4, 0x47, 0x9, 0x47, 0x3, 0x2, 0x5, 0x2, 0x90, 0xa, 
-    0x2, 0x3, 0x2, 0x3, 0x2, 0x3, 0x3, 0x5, 0x3, 0x95, 0xa, 0x3, 0x3, 0x3, 
-    0x3, 0x3, 0x3, 0x4, 0x3, 0x4, 0x3, 0x4, 0x3, 0x4, 0x3, 0x4, 0x3, 0x4, 
-    0x3, 0x4, 0x3, 0x4, 0x3, 0x4, 0x3, 0x4, 0x3, 0x4, 0x3, 0x4, 0x3, 0x4, 
-    0x3, 0x4, 0x3, 0x4, 0x3, 0x4, 0x3, 0x4, 0x3, 0x4, 0x3, 0x4, 0x3, 0x4, 
-    0x3, 0x4, 0x5, 0x4, 0xae, 0xa, 0x4, 0x3, 0x5, 0x3, 0x5, 0x5, 0x5, 0xb2, 
-    0xa, 0x5, 0x3, 0x5, 0x3, 0x5, 0x3, 0x6, 0x6, 0x6, 0xb7, 0xa, 0x6, 0xd, 
-    0x6, 0xe, 0x6, 0xb8, 0x3, 0x7, 0x3, 0x7, 0x3, 0x7, 0x3, 0x8, 0x3, 0x8, 
-    0x5, 0x8, 0xc0, 0xa, 0x8, 0x3, 0x8, 0x3, 0x8, 0x5, 0x8, 0xc4, 0xa, 0x8, 
-    0x3, 0x8, 0x3, 0x8, 0x3, 0x8, 0x3, 0x8, 0x3, 0x9, 0x3, 0x9, 0x3, 0x9, 
-    0x5, 0x9, 0xcd, 0xa, 0x9, 0x3, 0x9, 0x3, 0x9, 0x3, 0x9, 0x3, 0x9, 0x7, 
-    0x9, 0xd3, 0xa, 0x9, 0xc, 0x9, 0xe, 0x9, 0xd6, 0xb, 0x9, 0x3, 0x9, 0x3, 
-    0x9, 0x3, 0xa, 0x3, 0xa, 0x5, 0xa, 0xdc, 0xa, 0xa, 0x3, 0xa, 0x3, 0xa, 
-    0x5, 0xa, 0xe0, 0xa, 0xa, 0x3, 0xb, 0x3, 0xb, 0x3, 0xb, 0x3, 0xb, 0x3, 
-    0xc, 0x3, 0xc, 0x3, 0xc, 0x7, 0xc, 0xe9, 0xa, 0xc, 0xc, 0xc, 0xe, 0xc, 
-    0xec, 0xb, 0xc, 0x3, 0xd, 0x3, 0xd, 0x3, 0xd, 0x5, 0xd, 0xf1, 0xa, 0xd, 
-    0x3, 0xd, 0x3, 0xd, 0x5, 0xd, 0xf5, 0xa, 0xd, 0x3, 0xe, 0x3, 0xe, 0x3, 
-    0xf, 0x3, 0xf, 0x3, 0xf, 0x3, 0xf, 0x3, 0x10, 0x3, 0x10, 0x3, 0x10, 
-    0x3, 0x10, 0x3, 0x10, 0x3, 0x10, 0x3, 0x10, 0x5, 0x10, 0x104, 0xa, 0x10, 
-    0x3, 0x11, 0x3, 0x11, 0x3, 0x11, 0x3, 0x11, 0x3, 0x11, 0x3, 0x11, 0x3, 
-    0x11, 0x3, 0x11, 0x3, 0x11, 0x3, 0x11, 0x3, 0x11, 0x3, 0x11, 0x3, 0x11, 
-    0x3, 0x11, 0x3, 0x11, 0x3, 0x11, 0x3, 0x11, 0x5, 0x11, 0x117, 0xa, 0x11, 
-    0x3, 0x11, 0x3, 0x11, 0x5, 0x11, 0x11b, 0xa, 0x11, 0x3, 0x11, 0x3, 0x11, 
-    0x5, 0x11, 0x11f, 0xa, 0x11, 0x3, 0x11, 0x3, 0x11, 0x3, 0x11, 0x3, 0x11, 
-    0x3, 0x11, 0x3, 0x11, 0x3, 0x11, 0x3, 0x11, 0x5, 0x11, 0x129, 0xa, 0x11, 
-    0x3, 0x11, 0x3, 0x11, 0x5, 0x11, 0x12d, 0xa, 0x11, 0x3, 0x11, 0x3, 0x11, 
-    0x3, 0x11, 0x3, 0x11, 0x3, 0x11, 0x3, 0x11, 0x3, 0x11, 0x3, 0x11, 0x3, 
-    0x11, 0x5, 0x11, 0x138, 0xa, 0x11, 0x3, 0x11, 0x3, 0x11, 0x3, 0x11, 
-    0x3, 0x11, 0x3, 0x11, 0x3, 0x11, 0x3, 0x11, 0x3, 0x11, 0x3, 0x11, 0x3, 
-    0x11, 0x3, 0x11, 0x5, 0x11, 0x145, 0xa, 0x11, 0x3, 0x11, 0x3, 0x11, 
-    0x3, 0x11, 0x3, 0x11, 0x5, 0x11, 0x14b, 0xa, 0x11, 0x3, 0x12, 0x3, 0x12, 
-    0x3, 0x13, 0x3, 0x13, 0x3, 0x13, 0x5, 0x13, 0x152, 0xa, 0x13, 0x3, 0x13, 
-    0x3, 0x13, 0x3, 0x14, 0x3, 0x14, 0x3, 0x14, 0x5, 0x14, 0x159, 0xa, 0x14, 
-    0x3, 0x14, 0x3, 0x14, 0x3, 0x15, 0x3, 0x15, 0x3, 0x15, 0x5, 0x15, 0x160, 
-    0xa, 0x15, 0x3, 0x15, 0x3, 0x15, 0x3, 0x16, 0x3, 0x16, 0x3, 0x16, 0x5, 
-    0x16, 0x167, 0xa, 0x16, 0x3, 0x16, 0x3, 0x16, 0x3, 0x17, 0x3, 0x17, 
-    0x3, 0x17, 0x3, 0x17, 0x3, 0x17, 0x3, 0x17, 0x3, 0x18, 0x3, 0x18, 0x3, 
-    0x18, 0x3, 0x18, 0x3, 0x18, 0x3, 0x18, 0x3, 0x19, 0x3, 0x19, 0x5, 0x19, 
-    0x179, 0xa, 0x19, 0x3, 0x19, 0x3, 0x19, 0x5, 0x19, 0x17d, 0xa, 0x19, 
-    0x5, 0x19, 0x17f, 0xa, 0x19, 0x3, 0x19, 0x3, 0x19, 0x3, 0x1a, 0x6, 0x1a, 
-    0x184, 0xa, 0x1a, 0xd, 0x1a, 0xe, 0x1a, 0x185, 0x3, 0x1b, 0x3, 0x1b, 
-    0x3, 0x1b, 0x3, 0x1b, 0x5, 0x1b, 0x18c, 0xa, 0x1b, 0x3, 0x1c, 0x3, 0x1c, 
-    0x3, 0x1c, 0x5, 0x1c, 0x191, 0xa, 0x1c, 0x3, 0x1d, 0x3, 0x1d, 0x3, 0x1d, 
-    0x3, 0x1d, 0x3, 0x1e, 0x3, 0x1e, 0x3, 0x1e, 0x3, 0x1e, 0x3, 0x1e, 0x3, 
-    0x1f, 0x3, 0x1f, 0x3, 0x1f, 0x3, 0x1f, 0x5, 0x1f, 0x1a0, 0xa, 0x1f, 
-    0x3, 0x1f, 0x5, 0x1f, 0x1a3, 0xa, 0x1f, 0x3, 0x20, 0x3, 0x20, 0x3, 0x20, 
-    0x3, 0x20, 0x3, 0x20, 0x3, 0x20, 0x3, 0x21, 0x3, 0x21, 0x3, 0x21, 0x3, 
-    0x22, 0x3, 0x22, 0x3, 0x22, 0x3, 0x23, 0x3, 0x23, 0x3, 0x23, 0x3, 0x23, 
-    0x5, 0x23, 0x1b5, 0xa, 0x23, 0x3, 0x23, 0x3, 0x23, 0x3, 0x23, 0x3, 0x23, 
-    0x3, 0x23, 0x3, 0x24, 0x3, 0x24, 0x3, 0x24, 0x3, 0x24, 0x3, 0x25, 0x3, 
-    0x25, 0x5, 0x25, 0x1c2, 0xa, 0x25, 0x3, 0x25, 0x3, 0x25, 0x7, 0x25, 
-    0x1c6, 0xa, 0x25, 0xc, 0x25, 0xe, 0x25, 0x1c9, 0xb, 0x25, 0x3, 0x25, 
-    0x3, 0x25, 0x3, 0x26, 0x3, 0x26, 0x3, 0x26, 0x5, 0x26, 0x1d0, 0xa, 0x26, 
-    0x3, 0x26, 0x3, 0x26, 0x5, 0x26, 0x1d4, 0xa, 0x26, 0x3, 0x27, 0x3, 0x27, 
-    0x3, 0x27, 0x5, 0x27, 0x1d9, 0xa, 0x27, 0x3, 0x27, 0x3, 0x27, 0x3, 0x27, 
-    0x3, 0x27, 0x3, 0x27, 0x3, 0x27, 0x3, 0x27, 0x3, 0x27, 0x3, 0x27, 0x3, 
-    0x27, 0x3, 0x27, 0x3, 0x27, 0x3, 0x27, 0x3, 0x27, 0x3, 0x27, 0x5, 0x27, 
-    0x1ea, 0xa, 0x27, 0x3, 0x27, 0x3, 0x27, 0x3, 0x27, 0x3, 0x27, 0x3, 0x27, 
-    0x3, 0x27, 0x5, 0x27, 0x1f2, 0xa, 0x27, 0x3, 0x28, 0x5, 0x28, 0x1f5, 
-    0xa, 0x28, 0x3, 0x28, 0x3, 0x28, 0x3, 0x28, 0x5, 0x28, 0x1fa, 0xa, 0x28, 
-    0x3, 0x28, 0x3, 0x28, 0x3, 0x28, 0x3, 0x28, 0x3, 0x28, 0x3, 0x29, 0x3, 
-    0x29, 0x3, 0x29, 0x5, 0x29, 0x204, 0xa, 0x29, 0x3, 0x29, 0x3, 0x29, 
-    0x5, 0x29, 0x208, 0xa, 0x29, 0x3, 0x29, 0x3, 0x29, 0x3, 0x29, 0x3, 0x29, 
-    0x3, 0x29, 0x3, 0x2a, 0x3, 0x2a, 0x3, 0x2a, 0x3, 0x2a, 0x7, 0x2a, 0x213, 
-    0xa, 0x2a, 0xc, 0x2a, 0xe, 0x2a, 0x216, 0xb, 0x2a, 0x5, 0x2a, 0x218, 
-    0xa, 0x2a, 0x3, 0x2a, 0x5, 0x2a, 0x21b, 0xa, 0x2a, 0x3, 0x2a, 0x3, 0x2a, 
-    0x3, 0x2b, 0x3, 0x2b, 0x3, 0x2b, 0x3, 0x2c, 0x3, 0x2c, 0x3, 0x2c, 0x3, 
-    0x2c, 0x7, 0x2c, 0x226, 0xa, 0x2c, 0xc, 0x2c, 0xe, 0x2c, 0x229, 0xb, 
-    0x2c, 0x5, 0x2c, 0x22b, 0xa, 0x2c, 0x3, 0x2c, 0x5, 0x2c, 0x22e, 0xa, 
-    0x2c, 0x3, 0x2c, 0x3, 0x2c, 0x3, 0x2d, 0x3, 0x2d, 0x3, 0x2d, 0x3, 0x2d, 
-    0x3, 0x2d, 0x5, 0x2d, 0x237, 0xa, 0x2d, 0x3, 0x2d, 0x3, 0x2d, 0x3, 0x2d, 
-    0x3, 0x2d, 0x3, 0x2d, 0x3, 0x2e, 0x3, 0x2e, 0x3, 0x2e, 0x7, 0x2e, 0x241, 
-    0xa, 0x2e, 0xc, 0x2e, 0xe, 0x2e, 0x244, 0xb, 0x2e, 0x3, 0x2e, 0x3, 0x2e, 
-    0x5, 0x2e, 0x248, 0xa, 0x2e, 0x3, 0x2e, 0x3, 0x2e, 0x3, 0x2e, 0x5, 0x2e, 
-    0x24d, 0xa, 0x2e, 0x3, 0x2f, 0x3, 0x2f, 0x3, 0x2f, 0x5, 0x2f, 0x252, 
-    0xa, 0x2f, 0x3, 0x30, 0x3, 0x30, 0x3, 0x30, 0x3, 0x31, 0x5, 0x31, 0x258, 
-    0xa, 0x31, 0x3, 0x32, 0x6, 0x32, 0x25b, 0xa, 0x32, 0xd, 0x32, 0xe, 0x32, 
-    0x25c, 0x3, 0x33, 0x3, 0x33, 0x5, 0x33, 0x261, 0xa, 0x33, 0x3, 0x33, 
-    0x3, 0x33, 0x3, 0x34, 0x3, 0x34, 0x6, 0x34, 0x267, 0xa, 0x34, 0xd, 0x34, 
-    0xe, 0x34, 0x268, 0x3, 0x34, 0x7, 0x34, 0x26c, 0xa, 0x34, 0xc, 0x34, 
-    0xe, 0x34, 0x26f, 0xb, 0x34, 0x3, 0x34, 0x6, 0x34, 0x272, 0xa, 0x34, 
-    0xd, 0x34, 0xe, 0x34, 0x273, 0x3, 0x34, 0x5, 0x34, 0x277, 0xa, 0x34, 
-    0x3, 0x34, 0x5, 0x34, 0x27a, 0xa, 0x34, 0x3, 0x35, 0x3, 0x35, 0x3, 0x35, 
-    0x5, 0x35, 0x27f, 0xa, 0x35, 0x3, 0x36, 0x3, 0x36, 0x3, 0x36, 0x3, 0x36, 
-    0x7, 0x36, 0x285, 0xa, 0x36, 0xc, 0x36, 0xe, 0x36, 0x288, 0xb, 0x36, 
-    0x5, 0x36, 0x28a, 0xa, 0x36, 0x3, 0x36, 0x5, 0x36, 0x28d, 0xa, 0x36, 
-    0x3, 0x36, 0x3, 0x36, 0x3, 0x37, 0x3, 0x37, 0x3, 0x37, 0x3, 0x37, 0x3, 
-    0x37, 0x3, 0x37, 0x3, 0x37, 0x3, 0x37, 0x3, 0x37, 0x3, 0x37, 0x3, 0x37, 
+    0x46, 0x9, 0x46, 0x4, 0x47, 0x9, 0x47, 0x4, 0x48, 0x9, 0x48, 0x4, 0x49, 
+    0x9, 0x49, 0x4, 0x4a, 0x9, 0x4a, 0x3, 0x2, 0x5, 0x2, 0x96, 0xa, 0x2, 
+    0x3, 0x2, 0x5, 0x2, 0x99, 0xa, 0x2, 0x3, 0x2, 0x3, 0x2, 0x3, 0x3, 0x3, 
+    0x3, 0x3, 0x4, 0x3, 0x4, 0x3, 0x4, 0x3, 0x4, 0x3, 0x4, 0x3, 0x4, 0x3, 
+    0x4, 0x3, 0x4, 0x3, 0x4, 0x3, 0x4, 0x3, 0x4, 0x3, 0x4, 0x3, 0x4, 0x3, 
+    0x4, 0x3, 0x4, 0x3, 0x4, 0x3, 0x4, 0x3, 0x4, 0x3, 0x4, 0x3, 0x4, 0x5, 
+    0x4, 0xb3, 0xa, 0x4, 0x3, 0x5, 0x3, 0x5, 0x5, 0x5, 0xb7, 0xa, 0x5, 0x3, 
+    0x5, 0x3, 0x5, 0x3, 0x6, 0x6, 0x6, 0xbc, 0xa, 0x6, 0xd, 0x6, 0xe, 0x6, 
+    0xbd, 0x3, 0x7, 0x3, 0x7, 0x3, 0x7, 0x3, 0x8, 0x5, 0x8, 0xc4, 0xa, 0x8, 
+    0x3, 0x8, 0x3, 0x8, 0x5, 0x8, 0xc8, 0xa, 0x8, 0x3, 0x8, 0x3, 0x8, 0x3, 
+    0x8, 0x3, 0x8, 0x3, 0x8, 0x5, 0x8, 0xcf, 0xa, 0x8, 0x3, 0x9, 0x3, 0x9, 
+    0x3, 0x9, 0x3, 0x9, 0x7, 0x9, 0xd5, 0xa, 0x9, 0xc, 0x9, 0xe, 0x9, 0xd8, 
+    0xb, 0x9, 0x3, 0x9, 0x3, 0x9, 0x5, 0x9, 0xdc, 0xa, 0x9, 0x5, 0x9, 0xde, 
+    0xa, 0x9, 0x3, 0x9, 0x3, 0x9, 0x3, 0xa, 0x3, 0xa, 0x3, 0xa, 0x3, 0xb, 
+    0x3, 0xb, 0x3, 0xb, 0x5, 0xb, 0xe8, 0xa, 0xb, 0x3, 0xc, 0x3, 0xc, 0x3, 
+    0xc, 0x3, 0xd, 0x3, 0xd, 0x3, 0xd, 0x5, 0xd, 0xf0, 0xa, 0xd, 0x3, 0xe, 
+    0x3, 0xe, 0x3, 0xe, 0x5, 0xe, 0xf5, 0xa, 0xe, 0x3, 0xe, 0x3, 0xe, 0x3, 
+    0xe, 0x3, 0xe, 0x3, 0xe, 0x3, 0xe, 0x3, 0xe, 0x5, 0xe, 0xfe, 0xa, 0xe, 
+    0x3, 0xf, 0x3, 0xf, 0x3, 0xf, 0x3, 0xf, 0x3, 0xf, 0x3, 0xf, 0x5, 0xf, 
+    0x106, 0xa, 0xf, 0x3, 0xf, 0x3, 0xf, 0x5, 0xf, 0x10a, 0xa, 0xf, 0x3, 
+    0x10, 0x3, 0x10, 0x3, 0x10, 0x5, 0x10, 0x10f, 0xa, 0x10, 0x3, 0x11, 
+    0x3, 0x11, 0x3, 0x11, 0x3, 0x11, 0x3, 0x12, 0x3, 0x12, 0x3, 0x12, 0x7, 
+    0x12, 0x118, 0xa, 0x12, 0xc, 0x12, 0xe, 0x12, 0x11b, 0xb, 0x12, 0x3, 
+    0x13, 0x3, 0x13, 0x3, 0x13, 0x5, 0x13, 0x120, 0xa, 0x13, 0x3, 0x14, 
+    0x3, 0x14, 0x3, 0x15, 0x3, 0x15, 0x3, 0x15, 0x3, 0x15, 0x3, 0x16, 0x3, 
+    0x16, 0x3, 0x16, 0x3, 0x16, 0x3, 0x16, 0x3, 0x16, 0x3, 0x16, 0x5, 0x16, 
+    0x12f, 0xa, 0x16, 0x3, 0x17, 0x3, 0x17, 0x3, 0x17, 0x3, 0x17, 0x3, 0x17, 
+    0x3, 0x17, 0x3, 0x17, 0x3, 0x17, 0x3, 0x17, 0x3, 0x17, 0x3, 0x17, 0x3, 
+    0x17, 0x3, 0x17, 0x3, 0x17, 0x3, 0x17, 0x3, 0x17, 0x3, 0x17, 0x3, 0x17, 
+    0x5, 0x17, 0x143, 0xa, 0x17, 0x3, 0x17, 0x3, 0x17, 0x5, 0x17, 0x147, 
+    0xa, 0x17, 0x3, 0x17, 0x3, 0x17, 0x5, 0x17, 0x14b, 0xa, 0x17, 0x3, 0x17, 
+    0x3, 0x17, 0x3, 0x17, 0x3, 0x17, 0x3, 0x17, 0x3, 0x17, 0x5, 0x17, 0x153, 
+    0xa, 0x17, 0x3, 0x17, 0x3, 0x17, 0x3, 0x17, 0x3, 0x17, 0x3, 0x17, 0x3, 
+    0x17, 0x3, 0x17, 0x5, 0x17, 0x15c, 0xa, 0x17, 0x3, 0x17, 0x3, 0x17, 
+    0x3, 0x17, 0x5, 0x17, 0x161, 0xa, 0x17, 0x3, 0x17, 0x3, 0x17, 0x3, 0x17, 
+    0x3, 0x17, 0x3, 0x17, 0x3, 0x17, 0x5, 0x17, 0x169, 0xa, 0x17, 0x3, 0x18, 
+    0x3, 0x18, 0x3, 0x19, 0x3, 0x19, 0x3, 0x19, 0x5, 0x19, 0x170, 0xa, 0x19, 
+    0x3, 0x19, 0x3, 0x19, 0x3, 0x1a, 0x3, 0x1a, 0x3, 0x1a, 0x5, 0x1a, 0x177, 
+    0xa, 0x1a, 0x3, 0x1a, 0x3, 0x1a, 0x3, 0x1b, 0x3, 0x1b, 0x3, 0x1b, 0x5, 
+    0x1b, 0x17e, 0xa, 0x1b, 0x3, 0x1b, 0x3, 0x1b, 0x3, 0x1c, 0x3, 0x1c, 
+    0x3, 0x1c, 0x5, 0x1c, 0x185, 0xa, 0x1c, 0x3, 0x1c, 0x3, 0x1c, 0x3, 0x1d, 
+    0x3, 0x1d, 0x3, 0x1d, 0x3, 0x1d, 0x3, 0x1d, 0x3, 0x1d, 0x3, 0x1e, 0x3, 
+    0x1e, 0x3, 0x1e, 0x3, 0x1e, 0x3, 0x1e, 0x3, 0x1e, 0x3, 0x1f, 0x3, 0x1f, 
+    0x5, 0x1f, 0x197, 0xa, 0x1f, 0x3, 0x1f, 0x3, 0x1f, 0x5, 0x1f, 0x19b, 
+    0xa, 0x1f, 0x5, 0x1f, 0x19d, 0xa, 0x1f, 0x3, 0x1f, 0x3, 0x1f, 0x3, 0x20, 
+    0x6, 0x20, 0x1a2, 0xa, 0x20, 0xd, 0x20, 0xe, 0x20, 0x1a3, 0x3, 0x21, 
+    0x3, 0x21, 0x3, 0x21, 0x3, 0x21, 0x5, 0x21, 0x1aa, 0xa, 0x21, 0x3, 0x22, 
+    0x3, 0x22, 0x3, 0x22, 0x5, 0x22, 0x1af, 0xa, 0x22, 0x3, 0x23, 0x3, 0x23, 
+    0x3, 0x23, 0x3, 0x23, 0x3, 0x24, 0x3, 0x24, 0x3, 0x24, 0x3, 0x24, 0x3, 
+    0x24, 0x3, 0x25, 0x3, 0x25, 0x3, 0x25, 0x3, 0x25, 0x5, 0x25, 0x1be, 
+    0xa, 0x25, 0x3, 0x25, 0x5, 0x25, 0x1c1, 0xa, 0x25, 0x3, 0x26, 0x3, 0x26, 
+    0x3, 0x26, 0x5, 0x26, 0x1c6, 0xa, 0x26, 0x3, 0x26, 0x5, 0x26, 0x1c9, 
+    0xa, 0x26, 0x3, 0x26, 0x3, 0x26, 0x3, 0x27, 0x3, 0x27, 0x3, 0x27, 0x3, 
+    0x28, 0x3, 0x28, 0x3, 0x28, 0x3, 0x29, 0x5, 0x29, 0x1d4, 0xa, 0x29, 
+    0x3, 0x29, 0x3, 0x29, 0x5, 0x29, 0x1d8, 0xa, 0x29, 0x3, 0x29, 0x3, 0x29, 
+    0x3, 0x29, 0x5, 0x29, 0x1dd, 0xa, 0x29, 0x3, 0x29, 0x3, 0x29, 0x3, 0x29, 
+    0x3, 0x29, 0x3, 0x29, 0x3, 0x2a, 0x3, 0x2a, 0x3, 0x2a, 0x3, 0x2a, 0x3, 
+    0x2b, 0x3, 0x2b, 0x5, 0x2b, 0x1ea, 0xa, 0x2b, 0x3, 0x2b, 0x3, 0x2b, 
+    0x7, 0x2b, 0x1ee, 0xa, 0x2b, 0xc, 0x2b, 0xe, 0x2b, 0x1f1, 0xb, 0x2b, 
+    0x3, 0x2b, 0x3, 0x2b, 0x3, 0x2c, 0x3, 0x2c, 0x3, 0x2c, 0x3, 0x2c, 0x7, 
+    0x2c, 0x1f9, 0xa, 0x2c, 0xc, 0x2c, 0xe, 0x2c, 0x1fc, 0xb, 0x2c, 0x3, 
+    0x2c, 0x3, 0x2c, 0x3, 0x2c, 0x5, 0x2c, 0x201, 0xa, 0x2c, 0x3, 0x2c, 
+    0x3, 0x2c, 0x3, 0x2c, 0x3, 0x2c, 0x5, 0x2c, 0x207, 0xa, 0x2c, 0x3, 0x2d, 
+    0x5, 0x2d, 0x20a, 0xa, 0x2d, 0x3, 0x2d, 0x5, 0x2d, 0x20d, 0xa, 0x2d, 
+    0x3, 0x2d, 0x3, 0x2d, 0x3, 0x2d, 0x5, 0x2d, 0x212, 0xa, 0x2d, 0x3, 0x2d, 
+    0x3, 0x2d, 0x3, 0x2d, 0x3, 0x2d, 0x3, 0x2d, 0x3, 0x2d, 0x5, 0x2d, 0x21a, 
+    0xa, 0x2d, 0x3, 0x2d, 0x5, 0x2d, 0x21d, 0xa, 0x2d, 0x3, 0x2d, 0x3, 0x2d, 
+    0x3, 0x2d, 0x3, 0x2d, 0x3, 0x2d, 0x3, 0x2d, 0x3, 0x2d, 0x3, 0x2d, 0x5, 
+    0x2d, 0x227, 0xa, 0x2d, 0x3, 0x2d, 0x5, 0x2d, 0x22a, 0xa, 0x2d, 0x3, 
+    0x2d, 0x3, 0x2d, 0x3, 0x2d, 0x5, 0x2d, 0x22f, 0xa, 0x2d, 0x3, 0x2d, 
+    0x3, 0x2d, 0x3, 0x2d, 0x3, 0x2d, 0x3, 0x2d, 0x5, 0x2d, 0x236, 0xa, 0x2d, 
+    0x3, 0x2e, 0x3, 0x2e, 0x3, 0x2e, 0x7, 0x2e, 0x23b, 0xa, 0x2e, 0xc, 0x2e, 
+    0xe, 0x2e, 0x23e, 0xb, 0x2e, 0x3, 0x2e, 0x3, 0x2e, 0x5, 0x2e, 0x242, 
+    0xa, 0x2e, 0x3, 0x2e, 0x5, 0x2e, 0x245, 0xa, 0x2e, 0x3, 0x2f, 0x3, 0x2f, 
+    0x3, 0x2f, 0x5, 0x2f, 0x24a, 0xa, 0x2f, 0x3, 0x30, 0x3, 0x30, 0x3, 0x30, 
+    0x3, 0x31, 0x5, 0x31, 0x250, 0xa, 0x31, 0x3, 0x32, 0x6, 0x32, 0x253, 
+    0xa, 0x32, 0xd, 0x32, 0xe, 0x32, 0x254, 0x3, 0x33, 0x3, 0x33, 0x3, 0x33, 
+    0x3, 0x33, 0x3, 0x34, 0x7, 0x34, 0x25c, 0xa, 0x34, 0xc, 0x34, 0xe, 0x34, 
+    0x25f, 0xb, 0x34, 0x3, 0x34, 0x5, 0x34, 0x262, 0xa, 0x34, 0x3, 0x34, 
+    0x6, 0x34, 0x265, 0xa, 0x34, 0xd, 0x34, 0xe, 0x34, 0x266, 0x3, 0x34, 
+    0x7, 0x34, 0x26a, 0xa, 0x34, 0xc, 0x34, 0xe, 0x34, 0x26d, 0xb, 0x34, 
+    0x3, 0x34, 0x7, 0x34, 0x270, 0xa, 0x34, 0xc, 0x34, 0xe, 0x34, 0x273, 
+    0xb, 0x34, 0x3, 0x35, 0x5, 0x35, 0x276, 0xa, 0x35, 0x3, 0x35, 0x3, 0x35, 
+    0x3, 0x36, 0x3, 0x36, 0x3, 0x36, 0x3, 0x36, 0x7, 0x36, 0x27e, 0xa, 0x36, 
+    0xc, 0x36, 0xe, 0x36, 0x281, 0xb, 0x36, 0x5, 0x36, 0x283, 0xa, 0x36, 
+    0x3, 0x36, 0x5, 0x36, 0x286, 0xa, 0x36, 0x3, 0x36, 0x3, 0x36, 0x3, 0x37, 
+    0x3, 0x37, 0x3, 0x37, 0x3, 0x37, 0x3, 0x37, 0x3, 0x37, 0x3, 0x37, 0x3, 
+    0x37, 0x3, 0x37, 0x3, 0x37, 0x3, 0x37, 0x5, 0x37, 0x295, 0xa, 0x37, 
+    0x3, 0x37, 0x5, 0x37, 0x298, 0xa, 0x37, 0x3, 0x37, 0x3, 0x37, 0x3, 0x37, 
+    0x5, 0x37, 0x29d, 0xa, 0x37, 0x3, 0x37, 0x3, 0x37, 0x3, 0x37, 0x3, 0x37, 
     0x3, 0x37, 0x3, 0x37, 0x3, 0x37, 0x3, 0x37, 0x3, 0x37, 0x3, 0x37, 0x3, 
     0x37, 0x3, 0x37, 0x3, 0x37, 0x3, 0x37, 0x3, 0x37, 0x3, 0x37, 0x3, 0x37, 
-    0x3, 0x37, 0x3, 0x37, 0x3, 0x37, 0x5, 0x37, 0x2ac, 0xa, 0x37, 0x3, 0x38, 
-    0x3, 0x38, 0x3, 0x38, 0x5, 0x38, 0x2b1, 0xa, 0x38, 0x3, 0x39, 0x3, 0x39, 
-    0x3, 0x39, 0x3, 0x39, 0x7, 0x39, 0x2b7, 0xa, 0x39, 0xc, 0x39, 0xe, 0x39, 
-    0x2ba, 0xb, 0x39, 0x3, 0x39, 0x3, 0x39, 0x5, 0x39, 0x2be, 0xa, 0x39, 
-    0x3, 0x39, 0x5, 0x39, 0x2c1, 0xa, 0x39, 0x3, 0x39, 0x3, 0x39, 0x3, 0x3a, 
-    0x3, 0x3a, 0x3, 0x3a, 0x3, 0x3b, 0x3, 0x3b, 0x3, 0x3b, 0x7, 0x3b, 0x2cb, 
-    0xa, 0x3b, 0xc, 0x3b, 0xe, 0x3b, 0x2ce, 0xb, 0x3b, 0x3, 0x3c, 0x3, 0x3c, 
-    0x3, 0x3c, 0x5, 0x3c, 0x2d3, 0xa, 0x3c, 0x3, 0x3c, 0x3, 0x3c, 0x5, 0x3c, 
-    0x2d7, 0xa, 0x3c, 0x3, 0x3c, 0x3, 0x3c, 0x3, 0x3c, 0x3, 0x3c, 0x3, 0x3c, 
-    0x3, 0x3c, 0x3, 0x3c, 0x5, 0x3c, 0x2e0, 0xa, 0x3c, 0x3, 0x3c, 0x3, 0x3c, 
-    0x3, 0x3c, 0x3, 0x3c, 0x5, 0x3c, 0x2e6, 0xa, 0x3c, 0x3, 0x3c, 0x3, 0x3c, 
+    0x3, 0x37, 0x3, 0x37, 0x3, 0x37, 0x3, 0x37, 0x5, 0x37, 0x2b4, 0xa, 0x37, 
+    0x3, 0x37, 0x5, 0x37, 0x2b7, 0xa, 0x37, 0x3, 0x38, 0x3, 0x38, 0x3, 0x38, 
+    0x3, 0x38, 0x3, 0x38, 0x3, 0x38, 0x3, 0x38, 0x5, 0x38, 0x2c0, 0xa, 0x38, 
+    0x3, 0x39, 0x3, 0x39, 0x3, 0x39, 0x3, 0x39, 0x7, 0x39, 0x2c6, 0xa, 0x39, 
+    0xc, 0x39, 0xe, 0x39, 0x2c9, 0xb, 0x39, 0x3, 0x39, 0x5, 0x39, 0x2cc, 
+    0xa, 0x39, 0x5, 0x39, 0x2ce, 0xa, 0x39, 0x3, 0x39, 0x3, 0x39, 0x3, 0x3a, 
+    0x5, 0x3a, 0x2d3, 0xa, 0x3a, 0x3, 0x3a, 0x3, 0x3a, 0x5, 0x3a, 0x2d7, 
+    0xa, 0x3a, 0x3, 0x3b, 0x3, 0x3b, 0x3, 0x3b, 0x7, 0x3b, 0x2dc, 0xa, 0x3b, 
+    0xc, 0x3b, 0xe, 0x3b, 0x2df, 0xb, 0x3b, 0x3, 0x3c, 0x3, 0x3c, 0x3, 0x3c, 
+    0x3, 0x3c, 0x5, 0x3c, 0x2e5, 0xa, 0x3c, 0x3, 0x3c, 0x3, 0x3c, 0x3, 0x3c, 
+    0x3, 0x3c, 0x5, 0x3c, 0x2eb, 0xa, 0x3c, 0x3, 0x3c, 0x3, 0x3c, 0x3, 0x3c, 
     0x3, 0x3c, 0x3, 0x3c, 0x3, 0x3c, 0x3, 0x3c, 0x3, 0x3c, 0x3, 0x3c, 0x3, 
     0x3c, 0x3, 0x3c, 0x3, 0x3c, 0x3, 0x3c, 0x3, 0x3c, 0x3, 0x3c, 0x3, 0x3c, 
     0x3, 0x3c, 0x3, 0x3c, 0x3, 0x3c, 0x3, 0x3c, 0x3, 0x3c, 0x3, 0x3c, 0x3, 
     0x3c, 0x3, 0x3c, 0x3, 0x3c, 0x3, 0x3c, 0x3, 0x3c, 0x3, 0x3c, 0x3, 0x3c, 
     0x3, 0x3c, 0x3, 0x3c, 0x3, 0x3c, 0x3, 0x3c, 0x3, 0x3c, 0x3, 0x3c, 0x3, 
-    0x3c, 0x3, 0x3c, 0x5, 0x3c, 0x30c, 0xa, 0x3c, 0x3, 0x3c, 0x3, 0x3c, 
+    0x3c, 0x3, 0x3c, 0x3, 0x3c, 0x3, 0x3c, 0x5, 0x3c, 0x314, 0xa, 0x3c, 
     0x3, 0x3c, 0x3, 0x3c, 0x3, 0x3c, 0x3, 0x3c, 0x3, 0x3c, 0x3, 0x3c, 0x3, 
     0x3c, 0x3, 0x3c, 0x3, 0x3c, 0x3, 0x3c, 0x3, 0x3c, 0x3, 0x3c, 0x3, 0x3c, 
     0x3, 0x3c, 0x3, 0x3c, 0x3, 0x3c, 0x3, 0x3c, 0x3, 0x3c, 0x3, 0x3c, 0x3, 
@@ -10322,529 +10938,573 @@ JavaScriptParser::Initializer::Initializer() {
     0x3, 0x3c, 0x3, 0x3c, 0x3, 0x3c, 0x3, 0x3c, 0x3, 0x3c, 0x3, 0x3c, 0x3, 
     0x3c, 0x3, 0x3c, 0x3, 0x3c, 0x3, 0x3c, 0x3, 0x3c, 0x3, 0x3c, 0x3, 0x3c, 
     0x3, 0x3c, 0x3, 0x3c, 0x3, 0x3c, 0x3, 0x3c, 0x3, 0x3c, 0x3, 0x3c, 0x3, 
-    0x3c, 0x3, 0x3c, 0x3, 0x3c, 0x3, 0x3c, 0x3, 0x3c, 0x3, 0x3c, 0x3, 0x3c, 
-    0x7, 0x3c, 0x351, 0xa, 0x3c, 0xc, 0x3c, 0xe, 0x3c, 0x354, 0xb, 0x3c, 
-    0x3, 0x3d, 0x3, 0x3d, 0x3, 0x3d, 0x5, 0x3d, 0x359, 0xa, 0x3d, 0x3, 0x3d, 
-    0x5, 0x3d, 0x35c, 0xa, 0x3d, 0x3, 0x3e, 0x3, 0x3e, 0x3, 0x3e, 0x3, 0x3e, 
-    0x3, 0x3e, 0x5, 0x3e, 0x363, 0xa, 0x3e, 0x3, 0x3f, 0x3, 0x3f, 0x3, 0x40, 
-    0x3, 0x40, 0x3, 0x40, 0x3, 0x40, 0x3, 0x40, 0x3, 0x40, 0x5, 0x40, 0x36d, 
-    0xa, 0x40, 0x3, 0x41, 0x3, 0x41, 0x3, 0x42, 0x3, 0x42, 0x5, 0x42, 0x373, 
-    0xa, 0x42, 0x3, 0x43, 0x3, 0x43, 0x3, 0x43, 0x5, 0x43, 0x378, 0xa, 0x43, 
-    0x3, 0x44, 0x3, 0x44, 0x3, 0x45, 0x3, 0x45, 0x3, 0x45, 0x3, 0x45, 0x3, 
-    0x46, 0x3, 0x46, 0x3, 0x46, 0x3, 0x46, 0x3, 0x47, 0x3, 0x47, 0x3, 0x47, 
-    0x3, 0x47, 0x5, 0x47, 0x388, 0xa, 0x47, 0x3, 0x47, 0x2, 0x3, 0x76, 0x48, 
-    0x2, 0x4, 0x6, 0x8, 0xa, 0xc, 0xe, 0x10, 0x12, 0x14, 0x16, 0x18, 0x1a, 
-    0x1c, 0x1e, 0x20, 0x22, 0x24, 0x26, 0x28, 0x2a, 0x2c, 0x2e, 0x30, 0x32, 
-    0x34, 0x36, 0x38, 0x3a, 0x3c, 0x3e, 0x40, 0x42, 0x44, 0x46, 0x48, 0x4a, 
-    0x4c, 0x4e, 0x50, 0x52, 0x54, 0x56, 0x58, 0x5a, 0x5c, 0x5e, 0x60, 0x62, 
-    0x64, 0x66, 0x68, 0x6a, 0x6c, 0x6e, 0x70, 0x72, 0x74, 0x76, 0x78, 0x7a, 
-    0x7c, 0x7e, 0x80, 0x82, 0x84, 0x86, 0x88, 0x8a, 0x8c, 0x2, 0xc, 0x5, 
-    0x2, 0x46, 0x46, 0x5f, 0x5f, 0x63, 0x63, 0x4, 0x2, 0xe, 0xe, 0x10, 0x10, 
-    0x3, 0x2, 0x19, 0x1b, 0x3, 0x2, 0x15, 0x16, 0x3, 0x2, 0x1c, 0x1e, 0x3, 
-    0x2, 0x1f, 0x22, 0x3, 0x2, 0x23, 0x26, 0x3, 0x2, 0x2c, 0x36, 0x3, 0x2, 
-    0x3a, 0x3e, 0x4, 0x2, 0x3f, 0x58, 0x5b, 0x6a, 0x2, 0x3f0, 0x2, 0x8f, 
-    0x3, 0x2, 0x2, 0x2, 0x4, 0x94, 0x3, 0x2, 0x2, 0x2, 0x6, 0xad, 0x3, 0x2, 
-    0x2, 0x2, 0x8, 0xaf, 0x3, 0x2, 0x2, 0x2, 0xa, 0xb6, 0x3, 0x2, 0x2, 0x2, 
-    0xc, 0xba, 0x3, 0x2, 0x2, 0x2, 0xe, 0xbf, 0x3, 0x2, 0x2, 0x2, 0x10, 
-    0xcc, 0x3, 0x2, 0x2, 0x2, 0x12, 0xd9, 0x3, 0x2, 0x2, 0x2, 0x14, 0xe1, 
-    0x3, 0x2, 0x2, 0x2, 0x16, 0xe5, 0x3, 0x2, 0x2, 0x2, 0x18, 0xf0, 0x3, 
-    0x2, 0x2, 0x2, 0x1a, 0xf6, 0x3, 0x2, 0x2, 0x2, 0x1c, 0xf8, 0x3, 0x2, 
-    0x2, 0x2, 0x1e, 0xfc, 0x3, 0x2, 0x2, 0x2, 0x20, 0x14a, 0x3, 0x2, 0x2, 
-    0x2, 0x22, 0x14c, 0x3, 0x2, 0x2, 0x2, 0x24, 0x14e, 0x3, 0x2, 0x2, 0x2, 
-    0x26, 0x155, 0x3, 0x2, 0x2, 0x2, 0x28, 0x15c, 0x3, 0x2, 0x2, 0x2, 0x2a, 
-    0x163, 0x3, 0x2, 0x2, 0x2, 0x2c, 0x16a, 0x3, 0x2, 0x2, 0x2, 0x2e, 0x170, 
-    0x3, 0x2, 0x2, 0x2, 0x30, 0x176, 0x3, 0x2, 0x2, 0x2, 0x32, 0x183, 0x3, 
-    0x2, 0x2, 0x2, 0x34, 0x187, 0x3, 0x2, 0x2, 0x2, 0x36, 0x18d, 0x3, 0x2, 
-    0x2, 0x2, 0x38, 0x192, 0x3, 0x2, 0x2, 0x2, 0x3a, 0x196, 0x3, 0x2, 0x2, 
-    0x2, 0x3c, 0x19b, 0x3, 0x2, 0x2, 0x2, 0x3e, 0x1a4, 0x3, 0x2, 0x2, 0x2, 
-    0x40, 0x1aa, 0x3, 0x2, 0x2, 0x2, 0x42, 0x1ad, 0x3, 0x2, 0x2, 0x2, 0x44, 
-    0x1b0, 0x3, 0x2, 0x2, 0x2, 0x46, 0x1bb, 0x3, 0x2, 0x2, 0x2, 0x48, 0x1c1, 
-    0x3, 0x2, 0x2, 0x2, 0x4a, 0x1d3, 0x3, 0x2, 0x2, 0x2, 0x4c, 0x1f1, 0x3, 
-    0x2, 0x2, 0x2, 0x4e, 0x1f4, 0x3, 0x2, 0x2, 0x2, 0x50, 0x200, 0x3, 0x2, 
-    0x2, 0x2, 0x52, 0x20e, 0x3, 0x2, 0x2, 0x2, 0x54, 0x21e, 0x3, 0x2, 0x2, 
-    0x2, 0x56, 0x221, 0x3, 0x2, 0x2, 0x2, 0x58, 0x231, 0x3, 0x2, 0x2, 0x2, 
-    0x5a, 0x24c, 0x3, 0x2, 0x2, 0x2, 0x5c, 0x24e, 0x3, 0x2, 0x2, 0x2, 0x5e, 
-    0x253, 0x3, 0x2, 0x2, 0x2, 0x60, 0x257, 0x3, 0x2, 0x2, 0x2, 0x62, 0x25a, 
-    0x3, 0x2, 0x2, 0x2, 0x64, 0x25e, 0x3, 0x2, 0x2, 0x2, 0x66, 0x279, 0x3, 
-    0x2, 0x2, 0x2, 0x68, 0x27b, 0x3, 0x2, 0x2, 0x2, 0x6a, 0x280, 0x3, 0x2, 
-    0x2, 0x2, 0x6c, 0x2ab, 0x3, 0x2, 0x2, 0x2, 0x6e, 0x2b0, 0x3, 0x2, 0x2, 
-    0x2, 0x70, 0x2b2, 0x3, 0x2, 0x2, 0x2, 0x72, 0x2c4, 0x3, 0x2, 0x2, 0x2, 
-    0x74, 0x2c7, 0x3, 0x2, 0x2, 0x2, 0x76, 0x30b, 0x3, 0x2, 0x2, 0x2, 0x78, 
-    0x35b, 0x3, 0x2, 0x2, 0x2, 0x7a, 0x362, 0x3, 0x2, 0x2, 0x2, 0x7c, 0x364, 
-    0x3, 0x2, 0x2, 0x2, 0x7e, 0x36c, 0x3, 0x2, 0x2, 0x2, 0x80, 0x36e, 0x3, 
-    0x2, 0x2, 0x2, 0x82, 0x372, 0x3, 0x2, 0x2, 0x2, 0x84, 0x377, 0x3, 0x2, 
-    0x2, 0x2, 0x86, 0x379, 0x3, 0x2, 0x2, 0x2, 0x88, 0x37b, 0x3, 0x2, 0x2, 
-    0x2, 0x8a, 0x37f, 0x3, 0x2, 0x2, 0x2, 0x8c, 0x387, 0x3, 0x2, 0x2, 0x2, 
-    0x8e, 0x90, 0x5, 0x62, 0x32, 0x2, 0x8f, 0x8e, 0x3, 0x2, 0x2, 0x2, 0x8f, 
-    0x90, 0x3, 0x2, 0x2, 0x2, 0x90, 0x91, 0x3, 0x2, 0x2, 0x2, 0x91, 0x92, 
-    0x7, 0x2, 0x2, 0x3, 0x92, 0x3, 0x3, 0x2, 0x2, 0x2, 0x93, 0x95, 0x7, 
-    0x60, 0x2, 0x2, 0x94, 0x93, 0x3, 0x2, 0x2, 0x2, 0x94, 0x95, 0x3, 0x2, 
-    0x2, 0x2, 0x95, 0x96, 0x3, 0x2, 0x2, 0x2, 0x96, 0x97, 0x5, 0x6, 0x4, 
-    0x2, 0x97, 0x5, 0x3, 0x2, 0x2, 0x2, 0x98, 0xae, 0x5, 0x8, 0x5, 0x2, 
-    0x99, 0xae, 0x5, 0x14, 0xb, 0x2, 0x9a, 0xae, 0x5, 0xc, 0x7, 0x2, 0x9b, 
-    0xae, 0x5, 0x12, 0xa, 0x2, 0x9c, 0xae, 0x5, 0x1a, 0xe, 0x2, 0x9d, 0xae, 
-    0x5, 0x46, 0x24, 0x2, 0x9e, 0xae, 0x5, 0x1c, 0xf, 0x2, 0x9f, 0xae, 0x5, 
-    0x1e, 0x10, 0x2, 0xa0, 0xae, 0x5, 0x20, 0x11, 0x2, 0xa1, 0xae, 0x5, 
-    0x24, 0x13, 0x2, 0xa2, 0xae, 0x5, 0x26, 0x14, 0x2, 0xa3, 0xae, 0x5, 
-    0x28, 0x15, 0x2, 0xa4, 0xae, 0x5, 0x2a, 0x16, 0x2, 0xa5, 0xae, 0x5, 
-    0x2c, 0x17, 0x2, 0xa6, 0xae, 0x5, 0x38, 0x1d, 0x2, 0xa7, 0xae, 0x5, 
-    0x2e, 0x18, 0x2, 0xa8, 0xae, 0x5, 0x3a, 0x1e, 0x2, 0xa9, 0xae, 0x5, 
-    0x3c, 0x1f, 0x2, 0xaa, 0xae, 0x5, 0x42, 0x22, 0x2, 0xab, 0xae, 0x5, 
-    0x44, 0x23, 0x2, 0xac, 0xae, 0x5, 0x50, 0x29, 0x2, 0xad, 0x98, 0x3, 
-    0x2, 0x2, 0x2, 0xad, 0x99, 0x3, 0x2, 0x2, 0x2, 0xad, 0x9a, 0x3, 0x2, 
-    0x2, 0x2, 0xad, 0x9b, 0x3, 0x2, 0x2, 0x2, 0xad, 0x9c, 0x3, 0x2, 0x2, 
-    0x2, 0xad, 0x9d, 0x3, 0x2, 0x2, 0x2, 0xad, 0x9e, 0x3, 0x2, 0x2, 0x2, 
-    0xad, 0x9f, 0x3, 0x2, 0x2, 0x2, 0xad, 0xa0, 0x3, 0x2, 0x2, 0x2, 0xad, 
-    0xa1, 0x3, 0x2, 0x2, 0x2, 0xad, 0xa2, 0x3, 0x2, 0x2, 0x2, 0xad, 0xa3, 
-    0x3, 0x2, 0x2, 0x2, 0xad, 0xa4, 0x3, 0x2, 0x2, 0x2, 0xad, 0xa5, 0x3, 
-    0x2, 0x2, 0x2, 0xad, 0xa6, 0x3, 0x2, 0x2, 0x2, 0xad, 0xa7, 0x3, 0x2, 
-    0x2, 0x2, 0xad, 0xa8, 0x3, 0x2, 0x2, 0x2, 0xad, 0xa9, 0x3, 0x2, 0x2, 
-    0x2, 0xad, 0xaa, 0x3, 0x2, 0x2, 0x2, 0xad, 0xab, 0x3, 0x2, 0x2, 0x2, 
-    0xad, 0xac, 0x3, 0x2, 0x2, 0x2, 0xae, 0x7, 0x3, 0x2, 0x2, 0x2, 0xaf, 
-    0xb1, 0x7, 0xa, 0x2, 0x2, 0xb0, 0xb2, 0x5, 0xa, 0x6, 0x2, 0xb1, 0xb0, 
-    0x3, 0x2, 0x2, 0x2, 0xb1, 0xb2, 0x3, 0x2, 0x2, 0x2, 0xb2, 0xb3, 0x3, 
-    0x2, 0x2, 0x2, 0xb3, 0xb4, 0x7, 0xb, 0x2, 0x2, 0xb4, 0x9, 0x3, 0x2, 
-    0x2, 0x2, 0xb5, 0xb7, 0x5, 0x6, 0x4, 0x2, 0xb6, 0xb5, 0x3, 0x2, 0x2, 
-    0x2, 0xb7, 0xb8, 0x3, 0x2, 0x2, 0x2, 0xb8, 0xb6, 0x3, 0x2, 0x2, 0x2, 
-    0xb8, 0xb9, 0x3, 0x2, 0x2, 0x2, 0xb9, 0xb, 0x3, 0x2, 0x2, 0x2, 0xba, 
-    0xbb, 0x7, 0x61, 0x2, 0x2, 0xbb, 0xbc, 0x5, 0xe, 0x8, 0x2, 0xbc, 0xd, 
-    0x3, 0x2, 0x2, 0x2, 0xbd, 0xc0, 0x7, 0x19, 0x2, 0x2, 0xbe, 0xc0, 0x5, 
-    0x10, 0x9, 0x2, 0xbf, 0xbd, 0x3, 0x2, 0x2, 0x2, 0xbf, 0xbe, 0x3, 0x2, 
-    0x2, 0x2, 0xc0, 0xc3, 0x3, 0x2, 0x2, 0x2, 0xc1, 0xc2, 0x7, 0x59, 0x2, 
-    0x2, 0xc2, 0xc4, 0x5, 0x82, 0x42, 0x2, 0xc3, 0xc1, 0x3, 0x2, 0x2, 0x2, 
-    0xc3, 0xc4, 0x3, 0x2, 0x2, 0x2, 0xc4, 0xc5, 0x3, 0x2, 0x2, 0x2, 0xc5, 
-    0xc6, 0x7, 0x5a, 0x2, 0x2, 0xc6, 0xc7, 0x7, 0x6c, 0x2, 0x2, 0xc7, 0xc8, 
-    0x5, 0x8c, 0x47, 0x2, 0xc8, 0xf, 0x3, 0x2, 0x2, 0x2, 0xc9, 0xca, 0x5, 
-    0x82, 0x42, 0x2, 0xca, 0xcb, 0x7, 0xd, 0x2, 0x2, 0xcb, 0xcd, 0x3, 0x2, 
-    0x2, 0x2, 0xcc, 0xc9, 0x3, 0x2, 0x2, 0x2, 0xcc, 0xcd, 0x3, 0x2, 0x2, 
-    0x2, 0xcd, 0xce, 0x3, 0x2, 0x2, 0x2, 0xce, 0xcf, 0x7, 0xa, 0x2, 0x2, 
-    0xcf, 0xd4, 0x5, 0x82, 0x42, 0x2, 0xd0, 0xd1, 0x7, 0xd, 0x2, 0x2, 0xd1, 
-    0xd3, 0x5, 0x82, 0x42, 0x2, 0xd2, 0xd0, 0x3, 0x2, 0x2, 0x2, 0xd3, 0xd6, 
-    0x3, 0x2, 0x2, 0x2, 0xd4, 0xd2, 0x3, 0x2, 0x2, 0x2, 0xd4, 0xd5, 0x3, 
-    0x2, 0x2, 0x2, 0xd5, 0xd7, 0x3, 0x2, 0x2, 0x2, 0xd6, 0xd4, 0x3, 0x2, 
-    0x2, 0x2, 0xd7, 0xd8, 0x7, 0xb, 0x2, 0x2, 0xd8, 0x11, 0x3, 0x2, 0x2, 
-    0x2, 0xd9, 0xdb, 0x7, 0x60, 0x2, 0x2, 0xda, 0xdc, 0x7, 0x53, 0x2, 0x2, 
-    0xdb, 0xda, 0x3, 0x2, 0x2, 0x2, 0xdb, 0xdc, 0x3, 0x2, 0x2, 0x2, 0xdc, 
-    0xdf, 0x3, 0x2, 0x2, 0x2, 0xdd, 0xe0, 0x5, 0xe, 0x8, 0x2, 0xde, 0xe0, 
-    0x5, 0x6, 0x4, 0x2, 0xdf, 0xdd, 0x3, 0x2, 0x2, 0x2, 0xdf, 0xde, 0x3, 
-    0x2, 0x2, 0x2, 0xe0, 0x13, 0x3, 0x2, 0x2, 0x2, 0xe1, 0xe2, 0x5, 0x22, 
-    0x12, 0x2, 0xe2, 0xe3, 0x5, 0x16, 0xc, 0x2, 0xe3, 0xe4, 0x5, 0x8c, 0x47, 
-    0x2, 0xe4, 0x15, 0x3, 0x2, 0x2, 0x2, 0xe5, 0xea, 0x5, 0x18, 0xd, 0x2, 
-    0xe6, 0xe7, 0x7, 0xd, 0x2, 0x2, 0xe7, 0xe9, 0x5, 0x18, 0xd, 0x2, 0xe8, 
-    0xe6, 0x3, 0x2, 0x2, 0x2, 0xe9, 0xec, 0x3, 0x2, 0x2, 0x2, 0xea, 0xe8, 
-    0x3, 0x2, 0x2, 0x2, 0xea, 0xeb, 0x3, 0x2, 0x2, 0x2, 0xeb, 0x17, 0x3, 
-    0x2, 0x2, 0x2, 0xec, 0xea, 0x3, 0x2, 0x2, 0x2, 0xed, 0xf1, 0x7, 0x6b, 
-    0x2, 0x2, 0xee, 0xf1, 0x5, 0x64, 0x33, 0x2, 0xef, 0xf1, 0x5, 0x6a, 0x36, 
-    0x2, 0xf0, 0xed, 0x3, 0x2, 0x2, 0x2, 0xf0, 0xee, 0x3, 0x2, 0x2, 0x2, 
-    0xf0, 0xef, 0x3, 0x2, 0x2, 0x2, 0xf1, 0xf4, 0x3, 0x2, 0x2, 0x2, 0xf2, 
-    0xf3, 0x7, 0xe, 0x2, 0x2, 0xf3, 0xf5, 0x5, 0x76, 0x3c, 0x2, 0xf4, 0xf2, 
-    0x3, 0x2, 0x2, 0x2, 0xf4, 0xf5, 0x3, 0x2, 0x2, 0x2, 0xf5, 0x19, 0x3, 
-    0x2, 0x2, 0x2, 0xf6, 0xf7, 0x7, 0xc, 0x2, 0x2, 0xf7, 0x1b, 0x3, 0x2, 
-    0x2, 0x2, 0xf8, 0xf9, 0x6, 0xf, 0x2, 0x2, 0xf9, 0xfa, 0x5, 0x74, 0x3b, 
-    0x2, 0xfa, 0xfb, 0x5, 0x8c, 0x47, 0x2, 0xfb, 0x1d, 0x3, 0x2, 0x2, 0x2, 
-    0xfc, 0xfd, 0x7, 0x54, 0x2, 0x2, 0xfd, 0xfe, 0x7, 0x8, 0x2, 0x2, 0xfe, 
-    0xff, 0x5, 0x74, 0x3b, 0x2, 0xff, 0x100, 0x7, 0x9, 0x2, 0x2, 0x100, 
-    0x103, 0x5, 0x6, 0x4, 0x2, 0x101, 0x102, 0x7, 0x44, 0x2, 0x2, 0x102, 
-    0x104, 0x5, 0x6, 0x4, 0x2, 0x103, 0x101, 0x3, 0x2, 0x2, 0x2, 0x103, 
-    0x104, 0x3, 0x2, 0x2, 0x2, 0x104, 0x1f, 0x3, 0x2, 0x2, 0x2, 0x105, 0x106, 
-    0x7, 0x40, 0x2, 0x2, 0x106, 0x107, 0x5, 0x6, 0x4, 0x2, 0x107, 0x108, 
-    0x7, 0x4e, 0x2, 0x2, 0x108, 0x109, 0x7, 0x8, 0x2, 0x2, 0x109, 0x10a, 
-    0x5, 0x74, 0x3b, 0x2, 0x10a, 0x10b, 0x7, 0x9, 0x2, 0x2, 0x10b, 0x10c, 
-    0x5, 0x8c, 0x47, 0x2, 0x10c, 0x14b, 0x3, 0x2, 0x2, 0x2, 0x10d, 0x10e, 
-    0x7, 0x4e, 0x2, 0x2, 0x10e, 0x10f, 0x7, 0x8, 0x2, 0x2, 0x10f, 0x110, 
-    0x5, 0x74, 0x3b, 0x2, 0x110, 0x111, 0x7, 0x9, 0x2, 0x2, 0x111, 0x112, 
-    0x5, 0x6, 0x4, 0x2, 0x112, 0x14b, 0x3, 0x2, 0x2, 0x2, 0x113, 0x114, 
-    0x7, 0x4c, 0x2, 0x2, 0x114, 0x116, 0x7, 0x8, 0x2, 0x2, 0x115, 0x117, 
-    0x5, 0x74, 0x3b, 0x2, 0x116, 0x115, 0x3, 0x2, 0x2, 0x2, 0x116, 0x117, 
-    0x3, 0x2, 0x2, 0x2, 0x117, 0x118, 0x3, 0x2, 0x2, 0x2, 0x118, 0x11a, 
-    0x7, 0xc, 0x2, 0x2, 0x119, 0x11b, 0x5, 0x74, 0x3b, 0x2, 0x11a, 0x119, 
-    0x3, 0x2, 0x2, 0x2, 0x11a, 0x11b, 0x3, 0x2, 0x2, 0x2, 0x11b, 0x11c, 
-    0x3, 0x2, 0x2, 0x2, 0x11c, 0x11e, 0x7, 0xc, 0x2, 0x2, 0x11d, 0x11f, 
-    0x5, 0x74, 0x3b, 0x2, 0x11e, 0x11d, 0x3, 0x2, 0x2, 0x2, 0x11e, 0x11f, 
-    0x3, 0x2, 0x2, 0x2, 0x11f, 0x120, 0x3, 0x2, 0x2, 0x2, 0x120, 0x121, 
-    0x7, 0x9, 0x2, 0x2, 0x121, 0x14b, 0x5, 0x6, 0x4, 0x2, 0x122, 0x123, 
-    0x7, 0x4c, 0x2, 0x2, 0x123, 0x124, 0x7, 0x8, 0x2, 0x2, 0x124, 0x125, 
-    0x5, 0x22, 0x12, 0x2, 0x125, 0x126, 0x5, 0x16, 0xc, 0x2, 0x126, 0x128, 
-    0x7, 0xc, 0x2, 0x2, 0x127, 0x129, 0x5, 0x74, 0x3b, 0x2, 0x128, 0x127, 
-    0x3, 0x2, 0x2, 0x2, 0x128, 0x129, 0x3, 0x2, 0x2, 0x2, 0x129, 0x12a, 
-    0x3, 0x2, 0x2, 0x2, 0x12a, 0x12c, 0x7, 0xc, 0x2, 0x2, 0x12b, 0x12d, 
-    0x5, 0x74, 0x3b, 0x2, 0x12c, 0x12b, 0x3, 0x2, 0x2, 0x2, 0x12c, 0x12d, 
-    0x3, 0x2, 0x2, 0x2, 0x12d, 0x12e, 0x3, 0x2, 0x2, 0x2, 0x12e, 0x12f, 
-    0x7, 0x9, 0x2, 0x2, 0x12f, 0x130, 0x5, 0x6, 0x4, 0x2, 0x130, 0x14b, 
-    0x3, 0x2, 0x2, 0x2, 0x131, 0x132, 0x7, 0x4c, 0x2, 0x2, 0x132, 0x133, 
-    0x7, 0x8, 0x2, 0x2, 0x133, 0x137, 0x5, 0x76, 0x3c, 0x2, 0x134, 0x138, 
-    0x7, 0x57, 0x2, 0x2, 0x135, 0x136, 0x7, 0x6b, 0x2, 0x2, 0x136, 0x138, 
-    0x6, 0x11, 0x3, 0x2, 0x137, 0x134, 0x3, 0x2, 0x2, 0x2, 0x137, 0x135, 
-    0x3, 0x2, 0x2, 0x2, 0x138, 0x139, 0x3, 0x2, 0x2, 0x2, 0x139, 0x13a, 
-    0x5, 0x74, 0x3b, 0x2, 0x13a, 0x13b, 0x7, 0x9, 0x2, 0x2, 0x13b, 0x13c, 
-    0x5, 0x6, 0x4, 0x2, 0x13c, 0x14b, 0x3, 0x2, 0x2, 0x2, 0x13d, 0x13e, 
-    0x7, 0x4c, 0x2, 0x2, 0x13e, 0x13f, 0x7, 0x8, 0x2, 0x2, 0x13f, 0x140, 
-    0x5, 0x22, 0x12, 0x2, 0x140, 0x144, 0x5, 0x18, 0xd, 0x2, 0x141, 0x145, 
-    0x7, 0x57, 0x2, 0x2, 0x142, 0x143, 0x7, 0x6b, 0x2, 0x2, 0x143, 0x145, 
-    0x6, 0x11, 0x4, 0x2, 0x144, 0x141, 0x3, 0x2, 0x2, 0x2, 0x144, 0x142, 
-    0x3, 0x2, 0x2, 0x2, 0x145, 0x146, 0x3, 0x2, 0x2, 0x2, 0x146, 0x147, 
-    0x5, 0x74, 0x3b, 0x2, 0x147, 0x148, 0x7, 0x9, 0x2, 0x2, 0x148, 0x149, 
-    0x5, 0x6, 0x4, 0x2, 0x149, 0x14b, 0x3, 0x2, 0x2, 0x2, 0x14a, 0x105, 
-    0x3, 0x2, 0x2, 0x2, 0x14a, 0x10d, 0x3, 0x2, 0x2, 0x2, 0x14a, 0x113, 
-    0x3, 0x2, 0x2, 0x2, 0x14a, 0x122, 0x3, 0x2, 0x2, 0x2, 0x14a, 0x131, 
-    0x3, 0x2, 0x2, 0x2, 0x14a, 0x13d, 0x3, 0x2, 0x2, 0x2, 0x14b, 0x21, 0x3, 
-    0x2, 0x2, 0x2, 0x14c, 0x14d, 0x9, 0x2, 0x2, 0x2, 0x14d, 0x23, 0x3, 0x2, 
-    0x2, 0x2, 0x14e, 0x151, 0x7, 0x4b, 0x2, 0x2, 0x14f, 0x150, 0x6, 0x13, 
-    0x5, 0x2, 0x150, 0x152, 0x7, 0x6b, 0x2, 0x2, 0x151, 0x14f, 0x3, 0x2, 
-    0x2, 0x2, 0x151, 0x152, 0x3, 0x2, 0x2, 0x2, 0x152, 0x153, 0x3, 0x2, 
-    0x2, 0x2, 0x153, 0x154, 0x5, 0x8c, 0x47, 0x2, 0x154, 0x25, 0x3, 0x2, 
-    0x2, 0x2, 0x155, 0x158, 0x7, 0x3f, 0x2, 0x2, 0x156, 0x157, 0x6, 0x14, 
-    0x6, 0x2, 0x157, 0x159, 0x7, 0x6b, 0x2, 0x2, 0x158, 0x156, 0x3, 0x2, 
-    0x2, 0x2, 0x158, 0x159, 0x3, 0x2, 0x2, 0x2, 0x159, 0x15a, 0x3, 0x2, 
-    0x2, 0x2, 0x15a, 0x15b, 0x5, 0x8c, 0x47, 0x2, 0x15b, 0x27, 0x3, 0x2, 
-    0x2, 0x2, 0x15c, 0x15f, 0x7, 0x49, 0x2, 0x2, 0x15d, 0x15e, 0x6, 0x15, 
-    0x7, 0x2, 0x15e, 0x160, 0x5, 0x74, 0x3b, 0x2, 0x15f, 0x15d, 0x3, 0x2, 
-    0x2, 0x2, 0x15f, 0x160, 0x3, 0x2, 0x2, 0x2, 0x160, 0x161, 0x3, 0x2, 
-    0x2, 0x2, 0x161, 0x162, 0x5, 0x8c, 0x47, 0x2, 0x162, 0x29, 0x3, 0x2, 
-    0x2, 0x2, 0x163, 0x166, 0x7, 0x6a, 0x2, 0x2, 0x164, 0x165, 0x6, 0x16, 
-    0x8, 0x2, 0x165, 0x167, 0x5, 0x74, 0x3b, 0x2, 0x166, 0x164, 0x3, 0x2, 
-    0x2, 0x2, 0x166, 0x167, 0x3, 0x2, 0x2, 0x2, 0x167, 0x168, 0x3, 0x2, 
-    0x2, 0x2, 0x168, 0x169, 0x5, 0x8c, 0x47, 0x2, 0x169, 0x2b, 0x3, 0x2, 
-    0x2, 0x2, 0x16a, 0x16b, 0x7, 0x52, 0x2, 0x2, 0x16b, 0x16c, 0x7, 0x8, 
-    0x2, 0x2, 0x16c, 0x16d, 0x5, 0x74, 0x3b, 0x2, 0x16d, 0x16e, 0x7, 0x9, 
-    0x2, 0x2, 0x16e, 0x16f, 0x5, 0x6, 0x4, 0x2, 0x16f, 0x2d, 0x3, 0x2, 0x2, 
-    0x2, 0x170, 0x171, 0x7, 0x4d, 0x2, 0x2, 0x171, 0x172, 0x7, 0x8, 0x2, 
-    0x2, 0x172, 0x173, 0x5, 0x74, 0x3b, 0x2, 0x173, 0x174, 0x7, 0x9, 0x2, 
-    0x2, 0x174, 0x175, 0x5, 0x30, 0x19, 0x2, 0x175, 0x2f, 0x3, 0x2, 0x2, 
-    0x2, 0x176, 0x178, 0x7, 0xa, 0x2, 0x2, 0x177, 0x179, 0x5, 0x32, 0x1a, 
-    0x2, 0x178, 0x177, 0x3, 0x2, 0x2, 0x2, 0x178, 0x179, 0x3, 0x2, 0x2, 
-    0x2, 0x179, 0x17e, 0x3, 0x2, 0x2, 0x2, 0x17a, 0x17c, 0x5, 0x36, 0x1c, 
-    0x2, 0x17b, 0x17d, 0x5, 0x32, 0x1a, 0x2, 0x17c, 0x17b, 0x3, 0x2, 0x2, 
-    0x2, 0x17c, 0x17d, 0x3, 0x2, 0x2, 0x2, 0x17d, 0x17f, 0x3, 0x2, 0x2, 
-    0x2, 0x17e, 0x17a, 0x3, 0x2, 0x2, 0x2, 0x17e, 0x17f, 0x3, 0x2, 0x2, 
-    0x2, 0x17f, 0x180, 0x3, 0x2, 0x2, 0x2, 0x180, 0x181, 0x7, 0xb, 0x2, 
-    0x2, 0x181, 0x31, 0x3, 0x2, 0x2, 0x2, 0x182, 0x184, 0x5, 0x34, 0x1b, 
-    0x2, 0x183, 0x182, 0x3, 0x2, 0x2, 0x2, 0x184, 0x185, 0x3, 0x2, 0x2, 
-    0x2, 0x185, 0x183, 0x3, 0x2, 0x2, 0x2, 0x185, 0x186, 0x3, 0x2, 0x2, 
-    0x2, 0x186, 0x33, 0x3, 0x2, 0x2, 0x2, 0x187, 0x188, 0x7, 0x43, 0x2, 
-    0x2, 0x188, 0x189, 0x5, 0x74, 0x3b, 0x2, 0x189, 0x18b, 0x7, 0x10, 0x2, 
-    0x2, 0x18a, 0x18c, 0x5, 0xa, 0x6, 0x2, 0x18b, 0x18a, 0x3, 0x2, 0x2, 
-    0x2, 0x18b, 0x18c, 0x3, 0x2, 0x2, 0x2, 0x18c, 0x35, 0x3, 0x2, 0x2, 0x2, 
-    0x18d, 0x18e, 0x7, 0x53, 0x2, 0x2, 0x18e, 0x190, 0x7, 0x10, 0x2, 0x2, 
-    0x18f, 0x191, 0x5, 0xa, 0x6, 0x2, 0x190, 0x18f, 0x3, 0x2, 0x2, 0x2, 
-    0x190, 0x191, 0x3, 0x2, 0x2, 0x2, 0x191, 0x37, 0x3, 0x2, 0x2, 0x2, 0x192, 
-    0x193, 0x7, 0x6b, 0x2, 0x2, 0x193, 0x194, 0x7, 0x10, 0x2, 0x2, 0x194, 
-    0x195, 0x5, 0x6, 0x4, 0x2, 0x195, 0x39, 0x3, 0x2, 0x2, 0x2, 0x196, 0x197, 
-    0x7, 0x55, 0x2, 0x2, 0x197, 0x198, 0x6, 0x1e, 0x9, 0x2, 0x198, 0x199, 
-    0x5, 0x74, 0x3b, 0x2, 0x199, 0x19a, 0x5, 0x8c, 0x47, 0x2, 0x19a, 0x3b, 
-    0x3, 0x2, 0x2, 0x2, 0x19b, 0x19c, 0x7, 0x58, 0x2, 0x2, 0x19c, 0x1a2, 
-    0x5, 0x8, 0x5, 0x2, 0x19d, 0x19f, 0x5, 0x3e, 0x20, 0x2, 0x19e, 0x1a0, 
-    0x5, 0x40, 0x21, 0x2, 0x19f, 0x19e, 0x3, 0x2, 0x2, 0x2, 0x19f, 0x1a0, 
-    0x3, 0x2, 0x2, 0x2, 0x1a0, 0x1a3, 0x3, 0x2, 0x2, 0x2, 0x1a1, 0x1a3, 
-    0x5, 0x40, 0x21, 0x2, 0x1a2, 0x19d, 0x3, 0x2, 0x2, 0x2, 0x1a2, 0x1a1, 
-    0x3, 0x2, 0x2, 0x2, 0x1a3, 0x3d, 0x3, 0x2, 0x2, 0x2, 0x1a4, 0x1a5, 0x7, 
-    0x47, 0x2, 0x2, 0x1a5, 0x1a6, 0x7, 0x8, 0x2, 0x2, 0x1a6, 0x1a7, 0x7, 
-    0x6b, 0x2, 0x2, 0x1a7, 0x1a8, 0x7, 0x9, 0x2, 0x2, 0x1a8, 0x1a9, 0x5, 
-    0x8, 0x5, 0x2, 0x1a9, 0x3f, 0x3, 0x2, 0x2, 0x2, 0x1aa, 0x1ab, 0x7, 0x48, 
-    0x2, 0x2, 0x1ab, 0x1ac, 0x5, 0x8, 0x5, 0x2, 0x1ac, 0x41, 0x3, 0x2, 0x2, 
-    0x2, 0x1ad, 0x1ae, 0x7, 0x4f, 0x2, 0x2, 0x1ae, 0x1af, 0x5, 0x8c, 0x47, 
-    0x2, 0x1af, 0x43, 0x3, 0x2, 0x2, 0x2, 0x1b0, 0x1b1, 0x7, 0x50, 0x2, 
-    0x2, 0x1b1, 0x1b2, 0x7, 0x6b, 0x2, 0x2, 0x1b2, 0x1b4, 0x7, 0x8, 0x2, 
-    0x2, 0x1b3, 0x1b5, 0x5, 0x5a, 0x2e, 0x2, 0x1b4, 0x1b3, 0x3, 0x2, 0x2, 
-    0x2, 0x1b4, 0x1b5, 0x3, 0x2, 0x2, 0x2, 0x1b5, 0x1b6, 0x3, 0x2, 0x2, 
-    0x2, 0x1b6, 0x1b7, 0x7, 0x9, 0x2, 0x2, 0x1b7, 0x1b8, 0x7, 0xa, 0x2, 
-    0x2, 0x1b8, 0x1b9, 0x5, 0x60, 0x31, 0x2, 0x1b9, 0x1ba, 0x7, 0xb, 0x2, 
-    0x2, 0x1ba, 0x45, 0x3, 0x2, 0x2, 0x2, 0x1bb, 0x1bc, 0x7, 0x5b, 0x2, 
-    0x2, 0x1bc, 0x1bd, 0x7, 0x6b, 0x2, 0x2, 0x1bd, 0x1be, 0x5, 0x48, 0x25, 
-    0x2, 0x1be, 0x47, 0x3, 0x2, 0x2, 0x2, 0x1bf, 0x1c0, 0x7, 0x5d, 0x2, 
-    0x2, 0x1c0, 0x1c2, 0x5, 0x76, 0x3c, 0x2, 0x1c1, 0x1bf, 0x3, 0x2, 0x2, 
-    0x2, 0x1c1, 0x1c2, 0x3, 0x2, 0x2, 0x2, 0x1c2, 0x1c3, 0x3, 0x2, 0x2, 
-    0x2, 0x1c3, 0x1c7, 0x7, 0xa, 0x2, 0x2, 0x1c4, 0x1c6, 0x5, 0x4a, 0x26, 
-    0x2, 0x1c5, 0x1c4, 0x3, 0x2, 0x2, 0x2, 0x1c6, 0x1c9, 0x3, 0x2, 0x2, 
-    0x2, 0x1c7, 0x1c5, 0x3, 0x2, 0x2, 0x2, 0x1c7, 0x1c8, 0x3, 0x2, 0x2, 
-    0x2, 0x1c8, 0x1ca, 0x3, 0x2, 0x2, 0x2, 0x1c9, 0x1c7, 0x3, 0x2, 0x2, 
-    0x2, 0x1ca, 0x1cb, 0x7, 0xb, 0x2, 0x2, 0x1cb, 0x49, 0x3, 0x2, 0x2, 0x2, 
-    0x1cc, 0x1d0, 0x7, 0x69, 0x2, 0x2, 0x1cd, 0x1ce, 0x6, 0x26, 0xa, 0x2, 
-    0x1ce, 0x1d0, 0x7, 0x6b, 0x2, 0x2, 0x1cf, 0x1cc, 0x3, 0x2, 0x2, 0x2, 
-    0x1cf, 0x1cd, 0x3, 0x2, 0x2, 0x2, 0x1cf, 0x1d0, 0x3, 0x2, 0x2, 0x2, 
-    0x1d0, 0x1d1, 0x3, 0x2, 0x2, 0x2, 0x1d1, 0x1d4, 0x5, 0x4c, 0x27, 0x2, 
-    0x1d2, 0x1d4, 0x5, 0x1a, 0xe, 0x2, 0x1d3, 0x1cf, 0x3, 0x2, 0x2, 0x2, 
-    0x1d3, 0x1d2, 0x3, 0x2, 0x2, 0x2, 0x1d4, 0x4b, 0x3, 0x2, 0x2, 0x2, 0x1d5, 
-    0x1d6, 0x5, 0x6e, 0x38, 0x2, 0x1d6, 0x1d8, 0x7, 0x8, 0x2, 0x2, 0x1d7, 
-    0x1d9, 0x5, 0x5a, 0x2e, 0x2, 0x1d8, 0x1d7, 0x3, 0x2, 0x2, 0x2, 0x1d8, 
-    0x1d9, 0x3, 0x2, 0x2, 0x2, 0x1d9, 0x1da, 0x3, 0x2, 0x2, 0x2, 0x1da, 
-    0x1db, 0x7, 0x9, 0x2, 0x2, 0x1db, 0x1dc, 0x7, 0xa, 0x2, 0x2, 0x1dc, 
-    0x1dd, 0x5, 0x60, 0x31, 0x2, 0x1dd, 0x1de, 0x7, 0xb, 0x2, 0x2, 0x1de, 
-    0x1f2, 0x3, 0x2, 0x2, 0x2, 0x1df, 0x1e0, 0x5, 0x88, 0x45, 0x2, 0x1e0, 
-    0x1e1, 0x7, 0x8, 0x2, 0x2, 0x1e1, 0x1e2, 0x7, 0x9, 0x2, 0x2, 0x1e2, 
-    0x1e3, 0x7, 0xa, 0x2, 0x2, 0x1e3, 0x1e4, 0x5, 0x60, 0x31, 0x2, 0x1e4, 
-    0x1e5, 0x7, 0xb, 0x2, 0x2, 0x1e5, 0x1f2, 0x3, 0x2, 0x2, 0x2, 0x1e6, 
-    0x1e7, 0x5, 0x8a, 0x46, 0x2, 0x1e7, 0x1e9, 0x7, 0x8, 0x2, 0x2, 0x1e8, 
-    0x1ea, 0x5, 0x5a, 0x2e, 0x2, 0x1e9, 0x1e8, 0x3, 0x2, 0x2, 0x2, 0x1e9, 
-    0x1ea, 0x3, 0x2, 0x2, 0x2, 0x1ea, 0x1eb, 0x3, 0x2, 0x2, 0x2, 0x1eb, 
-    0x1ec, 0x7, 0x9, 0x2, 0x2, 0x1ec, 0x1ed, 0x7, 0xa, 0x2, 0x2, 0x1ed, 
-    0x1ee, 0x5, 0x60, 0x31, 0x2, 0x1ee, 0x1ef, 0x7, 0xb, 0x2, 0x2, 0x1ef, 
-    0x1f2, 0x3, 0x2, 0x2, 0x2, 0x1f0, 0x1f2, 0x5, 0x4e, 0x28, 0x2, 0x1f1, 
-    0x1d5, 0x3, 0x2, 0x2, 0x2, 0x1f1, 0x1df, 0x3, 0x2, 0x2, 0x2, 0x1f1, 
-    0x1e6, 0x3, 0x2, 0x2, 0x2, 0x1f1, 0x1f0, 0x3, 0x2, 0x2, 0x2, 0x1f2, 
-    0x4d, 0x3, 0x2, 0x2, 0x2, 0x1f3, 0x1f5, 0x7, 0x19, 0x2, 0x2, 0x1f4, 
-    0x1f3, 0x3, 0x2, 0x2, 0x2, 0x1f4, 0x1f5, 0x3, 0x2, 0x2, 0x2, 0x1f5, 
-    0x1f6, 0x3, 0x2, 0x2, 0x2, 0x1f6, 0x1f7, 0x7, 0x6b, 0x2, 0x2, 0x1f7, 
-    0x1f9, 0x7, 0x8, 0x2, 0x2, 0x1f8, 0x1fa, 0x5, 0x5a, 0x2e, 0x2, 0x1f9, 
-    0x1f8, 0x3, 0x2, 0x2, 0x2, 0x1f9, 0x1fa, 0x3, 0x2, 0x2, 0x2, 0x1fa, 
-    0x1fb, 0x3, 0x2, 0x2, 0x2, 0x1fb, 0x1fc, 0x7, 0x9, 0x2, 0x2, 0x1fc, 
-    0x1fd, 0x7, 0xa, 0x2, 0x2, 0x1fd, 0x1fe, 0x5, 0x60, 0x31, 0x2, 0x1fe, 
-    0x1ff, 0x7, 0xb, 0x2, 0x2, 0x1ff, 0x4f, 0x3, 0x2, 0x2, 0x2, 0x200, 0x201, 
-    0x7, 0x50, 0x2, 0x2, 0x201, 0x203, 0x7, 0x19, 0x2, 0x2, 0x202, 0x204, 
-    0x7, 0x6b, 0x2, 0x2, 0x203, 0x202, 0x3, 0x2, 0x2, 0x2, 0x203, 0x204, 
-    0x3, 0x2, 0x2, 0x2, 0x204, 0x205, 0x3, 0x2, 0x2, 0x2, 0x205, 0x207, 
-    0x7, 0x8, 0x2, 0x2, 0x206, 0x208, 0x5, 0x5a, 0x2e, 0x2, 0x207, 0x206, 
-    0x3, 0x2, 0x2, 0x2, 0x207, 0x208, 0x3, 0x2, 0x2, 0x2, 0x208, 0x209, 
-    0x3, 0x2, 0x2, 0x2, 0x209, 0x20a, 0x7, 0x9, 0x2, 0x2, 0x20a, 0x20b, 
-    0x7, 0xa, 0x2, 0x2, 0x20b, 0x20c, 0x5, 0x60, 0x31, 0x2, 0x20c, 0x20d, 
-    0x7, 0xb, 0x2, 0x2, 0x20d, 0x51, 0x3, 0x2, 0x2, 0x2, 0x20e, 0x217, 0x7, 
-    0xa, 0x2, 0x2, 0x20f, 0x214, 0x5, 0x54, 0x2b, 0x2, 0x210, 0x211, 0x7, 
-    0xd, 0x2, 0x2, 0x211, 0x213, 0x5, 0x54, 0x2b, 0x2, 0x212, 0x210, 0x3, 
-    0x2, 0x2, 0x2, 0x213, 0x216, 0x3, 0x2, 0x2, 0x2, 0x214, 0x212, 0x3, 
-    0x2, 0x2, 0x2, 0x214, 0x215, 0x3, 0x2, 0x2, 0x2, 0x215, 0x218, 0x3, 
-    0x2, 0x2, 0x2, 0x216, 0x214, 0x3, 0x2, 0x2, 0x2, 0x217, 0x20f, 0x3, 
-    0x2, 0x2, 0x2, 0x217, 0x218, 0x3, 0x2, 0x2, 0x2, 0x218, 0x21a, 0x3, 
-    0x2, 0x2, 0x2, 0x219, 0x21b, 0x7, 0xd, 0x2, 0x2, 0x21a, 0x219, 0x3, 
-    0x2, 0x2, 0x2, 0x21a, 0x21b, 0x3, 0x2, 0x2, 0x2, 0x21b, 0x21c, 0x3, 
-    0x2, 0x2, 0x2, 0x21c, 0x21d, 0x7, 0xb, 0x2, 0x2, 0x21d, 0x53, 0x3, 0x2, 
-    0x2, 0x2, 0x21e, 0x21f, 0x7, 0x19, 0x2, 0x2, 0x21f, 0x220, 0x5, 0x58, 
-    0x2d, 0x2, 0x220, 0x55, 0x3, 0x2, 0x2, 0x2, 0x221, 0x22a, 0x7, 0xa, 
-    0x2, 0x2, 0x222, 0x227, 0x5, 0x58, 0x2d, 0x2, 0x223, 0x224, 0x7, 0xd, 
-    0x2, 0x2, 0x224, 0x226, 0x5, 0x58, 0x2d, 0x2, 0x225, 0x223, 0x3, 0x2, 
-    0x2, 0x2, 0x226, 0x229, 0x3, 0x2, 0x2, 0x2, 0x227, 0x225, 0x3, 0x2, 
-    0x2, 0x2, 0x227, 0x228, 0x3, 0x2, 0x2, 0x2, 0x228, 0x22b, 0x3, 0x2, 
-    0x2, 0x2, 0x229, 0x227, 0x3, 0x2, 0x2, 0x2, 0x22a, 0x222, 0x3, 0x2, 
-    0x2, 0x2, 0x22a, 0x22b, 0x3, 0x2, 0x2, 0x2, 0x22b, 0x22d, 0x3, 0x2, 
-    0x2, 0x2, 0x22c, 0x22e, 0x7, 0xd, 0x2, 0x2, 0x22d, 0x22c, 0x3, 0x2, 
-    0x2, 0x2, 0x22d, 0x22e, 0x3, 0x2, 0x2, 0x2, 0x22e, 0x22f, 0x3, 0x2, 
-    0x2, 0x2, 0x22f, 0x230, 0x7, 0xb, 0x2, 0x2, 0x230, 0x57, 0x3, 0x2, 0x2, 
-    0x2, 0x231, 0x232, 0x7, 0x6, 0x2, 0x2, 0x232, 0x233, 0x5, 0x76, 0x3c, 
-    0x2, 0x233, 0x234, 0x7, 0x7, 0x2, 0x2, 0x234, 0x236, 0x7, 0x8, 0x2, 
-    0x2, 0x235, 0x237, 0x5, 0x5a, 0x2e, 0x2, 0x236, 0x235, 0x3, 0x2, 0x2, 
-    0x2, 0x236, 0x237, 0x3, 0x2, 0x2, 0x2, 0x237, 0x238, 0x3, 0x2, 0x2, 
-    0x2, 0x238, 0x239, 0x7, 0x9, 0x2, 0x2, 0x239, 0x23a, 0x7, 0xa, 0x2, 
-    0x2, 0x23a, 0x23b, 0x5, 0x60, 0x31, 0x2, 0x23b, 0x23c, 0x7, 0xb, 0x2, 
-    0x2, 0x23c, 0x59, 0x3, 0x2, 0x2, 0x2, 0x23d, 0x242, 0x5, 0x5c, 0x2f, 
-    0x2, 0x23e, 0x23f, 0x7, 0xd, 0x2, 0x2, 0x23f, 0x241, 0x5, 0x5c, 0x2f, 
-    0x2, 0x240, 0x23e, 0x3, 0x2, 0x2, 0x2, 0x241, 0x244, 0x3, 0x2, 0x2, 
-    0x2, 0x242, 0x240, 0x3, 0x2, 0x2, 0x2, 0x242, 0x243, 0x3, 0x2, 0x2, 
-    0x2, 0x243, 0x247, 0x3, 0x2, 0x2, 0x2, 0x244, 0x242, 0x3, 0x2, 0x2, 
-    0x2, 0x245, 0x246, 0x7, 0xd, 0x2, 0x2, 0x246, 0x248, 0x5, 0x5e, 0x30, 
-    0x2, 0x247, 0x245, 0x3, 0x2, 0x2, 0x2, 0x247, 0x248, 0x3, 0x2, 0x2, 
-    0x2, 0x248, 0x24d, 0x3, 0x2, 0x2, 0x2, 0x249, 0x24d, 0x5, 0x5e, 0x30, 
-    0x2, 0x24a, 0x24d, 0x5, 0x64, 0x33, 0x2, 0x24b, 0x24d, 0x5, 0x6a, 0x36, 
-    0x2, 0x24c, 0x23d, 0x3, 0x2, 0x2, 0x2, 0x24c, 0x249, 0x3, 0x2, 0x2, 
-    0x2, 0x24c, 0x24a, 0x3, 0x2, 0x2, 0x2, 0x24c, 0x24b, 0x3, 0x2, 0x2, 
-    0x2, 0x24d, 0x5b, 0x3, 0x2, 0x2, 0x2, 0x24e, 0x251, 0x7, 0x6b, 0x2, 
-    0x2, 0x24f, 0x250, 0x7, 0xe, 0x2, 0x2, 0x250, 0x252, 0x5, 0x76, 0x3c, 
-    0x2, 0x251, 0x24f, 0x3, 0x2, 0x2, 0x2, 0x251, 0x252, 0x3, 0x2, 0x2, 
-    0x2, 0x252, 0x5d, 0x3, 0x2, 0x2, 0x2, 0x253, 0x254, 0x7, 0x11, 0x2, 
-    0x2, 0x254, 0x255, 0x7, 0x6b, 0x2, 0x2, 0x255, 0x5f, 0x3, 0x2, 0x2, 
-    0x2, 0x256, 0x258, 0x5, 0x62, 0x32, 0x2, 0x257, 0x256, 0x3, 0x2, 0x2, 
-    0x2, 0x257, 0x258, 0x3, 0x2, 0x2, 0x2, 0x258, 0x61, 0x3, 0x2, 0x2, 0x2, 
-    0x259, 0x25b, 0x5, 0x4, 0x3, 0x2, 0x25a, 0x259, 0x3, 0x2, 0x2, 0x2, 
-    0x25b, 0x25c, 0x3, 0x2, 0x2, 0x2, 0x25c, 0x25a, 0x3, 0x2, 0x2, 0x2, 
-    0x25c, 0x25d, 0x3, 0x2, 0x2, 0x2, 0x25d, 0x63, 0x3, 0x2, 0x2, 0x2, 0x25e, 
-    0x260, 0x7, 0x6, 0x2, 0x2, 0x25f, 0x261, 0x5, 0x66, 0x34, 0x2, 0x260, 
-    0x25f, 0x3, 0x2, 0x2, 0x2, 0x260, 0x261, 0x3, 0x2, 0x2, 0x2, 0x261, 
-    0x262, 0x3, 0x2, 0x2, 0x2, 0x262, 0x263, 0x7, 0x7, 0x2, 0x2, 0x263, 
-    0x65, 0x3, 0x2, 0x2, 0x2, 0x264, 0x26d, 0x5, 0x76, 0x3c, 0x2, 0x265, 
-    0x267, 0x7, 0xd, 0x2, 0x2, 0x266, 0x265, 0x3, 0x2, 0x2, 0x2, 0x267, 
-    0x268, 0x3, 0x2, 0x2, 0x2, 0x268, 0x266, 0x3, 0x2, 0x2, 0x2, 0x268, 
-    0x269, 0x3, 0x2, 0x2, 0x2, 0x269, 0x26a, 0x3, 0x2, 0x2, 0x2, 0x26a, 
-    0x26c, 0x5, 0x76, 0x3c, 0x2, 0x26b, 0x266, 0x3, 0x2, 0x2, 0x2, 0x26c, 
-    0x26f, 0x3, 0x2, 0x2, 0x2, 0x26d, 0x26b, 0x3, 0x2, 0x2, 0x2, 0x26d, 
-    0x26e, 0x3, 0x2, 0x2, 0x2, 0x26e, 0x276, 0x3, 0x2, 0x2, 0x2, 0x26f, 
-    0x26d, 0x3, 0x2, 0x2, 0x2, 0x270, 0x272, 0x7, 0xd, 0x2, 0x2, 0x271, 
-    0x270, 0x3, 0x2, 0x2, 0x2, 0x272, 0x273, 0x3, 0x2, 0x2, 0x2, 0x273, 
-    0x271, 0x3, 0x2, 0x2, 0x2, 0x273, 0x274, 0x3, 0x2, 0x2, 0x2, 0x274, 
-    0x275, 0x3, 0x2, 0x2, 0x2, 0x275, 0x277, 0x5, 0x68, 0x35, 0x2, 0x276, 
-    0x271, 0x3, 0x2, 0x2, 0x2, 0x276, 0x277, 0x3, 0x2, 0x2, 0x2, 0x277, 
-    0x27a, 0x3, 0x2, 0x2, 0x2, 0x278, 0x27a, 0x5, 0x68, 0x35, 0x2, 0x279, 
-    0x264, 0x3, 0x2, 0x2, 0x2, 0x279, 0x278, 0x3, 0x2, 0x2, 0x2, 0x27a, 
-    0x67, 0x3, 0x2, 0x2, 0x2, 0x27b, 0x27e, 0x7, 0x11, 0x2, 0x2, 0x27c, 
-    0x27f, 0x7, 0x6b, 0x2, 0x2, 0x27d, 0x27f, 0x5, 0x76, 0x3c, 0x2, 0x27e, 
-    0x27c, 0x3, 0x2, 0x2, 0x2, 0x27e, 0x27d, 0x3, 0x2, 0x2, 0x2, 0x27f, 
-    0x69, 0x3, 0x2, 0x2, 0x2, 0x280, 0x289, 0x7, 0xa, 0x2, 0x2, 0x281, 0x286, 
-    0x5, 0x6c, 0x37, 0x2, 0x282, 0x283, 0x7, 0xd, 0x2, 0x2, 0x283, 0x285, 
-    0x5, 0x6c, 0x37, 0x2, 0x284, 0x282, 0x3, 0x2, 0x2, 0x2, 0x285, 0x288, 
-    0x3, 0x2, 0x2, 0x2, 0x286, 0x284, 0x3, 0x2, 0x2, 0x2, 0x286, 0x287, 
-    0x3, 0x2, 0x2, 0x2, 0x287, 0x28a, 0x3, 0x2, 0x2, 0x2, 0x288, 0x286, 
-    0x3, 0x2, 0x2, 0x2, 0x289, 0x281, 0x3, 0x2, 0x2, 0x2, 0x289, 0x28a, 
-    0x3, 0x2, 0x2, 0x2, 0x28a, 0x28c, 0x3, 0x2, 0x2, 0x2, 0x28b, 0x28d, 
-    0x7, 0xd, 0x2, 0x2, 0x28c, 0x28b, 0x3, 0x2, 0x2, 0x2, 0x28c, 0x28d, 
-    0x3, 0x2, 0x2, 0x2, 0x28d, 0x28e, 0x3, 0x2, 0x2, 0x2, 0x28e, 0x28f, 
-    0x7, 0xb, 0x2, 0x2, 0x28f, 0x6b, 0x3, 0x2, 0x2, 0x2, 0x290, 0x291, 0x5, 
-    0x6e, 0x38, 0x2, 0x291, 0x292, 0x9, 0x3, 0x2, 0x2, 0x292, 0x293, 0x5, 
-    0x76, 0x3c, 0x2, 0x293, 0x2ac, 0x3, 0x2, 0x2, 0x2, 0x294, 0x295, 0x7, 
-    0x6, 0x2, 0x2, 0x295, 0x296, 0x5, 0x76, 0x3c, 0x2, 0x296, 0x297, 0x7, 
-    0x7, 0x2, 0x2, 0x297, 0x298, 0x7, 0x10, 0x2, 0x2, 0x298, 0x299, 0x5, 
-    0x76, 0x3c, 0x2, 0x299, 0x2ac, 0x3, 0x2, 0x2, 0x2, 0x29a, 0x29b, 0x5, 
-    0x88, 0x45, 0x2, 0x29b, 0x29c, 0x7, 0x8, 0x2, 0x2, 0x29c, 0x29d, 0x7, 
-    0x9, 0x2, 0x2, 0x29d, 0x29e, 0x7, 0xa, 0x2, 0x2, 0x29e, 0x29f, 0x5, 
-    0x60, 0x31, 0x2, 0x29f, 0x2a0, 0x7, 0xb, 0x2, 0x2, 0x2a0, 0x2ac, 0x3, 
-    0x2, 0x2, 0x2, 0x2a1, 0x2a2, 0x5, 0x8a, 0x46, 0x2, 0x2a2, 0x2a3, 0x7, 
-    0x8, 0x2, 0x2, 0x2a3, 0x2a4, 0x7, 0x6b, 0x2, 0x2, 0x2a4, 0x2a5, 0x7, 
-    0x9, 0x2, 0x2, 0x2a5, 0x2a6, 0x7, 0xa, 0x2, 0x2, 0x2a6, 0x2a7, 0x5, 
-    0x60, 0x31, 0x2, 0x2a7, 0x2a8, 0x7, 0xb, 0x2, 0x2, 0x2a8, 0x2ac, 0x3, 
-    0x2, 0x2, 0x2, 0x2a9, 0x2ac, 0x5, 0x4e, 0x28, 0x2, 0x2aa, 0x2ac, 0x7, 
-    0x6b, 0x2, 0x2, 0x2ab, 0x290, 0x3, 0x2, 0x2, 0x2, 0x2ab, 0x294, 0x3, 
-    0x2, 0x2, 0x2, 0x2ab, 0x29a, 0x3, 0x2, 0x2, 0x2, 0x2ab, 0x2a1, 0x3, 
-    0x2, 0x2, 0x2, 0x2ab, 0x2a9, 0x3, 0x2, 0x2, 0x2, 0x2ab, 0x2aa, 0x3, 
-    0x2, 0x2, 0x2, 0x2ac, 0x6d, 0x3, 0x2, 0x2, 0x2, 0x2ad, 0x2b1, 0x5, 0x82, 
-    0x42, 0x2, 0x2ae, 0x2b1, 0x7, 0x6c, 0x2, 0x2, 0x2af, 0x2b1, 0x5, 0x80, 
-    0x41, 0x2, 0x2b0, 0x2ad, 0x3, 0x2, 0x2, 0x2, 0x2b0, 0x2ae, 0x3, 0x2, 
-    0x2, 0x2, 0x2b0, 0x2af, 0x3, 0x2, 0x2, 0x2, 0x2b1, 0x6f, 0x3, 0x2, 0x2, 
-    0x2, 0x2b2, 0x2c0, 0x7, 0x8, 0x2, 0x2, 0x2b3, 0x2b8, 0x5, 0x76, 0x3c, 
-    0x2, 0x2b4, 0x2b5, 0x7, 0xd, 0x2, 0x2, 0x2b5, 0x2b7, 0x5, 0x76, 0x3c, 
-    0x2, 0x2b6, 0x2b4, 0x3, 0x2, 0x2, 0x2, 0x2b7, 0x2ba, 0x3, 0x2, 0x2, 
-    0x2, 0x2b8, 0x2b6, 0x3, 0x2, 0x2, 0x2, 0x2b8, 0x2b9, 0x3, 0x2, 0x2, 
-    0x2, 0x2b9, 0x2bd, 0x3, 0x2, 0x2, 0x2, 0x2ba, 0x2b8, 0x3, 0x2, 0x2, 
-    0x2, 0x2bb, 0x2bc, 0x7, 0xd, 0x2, 0x2, 0x2bc, 0x2be, 0x5, 0x72, 0x3a, 
-    0x2, 0x2bd, 0x2bb, 0x3, 0x2, 0x2, 0x2, 0x2bd, 0x2be, 0x3, 0x2, 0x2, 
-    0x2, 0x2be, 0x2c1, 0x3, 0x2, 0x2, 0x2, 0x2bf, 0x2c1, 0x5, 0x72, 0x3a, 
-    0x2, 0x2c0, 0x2b3, 0x3, 0x2, 0x2, 0x2, 0x2c0, 0x2bf, 0x3, 0x2, 0x2, 
-    0x2, 0x2c0, 0x2c1, 0x3, 0x2, 0x2, 0x2, 0x2c1, 0x2c2, 0x3, 0x2, 0x2, 
-    0x2, 0x2c2, 0x2c3, 0x7, 0x9, 0x2, 0x2, 0x2c3, 0x71, 0x3, 0x2, 0x2, 0x2, 
-    0x2c4, 0x2c5, 0x7, 0x11, 0x2, 0x2, 0x2c5, 0x2c6, 0x7, 0x6b, 0x2, 0x2, 
-    0x2c6, 0x73, 0x3, 0x2, 0x2, 0x2, 0x2c7, 0x2cc, 0x5, 0x76, 0x3c, 0x2, 
-    0x2c8, 0x2c9, 0x7, 0xd, 0x2, 0x2, 0x2c9, 0x2cb, 0x5, 0x76, 0x3c, 0x2, 
-    0x2ca, 0x2c8, 0x3, 0x2, 0x2, 0x2, 0x2cb, 0x2ce, 0x3, 0x2, 0x2, 0x2, 
-    0x2cc, 0x2ca, 0x3, 0x2, 0x2, 0x2, 0x2cc, 0x2cd, 0x3, 0x2, 0x2, 0x2, 
-    0x2cd, 0x75, 0x3, 0x2, 0x2, 0x2, 0x2ce, 0x2cc, 0x3, 0x2, 0x2, 0x2, 0x2cf, 
-    0x2d0, 0x8, 0x3c, 0x1, 0x2, 0x2d0, 0x2d2, 0x7, 0x50, 0x2, 0x2, 0x2d1, 
-    0x2d3, 0x7, 0x6b, 0x2, 0x2, 0x2d2, 0x2d1, 0x3, 0x2, 0x2, 0x2, 0x2d2, 
-    0x2d3, 0x3, 0x2, 0x2, 0x2, 0x2d3, 0x2d4, 0x3, 0x2, 0x2, 0x2, 0x2d4, 
-    0x2d6, 0x7, 0x8, 0x2, 0x2, 0x2d5, 0x2d7, 0x5, 0x5a, 0x2e, 0x2, 0x2d6, 
-    0x2d5, 0x3, 0x2, 0x2, 0x2, 0x2d6, 0x2d7, 0x3, 0x2, 0x2, 0x2, 0x2d7, 
-    0x2d8, 0x3, 0x2, 0x2, 0x2, 0x2d8, 0x2d9, 0x7, 0x9, 0x2, 0x2, 0x2d9, 
-    0x2da, 0x7, 0xa, 0x2, 0x2, 0x2da, 0x2db, 0x5, 0x60, 0x31, 0x2, 0x2db, 
-    0x2dc, 0x7, 0xb, 0x2, 0x2, 0x2dc, 0x30c, 0x3, 0x2, 0x2, 0x2, 0x2dd, 
-    0x2df, 0x7, 0x5b, 0x2, 0x2, 0x2de, 0x2e0, 0x7, 0x6b, 0x2, 0x2, 0x2df, 
-    0x2de, 0x3, 0x2, 0x2, 0x2, 0x2df, 0x2e0, 0x3, 0x2, 0x2, 0x2, 0x2e0, 
-    0x2e1, 0x3, 0x2, 0x2, 0x2, 0x2e1, 0x30c, 0x5, 0x48, 0x25, 0x2, 0x2e2, 
-    0x2e3, 0x7, 0x45, 0x2, 0x2, 0x2e3, 0x2e5, 0x5, 0x76, 0x3c, 0x2, 0x2e4, 
-    0x2e6, 0x5, 0x70, 0x39, 0x2, 0x2e5, 0x2e4, 0x3, 0x2, 0x2, 0x2, 0x2e5, 
-    0x2e6, 0x3, 0x2, 0x2, 0x2, 0x2e6, 0x30c, 0x3, 0x2, 0x2, 0x2, 0x2e7, 
-    0x2e8, 0x7, 0x56, 0x2, 0x2, 0x2e8, 0x30c, 0x5, 0x76, 0x3c, 0x27, 0x2e9, 
-    0x2ea, 0x7, 0x4a, 0x2, 0x2, 0x2ea, 0x30c, 0x5, 0x76, 0x3c, 0x26, 0x2eb, 
-    0x2ec, 0x7, 0x42, 0x2, 0x2, 0x2ec, 0x30c, 0x5, 0x76, 0x3c, 0x25, 0x2ed, 
-    0x2ee, 0x7, 0x13, 0x2, 0x2, 0x2ee, 0x30c, 0x5, 0x76, 0x3c, 0x24, 0x2ef, 
-    0x2f0, 0x7, 0x14, 0x2, 0x2, 0x2f0, 0x30c, 0x5, 0x76, 0x3c, 0x23, 0x2f1, 
-    0x2f2, 0x7, 0x15, 0x2, 0x2, 0x2f2, 0x30c, 0x5, 0x76, 0x3c, 0x22, 0x2f3, 
-    0x2f4, 0x7, 0x16, 0x2, 0x2, 0x2f4, 0x30c, 0x5, 0x76, 0x3c, 0x21, 0x2f5, 
-    0x2f6, 0x7, 0x17, 0x2, 0x2, 0x2f6, 0x30c, 0x5, 0x76, 0x3c, 0x20, 0x2f7, 
-    0x2f8, 0x7, 0x18, 0x2, 0x2, 0x2f8, 0x30c, 0x5, 0x76, 0x3c, 0x1f, 0x2f9, 
-    0x30c, 0x5, 0x56, 0x2c, 0x2, 0x2fa, 0x30c, 0x5, 0x52, 0x2a, 0x2, 0x2fb, 
-    0x30c, 0x5, 0x50, 0x29, 0x2, 0x2fc, 0x30c, 0x5, 0x2a, 0x16, 0x2, 0x2fd, 
-    0x30c, 0x7, 0x51, 0x2, 0x2, 0x2fe, 0x30c, 0x7, 0x6b, 0x2, 0x2, 0x2ff, 
-    0x30c, 0x7, 0x5e, 0x2, 0x2, 0x300, 0x30c, 0x5, 0x7e, 0x40, 0x2, 0x301, 
-    0x30c, 0x5, 0x64, 0x33, 0x2, 0x302, 0x30c, 0x5, 0x6a, 0x36, 0x2, 0x303, 
-    0x304, 0x7, 0x8, 0x2, 0x2, 0x304, 0x305, 0x5, 0x74, 0x3b, 0x2, 0x305, 
-    0x306, 0x7, 0x9, 0x2, 0x2, 0x306, 0x30c, 0x3, 0x2, 0x2, 0x2, 0x307, 
-    0x308, 0x5, 0x78, 0x3d, 0x2, 0x308, 0x309, 0x7, 0x37, 0x2, 0x2, 0x309, 
-    0x30a, 0x5, 0x7a, 0x3e, 0x2, 0x30a, 0x30c, 0x3, 0x2, 0x2, 0x2, 0x30b, 
-    0x2cf, 0x3, 0x2, 0x2, 0x2, 0x30b, 0x2dd, 0x3, 0x2, 0x2, 0x2, 0x30b, 
-    0x2e2, 0x3, 0x2, 0x2, 0x2, 0x30b, 0x2e7, 0x3, 0x2, 0x2, 0x2, 0x30b, 
-    0x2e9, 0x3, 0x2, 0x2, 0x2, 0x30b, 0x2eb, 0x3, 0x2, 0x2, 0x2, 0x30b, 
-    0x2ed, 0x3, 0x2, 0x2, 0x2, 0x30b, 0x2ef, 0x3, 0x2, 0x2, 0x2, 0x30b, 
-    0x2f1, 0x3, 0x2, 0x2, 0x2, 0x30b, 0x2f3, 0x3, 0x2, 0x2, 0x2, 0x30b, 
-    0x2f5, 0x3, 0x2, 0x2, 0x2, 0x30b, 0x2f7, 0x3, 0x2, 0x2, 0x2, 0x30b, 
-    0x2f9, 0x3, 0x2, 0x2, 0x2, 0x30b, 0x2fa, 0x3, 0x2, 0x2, 0x2, 0x30b, 
-    0x2fb, 0x3, 0x2, 0x2, 0x2, 0x30b, 0x2fc, 0x3, 0x2, 0x2, 0x2, 0x30b, 
-    0x2fd, 0x3, 0x2, 0x2, 0x2, 0x30b, 0x2fe, 0x3, 0x2, 0x2, 0x2, 0x30b, 
-    0x2ff, 0x3, 0x2, 0x2, 0x2, 0x30b, 0x300, 0x3, 0x2, 0x2, 0x2, 0x30b, 
-    0x301, 0x3, 0x2, 0x2, 0x2, 0x30b, 0x302, 0x3, 0x2, 0x2, 0x2, 0x30b, 
-    0x303, 0x3, 0x2, 0x2, 0x2, 0x30b, 0x307, 0x3, 0x2, 0x2, 0x2, 0x30c, 
-    0x352, 0x3, 0x2, 0x2, 0x2, 0x30d, 0x30e, 0xc, 0x1e, 0x2, 0x2, 0x30e, 
-    0x30f, 0x9, 0x4, 0x2, 0x2, 0x30f, 0x351, 0x5, 0x76, 0x3c, 0x1f, 0x310, 
-    0x311, 0xc, 0x1d, 0x2, 0x2, 0x311, 0x312, 0x9, 0x5, 0x2, 0x2, 0x312, 
-    0x351, 0x5, 0x76, 0x3c, 0x1e, 0x313, 0x314, 0xc, 0x1c, 0x2, 0x2, 0x314, 
-    0x315, 0x9, 0x6, 0x2, 0x2, 0x315, 0x351, 0x5, 0x76, 0x3c, 0x1d, 0x316, 
-    0x317, 0xc, 0x1b, 0x2, 0x2, 0x317, 0x318, 0x9, 0x7, 0x2, 0x2, 0x318, 
-    0x351, 0x5, 0x76, 0x3c, 0x1c, 0x319, 0x31a, 0xc, 0x1a, 0x2, 0x2, 0x31a, 
-    0x31b, 0x7, 0x41, 0x2, 0x2, 0x31b, 0x351, 0x5, 0x76, 0x3c, 0x1b, 0x31c, 
-    0x31d, 0xc, 0x19, 0x2, 0x2, 0x31d, 0x31e, 0x7, 0x57, 0x2, 0x2, 0x31e, 
-    0x351, 0x5, 0x76, 0x3c, 0x1a, 0x31f, 0x320, 0xc, 0x18, 0x2, 0x2, 0x320, 
-    0x321, 0x9, 0x8, 0x2, 0x2, 0x321, 0x351, 0x5, 0x76, 0x3c, 0x19, 0x322, 
-    0x323, 0xc, 0x17, 0x2, 0x2, 0x323, 0x324, 0x7, 0x27, 0x2, 0x2, 0x324, 
-    0x351, 0x5, 0x76, 0x3c, 0x18, 0x325, 0x326, 0xc, 0x16, 0x2, 0x2, 0x326, 
-    0x327, 0x7, 0x28, 0x2, 0x2, 0x327, 0x351, 0x5, 0x76, 0x3c, 0x17, 0x328, 
-    0x329, 0xc, 0x15, 0x2, 0x2, 0x329, 0x32a, 0x7, 0x29, 0x2, 0x2, 0x32a, 
-    0x351, 0x5, 0x76, 0x3c, 0x16, 0x32b, 0x32c, 0xc, 0x14, 0x2, 0x2, 0x32c, 
-    0x32d, 0x7, 0x2a, 0x2, 0x2, 0x32d, 0x351, 0x5, 0x76, 0x3c, 0x15, 0x32e, 
-    0x32f, 0xc, 0x13, 0x2, 0x2, 0x32f, 0x330, 0x7, 0x2b, 0x2, 0x2, 0x330, 
-    0x351, 0x5, 0x76, 0x3c, 0x14, 0x331, 0x332, 0xc, 0x12, 0x2, 0x2, 0x332, 
-    0x333, 0x7, 0xf, 0x2, 0x2, 0x333, 0x334, 0x5, 0x76, 0x3c, 0x2, 0x334, 
-    0x335, 0x7, 0x10, 0x2, 0x2, 0x335, 0x336, 0x5, 0x76, 0x3c, 0x13, 0x336, 
-    0x351, 0x3, 0x2, 0x2, 0x2, 0x337, 0x338, 0xc, 0x11, 0x2, 0x2, 0x338, 
-    0x339, 0x7, 0xe, 0x2, 0x2, 0x339, 0x351, 0x5, 0x76, 0x3c, 0x11, 0x33a, 
-    0x33b, 0xc, 0x10, 0x2, 0x2, 0x33b, 0x33c, 0x5, 0x7c, 0x3f, 0x2, 0x33c, 
-    0x33d, 0x5, 0x76, 0x3c, 0x10, 0x33d, 0x351, 0x3, 0x2, 0x2, 0x2, 0x33e, 
-    0x33f, 0xc, 0x2d, 0x2, 0x2, 0x33f, 0x340, 0x7, 0x6, 0x2, 0x2, 0x340, 
-    0x341, 0x5, 0x74, 0x3b, 0x2, 0x341, 0x342, 0x7, 0x7, 0x2, 0x2, 0x342, 
-    0x351, 0x3, 0x2, 0x2, 0x2, 0x343, 0x344, 0xc, 0x2c, 0x2, 0x2, 0x344, 
-    0x345, 0x7, 0x12, 0x2, 0x2, 0x345, 0x351, 0x5, 0x82, 0x42, 0x2, 0x346, 
-    0x347, 0xc, 0x2b, 0x2, 0x2, 0x347, 0x351, 0x5, 0x70, 0x39, 0x2, 0x348, 
-    0x349, 0xc, 0x29, 0x2, 0x2, 0x349, 0x34a, 0x6, 0x3c, 0x1e, 0x2, 0x34a, 
-    0x351, 0x7, 0x13, 0x2, 0x2, 0x34b, 0x34c, 0xc, 0x28, 0x2, 0x2, 0x34c, 
-    0x34d, 0x6, 0x3c, 0x20, 0x2, 0x34d, 0x351, 0x7, 0x14, 0x2, 0x2, 0x34e, 
-    0x34f, 0xc, 0xf, 0x2, 0x2, 0x34f, 0x351, 0x7, 0x6d, 0x2, 0x2, 0x350, 
-    0x30d, 0x3, 0x2, 0x2, 0x2, 0x350, 0x310, 0x3, 0x2, 0x2, 0x2, 0x350, 
-    0x313, 0x3, 0x2, 0x2, 0x2, 0x350, 0x316, 0x3, 0x2, 0x2, 0x2, 0x350, 
-    0x319, 0x3, 0x2, 0x2, 0x2, 0x350, 0x31c, 0x3, 0x2, 0x2, 0x2, 0x350, 
-    0x31f, 0x3, 0x2, 0x2, 0x2, 0x350, 0x322, 0x3, 0x2, 0x2, 0x2, 0x350, 
-    0x325, 0x3, 0x2, 0x2, 0x2, 0x350, 0x328, 0x3, 0x2, 0x2, 0x2, 0x350, 
-    0x32b, 0x3, 0x2, 0x2, 0x2, 0x350, 0x32e, 0x3, 0x2, 0x2, 0x2, 0x350, 
-    0x331, 0x3, 0x2, 0x2, 0x2, 0x350, 0x337, 0x3, 0x2, 0x2, 0x2, 0x350, 
-    0x33a, 0x3, 0x2, 0x2, 0x2, 0x350, 0x33e, 0x3, 0x2, 0x2, 0x2, 0x350, 
-    0x343, 0x3, 0x2, 0x2, 0x2, 0x350, 0x346, 0x3, 0x2, 0x2, 0x2, 0x350, 
-    0x348, 0x3, 0x2, 0x2, 0x2, 0x350, 0x34b, 0x3, 0x2, 0x2, 0x2, 0x350, 
-    0x34e, 0x3, 0x2, 0x2, 0x2, 0x351, 0x354, 0x3, 0x2, 0x2, 0x2, 0x352, 
-    0x350, 0x3, 0x2, 0x2, 0x2, 0x352, 0x353, 0x3, 0x2, 0x2, 0x2, 0x353, 
-    0x77, 0x3, 0x2, 0x2, 0x2, 0x354, 0x352, 0x3, 0x2, 0x2, 0x2, 0x355, 0x35c, 
-    0x7, 0x6b, 0x2, 0x2, 0x356, 0x358, 0x7, 0x8, 0x2, 0x2, 0x357, 0x359, 
-    0x5, 0x5a, 0x2e, 0x2, 0x358, 0x357, 0x3, 0x2, 0x2, 0x2, 0x358, 0x359, 
-    0x3, 0x2, 0x2, 0x2, 0x359, 0x35a, 0x3, 0x2, 0x2, 0x2, 0x35a, 0x35c, 
-    0x7, 0x9, 0x2, 0x2, 0x35b, 0x355, 0x3, 0x2, 0x2, 0x2, 0x35b, 0x356, 
-    0x3, 0x2, 0x2, 0x2, 0x35c, 0x79, 0x3, 0x2, 0x2, 0x2, 0x35d, 0x363, 0x5, 
-    0x76, 0x3c, 0x2, 0x35e, 0x35f, 0x7, 0xa, 0x2, 0x2, 0x35f, 0x360, 0x5, 
-    0x60, 0x31, 0x2, 0x360, 0x361, 0x7, 0xb, 0x2, 0x2, 0x361, 0x363, 0x3, 
-    0x2, 0x2, 0x2, 0x362, 0x35d, 0x3, 0x2, 0x2, 0x2, 0x362, 0x35e, 0x3, 
-    0x2, 0x2, 0x2, 0x363, 0x7b, 0x3, 0x2, 0x2, 0x2, 0x364, 0x365, 0x9, 0x9, 
-    0x2, 0x2, 0x365, 0x7d, 0x3, 0x2, 0x2, 0x2, 0x366, 0x36d, 0x7, 0x38, 
-    0x2, 0x2, 0x367, 0x36d, 0x7, 0x39, 0x2, 0x2, 0x368, 0x36d, 0x7, 0x6c, 
-    0x2, 0x2, 0x369, 0x36d, 0x7, 0x6d, 0x2, 0x2, 0x36a, 0x36d, 0x7, 0x5, 
-    0x2, 0x2, 0x36b, 0x36d, 0x5, 0x80, 0x41, 0x2, 0x36c, 0x366, 0x3, 0x2, 
-    0x2, 0x2, 0x36c, 0x367, 0x3, 0x2, 0x2, 0x2, 0x36c, 0x368, 0x3, 0x2, 
-    0x2, 0x2, 0x36c, 0x369, 0x3, 0x2, 0x2, 0x2, 0x36c, 0x36a, 0x3, 0x2, 
-    0x2, 0x2, 0x36c, 0x36b, 0x3, 0x2, 0x2, 0x2, 0x36d, 0x7f, 0x3, 0x2, 0x2, 
-    0x2, 0x36e, 0x36f, 0x9, 0xa, 0x2, 0x2, 0x36f, 0x81, 0x3, 0x2, 0x2, 0x2, 
-    0x370, 0x373, 0x7, 0x6b, 0x2, 0x2, 0x371, 0x373, 0x5, 0x84, 0x43, 0x2, 
-    0x372, 0x370, 0x3, 0x2, 0x2, 0x2, 0x372, 0x371, 0x3, 0x2, 0x2, 0x2, 
-    0x373, 0x83, 0x3, 0x2, 0x2, 0x2, 0x374, 0x378, 0x5, 0x86, 0x44, 0x2, 
-    0x375, 0x378, 0x7, 0x38, 0x2, 0x2, 0x376, 0x378, 0x7, 0x39, 0x2, 0x2, 
-    0x377, 0x374, 0x3, 0x2, 0x2, 0x2, 0x377, 0x375, 0x3, 0x2, 0x2, 0x2, 
-    0x377, 0x376, 0x3, 0x2, 0x2, 0x2, 0x378, 0x85, 0x3, 0x2, 0x2, 0x2, 0x379, 
-    0x37a, 0x9, 0xb, 0x2, 0x2, 0x37a, 0x87, 0x3, 0x2, 0x2, 0x2, 0x37b, 0x37c, 
-    0x7, 0x6b, 0x2, 0x2, 0x37c, 0x37d, 0x6, 0x45, 0x22, 0x2, 0x37d, 0x37e, 
-    0x5, 0x6e, 0x38, 0x2, 0x37e, 0x89, 0x3, 0x2, 0x2, 0x2, 0x37f, 0x380, 
-    0x7, 0x6b, 0x2, 0x2, 0x380, 0x381, 0x6, 0x46, 0x23, 0x2, 0x381, 0x382, 
-    0x5, 0x6e, 0x38, 0x2, 0x382, 0x8b, 0x3, 0x2, 0x2, 0x2, 0x383, 0x388, 
-    0x7, 0xc, 0x2, 0x2, 0x384, 0x388, 0x7, 0x2, 0x2, 0x3, 0x385, 0x388, 
-    0x6, 0x47, 0x24, 0x2, 0x386, 0x388, 0x6, 0x47, 0x25, 0x2, 0x387, 0x383, 
-    0x3, 0x2, 0x2, 0x2, 0x387, 0x384, 0x3, 0x2, 0x2, 0x2, 0x387, 0x385, 
-    0x3, 0x2, 0x2, 0x2, 0x387, 0x386, 0x3, 0x2, 0x2, 0x2, 0x388, 0x8d, 0x3, 
-    0x2, 0x2, 0x2, 0x5c, 0x8f, 0x94, 0xad, 0xb1, 0xb8, 0xbf, 0xc3, 0xcc, 
-    0xd4, 0xdb, 0xdf, 0xea, 0xf0, 0xf4, 0x103, 0x116, 0x11a, 0x11e, 0x128, 
-    0x12c, 0x137, 0x144, 0x14a, 0x151, 0x158, 0x15f, 0x166, 0x178, 0x17c, 
-    0x17e, 0x185, 0x18b, 0x190, 0x19f, 0x1a2, 0x1b4, 0x1c1, 0x1c7, 0x1cf, 
-    0x1d3, 0x1d8, 0x1e9, 0x1f1, 0x1f4, 0x1f9, 0x203, 0x207, 0x214, 0x217, 
-    0x21a, 0x227, 0x22a, 0x22d, 0x236, 0x242, 0x247, 0x24c, 0x251, 0x257, 
-    0x25c, 0x260, 0x268, 0x26d, 0x273, 0x276, 0x279, 0x27e, 0x286, 0x289, 
-    0x28c, 0x2ab, 0x2b0, 0x2b8, 0x2bd, 0x2c0, 0x2cc, 0x2d2, 0x2d6, 0x2df, 
-    0x2e5, 0x30b, 0x350, 0x352, 0x358, 0x35b, 0x362, 0x36c, 0x372, 0x377, 
-    0x387, 
+    0x3c, 0x3, 0x3c, 0x3, 0x3c, 0x3, 0x3c, 0x5, 0x3c, 0x354, 0xa, 0x3c, 
+    0x3, 0x3c, 0x3, 0x3c, 0x5, 0x3c, 0x358, 0xa, 0x3c, 0x3, 0x3c, 0x3, 0x3c, 
+    0x3, 0x3c, 0x3, 0x3c, 0x3, 0x3c, 0x3, 0x3c, 0x3, 0x3c, 0x3, 0x3c, 0x3, 
+    0x3c, 0x3, 0x3c, 0x3, 0x3c, 0x7, 0x3c, 0x365, 0xa, 0x3c, 0xc, 0x3c, 
+    0xe, 0x3c, 0x368, 0xb, 0x3c, 0x3, 0x3d, 0x3, 0x3d, 0x3, 0x3d, 0x5, 0x3d, 
+    0x36d, 0xa, 0x3d, 0x3, 0x3e, 0x3, 0x3e, 0x5, 0x3e, 0x371, 0xa, 0x3e, 
+    0x3, 0x3e, 0x3, 0x3e, 0x5, 0x3e, 0x375, 0xa, 0x3e, 0x3, 0x3e, 0x3, 0x3e, 
+    0x5, 0x3e, 0x379, 0xa, 0x3e, 0x3, 0x3e, 0x3, 0x3e, 0x3, 0x3e, 0x3, 0x3e, 
+    0x3, 0x3e, 0x3, 0x3e, 0x5, 0x3e, 0x381, 0xa, 0x3e, 0x3, 0x3e, 0x3, 0x3e, 
+    0x3, 0x3e, 0x3, 0x3e, 0x5, 0x3e, 0x387, 0xa, 0x3e, 0x3, 0x3f, 0x3, 0x3f, 
+    0x3, 0x3f, 0x5, 0x3f, 0x38c, 0xa, 0x3f, 0x3, 0x3f, 0x5, 0x3f, 0x38f, 
+    0xa, 0x3f, 0x3, 0x40, 0x3, 0x40, 0x3, 0x40, 0x3, 0x40, 0x3, 0x40, 0x5, 
+    0x40, 0x396, 0xa, 0x40, 0x3, 0x41, 0x3, 0x41, 0x3, 0x42, 0x3, 0x42, 
+    0x3, 0x42, 0x3, 0x42, 0x3, 0x42, 0x3, 0x42, 0x3, 0x42, 0x5, 0x42, 0x3a1, 
+    0xa, 0x42, 0x3, 0x43, 0x3, 0x43, 0x3, 0x44, 0x3, 0x44, 0x3, 0x45, 0x3, 
+    0x45, 0x5, 0x45, 0x3a9, 0xa, 0x45, 0x3, 0x46, 0x3, 0x46, 0x3, 0x46, 
+    0x5, 0x46, 0x3ae, 0xa, 0x46, 0x3, 0x47, 0x3, 0x47, 0x3, 0x48, 0x3, 0x48, 
+    0x3, 0x48, 0x3, 0x48, 0x3, 0x49, 0x3, 0x49, 0x3, 0x49, 0x3, 0x49, 0x3, 
+    0x4a, 0x3, 0x4a, 0x3, 0x4a, 0x3, 0x4a, 0x5, 0x4a, 0x3be, 0xa, 0x4a, 
+    0x3, 0x4a, 0x2, 0x3, 0x76, 0x4b, 0x2, 0x4, 0x6, 0x8, 0xa, 0xc, 0xe, 
+    0x10, 0x12, 0x14, 0x16, 0x18, 0x1a, 0x1c, 0x1e, 0x20, 0x22, 0x24, 0x26, 
+    0x28, 0x2a, 0x2c, 0x2e, 0x30, 0x32, 0x34, 0x36, 0x38, 0x3a, 0x3c, 0x3e, 
+    0x40, 0x42, 0x44, 0x46, 0x48, 0x4a, 0x4c, 0x4e, 0x50, 0x52, 0x54, 0x56, 
+    0x58, 0x5a, 0x5c, 0x5e, 0x60, 0x62, 0x64, 0x66, 0x68, 0x6a, 0x6c, 0x6e, 
+    0x70, 0x72, 0x74, 0x76, 0x78, 0x7a, 0x7c, 0x7e, 0x80, 0x82, 0x84, 0x86, 
+    0x88, 0x8a, 0x8c, 0x8e, 0x90, 0x92, 0x2, 0xc, 0x5, 0x2, 0x4f, 0x4f, 
+    0x68, 0x68, 0x6e, 0x6e, 0x3, 0x2, 0x1a, 0x1c, 0x3, 0x2, 0x16, 0x17, 
+    0x3, 0x2, 0x20, 0x22, 0x3, 0x2, 0x23, 0x26, 0x3, 0x2, 0x27, 0x2a, 0x3, 
+    0x2, 0x30, 0x3b, 0x3, 0x2, 0x3f, 0x43, 0x3, 0x2, 0x44, 0x47, 0x3, 0x2, 
+    0x48, 0x75, 0x2, 0x435, 0x2, 0x95, 0x3, 0x2, 0x2, 0x2, 0x4, 0x9c, 0x3, 
+    0x2, 0x2, 0x2, 0x6, 0xb2, 0x3, 0x2, 0x2, 0x2, 0x8, 0xb4, 0x3, 0x2, 0x2, 
+    0x2, 0xa, 0xbb, 0x3, 0x2, 0x2, 0x2, 0xc, 0xbf, 0x3, 0x2, 0x2, 0x2, 0xe, 
+    0xce, 0x3, 0x2, 0x2, 0x2, 0x10, 0xd0, 0x3, 0x2, 0x2, 0x2, 0x12, 0xe1, 
+    0x3, 0x2, 0x2, 0x2, 0x14, 0xe4, 0x3, 0x2, 0x2, 0x2, 0x16, 0xe9, 0x3, 
+    0x2, 0x2, 0x2, 0x18, 0xec, 0x3, 0x2, 0x2, 0x2, 0x1a, 0xfd, 0x3, 0x2, 
+    0x2, 0x2, 0x1c, 0x109, 0x3, 0x2, 0x2, 0x2, 0x1e, 0x10e, 0x3, 0x2, 0x2, 
+    0x2, 0x20, 0x110, 0x3, 0x2, 0x2, 0x2, 0x22, 0x114, 0x3, 0x2, 0x2, 0x2, 
+    0x24, 0x11c, 0x3, 0x2, 0x2, 0x2, 0x26, 0x121, 0x3, 0x2, 0x2, 0x2, 0x28, 
+    0x123, 0x3, 0x2, 0x2, 0x2, 0x2a, 0x127, 0x3, 0x2, 0x2, 0x2, 0x2c, 0x168, 
+    0x3, 0x2, 0x2, 0x2, 0x2e, 0x16a, 0x3, 0x2, 0x2, 0x2, 0x30, 0x16c, 0x3, 
+    0x2, 0x2, 0x2, 0x32, 0x173, 0x3, 0x2, 0x2, 0x2, 0x34, 0x17a, 0x3, 0x2, 
+    0x2, 0x2, 0x36, 0x181, 0x3, 0x2, 0x2, 0x2, 0x38, 0x188, 0x3, 0x2, 0x2, 
+    0x2, 0x3a, 0x18e, 0x3, 0x2, 0x2, 0x2, 0x3c, 0x194, 0x3, 0x2, 0x2, 0x2, 
+    0x3e, 0x1a1, 0x3, 0x2, 0x2, 0x2, 0x40, 0x1a5, 0x3, 0x2, 0x2, 0x2, 0x42, 
+    0x1ab, 0x3, 0x2, 0x2, 0x2, 0x44, 0x1b0, 0x3, 0x2, 0x2, 0x2, 0x46, 0x1b4, 
+    0x3, 0x2, 0x2, 0x2, 0x48, 0x1b9, 0x3, 0x2, 0x2, 0x2, 0x4a, 0x1c2, 0x3, 
+    0x2, 0x2, 0x2, 0x4c, 0x1cc, 0x3, 0x2, 0x2, 0x2, 0x4e, 0x1cf, 0x3, 0x2, 
+    0x2, 0x2, 0x50, 0x1d3, 0x3, 0x2, 0x2, 0x2, 0x52, 0x1e3, 0x3, 0x2, 0x2, 
+    0x2, 0x54, 0x1e9, 0x3, 0x2, 0x2, 0x2, 0x56, 0x206, 0x3, 0x2, 0x2, 0x2, 
+    0x58, 0x235, 0x3, 0x2, 0x2, 0x2, 0x5a, 0x244, 0x3, 0x2, 0x2, 0x2, 0x5c, 
+    0x246, 0x3, 0x2, 0x2, 0x2, 0x5e, 0x24b, 0x3, 0x2, 0x2, 0x2, 0x60, 0x24f, 
+    0x3, 0x2, 0x2, 0x2, 0x62, 0x252, 0x3, 0x2, 0x2, 0x2, 0x64, 0x256, 0x3, 
+    0x2, 0x2, 0x2, 0x66, 0x25d, 0x3, 0x2, 0x2, 0x2, 0x68, 0x275, 0x3, 0x2, 
+    0x2, 0x2, 0x6a, 0x279, 0x3, 0x2, 0x2, 0x2, 0x6c, 0x2b6, 0x3, 0x2, 0x2, 
+    0x2, 0x6e, 0x2bf, 0x3, 0x2, 0x2, 0x2, 0x70, 0x2c1, 0x3, 0x2, 0x2, 0x2, 
+    0x72, 0x2d2, 0x3, 0x2, 0x2, 0x2, 0x74, 0x2d8, 0x3, 0x2, 0x2, 0x2, 0x76, 
+    0x313, 0x3, 0x2, 0x2, 0x2, 0x78, 0x36c, 0x3, 0x2, 0x2, 0x2, 0x7a, 0x386, 
+    0x3, 0x2, 0x2, 0x2, 0x7c, 0x38e, 0x3, 0x2, 0x2, 0x2, 0x7e, 0x395, 0x3, 
+    0x2, 0x2, 0x2, 0x80, 0x397, 0x3, 0x2, 0x2, 0x2, 0x82, 0x3a0, 0x3, 0x2, 
+    0x2, 0x2, 0x84, 0x3a2, 0x3, 0x2, 0x2, 0x2, 0x86, 0x3a4, 0x3, 0x2, 0x2, 
+    0x2, 0x88, 0x3a8, 0x3, 0x2, 0x2, 0x2, 0x8a, 0x3ad, 0x3, 0x2, 0x2, 0x2, 
+    0x8c, 0x3af, 0x3, 0x2, 0x2, 0x2, 0x8e, 0x3b1, 0x3, 0x2, 0x2, 0x2, 0x90, 
+    0x3b5, 0x3, 0x2, 0x2, 0x2, 0x92, 0x3bd, 0x3, 0x2, 0x2, 0x2, 0x94, 0x96, 
+    0x7, 0x3, 0x2, 0x2, 0x95, 0x94, 0x3, 0x2, 0x2, 0x2, 0x95, 0x96, 0x3, 
+    0x2, 0x2, 0x2, 0x96, 0x98, 0x3, 0x2, 0x2, 0x2, 0x97, 0x99, 0x5, 0x62, 
+    0x32, 0x2, 0x98, 0x97, 0x3, 0x2, 0x2, 0x2, 0x98, 0x99, 0x3, 0x2, 0x2, 
+    0x2, 0x99, 0x9a, 0x3, 0x2, 0x2, 0x2, 0x9a, 0x9b, 0x7, 0x2, 0x2, 0x3, 
+    0x9b, 0x3, 0x3, 0x2, 0x2, 0x2, 0x9c, 0x9d, 0x5, 0x6, 0x4, 0x2, 0x9d, 
+    0x5, 0x3, 0x2, 0x2, 0x2, 0x9e, 0xb3, 0x5, 0x8, 0x5, 0x2, 0x9f, 0xb3, 
+    0x5, 0x20, 0x11, 0x2, 0xa0, 0xb3, 0x5, 0xc, 0x7, 0x2, 0xa1, 0xb3, 0x5, 
+    0x1a, 0xe, 0x2, 0xa2, 0xb3, 0x5, 0x26, 0x14, 0x2, 0xa3, 0xb3, 0x5, 0x52, 
+    0x2a, 0x2, 0xa4, 0xb3, 0x5, 0x28, 0x15, 0x2, 0xa5, 0xb3, 0x5, 0x2a, 
+    0x16, 0x2, 0xa6, 0xb3, 0x5, 0x2c, 0x17, 0x2, 0xa7, 0xb3, 0x5, 0x30, 
+    0x19, 0x2, 0xa8, 0xb3, 0x5, 0x32, 0x1a, 0x2, 0xa9, 0xb3, 0x5, 0x34, 
+    0x1b, 0x2, 0xaa, 0xb3, 0x5, 0x36, 0x1c, 0x2, 0xab, 0xb3, 0x5, 0x38, 
+    0x1d, 0x2, 0xac, 0xb3, 0x5, 0x44, 0x23, 0x2, 0xad, 0xb3, 0x5, 0x3a, 
+    0x1e, 0x2, 0xae, 0xb3, 0x5, 0x46, 0x24, 0x2, 0xaf, 0xb3, 0x5, 0x48, 
+    0x25, 0x2, 0xb0, 0xb3, 0x5, 0x4e, 0x28, 0x2, 0xb1, 0xb3, 0x5, 0x50, 
+    0x29, 0x2, 0xb2, 0x9e, 0x3, 0x2, 0x2, 0x2, 0xb2, 0x9f, 0x3, 0x2, 0x2, 
+    0x2, 0xb2, 0xa0, 0x3, 0x2, 0x2, 0x2, 0xb2, 0xa1, 0x3, 0x2, 0x2, 0x2, 
+    0xb2, 0xa2, 0x3, 0x2, 0x2, 0x2, 0xb2, 0xa3, 0x3, 0x2, 0x2, 0x2, 0xb2, 
+    0xa4, 0x3, 0x2, 0x2, 0x2, 0xb2, 0xa5, 0x3, 0x2, 0x2, 0x2, 0xb2, 0xa6, 
+    0x3, 0x2, 0x2, 0x2, 0xb2, 0xa7, 0x3, 0x2, 0x2, 0x2, 0xb2, 0xa8, 0x3, 
+    0x2, 0x2, 0x2, 0xb2, 0xa9, 0x3, 0x2, 0x2, 0x2, 0xb2, 0xaa, 0x3, 0x2, 
+    0x2, 0x2, 0xb2, 0xab, 0x3, 0x2, 0x2, 0x2, 0xb2, 0xac, 0x3, 0x2, 0x2, 
+    0x2, 0xb2, 0xad, 0x3, 0x2, 0x2, 0x2, 0xb2, 0xae, 0x3, 0x2, 0x2, 0x2, 
+    0xb2, 0xaf, 0x3, 0x2, 0x2, 0x2, 0xb2, 0xb0, 0x3, 0x2, 0x2, 0x2, 0xb2, 
+    0xb1, 0x3, 0x2, 0x2, 0x2, 0xb3, 0x7, 0x3, 0x2, 0x2, 0x2, 0xb4, 0xb6, 
+    0x7, 0xb, 0x2, 0x2, 0xb5, 0xb7, 0x5, 0xa, 0x6, 0x2, 0xb6, 0xb5, 0x3, 
+    0x2, 0x2, 0x2, 0xb6, 0xb7, 0x3, 0x2, 0x2, 0x2, 0xb7, 0xb8, 0x3, 0x2, 
+    0x2, 0x2, 0xb8, 0xb9, 0x7, 0xc, 0x2, 0x2, 0xb9, 0x9, 0x3, 0x2, 0x2, 
+    0x2, 0xba, 0xbc, 0x5, 0x6, 0x4, 0x2, 0xbb, 0xba, 0x3, 0x2, 0x2, 0x2, 
+    0xbc, 0xbd, 0x3, 0x2, 0x2, 0x2, 0xbd, 0xbb, 0x3, 0x2, 0x2, 0x2, 0xbd, 
+    0xbe, 0x3, 0x2, 0x2, 0x2, 0xbe, 0xb, 0x3, 0x2, 0x2, 0x2, 0xbf, 0xc0, 
+    0x7, 0x6a, 0x2, 0x2, 0xc0, 0xc1, 0x5, 0xe, 0x8, 0x2, 0xc1, 0xd, 0x3, 
+    0x2, 0x2, 0x2, 0xc2, 0xc4, 0x5, 0x12, 0xa, 0x2, 0xc3, 0xc2, 0x3, 0x2, 
+    0x2, 0x2, 0xc3, 0xc4, 0x3, 0x2, 0x2, 0x2, 0xc4, 0xc7, 0x3, 0x2, 0x2, 
+    0x2, 0xc5, 0xc8, 0x5, 0x14, 0xb, 0x2, 0xc6, 0xc8, 0x5, 0x10, 0x9, 0x2, 
+    0xc7, 0xc5, 0x3, 0x2, 0x2, 0x2, 0xc7, 0xc6, 0x3, 0x2, 0x2, 0x2, 0xc8, 
+    0xc9, 0x3, 0x2, 0x2, 0x2, 0xc9, 0xca, 0x5, 0x16, 0xc, 0x2, 0xca, 0xcb, 
+    0x5, 0x92, 0x4a, 0x2, 0xcb, 0xcf, 0x3, 0x2, 0x2, 0x2, 0xcc, 0xcd, 0x7, 
+    0x77, 0x2, 0x2, 0xcd, 0xcf, 0x5, 0x92, 0x4a, 0x2, 0xce, 0xc3, 0x3, 0x2, 
+    0x2, 0x2, 0xce, 0xcc, 0x3, 0x2, 0x2, 0x2, 0xcf, 0xf, 0x3, 0x2, 0x2, 
+    0x2, 0xd0, 0xd6, 0x7, 0xb, 0x2, 0x2, 0xd1, 0xd2, 0x5, 0x18, 0xd, 0x2, 
+    0xd2, 0xd3, 0x7, 0xe, 0x2, 0x2, 0xd3, 0xd5, 0x3, 0x2, 0x2, 0x2, 0xd4, 
+    0xd1, 0x3, 0x2, 0x2, 0x2, 0xd5, 0xd8, 0x3, 0x2, 0x2, 0x2, 0xd6, 0xd4, 
+    0x3, 0x2, 0x2, 0x2, 0xd6, 0xd7, 0x3, 0x2, 0x2, 0x2, 0xd7, 0xdd, 0x3, 
+    0x2, 0x2, 0x2, 0xd8, 0xd6, 0x3, 0x2, 0x2, 0x2, 0xd9, 0xdb, 0x5, 0x18, 
+    0xd, 0x2, 0xda, 0xdc, 0x7, 0xe, 0x2, 0x2, 0xdb, 0xda, 0x3, 0x2, 0x2, 
+    0x2, 0xdb, 0xdc, 0x3, 0x2, 0x2, 0x2, 0xdc, 0xde, 0x3, 0x2, 0x2, 0x2, 
+    0xdd, 0xd9, 0x3, 0x2, 0x2, 0x2, 0xdd, 0xde, 0x3, 0x2, 0x2, 0x2, 0xde, 
+    0xdf, 0x3, 0x2, 0x2, 0x2, 0xdf, 0xe0, 0x7, 0xc, 0x2, 0x2, 0xe0, 0x11, 
+    0x3, 0x2, 0x2, 0x2, 0xe1, 0xe2, 0x5, 0x18, 0xd, 0x2, 0xe2, 0xe3, 0x7, 
+    0xe, 0x2, 0x2, 0xe3, 0x13, 0x3, 0x2, 0x2, 0x2, 0xe4, 0xe7, 0x7, 0x1a, 
+    0x2, 0x2, 0xe5, 0xe6, 0x7, 0x62, 0x2, 0x2, 0xe6, 0xe8, 0x5, 0x88, 0x45, 
+    0x2, 0xe7, 0xe5, 0x3, 0x2, 0x2, 0x2, 0xe7, 0xe8, 0x3, 0x2, 0x2, 0x2, 
+    0xe8, 0x15, 0x3, 0x2, 0x2, 0x2, 0xe9, 0xea, 0x7, 0x63, 0x2, 0x2, 0xea, 
+    0xeb, 0x7, 0x77, 0x2, 0x2, 0xeb, 0x17, 0x3, 0x2, 0x2, 0x2, 0xec, 0xef, 
+    0x5, 0x88, 0x45, 0x2, 0xed, 0xee, 0x7, 0x62, 0x2, 0x2, 0xee, 0xf0, 0x5, 
+    0x88, 0x45, 0x2, 0xef, 0xed, 0x3, 0x2, 0x2, 0x2, 0xef, 0xf0, 0x3, 0x2, 
+    0x2, 0x2, 0xf0, 0x19, 0x3, 0x2, 0x2, 0x2, 0xf1, 0xf4, 0x7, 0x69, 0x2, 
+    0x2, 0xf2, 0xf5, 0x5, 0x1c, 0xf, 0x2, 0xf3, 0xf5, 0x5, 0x1e, 0x10, 0x2, 
+    0xf4, 0xf2, 0x3, 0x2, 0x2, 0x2, 0xf4, 0xf3, 0x3, 0x2, 0x2, 0x2, 0xf5, 
+    0xf6, 0x3, 0x2, 0x2, 0x2, 0xf6, 0xf7, 0x5, 0x92, 0x4a, 0x2, 0xf7, 0xfe, 
+    0x3, 0x2, 0x2, 0x2, 0xf8, 0xf9, 0x7, 0x69, 0x2, 0x2, 0xf9, 0xfa, 0x7, 
+    0x5c, 0x2, 0x2, 0xfa, 0xfb, 0x5, 0x76, 0x3c, 0x2, 0xfb, 0xfc, 0x5, 0x92, 
+    0x4a, 0x2, 0xfc, 0xfe, 0x3, 0x2, 0x2, 0x2, 0xfd, 0xf1, 0x3, 0x2, 0x2, 
+    0x2, 0xfd, 0xf8, 0x3, 0x2, 0x2, 0x2, 0xfe, 0x1b, 0x3, 0x2, 0x2, 0x2, 
+    0xff, 0x100, 0x5, 0x14, 0xb, 0x2, 0x100, 0x101, 0x5, 0x16, 0xc, 0x2, 
+    0x101, 0x102, 0x5, 0x92, 0x4a, 0x2, 0x102, 0x10a, 0x3, 0x2, 0x2, 0x2, 
+    0x103, 0x105, 0x5, 0x10, 0x9, 0x2, 0x104, 0x106, 0x5, 0x16, 0xc, 0x2, 
+    0x105, 0x104, 0x3, 0x2, 0x2, 0x2, 0x105, 0x106, 0x3, 0x2, 0x2, 0x2, 
+    0x106, 0x107, 0x3, 0x2, 0x2, 0x2, 0x107, 0x108, 0x5, 0x92, 0x4a, 0x2, 
+    0x108, 0x10a, 0x3, 0x2, 0x2, 0x2, 0x109, 0xff, 0x3, 0x2, 0x2, 0x2, 0x109, 
+    0x103, 0x3, 0x2, 0x2, 0x2, 0x10a, 0x1d, 0x3, 0x2, 0x2, 0x2, 0x10b, 0x10f, 
+    0x5, 0x20, 0x11, 0x2, 0x10c, 0x10f, 0x5, 0x52, 0x2a, 0x2, 0x10d, 0x10f, 
+    0x5, 0x50, 0x29, 0x2, 0x10e, 0x10b, 0x3, 0x2, 0x2, 0x2, 0x10e, 0x10c, 
+    0x3, 0x2, 0x2, 0x2, 0x10e, 0x10d, 0x3, 0x2, 0x2, 0x2, 0x10f, 0x1f, 0x3, 
+    0x2, 0x2, 0x2, 0x110, 0x111, 0x5, 0x2e, 0x18, 0x2, 0x111, 0x112, 0x5, 
+    0x22, 0x12, 0x2, 0x112, 0x113, 0x5, 0x92, 0x4a, 0x2, 0x113, 0x21, 0x3, 
+    0x2, 0x2, 0x2, 0x114, 0x119, 0x5, 0x24, 0x13, 0x2, 0x115, 0x116, 0x7, 
+    0xe, 0x2, 0x2, 0x116, 0x118, 0x5, 0x24, 0x13, 0x2, 0x117, 0x115, 0x3, 
+    0x2, 0x2, 0x2, 0x118, 0x11b, 0x3, 0x2, 0x2, 0x2, 0x119, 0x117, 0x3, 
+    0x2, 0x2, 0x2, 0x119, 0x11a, 0x3, 0x2, 0x2, 0x2, 0x11a, 0x23, 0x3, 0x2, 
+    0x2, 0x2, 0x11b, 0x119, 0x3, 0x2, 0x2, 0x2, 0x11c, 0x11f, 0x5, 0x78, 
+    0x3d, 0x2, 0x11d, 0x11e, 0x7, 0xf, 0x2, 0x2, 0x11e, 0x120, 0x5, 0x76, 
+    0x3c, 0x2, 0x11f, 0x11d, 0x3, 0x2, 0x2, 0x2, 0x11f, 0x120, 0x3, 0x2, 
+    0x2, 0x2, 0x120, 0x25, 0x3, 0x2, 0x2, 0x2, 0x121, 0x122, 0x7, 0xd, 0x2, 
+    0x2, 0x122, 0x27, 0x3, 0x2, 0x2, 0x2, 0x123, 0x124, 0x6, 0x15, 0x2, 
+    0x2, 0x124, 0x125, 0x5, 0x74, 0x3b, 0x2, 0x125, 0x126, 0x5, 0x92, 0x4a, 
+    0x2, 0x126, 0x29, 0x3, 0x2, 0x2, 0x2, 0x127, 0x128, 0x7, 0x5d, 0x2, 
+    0x2, 0x128, 0x129, 0x7, 0x9, 0x2, 0x2, 0x129, 0x12a, 0x5, 0x74, 0x3b, 
+    0x2, 0x12a, 0x12b, 0x7, 0xa, 0x2, 0x2, 0x12b, 0x12e, 0x5, 0x6, 0x4, 
+    0x2, 0x12c, 0x12d, 0x7, 0x4d, 0x2, 0x2, 0x12d, 0x12f, 0x5, 0x6, 0x4, 
+    0x2, 0x12e, 0x12c, 0x3, 0x2, 0x2, 0x2, 0x12e, 0x12f, 0x3, 0x2, 0x2, 
+    0x2, 0x12f, 0x2b, 0x3, 0x2, 0x2, 0x2, 0x130, 0x131, 0x7, 0x49, 0x2, 
+    0x2, 0x131, 0x132, 0x5, 0x6, 0x4, 0x2, 0x132, 0x133, 0x7, 0x57, 0x2, 
+    0x2, 0x133, 0x134, 0x7, 0x9, 0x2, 0x2, 0x134, 0x135, 0x5, 0x74, 0x3b, 
+    0x2, 0x135, 0x136, 0x7, 0xa, 0x2, 0x2, 0x136, 0x137, 0x5, 0x92, 0x4a, 
+    0x2, 0x137, 0x169, 0x3, 0x2, 0x2, 0x2, 0x138, 0x139, 0x7, 0x57, 0x2, 
+    0x2, 0x139, 0x13a, 0x7, 0x9, 0x2, 0x2, 0x13a, 0x13b, 0x5, 0x74, 0x3b, 
+    0x2, 0x13b, 0x13c, 0x7, 0xa, 0x2, 0x2, 0x13c, 0x13d, 0x5, 0x6, 0x4, 
+    0x2, 0x13d, 0x169, 0x3, 0x2, 0x2, 0x2, 0x13e, 0x13f, 0x7, 0x55, 0x2, 
+    0x2, 0x13f, 0x142, 0x7, 0x9, 0x2, 0x2, 0x140, 0x143, 0x5, 0x74, 0x3b, 
+    0x2, 0x141, 0x143, 0x5, 0x20, 0x11, 0x2, 0x142, 0x140, 0x3, 0x2, 0x2, 
+    0x2, 0x142, 0x141, 0x3, 0x2, 0x2, 0x2, 0x142, 0x143, 0x3, 0x2, 0x2, 
+    0x2, 0x143, 0x144, 0x3, 0x2, 0x2, 0x2, 0x144, 0x146, 0x7, 0xd, 0x2, 
+    0x2, 0x145, 0x147, 0x5, 0x74, 0x3b, 0x2, 0x146, 0x145, 0x3, 0x2, 0x2, 
+    0x2, 0x146, 0x147, 0x3, 0x2, 0x2, 0x2, 0x147, 0x148, 0x3, 0x2, 0x2, 
+    0x2, 0x148, 0x14a, 0x7, 0xd, 0x2, 0x2, 0x149, 0x14b, 0x5, 0x74, 0x3b, 
+    0x2, 0x14a, 0x149, 0x3, 0x2, 0x2, 0x2, 0x14a, 0x14b, 0x3, 0x2, 0x2, 
+    0x2, 0x14b, 0x14c, 0x3, 0x2, 0x2, 0x2, 0x14c, 0x14d, 0x7, 0xa, 0x2, 
+    0x2, 0x14d, 0x169, 0x5, 0x6, 0x4, 0x2, 0x14e, 0x14f, 0x7, 0x55, 0x2, 
+    0x2, 0x14f, 0x152, 0x7, 0x9, 0x2, 0x2, 0x150, 0x153, 0x5, 0x76, 0x3c, 
+    0x2, 0x151, 0x153, 0x5, 0x20, 0x11, 0x2, 0x152, 0x150, 0x3, 0x2, 0x2, 
+    0x2, 0x152, 0x151, 0x3, 0x2, 0x2, 0x2, 0x153, 0x154, 0x3, 0x2, 0x2, 
+    0x2, 0x154, 0x155, 0x7, 0x60, 0x2, 0x2, 0x155, 0x156, 0x5, 0x74, 0x3b, 
+    0x2, 0x156, 0x157, 0x7, 0xa, 0x2, 0x2, 0x157, 0x158, 0x5, 0x6, 0x4, 
+    0x2, 0x158, 0x169, 0x3, 0x2, 0x2, 0x2, 0x159, 0x15b, 0x7, 0x55, 0x2, 
+    0x2, 0x15a, 0x15c, 0x7, 0x6c, 0x2, 0x2, 0x15b, 0x15a, 0x3, 0x2, 0x2, 
+    0x2, 0x15b, 0x15c, 0x3, 0x2, 0x2, 0x2, 0x15c, 0x15d, 0x3, 0x2, 0x2, 
+    0x2, 0x15d, 0x160, 0x7, 0x9, 0x2, 0x2, 0x15e, 0x161, 0x5, 0x76, 0x3c, 
+    0x2, 0x15f, 0x161, 0x5, 0x20, 0x11, 0x2, 0x160, 0x15e, 0x3, 0x2, 0x2, 
+    0x2, 0x160, 0x15f, 0x3, 0x2, 0x2, 0x2, 0x161, 0x162, 0x3, 0x2, 0x2, 
+    0x2, 0x162, 0x163, 0x7, 0x76, 0x2, 0x2, 0x163, 0x164, 0x6, 0x17, 0x3, 
+    0x2, 0x164, 0x165, 0x5, 0x74, 0x3b, 0x2, 0x165, 0x166, 0x7, 0xa, 0x2, 
+    0x2, 0x166, 0x167, 0x5, 0x6, 0x4, 0x2, 0x167, 0x169, 0x3, 0x2, 0x2, 
+    0x2, 0x168, 0x130, 0x3, 0x2, 0x2, 0x2, 0x168, 0x138, 0x3, 0x2, 0x2, 
+    0x2, 0x168, 0x13e, 0x3, 0x2, 0x2, 0x2, 0x168, 0x14e, 0x3, 0x2, 0x2, 
+    0x2, 0x168, 0x159, 0x3, 0x2, 0x2, 0x2, 0x169, 0x2d, 0x3, 0x2, 0x2, 0x2, 
+    0x16a, 0x16b, 0x9, 0x2, 0x2, 0x2, 0x16b, 0x2f, 0x3, 0x2, 0x2, 0x2, 0x16c, 
+    0x16f, 0x7, 0x54, 0x2, 0x2, 0x16d, 0x16e, 0x6, 0x19, 0x4, 0x2, 0x16e, 
+    0x170, 0x7, 0x76, 0x2, 0x2, 0x16f, 0x16d, 0x3, 0x2, 0x2, 0x2, 0x16f, 
+    0x170, 0x3, 0x2, 0x2, 0x2, 0x170, 0x171, 0x3, 0x2, 0x2, 0x2, 0x171, 
+    0x172, 0x5, 0x92, 0x4a, 0x2, 0x172, 0x31, 0x3, 0x2, 0x2, 0x2, 0x173, 
+    0x176, 0x7, 0x48, 0x2, 0x2, 0x174, 0x175, 0x6, 0x1a, 0x5, 0x2, 0x175, 
+    0x177, 0x7, 0x76, 0x2, 0x2, 0x176, 0x174, 0x3, 0x2, 0x2, 0x2, 0x176, 
+    0x177, 0x3, 0x2, 0x2, 0x2, 0x177, 0x178, 0x3, 0x2, 0x2, 0x2, 0x178, 
+    0x179, 0x5, 0x92, 0x4a, 0x2, 0x179, 0x33, 0x3, 0x2, 0x2, 0x2, 0x17a, 
+    0x17d, 0x7, 0x52, 0x2, 0x2, 0x17b, 0x17c, 0x6, 0x1b, 0x6, 0x2, 0x17c, 
+    0x17e, 0x5, 0x74, 0x3b, 0x2, 0x17d, 0x17b, 0x3, 0x2, 0x2, 0x2, 0x17d, 
+    0x17e, 0x3, 0x2, 0x2, 0x2, 0x17e, 0x17f, 0x3, 0x2, 0x2, 0x2, 0x17f, 
+    0x180, 0x5, 0x92, 0x4a, 0x2, 0x180, 0x35, 0x3, 0x2, 0x2, 0x2, 0x181, 
+    0x184, 0x7, 0x75, 0x2, 0x2, 0x182, 0x183, 0x6, 0x1c, 0x7, 0x2, 0x183, 
+    0x185, 0x5, 0x74, 0x3b, 0x2, 0x184, 0x182, 0x3, 0x2, 0x2, 0x2, 0x184, 
+    0x185, 0x3, 0x2, 0x2, 0x2, 0x185, 0x186, 0x3, 0x2, 0x2, 0x2, 0x186, 
+    0x187, 0x5, 0x92, 0x4a, 0x2, 0x187, 0x37, 0x3, 0x2, 0x2, 0x2, 0x188, 
+    0x189, 0x7, 0x5b, 0x2, 0x2, 0x189, 0x18a, 0x7, 0x9, 0x2, 0x2, 0x18a, 
+    0x18b, 0x5, 0x74, 0x3b, 0x2, 0x18b, 0x18c, 0x7, 0xa, 0x2, 0x2, 0x18c, 
+    0x18d, 0x5, 0x6, 0x4, 0x2, 0x18d, 0x39, 0x3, 0x2, 0x2, 0x2, 0x18e, 0x18f, 
+    0x7, 0x56, 0x2, 0x2, 0x18f, 0x190, 0x7, 0x9, 0x2, 0x2, 0x190, 0x191, 
+    0x5, 0x74, 0x3b, 0x2, 0x191, 0x192, 0x7, 0xa, 0x2, 0x2, 0x192, 0x193, 
+    0x5, 0x3c, 0x1f, 0x2, 0x193, 0x3b, 0x3, 0x2, 0x2, 0x2, 0x194, 0x196, 
+    0x7, 0xb, 0x2, 0x2, 0x195, 0x197, 0x5, 0x3e, 0x20, 0x2, 0x196, 0x195, 
+    0x3, 0x2, 0x2, 0x2, 0x196, 0x197, 0x3, 0x2, 0x2, 0x2, 0x197, 0x19c, 
+    0x3, 0x2, 0x2, 0x2, 0x198, 0x19a, 0x5, 0x42, 0x22, 0x2, 0x199, 0x19b, 
+    0x5, 0x3e, 0x20, 0x2, 0x19a, 0x199, 0x3, 0x2, 0x2, 0x2, 0x19a, 0x19b, 
+    0x3, 0x2, 0x2, 0x2, 0x19b, 0x19d, 0x3, 0x2, 0x2, 0x2, 0x19c, 0x198, 
+    0x3, 0x2, 0x2, 0x2, 0x19c, 0x19d, 0x3, 0x2, 0x2, 0x2, 0x19d, 0x19e, 
+    0x3, 0x2, 0x2, 0x2, 0x19e, 0x19f, 0x7, 0xc, 0x2, 0x2, 0x19f, 0x3d, 0x3, 
+    0x2, 0x2, 0x2, 0x1a0, 0x1a2, 0x5, 0x40, 0x21, 0x2, 0x1a1, 0x1a0, 0x3, 
+    0x2, 0x2, 0x2, 0x1a2, 0x1a3, 0x3, 0x2, 0x2, 0x2, 0x1a3, 0x1a1, 0x3, 
+    0x2, 0x2, 0x2, 0x1a3, 0x1a4, 0x3, 0x2, 0x2, 0x2, 0x1a4, 0x3f, 0x3, 0x2, 
+    0x2, 0x2, 0x1a5, 0x1a6, 0x7, 0x4c, 0x2, 0x2, 0x1a6, 0x1a7, 0x5, 0x74, 
+    0x3b, 0x2, 0x1a7, 0x1a9, 0x7, 0x11, 0x2, 0x2, 0x1a8, 0x1aa, 0x5, 0xa, 
+    0x6, 0x2, 0x1a9, 0x1a8, 0x3, 0x2, 0x2, 0x2, 0x1a9, 0x1aa, 0x3, 0x2, 
+    0x2, 0x2, 0x1aa, 0x41, 0x3, 0x2, 0x2, 0x2, 0x1ab, 0x1ac, 0x7, 0x5c, 
+    0x2, 0x2, 0x1ac, 0x1ae, 0x7, 0x11, 0x2, 0x2, 0x1ad, 0x1af, 0x5, 0xa, 
+    0x6, 0x2, 0x1ae, 0x1ad, 0x3, 0x2, 0x2, 0x2, 0x1ae, 0x1af, 0x3, 0x2, 
+    0x2, 0x2, 0x1af, 0x43, 0x3, 0x2, 0x2, 0x2, 0x1b0, 0x1b1, 0x7, 0x76, 
+    0x2, 0x2, 0x1b1, 0x1b2, 0x7, 0x11, 0x2, 0x2, 0x1b2, 0x1b3, 0x5, 0x6, 
+    0x4, 0x2, 0x1b3, 0x45, 0x3, 0x2, 0x2, 0x2, 0x1b4, 0x1b5, 0x7, 0x5e, 
+    0x2, 0x2, 0x1b5, 0x1b6, 0x6, 0x24, 0x8, 0x2, 0x1b6, 0x1b7, 0x5, 0x74, 
+    0x3b, 0x2, 0x1b7, 0x1b8, 0x5, 0x92, 0x4a, 0x2, 0x1b8, 0x47, 0x3, 0x2, 
+    0x2, 0x2, 0x1b9, 0x1ba, 0x7, 0x61, 0x2, 0x2, 0x1ba, 0x1c0, 0x5, 0x8, 
+    0x5, 0x2, 0x1bb, 0x1bd, 0x5, 0x4a, 0x26, 0x2, 0x1bc, 0x1be, 0x5, 0x4c, 
+    0x27, 0x2, 0x1bd, 0x1bc, 0x3, 0x2, 0x2, 0x2, 0x1bd, 0x1be, 0x3, 0x2, 
+    0x2, 0x2, 0x1be, 0x1c1, 0x3, 0x2, 0x2, 0x2, 0x1bf, 0x1c1, 0x5, 0x4c, 
+    0x27, 0x2, 0x1c0, 0x1bb, 0x3, 0x2, 0x2, 0x2, 0x1c0, 0x1bf, 0x3, 0x2, 
+    0x2, 0x2, 0x1c1, 0x49, 0x3, 0x2, 0x2, 0x2, 0x1c2, 0x1c8, 0x7, 0x50, 
+    0x2, 0x2, 0x1c3, 0x1c5, 0x7, 0x9, 0x2, 0x2, 0x1c4, 0x1c6, 0x5, 0x78, 
+    0x3d, 0x2, 0x1c5, 0x1c4, 0x3, 0x2, 0x2, 0x2, 0x1c5, 0x1c6, 0x3, 0x2, 
+    0x2, 0x2, 0x1c6, 0x1c7, 0x3, 0x2, 0x2, 0x2, 0x1c7, 0x1c9, 0x7, 0xa, 
+    0x2, 0x2, 0x1c8, 0x1c3, 0x3, 0x2, 0x2, 0x2, 0x1c8, 0x1c9, 0x3, 0x2, 
+    0x2, 0x2, 0x1c9, 0x1ca, 0x3, 0x2, 0x2, 0x2, 0x1ca, 0x1cb, 0x5, 0x8, 
+    0x5, 0x2, 0x1cb, 0x4b, 0x3, 0x2, 0x2, 0x2, 0x1cc, 0x1cd, 0x7, 0x51, 
+    0x2, 0x2, 0x1cd, 0x1ce, 0x5, 0x8, 0x5, 0x2, 0x1ce, 0x4d, 0x3, 0x2, 0x2, 
+    0x2, 0x1cf, 0x1d0, 0x7, 0x58, 0x2, 0x2, 0x1d0, 0x1d1, 0x5, 0x92, 0x4a, 
+    0x2, 0x1d1, 0x4f, 0x3, 0x2, 0x2, 0x2, 0x1d2, 0x1d4, 0x7, 0x6b, 0x2, 
+    0x2, 0x1d3, 0x1d2, 0x3, 0x2, 0x2, 0x2, 0x1d3, 0x1d4, 0x3, 0x2, 0x2, 
+    0x2, 0x1d4, 0x1d5, 0x3, 0x2, 0x2, 0x2, 0x1d5, 0x1d7, 0x7, 0x59, 0x2, 
+    0x2, 0x1d6, 0x1d8, 0x7, 0x1a, 0x2, 0x2, 0x1d7, 0x1d6, 0x3, 0x2, 0x2, 
+    0x2, 0x1d7, 0x1d8, 0x3, 0x2, 0x2, 0x2, 0x1d8, 0x1d9, 0x3, 0x2, 0x2, 
+    0x2, 0x1d9, 0x1da, 0x7, 0x76, 0x2, 0x2, 0x1da, 0x1dc, 0x7, 0x9, 0x2, 
+    0x2, 0x1db, 0x1dd, 0x5, 0x5a, 0x2e, 0x2, 0x1dc, 0x1db, 0x3, 0x2, 0x2, 
+    0x2, 0x1dc, 0x1dd, 0x3, 0x2, 0x2, 0x2, 0x1dd, 0x1de, 0x3, 0x2, 0x2, 
+    0x2, 0x1de, 0x1df, 0x7, 0xa, 0x2, 0x2, 0x1df, 0x1e0, 0x7, 0xb, 0x2, 
+    0x2, 0x1e0, 0x1e1, 0x5, 0x60, 0x31, 0x2, 0x1e1, 0x1e2, 0x7, 0xc, 0x2, 
+    0x2, 0x1e2, 0x51, 0x3, 0x2, 0x2, 0x2, 0x1e3, 0x1e4, 0x7, 0x64, 0x2, 
+    0x2, 0x1e4, 0x1e5, 0x7, 0x76, 0x2, 0x2, 0x1e5, 0x1e6, 0x5, 0x54, 0x2b, 
+    0x2, 0x1e6, 0x53, 0x3, 0x2, 0x2, 0x2, 0x1e7, 0x1e8, 0x7, 0x66, 0x2, 
+    0x2, 0x1e8, 0x1ea, 0x5, 0x76, 0x3c, 0x2, 0x1e9, 0x1e7, 0x3, 0x2, 0x2, 
+    0x2, 0x1e9, 0x1ea, 0x3, 0x2, 0x2, 0x2, 0x1ea, 0x1eb, 0x3, 0x2, 0x2, 
+    0x2, 0x1eb, 0x1ef, 0x7, 0xb, 0x2, 0x2, 0x1ec, 0x1ee, 0x5, 0x56, 0x2c, 
+    0x2, 0x1ed, 0x1ec, 0x3, 0x2, 0x2, 0x2, 0x1ee, 0x1f1, 0x3, 0x2, 0x2, 
+    0x2, 0x1ef, 0x1ed, 0x3, 0x2, 0x2, 0x2, 0x1ef, 0x1f0, 0x3, 0x2, 0x2, 
+    0x2, 0x1f0, 0x1f2, 0x3, 0x2, 0x2, 0x2, 0x1f1, 0x1ef, 0x3, 0x2, 0x2, 
+    0x2, 0x1f2, 0x1f3, 0x7, 0xc, 0x2, 0x2, 0x1f3, 0x55, 0x3, 0x2, 0x2, 0x2, 
+    0x1f4, 0x1f9, 0x7, 0x74, 0x2, 0x2, 0x1f5, 0x1f6, 0x6, 0x2c, 0x9, 0x2, 
+    0x1f6, 0x1f9, 0x7, 0x76, 0x2, 0x2, 0x1f7, 0x1f9, 0x7, 0x6b, 0x2, 0x2, 
+    0x1f8, 0x1f4, 0x3, 0x2, 0x2, 0x2, 0x1f8, 0x1f5, 0x3, 0x2, 0x2, 0x2, 
+    0x1f8, 0x1f7, 0x3, 0x2, 0x2, 0x2, 0x1f9, 0x1fc, 0x3, 0x2, 0x2, 0x2, 
+    0x1fa, 0x1f8, 0x3, 0x2, 0x2, 0x2, 0x1fa, 0x1fb, 0x3, 0x2, 0x2, 0x2, 
+    0x1fb, 0x1fd, 0x3, 0x2, 0x2, 0x2, 0x1fc, 0x1fa, 0x3, 0x2, 0x2, 0x2, 
+    0x1fd, 0x207, 0x5, 0x58, 0x2d, 0x2, 0x1fe, 0x207, 0x5, 0x26, 0x14, 0x2, 
+    0x1ff, 0x201, 0x7, 0x1f, 0x2, 0x2, 0x200, 0x1ff, 0x3, 0x2, 0x2, 0x2, 
+    0x200, 0x201, 0x3, 0x2, 0x2, 0x2, 0x201, 0x202, 0x3, 0x2, 0x2, 0x2, 
+    0x202, 0x203, 0x5, 0x6e, 0x38, 0x2, 0x203, 0x204, 0x7, 0xf, 0x2, 0x2, 
+    0x204, 0x205, 0x5, 0x76, 0x3c, 0x2, 0x205, 0x207, 0x3, 0x2, 0x2, 0x2, 
+    0x206, 0x1fa, 0x3, 0x2, 0x2, 0x2, 0x206, 0x1fe, 0x3, 0x2, 0x2, 0x2, 
+    0x206, 0x200, 0x3, 0x2, 0x2, 0x2, 0x207, 0x57, 0x3, 0x2, 0x2, 0x2, 0x208, 
+    0x20a, 0x7, 0x1a, 0x2, 0x2, 0x209, 0x208, 0x3, 0x2, 0x2, 0x2, 0x209, 
+    0x20a, 0x3, 0x2, 0x2, 0x2, 0x20a, 0x20c, 0x3, 0x2, 0x2, 0x2, 0x20b, 
+    0x20d, 0x7, 0x1f, 0x2, 0x2, 0x20c, 0x20b, 0x3, 0x2, 0x2, 0x2, 0x20c, 
+    0x20d, 0x3, 0x2, 0x2, 0x2, 0x20d, 0x20e, 0x3, 0x2, 0x2, 0x2, 0x20e, 
+    0x20f, 0x5, 0x6e, 0x38, 0x2, 0x20f, 0x211, 0x7, 0x9, 0x2, 0x2, 0x210, 
+    0x212, 0x5, 0x5a, 0x2e, 0x2, 0x211, 0x210, 0x3, 0x2, 0x2, 0x2, 0x211, 
+    0x212, 0x3, 0x2, 0x2, 0x2, 0x212, 0x213, 0x3, 0x2, 0x2, 0x2, 0x213, 
+    0x214, 0x7, 0xa, 0x2, 0x2, 0x214, 0x215, 0x7, 0xb, 0x2, 0x2, 0x215, 
+    0x216, 0x5, 0x60, 0x31, 0x2, 0x216, 0x217, 0x7, 0xc, 0x2, 0x2, 0x217, 
+    0x236, 0x3, 0x2, 0x2, 0x2, 0x218, 0x21a, 0x7, 0x1a, 0x2, 0x2, 0x219, 
+    0x218, 0x3, 0x2, 0x2, 0x2, 0x219, 0x21a, 0x3, 0x2, 0x2, 0x2, 0x21a, 
+    0x21c, 0x3, 0x2, 0x2, 0x2, 0x21b, 0x21d, 0x7, 0x1f, 0x2, 0x2, 0x21c, 
+    0x21b, 0x3, 0x2, 0x2, 0x2, 0x21c, 0x21d, 0x3, 0x2, 0x2, 0x2, 0x21d, 
+    0x21e, 0x3, 0x2, 0x2, 0x2, 0x21e, 0x21f, 0x5, 0x8e, 0x48, 0x2, 0x21f, 
+    0x220, 0x7, 0x9, 0x2, 0x2, 0x220, 0x221, 0x7, 0xa, 0x2, 0x2, 0x221, 
+    0x222, 0x7, 0xb, 0x2, 0x2, 0x222, 0x223, 0x5, 0x60, 0x31, 0x2, 0x223, 
+    0x224, 0x7, 0xc, 0x2, 0x2, 0x224, 0x236, 0x3, 0x2, 0x2, 0x2, 0x225, 
+    0x227, 0x7, 0x1a, 0x2, 0x2, 0x226, 0x225, 0x3, 0x2, 0x2, 0x2, 0x226, 
+    0x227, 0x3, 0x2, 0x2, 0x2, 0x227, 0x229, 0x3, 0x2, 0x2, 0x2, 0x228, 
+    0x22a, 0x7, 0x1f, 0x2, 0x2, 0x229, 0x228, 0x3, 0x2, 0x2, 0x2, 0x229, 
+    0x22a, 0x3, 0x2, 0x2, 0x2, 0x22a, 0x22b, 0x3, 0x2, 0x2, 0x2, 0x22b, 
+    0x22c, 0x5, 0x90, 0x49, 0x2, 0x22c, 0x22e, 0x7, 0x9, 0x2, 0x2, 0x22d, 
+    0x22f, 0x5, 0x5a, 0x2e, 0x2, 0x22e, 0x22d, 0x3, 0x2, 0x2, 0x2, 0x22e, 
+    0x22f, 0x3, 0x2, 0x2, 0x2, 0x22f, 0x230, 0x3, 0x2, 0x2, 0x2, 0x230, 
+    0x231, 0x7, 0xa, 0x2, 0x2, 0x231, 0x232, 0x7, 0xb, 0x2, 0x2, 0x232, 
+    0x233, 0x5, 0x60, 0x31, 0x2, 0x233, 0x234, 0x7, 0xc, 0x2, 0x2, 0x234, 
+    0x236, 0x3, 0x2, 0x2, 0x2, 0x235, 0x209, 0x3, 0x2, 0x2, 0x2, 0x235, 
+    0x219, 0x3, 0x2, 0x2, 0x2, 0x235, 0x226, 0x3, 0x2, 0x2, 0x2, 0x236, 
+    0x59, 0x3, 0x2, 0x2, 0x2, 0x237, 0x23c, 0x5, 0x5c, 0x2f, 0x2, 0x238, 
+    0x239, 0x7, 0xe, 0x2, 0x2, 0x239, 0x23b, 0x5, 0x5c, 0x2f, 0x2, 0x23a, 
+    0x238, 0x3, 0x2, 0x2, 0x2, 0x23b, 0x23e, 0x3, 0x2, 0x2, 0x2, 0x23c, 
+    0x23a, 0x3, 0x2, 0x2, 0x2, 0x23c, 0x23d, 0x3, 0x2, 0x2, 0x2, 0x23d, 
+    0x241, 0x3, 0x2, 0x2, 0x2, 0x23e, 0x23c, 0x3, 0x2, 0x2, 0x2, 0x23f, 
+    0x240, 0x7, 0xe, 0x2, 0x2, 0x240, 0x242, 0x5, 0x5e, 0x30, 0x2, 0x241, 
+    0x23f, 0x3, 0x2, 0x2, 0x2, 0x241, 0x242, 0x3, 0x2, 0x2, 0x2, 0x242, 
+    0x245, 0x3, 0x2, 0x2, 0x2, 0x243, 0x245, 0x5, 0x5e, 0x30, 0x2, 0x244, 
+    0x237, 0x3, 0x2, 0x2, 0x2, 0x244, 0x243, 0x3, 0x2, 0x2, 0x2, 0x245, 
+    0x5b, 0x3, 0x2, 0x2, 0x2, 0x246, 0x249, 0x5, 0x78, 0x3d, 0x2, 0x247, 
+    0x248, 0x7, 0xf, 0x2, 0x2, 0x248, 0x24a, 0x5, 0x76, 0x3c, 0x2, 0x249, 
+    0x247, 0x3, 0x2, 0x2, 0x2, 0x249, 0x24a, 0x3, 0x2, 0x2, 0x2, 0x24a, 
+    0x5d, 0x3, 0x2, 0x2, 0x2, 0x24b, 0x24c, 0x7, 0x12, 0x2, 0x2, 0x24c, 
+    0x24d, 0x5, 0x76, 0x3c, 0x2, 0x24d, 0x5f, 0x3, 0x2, 0x2, 0x2, 0x24e, 
+    0x250, 0x5, 0x62, 0x32, 0x2, 0x24f, 0x24e, 0x3, 0x2, 0x2, 0x2, 0x24f, 
+    0x250, 0x3, 0x2, 0x2, 0x2, 0x250, 0x61, 0x3, 0x2, 0x2, 0x2, 0x251, 0x253, 
+    0x5, 0x4, 0x3, 0x2, 0x252, 0x251, 0x3, 0x2, 0x2, 0x2, 0x253, 0x254, 
+    0x3, 0x2, 0x2, 0x2, 0x254, 0x252, 0x3, 0x2, 0x2, 0x2, 0x254, 0x255, 
+    0x3, 0x2, 0x2, 0x2, 0x255, 0x63, 0x3, 0x2, 0x2, 0x2, 0x256, 0x257, 0x7, 
+    0x7, 0x2, 0x2, 0x257, 0x258, 0x5, 0x66, 0x34, 0x2, 0x258, 0x259, 0x7, 
+    0x8, 0x2, 0x2, 0x259, 0x65, 0x3, 0x2, 0x2, 0x2, 0x25a, 0x25c, 0x7, 0xe, 
+    0x2, 0x2, 0x25b, 0x25a, 0x3, 0x2, 0x2, 0x2, 0x25c, 0x25f, 0x3, 0x2, 
+    0x2, 0x2, 0x25d, 0x25b, 0x3, 0x2, 0x2, 0x2, 0x25d, 0x25e, 0x3, 0x2, 
+    0x2, 0x2, 0x25e, 0x261, 0x3, 0x2, 0x2, 0x2, 0x25f, 0x25d, 0x3, 0x2, 
+    0x2, 0x2, 0x260, 0x262, 0x5, 0x68, 0x35, 0x2, 0x261, 0x260, 0x3, 0x2, 
+    0x2, 0x2, 0x261, 0x262, 0x3, 0x2, 0x2, 0x2, 0x262, 0x26b, 0x3, 0x2, 
+    0x2, 0x2, 0x263, 0x265, 0x7, 0xe, 0x2, 0x2, 0x264, 0x263, 0x3, 0x2, 
+    0x2, 0x2, 0x265, 0x266, 0x3, 0x2, 0x2, 0x2, 0x266, 0x264, 0x3, 0x2, 
+    0x2, 0x2, 0x266, 0x267, 0x3, 0x2, 0x2, 0x2, 0x267, 0x268, 0x3, 0x2, 
+    0x2, 0x2, 0x268, 0x26a, 0x5, 0x68, 0x35, 0x2, 0x269, 0x264, 0x3, 0x2, 
+    0x2, 0x2, 0x26a, 0x26d, 0x3, 0x2, 0x2, 0x2, 0x26b, 0x269, 0x3, 0x2, 
+    0x2, 0x2, 0x26b, 0x26c, 0x3, 0x2, 0x2, 0x2, 0x26c, 0x271, 0x3, 0x2, 
+    0x2, 0x2, 0x26d, 0x26b, 0x3, 0x2, 0x2, 0x2, 0x26e, 0x270, 0x7, 0xe, 
+    0x2, 0x2, 0x26f, 0x26e, 0x3, 0x2, 0x2, 0x2, 0x270, 0x273, 0x3, 0x2, 
+    0x2, 0x2, 0x271, 0x26f, 0x3, 0x2, 0x2, 0x2, 0x271, 0x272, 0x3, 0x2, 
+    0x2, 0x2, 0x272, 0x67, 0x3, 0x2, 0x2, 0x2, 0x273, 0x271, 0x3, 0x2, 0x2, 
+    0x2, 0x274, 0x276, 0x7, 0x12, 0x2, 0x2, 0x275, 0x274, 0x3, 0x2, 0x2, 
+    0x2, 0x275, 0x276, 0x3, 0x2, 0x2, 0x2, 0x276, 0x277, 0x3, 0x2, 0x2, 
+    0x2, 0x277, 0x278, 0x5, 0x76, 0x3c, 0x2, 0x278, 0x69, 0x3, 0x2, 0x2, 
+    0x2, 0x279, 0x282, 0x7, 0xb, 0x2, 0x2, 0x27a, 0x27f, 0x5, 0x6c, 0x37, 
+    0x2, 0x27b, 0x27c, 0x7, 0xe, 0x2, 0x2, 0x27c, 0x27e, 0x5, 0x6c, 0x37, 
+    0x2, 0x27d, 0x27b, 0x3, 0x2, 0x2, 0x2, 0x27e, 0x281, 0x3, 0x2, 0x2, 
+    0x2, 0x27f, 0x27d, 0x3, 0x2, 0x2, 0x2, 0x27f, 0x280, 0x3, 0x2, 0x2, 
+    0x2, 0x280, 0x283, 0x3, 0x2, 0x2, 0x2, 0x281, 0x27f, 0x3, 0x2, 0x2, 
+    0x2, 0x282, 0x27a, 0x3, 0x2, 0x2, 0x2, 0x282, 0x283, 0x3, 0x2, 0x2, 
+    0x2, 0x283, 0x285, 0x3, 0x2, 0x2, 0x2, 0x284, 0x286, 0x7, 0xe, 0x2, 
+    0x2, 0x285, 0x284, 0x3, 0x2, 0x2, 0x2, 0x285, 0x286, 0x3, 0x2, 0x2, 
+    0x2, 0x286, 0x287, 0x3, 0x2, 0x2, 0x2, 0x287, 0x288, 0x7, 0xc, 0x2, 
+    0x2, 0x288, 0x6b, 0x3, 0x2, 0x2, 0x2, 0x289, 0x28a, 0x5, 0x6e, 0x38, 
+    0x2, 0x28a, 0x28b, 0x7, 0x11, 0x2, 0x2, 0x28b, 0x28c, 0x5, 0x76, 0x3c, 
+    0x2, 0x28c, 0x2b7, 0x3, 0x2, 0x2, 0x2, 0x28d, 0x28e, 0x7, 0x7, 0x2, 
+    0x2, 0x28e, 0x28f, 0x5, 0x76, 0x3c, 0x2, 0x28f, 0x290, 0x7, 0x8, 0x2, 
+    0x2, 0x290, 0x291, 0x7, 0x11, 0x2, 0x2, 0x291, 0x292, 0x5, 0x76, 0x3c, 
+    0x2, 0x292, 0x2b7, 0x3, 0x2, 0x2, 0x2, 0x293, 0x295, 0x7, 0x6b, 0x2, 
+    0x2, 0x294, 0x293, 0x3, 0x2, 0x2, 0x2, 0x294, 0x295, 0x3, 0x2, 0x2, 
+    0x2, 0x295, 0x297, 0x3, 0x2, 0x2, 0x2, 0x296, 0x298, 0x7, 0x1a, 0x2, 
+    0x2, 0x297, 0x296, 0x3, 0x2, 0x2, 0x2, 0x297, 0x298, 0x3, 0x2, 0x2, 
+    0x2, 0x298, 0x299, 0x3, 0x2, 0x2, 0x2, 0x299, 0x29a, 0x5, 0x6e, 0x38, 
+    0x2, 0x29a, 0x29c, 0x7, 0x9, 0x2, 0x2, 0x29b, 0x29d, 0x5, 0x5a, 0x2e, 
+    0x2, 0x29c, 0x29b, 0x3, 0x2, 0x2, 0x2, 0x29c, 0x29d, 0x3, 0x2, 0x2, 
+    0x2, 0x29d, 0x29e, 0x3, 0x2, 0x2, 0x2, 0x29e, 0x29f, 0x7, 0xa, 0x2, 
+    0x2, 0x29f, 0x2a0, 0x7, 0xb, 0x2, 0x2, 0x2a0, 0x2a1, 0x5, 0x60, 0x31, 
+    0x2, 0x2a1, 0x2a2, 0x7, 0xc, 0x2, 0x2, 0x2a2, 0x2b7, 0x3, 0x2, 0x2, 
+    0x2, 0x2a3, 0x2a4, 0x5, 0x8e, 0x48, 0x2, 0x2a4, 0x2a5, 0x7, 0x9, 0x2, 
+    0x2, 0x2a5, 0x2a6, 0x7, 0xa, 0x2, 0x2, 0x2a6, 0x2a7, 0x7, 0xb, 0x2, 
+    0x2, 0x2a7, 0x2a8, 0x5, 0x60, 0x31, 0x2, 0x2a8, 0x2a9, 0x7, 0xc, 0x2, 
+    0x2, 0x2a9, 0x2b7, 0x3, 0x2, 0x2, 0x2, 0x2aa, 0x2ab, 0x5, 0x90, 0x49, 
+    0x2, 0x2ab, 0x2ac, 0x7, 0x9, 0x2, 0x2, 0x2ac, 0x2ad, 0x5, 0x5c, 0x2f, 
+    0x2, 0x2ad, 0x2ae, 0x7, 0xa, 0x2, 0x2, 0x2ae, 0x2af, 0x7, 0xb, 0x2, 
+    0x2, 0x2af, 0x2b0, 0x5, 0x60, 0x31, 0x2, 0x2b0, 0x2b1, 0x7, 0xc, 0x2, 
+    0x2, 0x2b1, 0x2b7, 0x3, 0x2, 0x2, 0x2, 0x2b2, 0x2b4, 0x7, 0x12, 0x2, 
+    0x2, 0x2b3, 0x2b2, 0x3, 0x2, 0x2, 0x2, 0x2b3, 0x2b4, 0x3, 0x2, 0x2, 
+    0x2, 0x2b4, 0x2b5, 0x3, 0x2, 0x2, 0x2, 0x2b5, 0x2b7, 0x5, 0x76, 0x3c, 
+    0x2, 0x2b6, 0x289, 0x3, 0x2, 0x2, 0x2, 0x2b6, 0x28d, 0x3, 0x2, 0x2, 
+    0x2, 0x2b6, 0x294, 0x3, 0x2, 0x2, 0x2, 0x2b6, 0x2a3, 0x3, 0x2, 0x2, 
+    0x2, 0x2b6, 0x2aa, 0x3, 0x2, 0x2, 0x2, 0x2b6, 0x2b3, 0x3, 0x2, 0x2, 
+    0x2, 0x2b7, 0x6d, 0x3, 0x2, 0x2, 0x2, 0x2b8, 0x2c0, 0x5, 0x88, 0x45, 
+    0x2, 0x2b9, 0x2c0, 0x7, 0x77, 0x2, 0x2, 0x2ba, 0x2c0, 0x5, 0x84, 0x43, 
+    0x2, 0x2bb, 0x2bc, 0x7, 0x7, 0x2, 0x2, 0x2bc, 0x2bd, 0x5, 0x76, 0x3c, 
+    0x2, 0x2bd, 0x2be, 0x7, 0x8, 0x2, 0x2, 0x2be, 0x2c0, 0x3, 0x2, 0x2, 
+    0x2, 0x2bf, 0x2b8, 0x3, 0x2, 0x2, 0x2, 0x2bf, 0x2b9, 0x3, 0x2, 0x2, 
+    0x2, 0x2bf, 0x2ba, 0x3, 0x2, 0x2, 0x2, 0x2bf, 0x2bb, 0x3, 0x2, 0x2, 
+    0x2, 0x2c0, 0x6f, 0x3, 0x2, 0x2, 0x2, 0x2c1, 0x2cd, 0x7, 0x9, 0x2, 0x2, 
+    0x2c2, 0x2c7, 0x5, 0x72, 0x3a, 0x2, 0x2c3, 0x2c4, 0x7, 0xe, 0x2, 0x2, 
+    0x2c4, 0x2c6, 0x5, 0x72, 0x3a, 0x2, 0x2c5, 0x2c3, 0x3, 0x2, 0x2, 0x2, 
+    0x2c6, 0x2c9, 0x3, 0x2, 0x2, 0x2, 0x2c7, 0x2c5, 0x3, 0x2, 0x2, 0x2, 
+    0x2c7, 0x2c8, 0x3, 0x2, 0x2, 0x2, 0x2c8, 0x2cb, 0x3, 0x2, 0x2, 0x2, 
+    0x2c9, 0x2c7, 0x3, 0x2, 0x2, 0x2, 0x2ca, 0x2cc, 0x7, 0xe, 0x2, 0x2, 
+    0x2cb, 0x2ca, 0x3, 0x2, 0x2, 0x2, 0x2cb, 0x2cc, 0x3, 0x2, 0x2, 0x2, 
+    0x2cc, 0x2ce, 0x3, 0x2, 0x2, 0x2, 0x2cd, 0x2c2, 0x3, 0x2, 0x2, 0x2, 
+    0x2cd, 0x2ce, 0x3, 0x2, 0x2, 0x2, 0x2ce, 0x2cf, 0x3, 0x2, 0x2, 0x2, 
+    0x2cf, 0x2d0, 0x7, 0xa, 0x2, 0x2, 0x2d0, 0x71, 0x3, 0x2, 0x2, 0x2, 0x2d1, 
+    0x2d3, 0x7, 0x12, 0x2, 0x2, 0x2d2, 0x2d1, 0x3, 0x2, 0x2, 0x2, 0x2d2, 
+    0x2d3, 0x3, 0x2, 0x2, 0x2, 0x2d3, 0x2d6, 0x3, 0x2, 0x2, 0x2, 0x2d4, 
+    0x2d7, 0x5, 0x76, 0x3c, 0x2, 0x2d5, 0x2d7, 0x7, 0x76, 0x2, 0x2, 0x2d6, 
+    0x2d4, 0x3, 0x2, 0x2, 0x2, 0x2d6, 0x2d5, 0x3, 0x2, 0x2, 0x2, 0x2d7, 
+    0x73, 0x3, 0x2, 0x2, 0x2, 0x2d8, 0x2dd, 0x5, 0x76, 0x3c, 0x2, 0x2d9, 
+    0x2da, 0x7, 0xe, 0x2, 0x2, 0x2da, 0x2dc, 0x5, 0x76, 0x3c, 0x2, 0x2db, 
+    0x2d9, 0x3, 0x2, 0x2, 0x2, 0x2dc, 0x2df, 0x3, 0x2, 0x2, 0x2, 0x2dd, 
+    0x2db, 0x3, 0x2, 0x2, 0x2, 0x2dd, 0x2de, 0x3, 0x2, 0x2, 0x2, 0x2de, 
+    0x75, 0x3, 0x2, 0x2, 0x2, 0x2df, 0x2dd, 0x3, 0x2, 0x2, 0x2, 0x2e0, 0x2e1, 
+    0x8, 0x3c, 0x1, 0x2, 0x2e1, 0x314, 0x5, 0x7a, 0x3e, 0x2, 0x2e2, 0x2e4, 
+    0x7, 0x64, 0x2, 0x2, 0x2e3, 0x2e5, 0x7, 0x76, 0x2, 0x2, 0x2e4, 0x2e3, 
+    0x3, 0x2, 0x2, 0x2, 0x2e4, 0x2e5, 0x3, 0x2, 0x2, 0x2, 0x2e5, 0x2e6, 
+    0x3, 0x2, 0x2, 0x2, 0x2e6, 0x314, 0x5, 0x54, 0x2b, 0x2, 0x2e7, 0x2e8, 
+    0x7, 0x4e, 0x2, 0x2, 0x2e8, 0x2ea, 0x5, 0x76, 0x3c, 0x2, 0x2e9, 0x2eb, 
+    0x5, 0x70, 0x39, 0x2, 0x2ea, 0x2e9, 0x3, 0x2, 0x2, 0x2, 0x2ea, 0x2eb, 
+    0x3, 0x2, 0x2, 0x2, 0x2eb, 0x314, 0x3, 0x2, 0x2, 0x2, 0x2ec, 0x2ed, 
+    0x7, 0x4e, 0x2, 0x2, 0x2ed, 0x2ee, 0x7, 0x13, 0x2, 0x2, 0x2ee, 0x314, 
+    0x7, 0x76, 0x2, 0x2, 0x2ef, 0x2f0, 0x7, 0x5f, 0x2, 0x2, 0x2f0, 0x314, 
+    0x5, 0x76, 0x3c, 0x27, 0x2f1, 0x2f2, 0x7, 0x53, 0x2, 0x2, 0x2f2, 0x314, 
+    0x5, 0x76, 0x3c, 0x26, 0x2f3, 0x2f4, 0x7, 0x4b, 0x2, 0x2, 0x2f4, 0x314, 
+    0x5, 0x76, 0x3c, 0x25, 0x2f5, 0x2f6, 0x7, 0x14, 0x2, 0x2, 0x2f6, 0x314, 
+    0x5, 0x76, 0x3c, 0x24, 0x2f7, 0x2f8, 0x7, 0x15, 0x2, 0x2, 0x2f8, 0x314, 
+    0x5, 0x76, 0x3c, 0x23, 0x2f9, 0x2fa, 0x7, 0x16, 0x2, 0x2, 0x2fa, 0x314, 
+    0x5, 0x76, 0x3c, 0x22, 0x2fb, 0x2fc, 0x7, 0x17, 0x2, 0x2, 0x2fc, 0x314, 
+    0x5, 0x76, 0x3c, 0x21, 0x2fd, 0x2fe, 0x7, 0x18, 0x2, 0x2, 0x2fe, 0x314, 
+    0x5, 0x76, 0x3c, 0x20, 0x2ff, 0x300, 0x7, 0x19, 0x2, 0x2, 0x300, 0x314, 
+    0x5, 0x76, 0x3c, 0x1f, 0x301, 0x302, 0x7, 0x6c, 0x2, 0x2, 0x302, 0x314, 
+    0x5, 0x76, 0x3c, 0x1e, 0x303, 0x304, 0x7, 0x6a, 0x2, 0x2, 0x304, 0x305, 
+    0x7, 0x9, 0x2, 0x2, 0x305, 0x306, 0x5, 0x76, 0x3c, 0x2, 0x306, 0x307, 
+    0x7, 0xa, 0x2, 0x2, 0x307, 0x314, 0x3, 0x2, 0x2, 0x2, 0x308, 0x314, 
+    0x5, 0x36, 0x1c, 0x2, 0x309, 0x314, 0x7, 0x5a, 0x2, 0x2, 0x30a, 0x314, 
+    0x7, 0x76, 0x2, 0x2, 0x30b, 0x314, 0x7, 0x67, 0x2, 0x2, 0x30c, 0x314, 
+    0x5, 0x82, 0x42, 0x2, 0x30d, 0x314, 0x5, 0x64, 0x33, 0x2, 0x30e, 0x314, 
+    0x5, 0x6a, 0x36, 0x2, 0x30f, 0x310, 0x7, 0x9, 0x2, 0x2, 0x310, 0x311, 
+    0x5, 0x74, 0x3b, 0x2, 0x311, 0x312, 0x7, 0xa, 0x2, 0x2, 0x312, 0x314, 
+    0x3, 0x2, 0x2, 0x2, 0x313, 0x2e0, 0x3, 0x2, 0x2, 0x2, 0x313, 0x2e2, 
+    0x3, 0x2, 0x2, 0x2, 0x313, 0x2e7, 0x3, 0x2, 0x2, 0x2, 0x313, 0x2ec, 
+    0x3, 0x2, 0x2, 0x2, 0x313, 0x2ef, 0x3, 0x2, 0x2, 0x2, 0x313, 0x2f1, 
+    0x3, 0x2, 0x2, 0x2, 0x313, 0x2f3, 0x3, 0x2, 0x2, 0x2, 0x313, 0x2f5, 
+    0x3, 0x2, 0x2, 0x2, 0x313, 0x2f7, 0x3, 0x2, 0x2, 0x2, 0x313, 0x2f9, 
+    0x3, 0x2, 0x2, 0x2, 0x313, 0x2fb, 0x3, 0x2, 0x2, 0x2, 0x313, 0x2fd, 
+    0x3, 0x2, 0x2, 0x2, 0x313, 0x2ff, 0x3, 0x2, 0x2, 0x2, 0x313, 0x301, 
+    0x3, 0x2, 0x2, 0x2, 0x313, 0x303, 0x3, 0x2, 0x2, 0x2, 0x313, 0x308, 
+    0x3, 0x2, 0x2, 0x2, 0x313, 0x309, 0x3, 0x2, 0x2, 0x2, 0x313, 0x30a, 
+    0x3, 0x2, 0x2, 0x2, 0x313, 0x30b, 0x3, 0x2, 0x2, 0x2, 0x313, 0x30c, 
+    0x3, 0x2, 0x2, 0x2, 0x313, 0x30d, 0x3, 0x2, 0x2, 0x2, 0x313, 0x30e, 
+    0x3, 0x2, 0x2, 0x2, 0x313, 0x30f, 0x3, 0x2, 0x2, 0x2, 0x314, 0x366, 
+    0x3, 0x2, 0x2, 0x2, 0x315, 0x316, 0xc, 0x1d, 0x2, 0x2, 0x316, 0x317, 
+    0x7, 0x1d, 0x2, 0x2, 0x317, 0x365, 0x5, 0x76, 0x3c, 0x1d, 0x318, 0x319, 
+    0xc, 0x1c, 0x2, 0x2, 0x319, 0x31a, 0x9, 0x3, 0x2, 0x2, 0x31a, 0x365, 
+    0x5, 0x76, 0x3c, 0x1d, 0x31b, 0x31c, 0xc, 0x1b, 0x2, 0x2, 0x31c, 0x31d, 
+    0x9, 0x4, 0x2, 0x2, 0x31d, 0x365, 0x5, 0x76, 0x3c, 0x1c, 0x31e, 0x31f, 
+    0xc, 0x1a, 0x2, 0x2, 0x31f, 0x320, 0x7, 0x1e, 0x2, 0x2, 0x320, 0x365, 
+    0x5, 0x76, 0x3c, 0x1b, 0x321, 0x322, 0xc, 0x19, 0x2, 0x2, 0x322, 0x323, 
+    0x9, 0x5, 0x2, 0x2, 0x323, 0x365, 0x5, 0x76, 0x3c, 0x1a, 0x324, 0x325, 
+    0xc, 0x18, 0x2, 0x2, 0x325, 0x326, 0x9, 0x6, 0x2, 0x2, 0x326, 0x365, 
+    0x5, 0x76, 0x3c, 0x19, 0x327, 0x328, 0xc, 0x17, 0x2, 0x2, 0x328, 0x329, 
+    0x7, 0x4a, 0x2, 0x2, 0x329, 0x365, 0x5, 0x76, 0x3c, 0x18, 0x32a, 0x32b, 
+    0xc, 0x16, 0x2, 0x2, 0x32b, 0x32c, 0x7, 0x60, 0x2, 0x2, 0x32c, 0x365, 
+    0x5, 0x76, 0x3c, 0x17, 0x32d, 0x32e, 0xc, 0x15, 0x2, 0x2, 0x32e, 0x32f, 
+    0x9, 0x7, 0x2, 0x2, 0x32f, 0x365, 0x5, 0x76, 0x3c, 0x16, 0x330, 0x331, 
+    0xc, 0x14, 0x2, 0x2, 0x331, 0x332, 0x7, 0x2b, 0x2, 0x2, 0x332, 0x365, 
+    0x5, 0x76, 0x3c, 0x15, 0x333, 0x334, 0xc, 0x13, 0x2, 0x2, 0x334, 0x335, 
+    0x7, 0x2c, 0x2, 0x2, 0x335, 0x365, 0x5, 0x76, 0x3c, 0x14, 0x336, 0x337, 
+    0xc, 0x12, 0x2, 0x2, 0x337, 0x338, 0x7, 0x2d, 0x2, 0x2, 0x338, 0x365, 
+    0x5, 0x76, 0x3c, 0x13, 0x339, 0x33a, 0xc, 0x11, 0x2, 0x2, 0x33a, 0x33b, 
+    0x7, 0x2e, 0x2, 0x2, 0x33b, 0x365, 0x5, 0x76, 0x3c, 0x12, 0x33c, 0x33d, 
+    0xc, 0x10, 0x2, 0x2, 0x33d, 0x33e, 0x7, 0x2f, 0x2, 0x2, 0x33e, 0x365, 
+    0x5, 0x76, 0x3c, 0x11, 0x33f, 0x340, 0xc, 0xf, 0x2, 0x2, 0x340, 0x341, 
+    0x7, 0x10, 0x2, 0x2, 0x341, 0x342, 0x5, 0x76, 0x3c, 0x2, 0x342, 0x343, 
+    0x7, 0x11, 0x2, 0x2, 0x343, 0x344, 0x5, 0x76, 0x3c, 0x10, 0x344, 0x365, 
+    0x3, 0x2, 0x2, 0x2, 0x345, 0x346, 0xc, 0xe, 0x2, 0x2, 0x346, 0x347, 
+    0x7, 0xf, 0x2, 0x2, 0x347, 0x365, 0x5, 0x76, 0x3c, 0xe, 0x348, 0x349, 
+    0xc, 0xd, 0x2, 0x2, 0x349, 0x34a, 0x5, 0x80, 0x41, 0x2, 0x34a, 0x34b, 
+    0x5, 0x76, 0x3c, 0xd, 0x34b, 0x365, 0x3, 0x2, 0x2, 0x2, 0x34c, 0x34d, 
+    0xc, 0x2e, 0x2, 0x2, 0x34d, 0x34e, 0x7, 0x7, 0x2, 0x2, 0x34e, 0x34f, 
+    0x5, 0x74, 0x3b, 0x2, 0x34f, 0x350, 0x7, 0x8, 0x2, 0x2, 0x350, 0x365, 
+    0x3, 0x2, 0x2, 0x2, 0x351, 0x353, 0xc, 0x2d, 0x2, 0x2, 0x352, 0x354, 
+    0x7, 0x10, 0x2, 0x2, 0x353, 0x352, 0x3, 0x2, 0x2, 0x2, 0x353, 0x354, 
+    0x3, 0x2, 0x2, 0x2, 0x354, 0x355, 0x3, 0x2, 0x2, 0x2, 0x355, 0x357, 
+    0x7, 0x13, 0x2, 0x2, 0x356, 0x358, 0x7, 0x1f, 0x2, 0x2, 0x357, 0x356, 
+    0x3, 0x2, 0x2, 0x2, 0x357, 0x358, 0x3, 0x2, 0x2, 0x2, 0x358, 0x359, 
+    0x3, 0x2, 0x2, 0x2, 0x359, 0x365, 0x5, 0x88, 0x45, 0x2, 0x35a, 0x35b, 
+    0xc, 0x2c, 0x2, 0x2, 0x35b, 0x365, 0x5, 0x70, 0x39, 0x2, 0x35c, 0x35d, 
+    0xc, 0x29, 0x2, 0x2, 0x35d, 0x35e, 0x6, 0x3c, 0x1f, 0x2, 0x35e, 0x365, 
+    0x7, 0x14, 0x2, 0x2, 0x35f, 0x360, 0xc, 0x28, 0x2, 0x2, 0x360, 0x361, 
+    0x6, 0x3c, 0x21, 0x2, 0x361, 0x365, 0x7, 0x15, 0x2, 0x2, 0x362, 0x363, 
+    0xc, 0xb, 0x2, 0x2, 0x363, 0x365, 0x7, 0x78, 0x2, 0x2, 0x364, 0x315, 
+    0x3, 0x2, 0x2, 0x2, 0x364, 0x318, 0x3, 0x2, 0x2, 0x2, 0x364, 0x31b, 
+    0x3, 0x2, 0x2, 0x2, 0x364, 0x31e, 0x3, 0x2, 0x2, 0x2, 0x364, 0x321, 
+    0x3, 0x2, 0x2, 0x2, 0x364, 0x324, 0x3, 0x2, 0x2, 0x2, 0x364, 0x327, 
+    0x3, 0x2, 0x2, 0x2, 0x364, 0x32a, 0x3, 0x2, 0x2, 0x2, 0x364, 0x32d, 
+    0x3, 0x2, 0x2, 0x2, 0x364, 0x330, 0x3, 0x2, 0x2, 0x2, 0x364, 0x333, 
+    0x3, 0x2, 0x2, 0x2, 0x364, 0x336, 0x3, 0x2, 0x2, 0x2, 0x364, 0x339, 
+    0x3, 0x2, 0x2, 0x2, 0x364, 0x33c, 0x3, 0x2, 0x2, 0x2, 0x364, 0x33f, 
+    0x3, 0x2, 0x2, 0x2, 0x364, 0x345, 0x3, 0x2, 0x2, 0x2, 0x364, 0x348, 
+    0x3, 0x2, 0x2, 0x2, 0x364, 0x34c, 0x3, 0x2, 0x2, 0x2, 0x364, 0x351, 
+    0x3, 0x2, 0x2, 0x2, 0x364, 0x35a, 0x3, 0x2, 0x2, 0x2, 0x364, 0x35c, 
+    0x3, 0x2, 0x2, 0x2, 0x364, 0x35f, 0x3, 0x2, 0x2, 0x2, 0x364, 0x362, 
+    0x3, 0x2, 0x2, 0x2, 0x365, 0x368, 0x3, 0x2, 0x2, 0x2, 0x366, 0x364, 
+    0x3, 0x2, 0x2, 0x2, 0x366, 0x367, 0x3, 0x2, 0x2, 0x2, 0x367, 0x77, 0x3, 
+    0x2, 0x2, 0x2, 0x368, 0x366, 0x3, 0x2, 0x2, 0x2, 0x369, 0x36d, 0x7, 
+    0x76, 0x2, 0x2, 0x36a, 0x36d, 0x5, 0x64, 0x33, 0x2, 0x36b, 0x36d, 0x5, 
+    0x6a, 0x36, 0x2, 0x36c, 0x369, 0x3, 0x2, 0x2, 0x2, 0x36c, 0x36a, 0x3, 
+    0x2, 0x2, 0x2, 0x36c, 0x36b, 0x3, 0x2, 0x2, 0x2, 0x36d, 0x79, 0x3, 0x2, 
+    0x2, 0x2, 0x36e, 0x387, 0x5, 0x50, 0x29, 0x2, 0x36f, 0x371, 0x7, 0x6b, 
+    0x2, 0x2, 0x370, 0x36f, 0x3, 0x2, 0x2, 0x2, 0x370, 0x371, 0x3, 0x2, 
+    0x2, 0x2, 0x371, 0x372, 0x3, 0x2, 0x2, 0x2, 0x372, 0x374, 0x7, 0x59, 
+    0x2, 0x2, 0x373, 0x375, 0x7, 0x1a, 0x2, 0x2, 0x374, 0x373, 0x3, 0x2, 
+    0x2, 0x2, 0x374, 0x375, 0x3, 0x2, 0x2, 0x2, 0x375, 0x376, 0x3, 0x2, 
+    0x2, 0x2, 0x376, 0x378, 0x7, 0x9, 0x2, 0x2, 0x377, 0x379, 0x5, 0x5a, 
+    0x2e, 0x2, 0x378, 0x377, 0x3, 0x2, 0x2, 0x2, 0x378, 0x379, 0x3, 0x2, 
+    0x2, 0x2, 0x379, 0x37a, 0x3, 0x2, 0x2, 0x2, 0x37a, 0x37b, 0x7, 0xa, 
+    0x2, 0x2, 0x37b, 0x37c, 0x7, 0xb, 0x2, 0x2, 0x37c, 0x37d, 0x5, 0x60, 
+    0x31, 0x2, 0x37d, 0x37e, 0x7, 0xc, 0x2, 0x2, 0x37e, 0x387, 0x3, 0x2, 
+    0x2, 0x2, 0x37f, 0x381, 0x7, 0x6b, 0x2, 0x2, 0x380, 0x37f, 0x3, 0x2, 
+    0x2, 0x2, 0x380, 0x381, 0x3, 0x2, 0x2, 0x2, 0x381, 0x382, 0x3, 0x2, 
+    0x2, 0x2, 0x382, 0x383, 0x5, 0x7c, 0x3f, 0x2, 0x383, 0x384, 0x7, 0x3c, 
+    0x2, 0x2, 0x384, 0x385, 0x5, 0x7e, 0x40, 0x2, 0x385, 0x387, 0x3, 0x2, 
+    0x2, 0x2, 0x386, 0x36e, 0x3, 0x2, 0x2, 0x2, 0x386, 0x370, 0x3, 0x2, 
+    0x2, 0x2, 0x386, 0x380, 0x3, 0x2, 0x2, 0x2, 0x387, 0x7b, 0x3, 0x2, 0x2, 
+    0x2, 0x388, 0x38f, 0x7, 0x76, 0x2, 0x2, 0x389, 0x38b, 0x7, 0x9, 0x2, 
+    0x2, 0x38a, 0x38c, 0x5, 0x5a, 0x2e, 0x2, 0x38b, 0x38a, 0x3, 0x2, 0x2, 
+    0x2, 0x38b, 0x38c, 0x3, 0x2, 0x2, 0x2, 0x38c, 0x38d, 0x3, 0x2, 0x2, 
+    0x2, 0x38d, 0x38f, 0x7, 0xa, 0x2, 0x2, 0x38e, 0x388, 0x3, 0x2, 0x2, 
+    0x2, 0x38e, 0x389, 0x3, 0x2, 0x2, 0x2, 0x38f, 0x7d, 0x3, 0x2, 0x2, 0x2, 
+    0x390, 0x396, 0x5, 0x76, 0x3c, 0x2, 0x391, 0x392, 0x7, 0xb, 0x2, 0x2, 
+    0x392, 0x393, 0x5, 0x60, 0x31, 0x2, 0x393, 0x394, 0x7, 0xc, 0x2, 0x2, 
+    0x394, 0x396, 0x3, 0x2, 0x2, 0x2, 0x395, 0x390, 0x3, 0x2, 0x2, 0x2, 
+    0x395, 0x391, 0x3, 0x2, 0x2, 0x2, 0x396, 0x7f, 0x3, 0x2, 0x2, 0x2, 0x397, 
+    0x398, 0x9, 0x8, 0x2, 0x2, 0x398, 0x81, 0x3, 0x2, 0x2, 0x2, 0x399, 0x3a1, 
+    0x7, 0x3d, 0x2, 0x2, 0x39a, 0x3a1, 0x7, 0x3e, 0x2, 0x2, 0x39b, 0x3a1, 
+    0x7, 0x77, 0x2, 0x2, 0x39c, 0x3a1, 0x7, 0x78, 0x2, 0x2, 0x39d, 0x3a1, 
+    0x7, 0x6, 0x2, 0x2, 0x39e, 0x3a1, 0x5, 0x84, 0x43, 0x2, 0x39f, 0x3a1, 
+    0x5, 0x86, 0x44, 0x2, 0x3a0, 0x399, 0x3, 0x2, 0x2, 0x2, 0x3a0, 0x39a, 
+    0x3, 0x2, 0x2, 0x2, 0x3a0, 0x39b, 0x3, 0x2, 0x2, 0x2, 0x3a0, 0x39c, 
+    0x3, 0x2, 0x2, 0x2, 0x3a0, 0x39d, 0x3, 0x2, 0x2, 0x2, 0x3a0, 0x39e, 
+    0x3, 0x2, 0x2, 0x2, 0x3a0, 0x39f, 0x3, 0x2, 0x2, 0x2, 0x3a1, 0x83, 0x3, 
+    0x2, 0x2, 0x2, 0x3a2, 0x3a3, 0x9, 0x9, 0x2, 0x2, 0x3a3, 0x85, 0x3, 0x2, 
+    0x2, 0x2, 0x3a4, 0x3a5, 0x9, 0xa, 0x2, 0x2, 0x3a5, 0x87, 0x3, 0x2, 0x2, 
+    0x2, 0x3a6, 0x3a9, 0x7, 0x76, 0x2, 0x2, 0x3a7, 0x3a9, 0x5, 0x8a, 0x46, 
+    0x2, 0x3a8, 0x3a6, 0x3, 0x2, 0x2, 0x2, 0x3a8, 0x3a7, 0x3, 0x2, 0x2, 
+    0x2, 0x3a9, 0x89, 0x3, 0x2, 0x2, 0x2, 0x3aa, 0x3ae, 0x5, 0x8c, 0x47, 
+    0x2, 0x3ab, 0x3ae, 0x7, 0x3d, 0x2, 0x2, 0x3ac, 0x3ae, 0x7, 0x3e, 0x2, 
+    0x2, 0x3ad, 0x3aa, 0x3, 0x2, 0x2, 0x2, 0x3ad, 0x3ab, 0x3, 0x2, 0x2, 
+    0x2, 0x3ad, 0x3ac, 0x3, 0x2, 0x2, 0x2, 0x3ae, 0x8b, 0x3, 0x2, 0x2, 0x2, 
+    0x3af, 0x3b0, 0x9, 0xb, 0x2, 0x2, 0x3b0, 0x8d, 0x3, 0x2, 0x2, 0x2, 0x3b1, 
+    0x3b2, 0x7, 0x76, 0x2, 0x2, 0x3b2, 0x3b3, 0x6, 0x48, 0x23, 0x2, 0x3b3, 
+    0x3b4, 0x5, 0x6e, 0x38, 0x2, 0x3b4, 0x8f, 0x3, 0x2, 0x2, 0x2, 0x3b5, 
+    0x3b6, 0x7, 0x76, 0x2, 0x2, 0x3b6, 0x3b7, 0x6, 0x49, 0x24, 0x2, 0x3b7, 
+    0x3b8, 0x5, 0x6e, 0x38, 0x2, 0x3b8, 0x91, 0x3, 0x2, 0x2, 0x2, 0x3b9, 
+    0x3be, 0x7, 0xd, 0x2, 0x2, 0x3ba, 0x3be, 0x7, 0x2, 0x2, 0x3, 0x3bb, 
+    0x3be, 0x6, 0x4a, 0x25, 0x2, 0x3bc, 0x3be, 0x6, 0x4a, 0x26, 0x2, 0x3bd, 
+    0x3b9, 0x3, 0x2, 0x2, 0x2, 0x3bd, 0x3ba, 0x3, 0x2, 0x2, 0x2, 0x3bd, 
+    0x3bb, 0x3, 0x2, 0x2, 0x2, 0x3bd, 0x3bc, 0x3, 0x2, 0x2, 0x2, 0x3be, 
+    0x93, 0x3, 0x2, 0x2, 0x2, 0x6d, 0x95, 0x98, 0xb2, 0xb6, 0xbd, 0xc3, 
+    0xc7, 0xce, 0xd6, 0xdb, 0xdd, 0xe7, 0xef, 0xf4, 0xfd, 0x105, 0x109, 
+    0x10e, 0x119, 0x11f, 0x12e, 0x142, 0x146, 0x14a, 0x152, 0x15b, 0x160, 
+    0x168, 0x16f, 0x176, 0x17d, 0x184, 0x196, 0x19a, 0x19c, 0x1a3, 0x1a9, 
+    0x1ae, 0x1bd, 0x1c0, 0x1c5, 0x1c8, 0x1d3, 0x1d7, 0x1dc, 0x1e9, 0x1ef, 
+    0x1f8, 0x1fa, 0x200, 0x206, 0x209, 0x20c, 0x211, 0x219, 0x21c, 0x226, 
+    0x229, 0x22e, 0x235, 0x23c, 0x241, 0x244, 0x249, 0x24f, 0x254, 0x25d, 
+    0x261, 0x266, 0x26b, 0x271, 0x275, 0x27f, 0x282, 0x285, 0x294, 0x297, 
+    0x29c, 0x2b3, 0x2b6, 0x2bf, 0x2c7, 0x2cb, 0x2cd, 0x2d2, 0x2d6, 0x2dd, 
+    0x2e4, 0x2ea, 0x313, 0x353, 0x357, 0x364, 0x366, 0x36c, 0x370, 0x374, 
+    0x378, 0x380, 0x386, 0x38b, 0x38e, 0x395, 0x3a0, 0x3a8, 0x3ad, 0x3bd, 
   };
 
   atn::ATNDeserializer deserializer;

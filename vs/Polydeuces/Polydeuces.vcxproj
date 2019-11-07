@@ -55,6 +55,7 @@
     <None Include="..\..\generate\JavaScriptParser.g4" />
     <None Include="..\..\generate\JavaScriptParser.interp" />
     <None Include="..\..\generate\JavaScriptParser.tokens" />
+    <None Include="..\..\README.md" />
     <None Include="..\..\test\first.js" />
     <None Include="cpp.hint" />
   </ItemGroup>
@@ -112,22 +113,22 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>$(SolutionDir)..\src;$(SolutionDir)..\generate;$(SolutionDir)..\deps\antlr-cpp-runtime\runtime\src;$(IncludePath)</IncludePath>
+    <IncludePath>$(SolutionDir)..\src;$(SolutionDir)..\generate;$(SolutionDir)..\deps\antlr-cpp-runtime\runtime\Cpp\runtime\src;$(IncludePath)</IncludePath>
     <LibraryPath>$(SolutionDir)..\deps\antlr-cpp-runtime\lib\x64\Release Static;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>$(SolutionDir)..\src;$(SolutionDir)..\generate;$(SolutionDir)..\deps\antlr-cpp-runtime\runtime\src;$(IncludePath)</IncludePath>
+    <IncludePath>$(SolutionDir)..\src;$(SolutionDir)..\generate;$(SolutionDir)..\deps\antlr-cpp-runtime\runtime\Cpp\runtime\src;$(IncludePath)</IncludePath>
     <LibraryPath>$(SolutionDir)..\deps\antlr-cpp-runtime\lib\x64\Release Static;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
-    <IncludePath>$(SolutionDir)..\src;$(SolutionDir)..\generate;$(SolutionDir)..\deps\antlr-cpp-runtime\runtime\src;$(IncludePath)</IncludePath>
+    <IncludePath>$(SolutionDir)..\src;$(SolutionDir)..\generate;$(SolutionDir)..\deps\antlr-cpp-runtime\runtime\Cpp\runtime\src;$(IncludePath)</IncludePath>
     <LibraryPath>$(SolutionDir)..\deps\antlr-cpp-runtime\lib\x64\Release Static;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
-    <IncludePath>$(SolutionDir)..\src;$(SolutionDir)..\generate;$(SolutionDir)..\deps\antlr-cpp-runtime\runtime\src;$(IncludePath)</IncludePath>
+    <IncludePath>$(SolutionDir)..\src;$(SolutionDir)..\generate;$(SolutionDir)..\deps\antlr-cpp-runtime\runtime\Cpp\runtime\src;$(IncludePath)</IncludePath>
     <LibraryPath>$(SolutionDir)..\deps\antlr-cpp-runtime\lib\x64\Release Static;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
