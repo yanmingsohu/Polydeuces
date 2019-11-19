@@ -351,12 +351,26 @@ void CoreListener::exitDebuggerStatement(JavaScriptParser::DebuggerStatementCont
 
 void CoreListener::enterFunctionDeclaration(JavaScriptParser::FunctionDeclarationContext* ctx)
 {
-  printf("Function(...){");
+  auto id = ctx->Identifier();
+  std::string name;
+  if (id) {
+    name = id->toString();
+  } else {
+    name = "[anoymous]";
+  }
+  printf(" Function %s(...){", name.c_str());
 }
 
 void CoreListener::exitFunctionDeclaration(JavaScriptParser::FunctionDeclarationContext* ctx)
 {
-  printf(" Function}");
+  auto id = ctx->Identifier();
+  std::string name;
+  if (id) {
+    name = id->toString();
+  } else {
+    name = "[anoymous]";
+  }
+  printf(" F(%s)}", name.c_str());
 }
 
 void CoreListener::enterClassDeclaration(JavaScriptParser::ClassDeclarationContext* ctx)
@@ -1259,9 +1273,11 @@ void CoreListener::exitFunctionDecl(JavaScriptParser::FunctionDeclContext* ctx) 
 }
 
 void CoreListener::enterAnoymousFunctionDecl(JavaScriptParser::AnoymousFunctionDeclContext* ctx) {
+  printf(" AnoyousFunc(){");
 }
 
 void CoreListener::exitAnoymousFunctionDecl(JavaScriptParser::AnoymousFunctionDeclContext* ctx) {
+  printf(" FA}");
 }
 
 void CoreListener::enterArrowFunction(JavaScriptParser::ArrowFunctionContext* ctx) {

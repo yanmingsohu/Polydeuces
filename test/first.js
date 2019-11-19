@@ -4,6 +4,7 @@ function a() {
 }
 
 let b = function() {};
+let c = function*() {};
 
 (function() {
   var a=1, b=2;
@@ -68,7 +69,7 @@ let b = function() {};
 a =199;
 a += 1;
 d = 1;
-d = d++ +d; // 3
+d = d++ +d// 3
 d = d-- +d; // 5
 d = ++d +d; // 12
 d = --d -d; // 0

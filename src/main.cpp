@@ -5,15 +5,13 @@
 #include "JavaScriptParser.h"
 #include "JavaScriptLexer.h"
 #include "parser_listener.h"
+#include "parser.h"
 
 using namespace antlr4;
 using namespace PolydeucesEngine;
 
 
-int main(char** argv, int argc) {
-  std::ifstream code;
-  code.open("../../test/first.js");
-
+void with_antlr4(std::ifstream& code) {
   ANTLRInputStream input(code);
   std::cout << input.toString() << "\n\n" << std::endl;
   JavaScriptLexer lexer(&input);
@@ -31,11 +29,18 @@ int main(char** argv, int argc) {
 
   //std::wstring s =  + L"\n";
   // Unicode output in the console is very limited.
-  /*std::wcout << "\n Parse Tree: \n" 
-             << antlrcpp::s2ws(tree->toStringTree(&parser)) 
+  /*std::wcout << "\n Parse Tree: \n"
+             << antlrcpp::s2ws(tree->toStringTree(&parser))
              <<"\n" << std::endl; */
 
   manager.start();
   printf("ok");
+}
+
+
+int main(char** argv, int argc) {
+  std::ifstream code;
+  code.open("../../test/first.js");
+  parse_javascript(code);
   return 0;
 }
