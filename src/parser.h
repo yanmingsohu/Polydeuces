@@ -1,7 +1,7 @@
 #pragma once
 
 #include <fstream>
-#include "lexer.h"
+#include "parser_gen.h"
 
 namespace PolydeucesEngine {
 
@@ -28,7 +28,8 @@ class ParseData;
 void parse_javascript(std::ifstream& code);
 void parse_javascript(char* code, const int length);
 void parse_lexer(ParseData& pd);
-bool parser_operator(char* str, int length, JSLexer& t);
+int parser_operator(char* str, int length, JSLexer& t);
+int parser_key_word(char* str, int length, JSLexer& t);
 
 
 }

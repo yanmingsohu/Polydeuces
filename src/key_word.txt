@@ -1,0 +1,62 @@
+/// copy from https://github.com/antlr/grammars-v4/tree/master/javascript
+
+NullLiteral:                    'null';
+True:                           'true';
+False:                          'false';
+
+/// Keywords
+
+Break:                          'break';
+Do:                             'do';
+Instanceof:                     'instanceof';
+Typeof:                         'typeof';
+Case:                           'case';
+Else:                           'else';
+New:                            'new';
+Var:                            'var';
+Catch:                          'catch';
+Finally:                        'finally';
+Return:                         'return';
+Void:                           'void';
+Continue:                       'continue';
+For:                            'for';
+Switch:                         'switch';
+While:                          'while';
+Debugger:                       'debugger';
+Function:                       'function';
+This:                           'this';
+With:                           'with';
+Default:                        'default';
+If:                             'if';
+Throw:                          'throw';
+Delete:                         'delete';
+In:                             'in';
+Try:                            'try';
+As:                             'as';
+From:                           'from';
+
+/// Future Reserved Words
+
+Class:                          'class';
+Enum:                           'enum';
+Extends:                        'extends';
+Super:                          'super';
+Const:                          'const';
+Export:                         'export';
+Import:                         'import';
+
+Async:                          'async';
+Await:                          'await';
+
+/// The following tokens are also considered to be FutureReservedWords
+/// when parsing strict mode
+
+Implements:                     'implements' {this->IsStrictMode()}?;
+Let:                            'let' {this->IsStrictMode()}?;
+Private:                        'private' {this->IsStrictMode()}?;
+Public:                         'public' {this->IsStrictMode()}?;
+Interface:                      'interface' {this->IsStrictMode()}?;
+Package:                        'package' {this->IsStrictMode()}?;
+Protected:                      'protected' {this->IsStrictMode()}?;
+Static:                         'static' {this->IsStrictMode()}?;
+Yield:                          'yield' {this->IsStrictMode()}?;

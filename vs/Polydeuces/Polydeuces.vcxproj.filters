@@ -59,7 +59,7 @@
     <ClCompile Include="..\..\src\parser.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\src\parser_operator.cpp">
+    <ClCompile Include="..\..\src\parser_gen.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>
@@ -106,7 +106,7 @@
     <ClInclude Include="..\..\src\parser.h">
       <Filter>源文件</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\src\lexer.h">
+    <ClInclude Include="..\..\src\parser_gen.h">
       <Filter>源文件</Filter>
     </ClInclude>
   </ItemGroup>
@@ -134,5 +134,8 @@
     </None>
     <None Include="cpp.hint" />
     <None Include="..\..\README.md" />
+    <None Include="..\..\src\generate-lexer.js">
+      <Filter>资源文件</Filter>
+    </None>
   </ItemGroup>
 </Project>

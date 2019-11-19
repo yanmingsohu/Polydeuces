@@ -1,5 +1,4 @@
 #include "parser.h"
-#include "lexer.h"
 #include <string>
 #include <iostream>
 #include <vector>
@@ -40,6 +39,11 @@ public:
 
   void pushWord(int endpos, WordType t, JSLexer l = JSLexer::Unknow) {
     if (endpos <= begin) return;
+    if (t == WordType::Non) {
+      if (parser_key_word(code + begin, endpos - begin, l)) {
+        t = WordType::KeyWord;
+      }
+    }
     //std::cout << begin << ',' << endpos << std::endl;
     words.push_back({code + begin, endpos - begin, t, l});
   }
@@ -61,17 +65,21 @@ public:
 
   void print() {
     for (auto i = words.begin(); i != words.end(); ++i) {
-      std::cout << std::string(i->begin, i->length) << '\t' << i->length << '\t';
+      std::cout << std::string(i->begin, i->length) 
+                << '\t' << i->length << '\t';
       switch (i->type) {
-        case KeyWord: std::cout << "Key\n"; break;
-        case Num: std::cout << "Num\n"; break;
-        case String: std::cout << "String\n"; break;
-        case Operator: std::cout << "Operator\n"; break;
-        case Comment: std::cout << "Comment\n"; break;
-        case Symbol: std::cout << "symbol\n"; break;
+        case KeyWord: std::cout << "Key"; break;
+        case Num: std::cout << "Num"; break;
+        case String: std::cout << "String"; break;
+        case Operator: std::cout << "Operator"; break;
+        case Comment: std::cout << "Comment"; break;
+        case Symbol: std::cout << "symbol"; break;
         default:
-          std::cout << "Non\n"; break;
+          std::cout << "Non"; break;
       }
+      std::cout << ' ';
+      print_lexer(i->lexer, std::cout);
+      std::cout << std::endl;
     }
   }
 
@@ -201,11 +209,12 @@ void parse_lexer(ParseData& pd) {
 
       default:
         JSLexer lexer;
-        if (parser_operator(pd.code_ref()+i, pd.length-i, lexer)) {
+        int offset = parser_operator(pd.code_ref() + i, pd.length - i, lexer);
+        if (offset) {
           pd.pushWord(i, WordType::Non);
           pd.update(i);
-          pd.pushWord(i + 1, WordType::Operator, lexer);
-          pd.update(i + 1);
+          pd.pushWord(i + offset, WordType::Operator, lexer);
+          pd.update(i + offset);
           continue;
         }
         

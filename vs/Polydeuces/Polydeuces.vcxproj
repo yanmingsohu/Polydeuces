@@ -32,8 +32,8 @@
     <ClCompile Include="..\..\src\manager.cpp" />
     <ClCompile Include="..\..\src\objects.cpp" />
     <ClCompile Include="..\..\src\parser.cpp" />
+    <ClCompile Include="..\..\src\parser_gen.cpp" />
     <ClCompile Include="..\..\src\parser_listener.cpp" />
-    <ClCompile Include="..\..\src\parser_operator.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\generate\gcomm.h" />
@@ -47,9 +47,9 @@
     <ClInclude Include="..\..\generate\JavaScriptParserVisitor.h" />
     <ClInclude Include="..\..\src\instructions.h" />
     <ClInclude Include="..\..\src\javascript.h" />
-    <ClInclude Include="..\..\src\lexer.h" />
     <ClInclude Include="..\..\src\operator.h" />
     <ClInclude Include="..\..\src\parser.h" />
+    <ClInclude Include="..\..\src\parser_gen.h" />
     <ClInclude Include="..\..\src\parser_listener.h" />
   </ItemGroup>
   <ItemGroup>
@@ -60,6 +60,7 @@
     <None Include="..\..\generate\JavaScriptParser.interp" />
     <None Include="..\..\generate\JavaScriptParser.tokens" />
     <None Include="..\..\README.md" />
+    <None Include="..\..\src\generate-lexer.js" />
     <None Include="..\..\test\first.js" />
     <None Include="cpp.hint" />
   </ItemGroup>
