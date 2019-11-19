@@ -64,6 +64,10 @@
     <None Include="..\..\test\first.js" />
     <None Include="cpp.hint" />
   </ItemGroup>
+  <ItemGroup>
+    <Text Include="..\..\src\key_word.txt" />
+    <Text Include="..\..\src\operator.txt" />
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
     <ProjectGuid>{45BFE23C-E679-4E06-A368-F3E056AB84EB}</ProjectGuid>

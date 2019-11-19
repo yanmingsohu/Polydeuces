@@ -37,19 +37,27 @@ public:
     return state == s;
   }
 
-  void pushWord(int endpos, WordType t, JSLexer l = JSLexer::Unknow) {
+  void pushWord(int endpos, WordType t, JSLexer l) {
     if (endpos <= begin) return;
-    if (t == WordType::Non) {
-      if (parser_key_word(code + begin, endpos - begin, l)) {
-        t = WordType::KeyWord;
-      }
-    }
     //std::cout << begin << ',' << endpos << std::endl;
     words.push_back({code + begin, endpos - begin, t, l});
   }
 
+  void pushCheckWord(int endpos) {
+    WordType t = WordType::Non;
+    JSLexer l = JSLexer::Unknow;
+    char* buf = code + begin;
+    int len = endpos - begin;
+
+    //TODO: 符号/数字
+    if (parser_key_word(buf, len, l)) {
+      t = WordType::KeyWord;
+    }
+    pushWord(endpos, t, l);
+  }
+
   void pushError(int i) {
-    pushWord(i, WordType::SyntaxError);
+    pushWord(i, WordType::SyntaxError, JSLexer::Unknow);
     update(i + 1);
     ++error_count;
   }
@@ -68,14 +76,14 @@ public:
       std::cout << std::string(i->begin, i->length) 
                 << '\t' << i->length << '\t';
       switch (i->type) {
-        case KeyWord: std::cout << "Key"; break;
-        case Num: std::cout << "Num"; break;
-        case String: std::cout << "String"; break;
-        case Operator: std::cout << "Operator"; break;
-        case Comment: std::cout << "Comment"; break;
-        case Symbol: std::cout << "symbol"; break;
+        case KeyWord  : std::cout << "Key"; break;
+        case Num      : std::cout << "Num"; break;
+        case String   : std::cout << "String"; break;
+        case Operator : std::cout << "Operator"; break;
+        case Comment  : std::cout << "Comment"; break;
+        case Symbol   : std::cout << "symbol"; break;
         default:
-          std::cout << "Non"; break;
+          std::cout << "Non(" << i->type << ")"; break;
       }
       std::cout << ' ';
       print_lexer(i->lexer, std::cout);
@@ -112,7 +120,7 @@ static void SingleLineComment(ParseData& pd, int& i) {
     }
     ++i;
   }
-  pd.pushWord(i, WordType::Comment);
+  pd.pushWord(i, WordType::Comment, JSLexer::Unknow);
   pd.update(i+1);
 }
 
@@ -125,7 +133,7 @@ static void MultiLineComment(ParseData& pd, int& i) {
     }
     ++i;
   }
-  pd.pushWord(i, WordType::Comment);
+  pd.pushWord(i, WordType::Comment, JSLexer::Unknow);
   pd.update(i);
 }
 
@@ -145,7 +153,7 @@ static void NormString(ParseData& pd, int& i, char endCh) {
     }
     ++i;
   }
-  pd.pushWord(i, WordType::String);
+  pd.pushWord(i, WordType::String, JSLexer::Unknow);
   pd.update(i+1);
 }
 
@@ -163,45 +171,45 @@ void parse_lexer(ParseData& pd) {
       case ' ':
       case '\t':
         if (pd.isState(WordState::Char)) {
-          pd.pushWord(i, WordType::Non);
-        } // no break;
+          pd.pushCheckWord(i);
+        } 
+        // no break;
       case '\r':
         pd.update(i+1);
         pd.setState(WordState::Blank);
         break;
 
       case '/':
-        pd.pushWord(i, WordType::Non);
+        pd.pushCheckWord(i);
         pd.update(i);
-        if (pd.isState(WordState::Char) || pd.isState(WordState::Blank)) {
-          if (pd[i + 1] == '/') {
-            SingleLineComment(pd, i+=2);
-          }
-          else if (pd[i + 1] == '*') {
-            MultiLineComment(pd, i+=2);
-          }
-        } else {
-          pd.pushWord(i + 1, WordType::Operator);
+        if (pd[i + 1] == '/') {
+          SingleLineComment(pd, i+=2);
+        }
+        else if (pd[i + 1] == '*') {
+          MultiLineComment(pd, i+=2);
+        }
+        else {
+          pd.pushWord(i + 1, WordType::Operator, JSLexer::Divide);
           pd.update(i + 1);
         }
         break;
 
       case '\'':
-        pd.pushWord(i, WordType::Non);
+        pd.pushCheckWord(i);
         ++i;
         pd.update(i);
         NormString(pd, i, '\'');
         break;
 
       case '"':
-        pd.pushWord(i, WordType::Non);
+        pd.pushCheckWord(i);
         ++i;
         pd.update(i);
         NormString(pd, i, '"');
         break;
 
       case '`': //TODO: 完整支持多行字符串
-        pd.pushWord(i, WordType::Non);
+        pd.pushCheckWord(i);
         ++i;
         pd.update(i);
         NormString(pd, i, '`');
@@ -211,7 +219,7 @@ void parse_lexer(ParseData& pd) {
         JSLexer lexer;
         int offset = parser_operator(pd.code_ref() + i, pd.length - i, lexer);
         if (offset) {
-          pd.pushWord(i, WordType::Non);
+          pd.pushCheckWord(i);
           pd.update(i);
           pd.pushWord(i + offset, WordType::Operator, lexer);
           pd.update(i + offset);
@@ -227,7 +235,7 @@ void parse_lexer(ParseData& pd) {
         break;
     }
   }
-  pd.pushWord(pd.length, WordType::Non);
+  pd.pushCheckWord(pd.length);
 }
 
 

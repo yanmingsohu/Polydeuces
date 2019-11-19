@@ -36,8 +36,7 @@ enum JSLexer {
 
 template<class Out> void print_lexer(JSLexer t, Out& out) {
   switch(t) {
-    default:
-      out << "Unknow"; return;
+    default: return;
     case OpenBracket:
       out << "OpenBracket"; return;
     case CloseBracket:

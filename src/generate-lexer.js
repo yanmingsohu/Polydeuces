@@ -197,8 +197,7 @@ enum JSLexer {
   write(0, `
 template<class Out> void print_lexer(JSLexer t, Out& out) {
   switch(t) {
-    default:
-      out << "Unknow"; return;
+    default: return;
 `);
   for (let n in LexerEnum) {
     writel(2, "case ", n, ":");

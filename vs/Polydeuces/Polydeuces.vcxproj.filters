@@ -138,4 +138,12 @@
       <Filter>资源文件</Filter>
     </None>
   </ItemGroup>
+  <ItemGroup>
+    <Text Include="..\..\src\key_word.txt">
+      <Filter>资源文件</Filter>
+    </Text>
+    <Text Include="..\..\src\operator.txt">
+      <Filter>资源文件</Filter>
+    </Text>
+  </ItemGroup>
 </Project>
