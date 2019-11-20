@@ -438,6 +438,8 @@ int parse_symbol(char* str, int length, WordType& t) {
     if (UnicodeType::Letter != unicode_type(c)) {
       return 0;
     }
+  } else {
+    i = 1;
   }
   
   while (i < length) {
@@ -445,7 +447,7 @@ int parse_symbol(char* str, int length, WordType& t) {
     if (len == 0) return 0;
     i += len;
 
-    if (str[0] == '$' || str[0] == '_') continue;
+    if (str[i] == '$' || str[i] == '_') continue;
     if (c == 0x200C || c == 0x200D) continue;
     switch (unicode_type(c)) {
       case UnicodeType::Letter:
