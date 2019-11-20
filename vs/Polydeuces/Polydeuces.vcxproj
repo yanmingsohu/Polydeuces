@@ -34,6 +34,7 @@
     <ClCompile Include="..\..\src\parser.cpp" />
     <ClCompile Include="..\..\src\parser_gen.cpp" />
     <ClCompile Include="..\..\src\parser_listener.cpp" />
+    <ClCompile Include="..\..\src\tool.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\generate\gcomm.h" />
@@ -51,6 +52,7 @@
     <ClInclude Include="..\..\src\parser.h" />
     <ClInclude Include="..\..\src\parser_gen.h" />
     <ClInclude Include="..\..\src\parser_listener.h" />
+    <ClInclude Include="..\..\src\tool.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\generate\JavaScriptLexer.g4" />

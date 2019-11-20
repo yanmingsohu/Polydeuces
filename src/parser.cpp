@@ -1,4 +1,5 @@
 #include "parser.h"
+#include "tool.h"
 #include <string>
 #include <iostream>
 #include <vector>
@@ -428,13 +429,35 @@ int parse_number(char* str, int length, WordType& t) {
 }
 
 
+// TODO: 支持 Unicode 转义序列字符串 \u0000 \u{0000}
 int parse_symbol(char* str, int length, WordType& t) {
-  char c = str[0];
-  if (c == '$' || c == '_' || isLetter(c)) {
-    for (int i = 1; i < length; ++i) {
+  Unicode c;
+  int i = 0;
+  if (str[0] != '$' && str[0] != '_') {
+    i += utf8_to_unicode(c, str, length);
+    if (UnicodeType::Letter != unicode_type(c)) {
+      return 0;
     }
   }
-  return 0;
+  
+  while (i < length) {
+    int len = utf8_to_unicode(c, str + i, length - i);
+    if (len == 0) return 0;
+    i += len;
+
+    if (str[0] == '$' || str[0] == '_') continue;
+    if (c == 0x200C || c == 0x200D) continue;
+    switch (unicode_type(c)) {
+      case UnicodeType::Letter:
+      case UnicodeType::CombiningMark:
+      case UnicodeType::Digit:
+      case UnicodeType::ConnectorPunctuation:
+        continue;
+    }
+    return 0;
+  }
+  t = WordType::Symbol;
+  return 1;
 }
 
 

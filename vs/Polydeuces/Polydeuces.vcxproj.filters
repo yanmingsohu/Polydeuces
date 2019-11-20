@@ -62,6 +62,9 @@
     <ClCompile Include="..\..\src\parser_gen.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\src\tool.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\generate\JavaScriptLexer.h">
@@ -107,6 +110,9 @@
       <Filter>源文件</Filter>
     </ClInclude>
     <ClInclude Include="..\..\src\parser_gen.h">
+      <Filter>源文件</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\tool.h">
       <Filter>源文件</Filter>
     </ClInclude>
   </ItemGroup>

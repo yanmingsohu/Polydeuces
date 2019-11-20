@@ -26,16 +26,6 @@ struct Word {
 };
 
 
-template<class T> bool isDigital(T c) {
-  return c >= '0' && c <='9';
-}
-
-
-template<class T> bool isLetter(T c) {
-  return (c>= 'a' && c <= 'z') || (c >= 'A' && c <='Z');
-}
-
-
 class ParseData;
 void parse_javascript(std::ifstream& code);
 void parse_javascript(char* code, const int length);
