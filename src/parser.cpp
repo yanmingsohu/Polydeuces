@@ -51,9 +51,17 @@ public:
 
     //TODO: ·ûºÅ/Êý×Ö
     if (parser_key_word(buf, len, l)) {
-      t = WordType::KeyWord;
+      pushWord(endpos, WordType::KeyWord, l);
     }
-    pushWord(endpos, t, l);
+    else if (parse_number(buf, len, t)) {
+      pushWord(endpos, t, JSLexer::Unknow);
+    }
+    else if (parse_symbol(buf, len, t)) {
+      pushWord(endpos, t, JSLexer::Unknow);
+    } 
+    else {
+      pushError(endpos);
+    }
   }
 
   void pushError(int i) {
@@ -75,16 +83,26 @@ public:
     for (auto i = words.begin(); i != words.end(); ++i) {
       std::cout << std::string(i->begin, i->length) 
                 << '\t' << i->length << '\t';
+#define WTType(x) case x : std::cout << #x; break
       switch (i->type) {
-        case KeyWord  : std::cout << "Key"; break;
-        case Num      : std::cout << "Num"; break;
-        case String   : std::cout << "String"; break;
-        case Operator : std::cout << "Operator"; break;
-        case Comment  : std::cout << "Comment"; break;
-        case Symbol   : std::cout << "symbol"; break;
-        default:
-          std::cout << "Non(" << i->type << ")"; break;
+        WTType(KeyWord);
+        WTType(String);
+        WTType(Operator);
+        WTType(Comment);
+        WTType(Symbol);
+        WTType(Decimal);
+        WTType(HexInt);
+        WTType(OctalInt1);
+        WTType(OctalInt2);
+        WTType(BinaryInt);
+        WTType(BigDecimal);
+        WTType(BigHexInt);
+        WTType(BigOctalInt);
+        WTType(BigBinaryInt);
+        WTType(SyntaxError);
+        default: std::cout << "N(" << i->type << ")"; break;
       }
+#undef WTType
       std::cout << ' ';
       print_lexer(i->lexer, std::cout);
       std::cout << std::endl;
@@ -215,6 +233,20 @@ void parse_lexer(ParseData& pd) {
         NormString(pd, i, '`');
         break;
 
+      case '.':
+        if (i+1 < pd.length && isDigital(pd[i + 1])) {
+          break;
+        }
+        goto default_check;
+
+      case '-':
+      case '+':
+        if (i + 1 < pd.length && pd[i-1] == 'e' && isDigital(pd[i + 1])) {
+          break;
+        }
+        goto default_check;
+
+default_check:
       default:
         JSLexer lexer;
         int offset = parser_operator(pd.code_ref() + i, pd.length - i, lexer);
@@ -236,6 +268,173 @@ void parse_lexer(ParseData& pd) {
     }
   }
   pd.pushCheckWord(pd.length);
+}
+
+
+int parse_number(char* str, int length, WordType& t) {
+  bool big = false;
+  bool dot = false;
+  bool e = false;
+
+  enum {
+    ParseNumInit, DecOrPrifix, DecE,
+    MustDec, MustHex, MustOctal2, MustOctal1, MustBinary,
+  } state = ParseNumInit;
+
+  for (int i = 0; i < length; ++i) {
+    switch (str[i]) {
+      case '0':
+        if (state == ParseNumInit) {
+          state = DecOrPrifix;
+          break;
+        }
+      case '1':
+        if (state == MustBinary) break;
+      case '2':
+      case '3':
+      case '4':
+      case '5':
+      case '6':
+      case '7':
+        if (state == MustOctal1 || state == MustOctal2) break;
+        if (state == DecOrPrifix) {
+          state = MustOctal1;
+          break;
+        }
+
+      case '8':
+      case '9':
+        if (state == ParseNumInit || state == DecOrPrifix) {
+          state = MustDec;
+          break;
+        }
+        if (state == MustOctal1) {
+          state = MustDec;
+          break;
+        }
+        if (state == MustDec) break;
+        if (state == DecE) {
+          state = MustDec;
+          break;
+        }
+
+      case 'b':
+      case 'B':
+        if (state == DecOrPrifix) {
+          if (length < 3) return 0;
+          state = MustBinary;
+          break;
+        }
+      case 'a':
+      case 'A':
+      case 'c':
+      case 'D':
+      case 'f':
+      case 'F':
+        if (state != MustHex) {
+          return 0;
+        }
+        break;
+
+      case 'e':
+      case 'E':
+        if (state == MustDec) {
+          if (e) return 0;
+          e = true;
+          if (i + 2 < length && (str[i + 1] == '+' || str[i + 1] == '-')) {
+            i += 1;
+          }
+          state = DecE;
+          break;
+        }
+        if (state != MustHex) {
+          return 0;
+        }
+        break;
+
+      case '_':
+        if (state == ParseNumInit || state == DecOrPrifix) {
+          return 0;
+        }
+        if (str[i-1] == '.') return 0;
+        if (i+1 < length && str[i+1] == '.') return 0;
+        continue;
+
+      case 'n':
+        if (state == MustOctal1) {
+          return 0;
+        }
+        if (i == length - 1) {
+          big = true;
+          break;
+        }
+        return 0;
+
+      case '.':
+        if (dot) return 0;
+        dot = true;
+        if (state == ParseNumInit || state == DecOrPrifix) {
+          state = MustDec;
+          break;
+        }
+        if (state != MustDec) {
+          return 0;
+        }
+        break;
+
+      case 'x':
+      case 'X':
+        if (state == DecOrPrifix) {
+          if (length < 3) return 0;
+          state = MustHex;
+          break;
+        }
+        return 0;
+
+      case 'o':
+      case 'O':
+        if (state == DecOrPrifix) {
+          if (length < 3) return 0;
+          state = MustOctal2;
+          break;
+        }
+        return 0;
+    }
+  }
+
+  switch (state) {
+    case DecOrPrifix:
+    case MustDec:
+      t = big ? WordType::BigDecimal : WordType::Decimal;
+      return 1;
+
+    case MustHex:
+      t = big ? WordType::BigHexInt : WordType::HexInt;
+      return 1;
+
+    case MustOctal1:
+      t = WordType::OctalInt1;
+      return 1;
+
+    case MustOctal2:
+      t = big ? WordType::BigOctalInt : WordType::OctalInt2;
+      return 1;
+
+    case MustBinary:
+      t = big ? WordType::BigBinaryInt : WordType::BinaryInt;
+      return 1;
+  }
+  return 0;
+}
+
+
+int parse_symbol(char* str, int length, WordType& t) {
+  char c = str[0];
+  if (c == '$' || c == '_' || isLetter(c)) {
+    for (int i = 1; i < length; ++i) {
+    }
+  }
+  return 0;
 }
 
 
