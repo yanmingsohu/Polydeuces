@@ -7,6 +7,7 @@ namespace PolydeucesEngine {
 
 
 int utf8_to_unicode(Unicode& out, CharSequence str, int len) {
+  if (len < 1) return 0;
 #ifdef JAVASCRIPT_SUPPORT_UNICODE
   if ((str[0] & 0x80) == 0) {
     out = 0x7F & str[0];

@@ -17,6 +17,11 @@ template<class T> bool isDigital(T c) {
 }
 
 
+template<class T> bool isHexDigital(T c) {
+  return (c >= '0' && c <= '9') || (c >= 'a' && c <='z') || (c >= 'A' && c <= 'Z');
+}
+
+
 template<class T> bool isLetter(T c) {
   return (c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z');
 }

@@ -11,7 +11,6 @@ namespace PolydeucesEngine {
 class ParseData {
 private:
   std::vector<Word> words;
-  WordState state;
   // 不负责 code 的内存管理
   CharSequence code;
   int begin;
@@ -23,19 +22,11 @@ public:
 public:
   ParseData(CharSequence _code, int bufferLength)
   : code(_code), length(bufferLength), begin(0)
-  , state(WordState::Blank), error_count(0) {
+  , error_count(0) {
   }
 
   char operator[](int i) {
     return code[i];
-  }
-
-  void setState(WordState s) {
-    state = s;
-  }
-
-  bool isState(WordState s) {
-    return state == s;
   }
 
   void pushWord(int endpos, WordType t, JSLexer l) {
@@ -77,7 +68,6 @@ public:
 
   void update(int last_pos) {
     begin = last_pos;
-    state = WordState::Blank;
   }
 
   void print() {
@@ -183,23 +173,29 @@ static void NormString(ParseData& pd, int& i, char endCh) {
 
 
 void parse_lexer(ParseData& pd) {
+  int skip_brace = 0;
+  enum {
+    ChCtrl, ChBlank, ChChar,
+  } state = ChBlank;
+
   for (int i = 0; i < pd.length; ++i) {
     switch (pd[i]) {
       case '\n':
       case ' ':
       case '\t':
-        if (pd.isState(WordState::Char)) {
+        if (state == ChChar) {
           pd.pushCheckWord(i);
         } 
         // no break;
       case '\r':
         pd.update(i+1);
-        pd.setState(WordState::Blank);
+        state = ChBlank;
         break;
 
       case '/':
         pd.pushCheckWord(i);
         pd.update(i);
+        state = ChBlank;
         if (pd[i + 1] == '/') {
           SingleLineComment(pd, i+=2);
         }
@@ -216,6 +212,7 @@ void parse_lexer(ParseData& pd) {
         pd.pushCheckWord(i);
         ++i;
         pd.update(i);
+        state = ChBlank;
         NormString(pd, i, '\'');
         break;
 
@@ -223,6 +220,7 @@ void parse_lexer(ParseData& pd) {
         pd.pushCheckWord(i);
         ++i;
         pd.update(i);
+        state = ChBlank;
         NormString(pd, i, '"');
         break;
 
@@ -230,6 +228,7 @@ void parse_lexer(ParseData& pd) {
         pd.pushCheckWord(i);
         ++i;
         pd.update(i);
+        state = ChBlank;
         NormString(pd, i, '`');
         break;
 
@@ -246,7 +245,18 @@ void parse_lexer(ParseData& pd) {
         }
         goto default_check;
 
-default_check:
+      case '{':
+        if (pd[i - 2] == '\\' && pd[i - 1] == 'u') {
+          ++skip_brace;
+          break;
+        }
+        goto default_check;
+
+      case '}':
+        if (skip_brace--) break;
+        goto default_check;
+
+default_check: // 具有两种功能的符号, 在处理完特殊功能后跳转到这里.
       default:
         JSLexer lexer;
         int offset = parser_operator(pd.code_ref() + i, pd.length - i, lexer);
@@ -255,14 +265,15 @@ default_check:
           pd.update(i);
           pd.pushWord(i + offset, WordType::Operator, lexer);
           pd.update(i + offset);
+          state = ChBlank;
           continue;
         }
         
         if (pd[i] >= 33 && pd[i] < 127) {
-          pd.setState(WordState::Char);
+          state = ChChar;
         } 
         else {
-          pd.setState(WordState::Ctrl);
+          state = ChCtrl;
         }
         break;
     }
@@ -399,6 +410,9 @@ int parse_number(CharSequence str, int length, WordType& t) {
           break;
         }
         return 0;
+
+      default:
+        return 0;
     }
   }
 
@@ -428,7 +442,66 @@ int parse_number(CharSequence str, int length, WordType& t) {
 }
 
 
-// TODO: 支持 Unicode 转义序列字符串 \u0000 \u{0000}
+int unicode_escape(CharSequence str, int length) {
+  bool open_brace = false;
+  int max_num_length = 4;
+  enum {
+    es_begin, es_u_flag, es_num_or_open_brace, es_hex,
+  } state = es_begin;
+
+  for (int i = 0; i < length; ++i) {
+    switch (str[i]) {
+      case '\\':
+        if (state != es_begin) {
+          return FailCode;
+        }
+        state = es_u_flag;
+        break;
+
+      case 'u':
+        if (state != es_u_flag) {
+          return FailCode;
+        }
+        state = es_num_or_open_brace;
+        break;
+
+      case '{':
+        if (state != es_num_or_open_brace) {
+          return FailCode;
+        }
+        open_brace = true;
+        break;
+
+      case '}':
+        if (!open_brace) {
+          return FailCode;
+        }
+        return i;
+
+      case '0': case '1': case '2': case '3': case '4':
+      case '5': case '6': case '7': case '8': case '9':
+      case 'a': case 'b': case 'c': case 'd': case 'e': case 'f':
+      case 'A': case 'B': case 'C': case 'D': case 'E': case 'F':
+        if (state == es_num_or_open_brace) {
+          state = es_hex;
+        }
+        if (state != es_hex) {
+          return FailCode;
+        }
+        if (open_brace) break;
+        if (--max_num_length <= 0) {
+          return i;
+        }
+        break;
+
+      default:
+        return FailCode;
+    }
+  }
+  return FailCode;
+}
+
+
 int parse_symbol(CharSequence str, int length, WordType& t) {
   Unicode c;
   int i = 0;
@@ -442,6 +515,13 @@ int parse_symbol(CharSequence str, int length, WordType& t) {
   }
   
   while (i < length) {
+    if (str[i] == '\\') {
+      int c = unicode_escape(str+i, length-i);
+      if (c == FailCode) return 0;
+      i += c + 1;
+      continue;
+    }
+
     int len = utf8_to_unicode(c, str + i, length - i);
     if (len == 0) return 0;
     i += len;

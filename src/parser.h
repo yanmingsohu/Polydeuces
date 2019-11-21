@@ -15,11 +15,6 @@ enum WordType {
 };
 
 
-enum WordState {
-  Ctrl, Blank, Char,
-};
-
-
 struct Word {
   CharSequence begin;
   int length;
