@@ -1,10 +1,13 @@
 #include "tool.h"
+#include "options.h"
+#include "types.h"
 #include <stdexcept>
 
 namespace PolydeucesEngine {
 
 
-int utf8_to_unicode(Unicode& out, char* str, int len) {
+int utf8_to_unicode(Unicode& out, CharSequence str, int len) {
+#ifdef JAVASCRIPT_SUPPORT_UNICODE
   if ((str[0] & 0x80) == 0) {
     out = 0x7F & str[0];
     return 1;
@@ -24,6 +27,10 @@ int utf8_to_unicode(Unicode& out, char* str, int len) {
     return 4;
   }
   return 0;
+#else
+  out = str[0];
+  return 1;
+#endif
 }
 
 
@@ -40,6 +47,7 @@ inline static void _set_map(Unicode* map, UnicodeType t, int i) {
 
 
 UnicodeType unicode_type(Unicode c) {
+#ifdef JAVASCRIPT_SUPPORT_UNICODE
   static unsigned char map0[] = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 3,
     3, 3, 3, 3, 3, 3, 3, 3, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
@@ -2226,6 +2234,15 @@ UnicodeType unicode_type(Unicode c) {
     0, 0, 1, 1, 1, 1, 1, 1, 0, 0, 1, 1, 1, 1, 1, 1, 0, 0, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0,
     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, };
   return UnicodeType(map0[c]);
+#else
+  if (isDigital(c)) {
+    return UnicodeType::Digit;
+  }
+  if (isLetter(c)) {
+    return UnicodeType::Letter;
+  }
+  return UnicodeType::UnicodeUnknow;
+#endif // JAVASCRIPT_SUPPORT_UNICODE
 }
 
 

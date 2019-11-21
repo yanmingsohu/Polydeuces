@@ -58,7 +58,7 @@ function read_lexer(filename, online) {
 
 function operator() {
   write(0, `
-int parser_operator(char* str, int len, JSLexer& t) {
+int parser_operator(CharSequence str, int len, JSLexer& t) {
   switch (str[0]) {
 `);
 
@@ -105,7 +105,7 @@ int parser_operator(char* str, int len, JSLexer& t) {
 function key_word() {
   const BeginCase = 2;
   write(0, `
-int parser_key_word(char* str, int length, JSLexer& ret) {
+int parser_key_word(CharSequence str, int length, JSLexer& ret) {
   int state = ${BeginCase};
   JSLexer t;
   for (int i=0; i<length; ++i) {

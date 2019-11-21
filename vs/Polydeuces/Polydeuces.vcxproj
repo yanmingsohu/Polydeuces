@@ -28,6 +28,7 @@
     <ClCompile Include="..\..\generate\JavaScriptParserListener.cpp" />
     <ClCompile Include="..\..\generate\JavaScriptParserVisitor.cpp" />
     <ClCompile Include="..\..\src\controller.h" />
+    <ClCompile Include="..\..\src\grammar.cpp" />
     <ClCompile Include="..\..\src\main.cpp" />
     <ClCompile Include="..\..\src\manager.cpp" />
     <ClCompile Include="..\..\src\objects.cpp" />
@@ -49,10 +50,12 @@
     <ClInclude Include="..\..\src\instructions.h" />
     <ClInclude Include="..\..\src\javascript.h" />
     <ClInclude Include="..\..\src\operator.h" />
+    <ClInclude Include="..\..\src\options.h" />
     <ClInclude Include="..\..\src\parser.h" />
     <ClInclude Include="..\..\src\parser_gen.h" />
     <ClInclude Include="..\..\src\parser_listener.h" />
     <ClInclude Include="..\..\src\tool.h" />
+    <ClInclude Include="..\..\src\types.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\generate\JavaScriptLexer.g4" />

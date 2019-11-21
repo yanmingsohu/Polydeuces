@@ -1,4 +1,5 @@
 #pragma once
+#include "types.h"
 
 namespace PolydeucesEngine {
 
@@ -6,10 +7,8 @@ enum UnicodeType {
   UnicodeUnknow = 0, Letter = 1, CombiningMark = 2, Digit = 3, ConnectorPunctuation = 4
 };
 
-typedef unsigned int Unicode;
 
-
-int utf8_to_unicode(Unicode& out, char* str, int len);
+int utf8_to_unicode(Unicode& out, CharSequence str, int len);
 UnicodeType unicode_type(Unicode c);
 
 

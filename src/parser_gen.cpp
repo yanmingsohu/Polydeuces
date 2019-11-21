@@ -4,7 +4,7 @@
 
 namespace PolydeucesEngine {
 
-int parser_operator(char* str, int len, JSLexer& t) {
+int parser_operator(CharSequence str, int len, JSLexer& t) {
   switch (str[0]) {
     case '[':
       t = JSLexer::OpenBracket;
@@ -226,7 +226,7 @@ int parser_operator(char* str, int len, JSLexer& t) {
   return 0;
 }
 
-int parser_key_word(char* str, int length, JSLexer& ret) {
+int parser_key_word(CharSequence str, int length, JSLexer& ret) {
   int state = 2;
   JSLexer t;
   for (int i=0; i<length; ++i) {
