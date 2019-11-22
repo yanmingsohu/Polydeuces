@@ -4,6 +4,11 @@
 
 namespace PolydeucesEngine {
 
+#define ThrowIf(    exp, g, msg) if ((exp)) throw GrammarError(g, msg)
+#define ThrowIfNot( exp, g, msg) if (!(exp)) throw GrammarError(g, msg)
+#define ReturnIf(   exp, retVal) if ((exp)) return retVal
+#define ReturnIfNot(exp, retVal) if (!(exp)) return retVal
+
 
 typedef WordList::iterator WordIter;
 

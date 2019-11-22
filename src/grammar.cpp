@@ -39,7 +39,7 @@ inline bool skip(Word& w) {
 
 // ! p 会在迭代时改变
 inline bool move_itr(int increment, WordIter& p, WordIter& end) {
-  for (void; p != end; ++p) {
+  for (; p != end; ++p) {
     if (!skip(*p)) {
       return true;
     }
@@ -160,9 +160,7 @@ GramState g_array_element(GrammarData& g) {
 
 
 GramState g_array_literal(GrammarData& g) {
-  if (g.lexer() != JSLexer::OpenBracket) {
-    return g_not;
-  }
+  ReturnIf(g.lexer() != JSLexer::OpenBracket, g_not);
   
   while (g.find(JSLexer::Comma, true));
   if (g_not == g_array_element(g)) {
@@ -170,21 +168,18 @@ GramState g_array_literal(GrammarData& g) {
   }
 
   for (;;) {
-    if (g.find(JSLexer::Comma, true)) {
-      while (g.find(JSLexer::Comma, true));
-      if (g_not == g_array_element(g)) {
-        throw GrammarError(g, "Missing array element");
-      }
-    } else {
+    if (!g.find(JSLexer::Comma, true)) {
       break;
+    }
+    while (g.find(JSLexer::Comma, true));
+    if (g_not == g_array_element(g)) {
+      throw GrammarError(g, "Missing array element");
     }
   }
   
   while (g.find(JSLexer::Comma, true));
 
-  if (!g.find(JSLexer::CloseBracket, true)) {
-    throw GrammarError(g, "Missing array end");
-  }
+  ThrowIfNot(g.find(JSLexer::CloseBracket, true), g, "Missing array end");
   return g_more;
 }
 
@@ -195,20 +190,14 @@ GramState g_object_literal(GrammarData& g) {
 
 
 GramState g_identifier(GrammarData& g) {
-  if (g.type() == WordType::Symbol) {
-    g.next();
-    return g_one;
-  }
-  return g_not;
+  ReturnIfNot(g.type() == WordType::Symbol, g_not);
+  g.next();
+  return g_one;
 }
 
 
 GramState g_assignable(GrammarData& g) {
-  auto r = g_or(3, g, g_identifier, g_array_literal, g_object_literal);
-  if (r == g_not) {
-    throw GrammarError(g, "Missing left-hand value");
-  }
-  return r;
+  return g_or(3, g, g_identifier, g_array_literal, g_object_literal);
 }
 
 
@@ -219,24 +208,20 @@ GramState g_single_expression(GrammarData& g) {
 
 GramState g_variable_declaration(GrammarData& g, JSLexer& modifier) {
   Word& who = *g.i;
-  g_assignable(g);
+  ReturnIf(g_not == g_assignable(g), g_not);
   g.listener->declaration_var(who, modifier);
-
-  if (!g.find(JSLexer::Assign, true)) {
-    return g_one;
-  }
-  g_single_expression(g);
+  ReturnIfNot(g.find(JSLexer::Assign, true), g_one);
+  ThrowIf(g_not == g_single_expression(g), g, "Missing expression");
   return g_more;
 }
 
 
 GramState g_variable_declaration_list(GrammarData& g, JSLexer& modifier) {
-  g_variable_declaration(g, modifier);
-  if (!g.find(JSLexer::Comma, true)) {
-    return g_one;
-  }
+  ReturnIf(g_not == g_variable_declaration(g, modifier), g_not);
+  ReturnIfNot(g.find(JSLexer::Comma, true), g_one);
   do {
-    g_variable_declaration(g, modifier);
+    ThrowIf(g_not == g_variable_declaration(g, modifier),
+            g, "Missing declaration");
   } while(g.find(JSLexer::Comma, true));
   return g_more;
 }
@@ -254,13 +239,10 @@ GramState g_variable_statement(GrammarData& g) {
       return g_not;
   }
 
-  if (!g.next()) {
-    throw GrammarError(g, "Missing declaration list");
-  }
-  g_variable_declaration_list(g, modifier);
-  if (!g.eos()) {
-    throw GrammarError(g, "Missing declaration end");
-  }
+  ThrowIfNot(g.next(), g, "Missing declaration name");
+  ThrowIf(g_not == g_variable_declaration_list(g, modifier), 
+          g, "Missing declaration list");
+  ThrowIfNot(g.eos(), g, "Missing declaration end");
   return g_one;
 }
 
@@ -268,14 +250,10 @@ GramState g_variable_statement(GrammarData& g) {
 //TODO: GrammarData 增加一个标记, 当进入一个语义函数时, 
 // 不符合第一个语义标记时抛出异常/返回 g_not
 GramState g_statement(GrammarData& g) {
-  GramState s = g_or(2, g
+  return g_or(2, g
     , g_block
     , g_variable_statement
   );
-  if (s == g_not) {
-    throw GrammarError(g, "Missing statement");
-  }
-  return s;
 }
 
 
