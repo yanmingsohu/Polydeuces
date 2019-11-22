@@ -39,8 +39,9 @@ public:
   ParseData(CharSequence _code, int bufferLength);
   /* 用索引 i 检索缓冲区字符 */
   CharCode operator[](int i);
-  /* 使用内部起始指针与 endpos 指针构造一个 Word */
-  void pushWord(int endpos, WordType t, JSLexer l);
+  /* 使用内部起始指针与 endpos 指针构造一个 Word, 
+     当内部起始指针超过 endpos 返回 false, 没有 Word 被构造 */
+  bool pushWord(int endpos, WordType t, JSLexer l);
   /* 除了 pushWord 还要检查 Word 的类型 */
   void pushCheckWord(int endpos);
   /* 压入的 Word 是不符合词法的时候调用 */
@@ -53,6 +54,19 @@ public:
   void print();
   /* 返回字符缓冲区指针 */
   CharSequence code_ref();
+  /* 返回 Word 集合 */
+  std::vector<Word>& getWords();
+};
+
+
+class IncrementCounter {
+private:
+  CharSequence current;
+  int line;
+  int col;
+public:
+  IncrementCounter(CharSequence p) : current(p), line(1), col(1) {}
+  void findNextLine(int& outLine, int& outColumn, CharSequence endPos);
 };
 
 
@@ -64,6 +78,7 @@ int parser_key_word(CharSequence str, int length, JSLexer& t);
 int parse_number(CharSequence str, int length, WordType& t);
 int parse_symbol(CharSequence str, int length, WordType& t);
 void begin_parse_grammar(std::vector<Word>& words);
+void print_error_line(IncrementCounter&, CharSequence code, int length, Word& w);
 
 
 }

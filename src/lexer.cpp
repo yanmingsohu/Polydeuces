@@ -128,7 +128,10 @@ void parse_lexer(ParseData& pd) {
       goto default_check;
 
     case '}':
-      if (skip_brace--) break;
+      if (skip_brace > 0) {
+        --skip_brace;
+        break;
+      }
       goto default_check;
 
     default_check: // 具有两种功能的符号, 在处理完特殊功能后跳转到这里.
@@ -203,26 +206,22 @@ int parse_number(CharSequence str, int length, WordType& t) {
         break;
       }
 
-    case 'b':
-    case 'B':
+    case 'b': case 'B':
       if (state == DecOrPrifix) {
         if (length < 3) return 0;
         state = MustBinary;
         break;
       }
-    case 'a':
-    case 'A':
-    case 'c':
-    case 'D':
-    case 'f':
-    case 'F':
+    case 'a': case 'A':
+    case 'c': case 'C':
+    case 'd': case 'D':
+    case 'f': case 'F':
       if (state != MustHex) {
         return 0;
       }
       break;
 
-    case 'e':
-    case 'E':
+    case 'e': case 'E':
       if (state == MustDec) {
         if (e) return 0;
         e = true;

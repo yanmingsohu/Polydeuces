@@ -19,14 +19,16 @@ CharCode ParseData::operator[](int i) {
 }
 
 
-void ParseData::pushWord(int endpos, WordType t, JSLexer l) {
-  if (endpos <= begin) return;
+bool ParseData::pushWord(int endpos, WordType t, JSLexer l) {
+  if (endpos <= begin) return false;
   //std::cout << begin << ',' << endpos << std::endl;
   words.push_back({code + begin, endpos - begin, t, l});
+  return true;
 }
 
 
 void ParseData::pushCheckWord(int endpos) {
+  if (endpos <= begin) return;
   WordType t = WordType::Non;
   JSLexer l = JSLexer::Unknow;
   CharSequence buf = code + begin;
@@ -49,9 +51,10 @@ void ParseData::pushCheckWord(int endpos) {
 
 
 void ParseData::pushError(int i) {
-  pushWord(i, WordType::SyntaxError, JSLexer::Unknow);
-  update(i + 1);
-  ++error_count;
+  if (pushWord(i, WordType::SyntaxError, JSLexer::Unknow)) {
+    update(i + 1);
+    ++error_count;
+  }
 }
 
 
@@ -101,6 +104,58 @@ CharSequence ParseData::code_ref() {
 }
 
 
+std::vector<Word>& ParseData::getWords() {
+  return words;
+}
+
+
+void IncrementCounter::findNextLine(int& l, int& c, CharSequence end) {
+  for (auto i = current; i < end; ++i) {
+    if (*i == '\n') {
+      ++line;
+      col = 1;
+    } else {
+      ++col;
+    }
+  }
+  current = end;
+  l = line;
+  c = col;
+}
+
+
+void print_error_line(IncrementCounter& ic, CharSequence code, int length, Word& w) {
+  CharCode* begin = w.begin;
+  for (int i = 0; i < 30; ++i) {
+    if (begin <= code) break;
+    if (*begin == '\n') {
+      ++begin;
+      break;
+    }
+    --begin;
+  }
+
+  int begin_len = w.begin - begin;
+  const int end_offset = get_min(60, length - begin_len);
+  while (begin_len < end_offset) {
+    if (begin[begin_len] == '\n') break;
+    ++begin_len;
+  }
+
+  int line, col;
+  ic.findNextLine(line, col, w.begin);
+
+  std::cout << '\n';
+  std::cout.write(reinterpret_cast<char*>(begin), begin_len) << '\n';
+  for (int i = w.begin - begin; i > 0; --i) {
+    std::cout << ' ';
+  }
+  std::cout <<"^ SyntaxError: `";
+  std::cout.write(reinterpret_cast<char*>(w.begin), w.length);
+  std::cout <<"` at ["<< line <<':'<< col <<']'<< std::endl;
+}
+
+
 void parse_javascript(std::ifstream& code_stm) {
   code_stm.seekg(0, std::ios_base::end);
   std::ifstream::streampos filesize = code_stm.tellg();
@@ -115,10 +170,23 @@ void parse_javascript(std::ifstream& code_stm) {
 }
 
 
+// ! 主要解析器函数
 void parse_javascript(CharSequence code, const int length) {
   ParseData pd(code, length);
   parse_lexer(pd);
   pd.print();
+
+  if (pd.errorCount() > 0) {
+    IncrementCounter ic(code);
+    auto words = pd.getWords();
+
+    for (auto i = words.begin(); i != words.end(); ++i) {
+      if (WordType::SyntaxError == i->type) {
+        print_error_line(ic, code, length, *i);
+      }
+    }
+    std::cout << "Error count: " << pd.errorCount() << std::endl;
+  }
 }
 
 
