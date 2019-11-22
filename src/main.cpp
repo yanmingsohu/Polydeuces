@@ -1,6 +1,7 @@
 #include "gcomm.h"
 
-#include "stdio.h"
+#include <stdio.h>
+#include <ctime>
 #include "antlr4-runtime.h"
 #include "JavaScriptParser.h"
 #include "JavaScriptLexer.h"
@@ -38,9 +39,23 @@ void with_antlr4(std::ifstream& code) {
 }
 
 
-int main(char** argv, int argc) {
+int main(int argc, char** argv) {
   std::ifstream code;
-  code.open("../../test/first.js");
-  parse_javascript(code);
+  const char* filename;
+  time_t now = time(0);
+
+  if (argc == 2) {
+    filename = argv[1];
+  } else {
+    filename = "../../test/first.js";
+  }
+
+  code.open(filename);
+  if (code) {
+    parse_javascript(code);
+  } else {
+    std::cout << "Cannot open " << filename << std::endl;
+  }
+  std::cout << "Use " << time(0) - now << " ms" << std::endl;
   return 0;
 }

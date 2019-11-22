@@ -5,6 +5,7 @@ namespace PolydeucesEngine {
   #define FailCode 0
 
   typedef unsigned int Unicode;
-  typedef unsigned char* CharSequence;
+  typedef unsigned char CharCode;
+  typedef CharCode* CharSequence;
 
 }

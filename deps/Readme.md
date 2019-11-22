@@ -18,3 +18,8 @@
 
 * Run `install-javascript-grammars` once, then update with git always.
 * Read `javascript-grammars/javascript/README.md`.
+
+
+## test262
+
+* `git clone https://github.com/tc39/test262`

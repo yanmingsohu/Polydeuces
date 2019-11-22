@@ -68,6 +68,9 @@
     <ClCompile Include="..\..\src\grammar.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\src\lexer.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\generate\JavaScriptLexer.h">
