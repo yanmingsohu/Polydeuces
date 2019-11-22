@@ -47,7 +47,7 @@ int main(int argc, char** argv) {
   if (argc == 2) {
     filename = argv[1];
   } else {
-    filename = "../../test/first.js";
+    filename = "../../test/grammar.js";
   }
 
   code.open(filename);

@@ -52,7 +52,7 @@ static void NormString(ParseData& pd, int& i, char endCh) {
 void parse_lexer(ParseData& pd) {
   int skip_brace = 0;
   enum {
-    ChCtrl, ChBlank, ChChar,
+    ChCtrl, ChBlank, ChChar, ChNewLine,
   } state = ChBlank;
 
   for (int i = 0; i < pd.length; ++i) {
@@ -63,10 +63,14 @@ void parse_lexer(ParseData& pd) {
       if (state == ChChar) {
         pd.pushCheckWord(i);
       }
+      if (state != ChNewLine && pd[i] == '\n') {
+        pd.update(i);
+        pd.pushWord(i+1, WordType::NewLine, JSLexer::Unknow);
+      }
       // no break;
     case '\r':
       pd.update(i + 1);
-      state = ChBlank;
+      state = ChNewLine;
       break;
 
     case '/':

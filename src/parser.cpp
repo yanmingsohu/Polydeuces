@@ -10,7 +10,8 @@ namespace PolydeucesEngine {
 
 ParseData::ParseData(CharSequence _code, int bufferLength)
 : code(_code), length(bufferLength), begin(0)
-, error_count(0) {
+, error_count(0), words(0) {
+  words.reserve(INIT_WORDS_LENGTH);
 }
 
 
@@ -89,6 +90,7 @@ void ParseData::print() {
       WTType(BigOctalInt);
       WTType(BigBinaryInt);
       WTType(SyntaxError);
+      WTType(NewLine);
       default: std::cout << "N(" << i->type << ")"; break;
     }
 #undef WTType
@@ -104,7 +106,7 @@ CharSequence ParseData::code_ref() {
 }
 
 
-std::vector<Word>& ParseData::getWords() {
+WordList& ParseData::getWords() {
   return words;
 }
 
@@ -124,10 +126,10 @@ void IncrementCounter::findNextLine(int& l, int& c, CharSequence end) {
 }
 
 
-void print_error_line(IncrementCounter& ic, CharSequence code, int length, Word& w) {
+void print_error_line(IncrementCounter& ic, Word& w) {
   CharCode* begin = w.begin;
   for (int i = 0; i < 30; ++i) {
-    if (begin <= code) break;
+    if (begin <= ic.buffer) break;
     if (*begin == '\n') {
       ++begin;
       break;
@@ -136,7 +138,7 @@ void print_error_line(IncrementCounter& ic, CharSequence code, int length, Word&
   }
 
   int begin_len = w.begin - begin;
-  const int end_offset = get_min(60, length - begin_len);
+  const int end_offset = get_min(60, ic.total - begin_len);
   while (begin_len < end_offset) {
     if (begin[begin_len] == '\n') break;
     ++begin_len;
@@ -177,15 +179,17 @@ void parse_javascript(CharSequence code, const int length) {
   pd.print();
 
   if (pd.errorCount() > 0) {
-    IncrementCounter ic(code);
+    IncrementCounter ic(code, length);
     auto words = pd.getWords();
 
     for (auto i = words.begin(); i != words.end(); ++i) {
       if (WordType::SyntaxError == i->type) {
-        print_error_line(ic, code, length, *i);
+        print_error_line(ic, *i);
       }
     }
     std::cout << "Error count: " << pd.errorCount() << std::endl;
+  } else {
+    begin_parse_grammar(pd);
   }
 }
 

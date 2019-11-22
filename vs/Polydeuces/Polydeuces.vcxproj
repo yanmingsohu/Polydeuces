@@ -48,6 +48,8 @@
     <ClInclude Include="..\..\generate\JavaScriptParserBaseVisitor.h" />
     <ClInclude Include="..\..\generate\JavaScriptParserListener.h" />
     <ClInclude Include="..\..\generate\JavaScriptParserVisitor.h" />
+    <ClInclude Include="..\..\src\debug.h" />
+    <ClInclude Include="..\..\src\grammar.h" />
     <ClInclude Include="..\..\src\instructions.h" />
     <ClInclude Include="..\..\src\javascript.h" />
     <ClInclude Include="..\..\src\operator.h" />
@@ -68,6 +70,7 @@
     <None Include="..\..\README.md" />
     <None Include="..\..\src\generate-lexer.js" />
     <None Include="..\..\test\first.js" />
+    <None Include="..\..\test\grammar.js" />
     <None Include="cpp.hint" />
   </ItemGroup>
   <ItemGroup>

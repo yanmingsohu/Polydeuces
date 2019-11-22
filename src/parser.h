@@ -2,6 +2,7 @@
 
 #include <fstream>
 #include <vector>
+#include "options.h"
 #include "types.h"
 #include "parser_gen.h"
 
@@ -9,7 +10,7 @@ namespace PolydeucesEngine {
 
 
 enum WordType {
-  Non, KeyWord, String, Operator, Comment, Symbol, SyntaxError,
+  Non, KeyWord, String, Operator, Comment, Symbol, SyntaxError, NewLine,
   Decimal, HexInt, OctalInt1, OctalInt2, BinaryInt,
   BigDecimal, BigHexInt, BigOctalInt, BigBinaryInt,
 };
@@ -20,12 +21,19 @@ struct Word {
   int length;
   WordType type;
   JSLexer lexer;
+
+  std::string toString() {
+    return std::string(reinterpret_cast<char*>(begin), length);
+  }
 };
+
+
+typedef std::vector<Word> WordList;
 
 
 class ParseData {
 private:
-  std::vector<Word> words;
+  WordList words;
   CharSequence code;
   // 内部起始字符指针
   int begin;
@@ -55,7 +63,7 @@ public:
   /* 返回字符缓冲区指针 */
   CharSequence code_ref();
   /* 返回 Word 集合 */
-  std::vector<Word>& getWords();
+  WordList& getWords();
 };
 
 
@@ -65,8 +73,22 @@ private:
   int line;
   int col;
 public:
-  IncrementCounter(CharSequence p) : current(p), line(1), col(1) {}
+  const CharSequence buffer;
+  const int total;
+
+  IncrementCounter(ParseData& pd) : IncrementCounter(pd.code_ref(), pd.length) {}
+  IncrementCounter(CharSequence p, const int len) 
+  : buffer(p), current(p), line(1), col(1), total(len) {}
   void findNextLine(int& outLine, int& outColumn, CharSequence endPos);
+};
+
+
+class IGrammarListener {
+public:
+  virtual ~IGrammarListener() {}
+  virtual void enterBlock(Word&) = 0;
+  virtual void exitBlock(Word&) = 0;
+  virtual void declaration_var(Word&, JSLexer modifier) = 0;
 };
 
 
@@ -77,8 +99,8 @@ int parser_operator(CharSequence str, int length, JSLexer& t);
 int parser_key_word(CharSequence str, int length, JSLexer& t);
 int parse_number(CharSequence str, int length, WordType& t);
 int parse_symbol(CharSequence str, int length, WordType& t);
-void begin_parse_grammar(std::vector<Word>& words);
-void print_error_line(IncrementCounter&, CharSequence code, int length, Word& w);
+int begin_parse_grammar(ParseData&);
+void print_error_line(IncrementCounter&, Word&);
 
 
 }

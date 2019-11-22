@@ -127,6 +127,12 @@
     <ClInclude Include="..\..\src\types.h">
       <Filter>源文件</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\src\debug.h">
+      <Filter>源文件</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\grammar.h">
+      <Filter>源文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\generate\JavaScriptLexer.interp">
@@ -153,6 +159,9 @@
     <None Include="cpp.hint" />
     <None Include="..\..\README.md" />
     <None Include="..\..\src\generate-lexer.js">
+      <Filter>资源文件</Filter>
+    </None>
+    <None Include="..\..\test\grammar.js">
       <Filter>资源文件</Filter>
     </None>
   </ItemGroup>
