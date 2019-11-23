@@ -6,18 +6,14 @@
 namespace PolydeucesEngine {
 
 
-template<class T>
-GramState g_or(int count, GrammarData& g, T fn0, ...) {
-  GramState r = fn0(g);
+GramState g_or(GrammarData&) { return g_not; }
+
+
+template<class A, class ...T>
+GramState g_or(GrammarData& g, A func, T ... fnX) {
+  GramState r = func(g);
   if (r == g_not) {
-    va_list arg;
-    va_start(arg, fn0);
-    for (int i = 0; i < count-1; ++i) {
-      T fn = va_arg(arg, T);
-      r = fn(g);
-      if (r != g_not) break;
-    }
-    va_end(arg);
+    return g_or(g, fnX...);
   }
   return r;
 }
@@ -100,14 +96,14 @@ bool GrammarData::find(const JSLexer what, bool move) {
 }
 
 
-GrammarData scopeDataWithBlock(GrammarData& g) {
+GrammarData scopeDataWithBlock(GrammarData& g, JSLexer begin, JSLexer end) {
   int brace = 0;
   WordIter i = g.i;
   for (; i != g.end; ++i) {
-    if (i->lexer == JSLexer::OpenBrace) {
+    if (i->lexer == begin) {
       ++brace;
     } 
-    else if (i->lexer == JSLexer::CloseBrace) {
+    else if (i->lexer == end) {
       if (brace > 0) --brace;
       else break;
     }
@@ -117,34 +113,24 @@ GrammarData scopeDataWithBlock(GrammarData& g) {
 
 
 GramState g_statement_list(GrammarData& g) {
-  g_statement(g);
-  if (!g.has()) return g_one;
-
+  ReturnNotIfNot(g_statement(g));
+  ReturnIfNot(g.has(), g_one);
   do {
-    g_statement(g);
+    ThrowIfNot(g_statement(g), g, "Missing statement");
   } while (g.has());
   return g_more;
 }
 
 
 GramState g_block(GrammarData& g) {
-  if (g.lexer() != JSLexer::OpenBrace) {
-    return g_not;
-  }
+  ReturnNotIf(g.lexer() != JSLexer::OpenBrace);
   g.listener->enterBlock(g.word());
-
-  if (!g.next()) {
-    throw GrammarError(g, "Missing block body");
-  }
+  ThrowIfNot(g.next(), g, "Missing block body");
 
   if (g.lexer() != JSLexer::CloseBrace) {
-    GrammarData scg = scopeDataWithBlock(g);
-
-    g_statement_list(scg);
-
-    if (g.lexer() != JSLexer::CloseBrace) {
-      throw GrammarError(g, "Missing block end");
-    }
+    GrammarData scg = scopeDataWithBlock(g, JSLexer::OpenBrace, JSLexer::CloseBrace);
+    ThrowIfNot(g_statement_list(scg), g, "Missing statement");
+    ThrowIf(g.lexer() != JSLexer::CloseBrace, g, "Missing block end");
   }
   
   g.listener->exitBlock(g.word());
@@ -153,75 +139,380 @@ GramState g_block(GrammarData& g) {
 }
 
 
+GramState g_object_literal(GrammarData& g) {
+  ReturnNotIf(g.lexer() != JSLexer::OpenBrace);
+  ThrowIfNot(g.next(), g, "Missing object body");
+
+  if (g.lexer() != JSLexer::CloseBrace) {
+    GrammarData scg = scopeDataWithBlock(g, JSLexer::OpenBrace, JSLexer::CloseBrace);
+    if (g_property_assignment(scg)) {
+      for (;;) {
+        if (!scg.find(JSLexer::Comma, true)) break;
+        if (!scg.has()) break;
+        ThrowIfNot(g_property_assignment(scg), g, 
+                   "Missing object property assignment");
+      }
+    }
+    while (scg.find(JSLexer::Comma, true));
+    ThrowIfNot(g.lexer() != JSLexer::CloseBrace, g, "Missing object end");
+  }
+  return g_more;
+}
+
+
 GramState g_array_element(GrammarData& g) {
   g.find(JSLexer::Ellipsis, true);
-  return g_single_expression(g);
+  ThrowIfNot(g_single_expression(g), g, "Missing array element");
+  return g_one;
 }
 
 
 GramState g_array_literal(GrammarData& g) {
-  ReturnIf(g.lexer() != JSLexer::OpenBracket, g_not);
+  ReturnNotIf(g.lexer() != JSLexer::OpenBracket);
   
   while (g.find(JSLexer::Comma, true));
-  if (g_not == g_array_element(g)) {
-    throw GrammarError(g, "Missing array element");
-  }
 
-  for (;;) {
-    if (!g.find(JSLexer::Comma, true)) {
-      break;
-    }
+  while (g.has()) {
+    if (g.find(JSLexer::CloseBracket, false)) break;
+    ThrowIfNot(g_array_element(g), g, "Missing more array element");
     while (g.find(JSLexer::Comma, true));
-    if (g_not == g_array_element(g)) {
-      throw GrammarError(g, "Missing array element");
-    }
   }
-  
-  while (g.find(JSLexer::Comma, true));
 
   ThrowIfNot(g.find(JSLexer::CloseBracket, true), g, "Missing array end");
   return g_more;
 }
 
 
-GramState g_object_literal(GrammarData& g) {
+GramState g_keyword(GrammarData& g) {
+  switch (g.lexer()) {
+    case JSLexer::Break:
+    case JSLexer::Do:
+    case JSLexer::Instanceof:
+    case JSLexer::Typeof:
+    case JSLexer::Case:
+    case JSLexer::Else:
+    case JSLexer::New:
+    case JSLexer::Var:
+    case JSLexer::Catch:
+    case JSLexer::Finally:
+    case JSLexer::Return:
+    case JSLexer::Void:
+    case JSLexer::Continue:
+    case JSLexer::For:
+    case JSLexer::Switch:
+    case JSLexer::While:
+    case JSLexer::Debugger:
+    case JSLexer::Function:
+    case JSLexer::This:
+    case JSLexer::With:
+    case JSLexer::Default:
+    case JSLexer::If:
+    case JSLexer::Throw:
+    case JSLexer::Delete:
+    case JSLexer::In:
+    case JSLexer::Try:
+    case JSLexer::Class: // new keyword
+    case JSLexer::Enum:
+    case JSLexer::Extends:
+    case JSLexer::Super:
+    case JSLexer::Const:
+    case JSLexer::Export:
+    case JSLexer::Import:
+    case JSLexer::Implements:
+    case JSLexer::Let:
+    case JSLexer::Private:
+    case JSLexer::Public:
+    case JSLexer::Interface:
+    case JSLexer::Package:
+    case JSLexer::Protected:
+    case JSLexer::Static:
+    case JSLexer::Yield:
+    case JSLexer::Async:
+    case JSLexer::Await:
+    case JSLexer::From:
+    case JSLexer::As:
+      g.next();
+      return g_one;
+  }
   return g_not;
 }
 
 
+GramState g_reserved_word(GrammarData& g) {
+  switch (g.lexer()) {
+    case JSLexer::NullLiteral:
+    case JSLexer::True:
+    case JSLexer::False:
+      g.next();
+      return g_one;
+  }
+  ReturnIf(g_keyword(g), g_one);
+  return g_not;
+}
+
+
+GramState g_identifier_name(GrammarData& g) {
+  return g_or(g, g_identifier, g_reserved_word);
+}
+
+
+GramState g_string_literal(GrammarData& g) {
+  if (g.type() == WordType::String) {
+    g.next();
+    return g_one;
+  }
+  return g_not;
+}
+
+
+GramState g_template_string_literal(GrammarData& g) {
+  if (g.type() == WordType::TemplateString) {
+    g.next();
+    return g_one;
+  }
+  return g_not;
+}
+
+
+GramState g_property_name(GrammarData& g) {
+  if (g_not != g_or(g
+    , g_identifier_name
+    , g_string_literal
+    , g_numeric_literal)
+  ) return g_one;
+
+  ReturnNotIf(g.lexer() != JSLexer::OpenBracket);
+  ThrowIfNot(g_single_expression(g), g, "Missing expression");
+  ThrowIfNot(g.find(JSLexer::CloseBracket, true), g, "Missing array end");
+  return g_one;
+}
+
+
+GramState g_assignment_operator(GrammarData& g) {
+  switch (g.lexer()) {
+    case JSLexer::MultiplyAssign:
+    case JSLexer::DivideAssign:
+    case JSLexer::ModulusAssign:
+    case JSLexer::PlusAssign:
+    case JSLexer::MinusAssign:
+    case JSLexer::LeftShiftArithmeticAssign:
+    case JSLexer::RightShiftArithmeticAssign:
+    case JSLexer::RightShiftLogicalAssign:
+    case JSLexer::BitAndAssign:
+    case JSLexer::BitXorAssign:
+    case JSLexer::BitOrAssign:
+    case JSLexer::PowerAssign:
+      g.next();
+      return g_one;
+  }
+  return g_not;
+}
+
+
+GramState g_numeric_literal(GrammarData& g) {
+  switch (g.type()) {
+    case WordType::Decimal:
+    case WordType::HexInt:
+    case WordType::OctalInt1:
+    case WordType::OctalInt2:
+    case WordType::BinaryInt:
+      g.next();
+      return g_one;
+  }
+  return g_not;
+}
+
+
+GramState g_bigint_literal(GrammarData& g) {
+  switch (g.type()) {
+    case WordType::BigDecimal:
+    case WordType::BigHexInt:
+    case WordType::BigOctalInt:
+    case WordType::BigBinaryInt:
+      g.next();
+      return g_one;
+  }
+  return g_not;
+}
+
+
+GramState g_literal(GrammarData& g) {
+  switch (g.lexer()) {
+    case JSLexer::NullLiteral:
+    case JSLexer::True:
+    case JSLexer::False:
+      g.next();
+      return g_one;
+  }
+
+  switch (g.type()) {
+    case WordType::String:
+    case WordType::RegularExpression:
+    case WordType::TemplateString:
+      g.next();
+      return g_one;
+  }
+
+  ReturnIf(g_numeric_literal(g), g_one);
+  ReturnIf(g_bigint_literal(g), g_one);
+  return g_not;
+}
+
+
+GramState g_getter(GrammarData& g) {
+  ReturnNotIf(g.type() != WordType::Symbol);
+  ReturnNotIf(g.i->toString() != "get");
+  ThrowIfNot(g.next(), g, "Missing getter property name");
+  ThrowIfNot(g_property_name(g), g, "Missing getter property name");
+  return g_not;
+}
+
+
+GramState g_setter(GrammarData& g) {
+  ReturnNotIf(g.type() != WordType::Symbol);
+  ReturnNotIf(g.i->toString() != "set");
+  ThrowIfNot(g.next(), g, "Missing setter property name");
+  ThrowIfNot(g_property_name(g), g, "Missing setter property name");
+  return g_not;
+  return g_not;
+}
+
+
+GramState g_function_body(GrammarData& g) {
+  int i = 0;
+  while (g_source_element(g)) ++i;
+  return  i==0 ? g_not : (i>1 ? g_more: g_one);
+}
+
+
+GramState g_formal_parameter_arg(GrammarData& g) {
+  ReturnNotIfNot(g_assignable(g));
+  if (g.find(JSLexer::Assign, true)) {
+    ThrowIfNot(g_single_expression(g), g, "Missing assign value");
+  }
+  return g_one;
+}
+
+
+GramState g_formal_parameter_list(GrammarData& g) {
+  return g_not;
+}
+
+
+GramState g_property_assignment(GrammarData& g) {
+  if (g_property_name(g)) {
+    ThrowIfNot(g.find(JSLexer::Colon, true), g, 
+               "Missing Colon in in property assignment");
+    ThrowIfNot(g_single_expression(g), g, 
+               "Missing expression in property assignment");
+  }
+  else if (g.find(JSLexer::OpenBracket, true)) {
+    ThrowIfNot(g_single_expression(g), g, 
+               "Missing expression in property assignment");
+    ThrowIfNot(g.find(JSLexer::CloseBracket, true), g, 
+               "Missing CloseBracket in property assignment");
+    ThrowIfNot(g.find(JSLexer::SemiColon, true), g, 
+               "Missing SemiColon in property assignment");
+    ThrowIfNot(g_single_expression(g), g, 
+               "Missing expression in property assignment");
+  }
+  else if (g_getter(g)) {
+    ThrowIfNot(g.find(JSLexer::OpenParen, true), g,
+               "Missing OpenParen in getter property assignment");
+    ThrowIfNot(g.find(JSLexer::CloseParen, true), g,
+               "Missing CloseParen in getter property assignment");
+    ThrowIfNot(g.find(JSLexer::OpenBrace, true), g,
+               "Missing OpenBrace in getter property assignment");
+    ThrowIfNot(g_function_body(g), g,
+               "Missing function body in getter property assignment");
+    ThrowIfNot(g.find(JSLexer::CloseBrace, true), g,
+               "Missing CloseBrace in getter property assignment");
+  }
+  else if (g_setter(g)) {
+    ThrowIfNot(g.find(JSLexer::OpenParen, true), g,
+               "Missing OpenParen in setter property assignment");
+    ThrowIfNot(g_formal_parameter_arg(g), g, 
+               "Missing parameter in setter property assignment");
+    ThrowIfNot(g.find(JSLexer::CloseParen, true), g,
+               "Missing CloseParen in setter property assignment");
+    ThrowIfNot(g.find(JSLexer::OpenBrace, true), g,
+               "Missing OpenBrace in setter property assignment");
+    ThrowIfNot(g_function_body(g), g,
+               "Missing function body in setter property assignment");
+    ThrowIfNot(g.find(JSLexer::CloseBrace, true), g,
+               "Missing CloseBrace in setter property assignment");
+  }
+  else if (g.find(JSLexer::Ellipsis, true)) {
+    ThrowIfNot(g_single_expression(g), g, 
+               "Missing expression in property assignment");
+  }
+  else if (g_single_expression(g)) {
+    // do nothing
+  }
+  else {
+    ThrowIf(g.find(JSLexer::Async, true), g, "Unsupport Async");
+    ThrowIf(g.find(JSLexer::Multiply, true), g, "Unsupport Generators");
+    ThrowIfNot(g_property_name(g), g, "Missing property name");
+
+    ThrowIfNot(g.find(JSLexer::OpenParen, true), g,
+               "Missing OpenParen in function property assignment");
+    g_formal_parameter_list(g);
+    ThrowIfNot(g.find(JSLexer::CloseParen, true), g,
+               "Missing CloseParen in function property assignment");
+
+    ThrowIfNot(g.find(JSLexer::OpenBrace, true), g,
+               "Missing OpenBrace in function property assignment");
+    ThrowIfNot(g_function_body(g), g,
+               "Missing function body in function property assignment");
+    ThrowIfNot(g.find(JSLexer::CloseBrace, true), g,
+               "Missing CloseBrace in function property assignment");
+  }
+  return g_one;
+}
+
+
 GramState g_identifier(GrammarData& g) {
-  ReturnIfNot(g.type() == WordType::Symbol, g_not);
+  ReturnNotIf(g.type() != WordType::Symbol);
   g.next();
   return g_one;
 }
 
 
 GramState g_assignable(GrammarData& g) {
-  return g_or(3, g, g_identifier, g_array_literal, g_object_literal);
+  return g_or(g
+    , g_identifier
+    , g_array_literal
+    , g_object_literal);
+}
+
+
+GramState g_anoymous_function(GrammarData& g) {
+  return g_not;
 }
 
 
 GramState g_single_expression(GrammarData& g) {
-  throw GrammarError(g, "Unsupport single expression");
+  return g_or(g
+    , g_anoymous_function);
 }
 
 
 GramState g_variable_declaration(GrammarData& g, JSLexer& modifier) {
   Word& who = *g.i;
-  ReturnIf(g_not == g_assignable(g), g_not);
+  ReturnNotIfNot(g_assignable(g));
   g.listener->declaration_var(who, modifier);
   ReturnIfNot(g.find(JSLexer::Assign, true), g_one);
-  ThrowIf(g_not == g_single_expression(g), g, "Missing expression");
+  ThrowIfNot(g_single_expression(g), g, "Missing expression");
   return g_more;
 }
 
 
 GramState g_variable_declaration_list(GrammarData& g, JSLexer& modifier) {
-  ReturnIf(g_not == g_variable_declaration(g, modifier), g_not);
+  ReturnNotIfNot(g_variable_declaration(g, modifier));
   ReturnIfNot(g.find(JSLexer::Comma, true), g_one);
   do {
-    ThrowIf(g_not == g_variable_declaration(g, modifier),
-            g, "Missing declaration");
+    ThrowIfNot(g_variable_declaration(g, modifier),
+               g, "Missing declaration");
   } while(g.find(JSLexer::Comma, true));
   return g_more;
 }
@@ -240,20 +531,29 @@ GramState g_variable_statement(GrammarData& g) {
   }
 
   ThrowIfNot(g.next(), g, "Missing declaration name");
-  ThrowIf(g_not == g_variable_declaration_list(g, modifier), 
-          g, "Missing declaration list");
+  ThrowIfNot(g_variable_declaration_list(g, modifier),
+             g, "Missing declaration list");
   ThrowIfNot(g.eos(), g, "Missing declaration end");
   return g_one;
 }
 
 
-//TODO: GrammarData 增加一个标记, 当进入一个语义函数时, 
-// 不符合第一个语义标记时抛出异常/返回 g_not
 GramState g_statement(GrammarData& g) {
-  return g_or(2, g
+  return g_or(g
     , g_block
-    , g_variable_statement
-  );
+    , g_variable_statement);
+}
+
+
+GramState g_source_element(GrammarData& g) {
+  return g_statement(g);
+}
+
+
+GramState g_source_elements(GrammarData& g) {
+  ThrowIfNot(g_source_element(g), g, "Missing source element");
+  while (g_source_element(g));
+  return g_more;
 }
 
 
@@ -263,11 +563,11 @@ int begin_parse_grammar(ParseData& pd) {
   IncrementCounter ic(pd);
 
   try {
-    return g_statement(g);
+    return g_source_element(g);
   } catch (GrammarError & e) {
     std::cout << "GrammarError: " << e.msg << std::endl;
     print_error_line(ic, e.where);
-    return g_fail;
+    return FailCode;
   }
 }
 

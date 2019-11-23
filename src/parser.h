@@ -10,7 +10,8 @@ namespace PolydeucesEngine {
 
 
 enum WordType {
-  Non, KeyWord, String, Operator, Comment, Symbol, SyntaxError, NewLine,
+  Non, KeyWord, Operator, Comment, SyntaxError, NewLine,
+  String, TemplateString, RegularExpression, Symbol,
   Decimal, HexInt, OctalInt1, OctalInt2, BinaryInt,
   BigDecimal, BigHexInt, BigOctalInt, BigBinaryInt,
 };
@@ -89,6 +90,8 @@ public:
   virtual void enterBlock(Word&) = 0;
   virtual void exitBlock(Word&) = 0;
   virtual void declaration_var(Word&, JSLexer modifier) = 0;
+  virtual void enterExp(Word&) = 0;
+  virtual void exitExp(Word&) = 0;
 };
 
 

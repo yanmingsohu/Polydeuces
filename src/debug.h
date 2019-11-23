@@ -35,6 +35,14 @@ public:
         break;
     }
   }
+
+  void enterExp(Word& w) {
+    pl("Enter express");
+  }
+
+  void exitExp(Word& w) {
+    pl("Exit express");
+  }
 };
 
 }
