@@ -557,6 +557,201 @@ GramState g_source_elements(GrammarData& g) {
 }
 
 
+GramState g_import_statement(GrammarData& g) {
+  return g_not;
+}
+
+
+GramState g_import_from_block(GrammarData& g) {
+  return g_not;
+}
+
+
+GramState g_module_items(GrammarData& g) {
+  return g_not;
+}
+
+
+GramState g_import_default(GrammarData& g) {
+  return g_not;
+}
+
+
+GramState g_import_namespace(GrammarData& g) {
+  return g_not;
+}
+
+
+GramState g_import_from(GrammarData& g) {
+  return g_not;
+}
+
+
+GramState g_alias_name(GrammarData& g) {
+  return g_not;
+}
+
+
+GramState g_export_statement(GrammarData& g) {
+  return g_not;
+}
+
+
+GramState g_export_from_block(GrammarData& g) {
+  return g_not;
+}
+
+
+GramState g_declaration(GrammarData& g) {
+  return g_not;
+}
+
+
+GramState g_empty_statement(GrammarData& g) {
+  return g_not;
+}
+
+
+GramState g_expression_statement(GrammarData& g) {
+  return g_not;
+}
+
+
+GramState g_if_statement(GrammarData& g) {
+  return g_not;
+}
+
+
+GramState g_iteration_statement(GrammarData& g) {
+  return g_not;
+}
+
+
+GramState g_continue_statement(GrammarData& g) {
+  return g_not;
+}
+
+
+GramState g_break_statement(GrammarData& g) {
+  return g_not;
+}
+
+
+GramState g_return_statement(GrammarData& g) {
+  return g_not;
+}
+
+
+GramState g_yield_statement(GrammarData& g) {
+  return g_not;
+}
+
+
+GramState g_with_statement(GrammarData& g) {
+  return g_not;
+}
+
+
+GramState g_switch_statement(GrammarData& g) {
+  return g_not;
+}
+
+
+GramState g_case_clauses(GrammarData& g) {
+  return g_not;
+}
+
+
+GramState g_case_clause(GrammarData& g) {
+  return g_not;
+}
+
+
+GramState g_default_clause(GrammarData& g) {
+  return g_not;
+}
+
+
+GramState g_labelled_statement(GrammarData& g) {
+  return g_not;
+}
+
+
+GramState g_throw_statement(GrammarData& g) {
+  return g_not;
+}
+
+
+GramState g_try_statement(GrammarData& g) {
+  return g_not;
+}
+
+
+GramState g_catch_production(GrammarData& g) {
+  return g_not;
+}
+
+
+GramState g_finally_production(GrammarData& g) {
+  return g_not;
+}
+
+
+GramState g_debug_statement(GrammarData& g) {
+  return g_not;
+}
+
+
+GramState g_function_declaration(GrammarData& g) {
+  return g_not;
+}
+
+
+GramState g_class_declaration(GrammarData& g) {
+  return g_not;
+}
+
+
+GramState g_class_tail(GrammarData& g) {
+  return g_not;
+}
+
+
+GramState g_class_element(GrammarData& g) {
+  return g_not;
+}
+
+
+GramState g_method_definition(GrammarData& g) {
+  return g_not;
+}
+
+
+GramState g_last_formal_parameter_list(GrammarData& g) {
+  return g_not;
+}
+
+
+GramState g_arguments(GrammarData& g) {
+  return g_not;
+}
+
+
+GramState g_expression_sequence(GrammarData& g) {
+  return g_not;
+}
+
+
+GramState g_arrow_function_parameters(GrammarData& g) {
+  return g_not;
+}
+
+
+GramState g_arrow_function_body(GrammarData& g) {
+  return g_not;
+}
+
+
 int begin_parse_grammar(ParseData& pd) {
   DebugGrammar dg;
   GrammarData g(pd.getWords(), &dg);
