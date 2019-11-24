@@ -69,7 +69,8 @@ class GrammarError {
 public:
   const std::string msg;
   Word where;
-  GrammarError(GrammarData& gd, const char* _msg) : msg(_msg), where(*gd.i) {}
+  GrammarError(GrammarData& gd, const char* _msg) 
+  : msg(_msg), where(*gd.i) {}
 };
 
 
@@ -138,6 +139,16 @@ GramState g_arguments(GrammarData& g);
 GramState g_expression_sequence(GrammarData& g);
 GramState g_arrow_function_parameters(GrammarData& g);
 GramState g_arrow_function_body(GrammarData& g);
+GramState g_anoymous_function(GrammarData& g);
+GramState g_formal_parameter_list(GrammarData& g);
+GramState g_function_body(GrammarData& g);
+
+// 扩展语义, 不在 g4 文件中定义
+
+// Async? arrowFunctionParameters '=>' arrowFunctionBody 
+GramState g_arrow_function_declaration(GrammarData& g);
+// Async? Function '*'? '(' formalParameterList? ')' '{' functionBody '}'
+GramState g_non_name_function(GrammarData& g);
 
 
 }

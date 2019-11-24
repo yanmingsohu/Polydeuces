@@ -7,6 +7,7 @@ namespace PolydeucesEngine {
 
 
 GramState g_or(GrammarData&) { return g_not; }
+GramState g_placeholder(GrammarData&) { return g_not; }
 
 
 template<class A, class ...T>
@@ -30,6 +31,34 @@ inline bool skip(Word& w) {
     return true;
   }
   return false;
+}
+
+
+template<bool needFunctionKey, bool needIdentifier, class Identifier>
+GramState g_function_define(GrammarData& g,
+                            Identifier fn) 
+{
+  if (g.find(JSLexer::Async, true)) {
+    throw GrammarError(g, "Unsupport Async");
+  }
+  if (needFunctionKey) {
+    ThrowIfNot(g.find(JSLexer::Function, true), g, "Mission Function");
+  }
+  if (g.find(JSLexer::Multiply, true)) {
+    throw GrammarError(g, "Unsupport Generators");
+  }
+  if (needIdentifier) {
+    ThrowIfNot(fn(g), g, "Missing Identifier");
+  }
+
+  ThrowIfNot(g.find(JSLexer::OpenParen, true), g, "Missing OpenParen");
+  g_formal_parameter_list(g);
+  ThrowIfNot(g.find(JSLexer::CloseParen, true), g, "Missing CloseParen");
+
+  ThrowIfNot(g.find(JSLexer::OpenBrace, true), g, "Missing OpenBrace");
+  g_function_body(g);
+  ThrowIfNot(g.find(JSLexer::CloseBrace, true), g, "Missing CloseBrace");
+  return g_one;
 }
 
 
@@ -394,11 +423,6 @@ GramState g_formal_parameter_arg(GrammarData& g) {
 }
 
 
-GramState g_formal_parameter_list(GrammarData& g) {
-  return g_not;
-}
-
-
 GramState g_property_assignment(GrammarData& g) {
   if (g_property_name(g)) {
     ThrowIfNot(g.find(JSLexer::Colon, true), g, 
@@ -450,22 +474,7 @@ GramState g_property_assignment(GrammarData& g) {
     // do nothing
   }
   else {
-    ThrowIf(g.find(JSLexer::Async, true), g, "Unsupport Async");
-    ThrowIf(g.find(JSLexer::Multiply, true), g, "Unsupport Generators");
-    ThrowIfNot(g_property_name(g), g, "Missing property name");
-
-    ThrowIfNot(g.find(JSLexer::OpenParen, true), g,
-               "Missing OpenParen in function property assignment");
-    g_formal_parameter_list(g);
-    ThrowIfNot(g.find(JSLexer::CloseParen, true), g,
-               "Missing CloseParen in function property assignment");
-
-    ThrowIfNot(g.find(JSLexer::OpenBrace, true), g,
-               "Missing OpenBrace in function property assignment");
-    ThrowIfNot(g_function_body(g), g,
-               "Missing function body in function property assignment");
-    ThrowIfNot(g.find(JSLexer::CloseBrace, true), g,
-               "Missing CloseBrace in function property assignment");
+     return g_function_define<false, true>(g, g_property_name);
   }
   return g_one;
 }
@@ -483,11 +492,6 @@ GramState g_assignable(GrammarData& g) {
     , g_identifier
     , g_array_literal
     , g_object_literal);
-}
-
-
-GramState g_anoymous_function(GrammarData& g) {
-  return g_not;
 }
 
 
@@ -554,6 +558,33 @@ GramState g_source_elements(GrammarData& g) {
   ThrowIfNot(g_source_element(g), g, "Missing source element");
   while (g_source_element(g));
   return g_more;
+}
+
+
+GramState g_arrow_function_declaration(GrammarData& g) {
+  if (g.find(JSLexer::Async, true)) {}
+  ReturnNotIfNot(g_arrow_function_parameters(g));
+  ThrowIfNot(g.find(JSLexer::ARROW, true), g, "Missing ARROW in arrow function");
+  ThrowIfNot(g_arrow_function_body(g), g, "Missing arrow function body");
+  return g_one;
+}
+
+
+GramState g_non_name_function(GrammarData& g) {
+  return g_function_define<true, false>(g, g_placeholder);
+}
+
+
+GramState g_anoymous_function(GrammarData& g) {
+  return g_or(g
+    , g_function_declaration
+    , g_non_name_function
+    , g_arrow_function_declaration);
+}
+
+
+GramState g_formal_parameter_list(GrammarData& g) {
+  return g_not;
 }
 
 
@@ -703,7 +734,7 @@ GramState g_debug_statement(GrammarData& g) {
 
 
 GramState g_function_declaration(GrammarData& g) {
-  return g_not;
+  return g_function_define<true, true>(g, g_identifier);
 }
 
 
