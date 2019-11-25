@@ -10,7 +10,7 @@
   const c1
   const c2, c3;
 
-  var [arr0];
+  var [arr0]=[1];
   }
 
 
