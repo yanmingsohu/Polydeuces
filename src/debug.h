@@ -9,6 +9,13 @@ namespace PolydeucesEngine {
 #define DEBUG
 
 
+#ifdef DEBUG
+#define debug(x) (std::cout << __LINE__ << " " << #x << std::endl)
+#else
+#define debug(x)
+#endif
+
+
 class DebugGrammar : public IGrammarListener {
 private:
   template<class T> void pl(T msg) {

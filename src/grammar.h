@@ -4,8 +4,8 @@
 
 namespace PolydeucesEngine {
 
-#define ThrowIf(    exp, g, msg) if ((exp)) throw GrammarError(g, msg)
-#define ThrowIfNot( exp, g, msg) if (!(exp)) throw GrammarError(g, msg)
+#define ThrowIf(    exp, g, msg) if ((exp)) throw GrammarError(g, msg, __LINE__)
+#define ThrowIfNot( exp, g, msg) if (!(exp)) throw GrammarError(g, msg, __LINE__)
 #define ReturnIf(   exp, retVal) if ((exp)) return retVal
 #define ReturnIfNot(exp, retVal) if (!(exp)) return retVal
 #define ReturnNotIf(        exp) ReturnIf(exp, g_not)
@@ -16,7 +16,7 @@ typedef WordList::iterator WordIter;
 
 class Expression {
 private:
-  IGrammarListener* listener;
+public:
 };
 
 
@@ -44,14 +44,14 @@ public:
   WordType type() { return i->type; }
   Word& word() { return *i; }
   // 如果当前指针的下一个 word 有效返回 true, 跳过注释等无意义 word
-  bool has();
+  bool has(bool withoutNewLine = false);
   // 使指针指向上一个有效语义, 跳过注释等无意义 word
   bool back();
   // 将指针指向下一个有效语义的 word, 跳过注释等无意义 word
   bool next();
   // 使指针向后移动并跳过无意义 word, 找到的第一个 word 是 what
   // 则返回 true, 如果 move 为 true, 则改写当前指针为 what 的下一个位置.
-  bool find(const JSLexer what, bool move);
+  bool find(const JSLexer what, bool move, bool withoutNewLine = false);
   // 指定偏移(默认为当前指针的下一个)的 word 是一个结束符返回 true
   bool eos(int offset =1);
 };
@@ -59,18 +59,18 @@ public:
 
 // *{0,}  +{1,}  ?{0,1}
 enum GramState {
-  g_not=0,// 没有匹配, 没有错误
-  g_one,  // 匹配一次
-  g_more, // 匹配多次
+  g_not=0, // 没有匹配, 没有错误
+  g_one,   // 匹配一次
+  g_more,  // 匹配多次
 };
 
 
 class GrammarError {
 public:
-  const std::string msg;
+  std::string msg;
   Word where;
-  GrammarError(GrammarData& gd, const char* _msg) 
-  : msg(_msg), where(*gd.i) {}
+
+  GrammarError(GrammarData& gd, const char* _msg, int code = 0);
 };
 
 
@@ -88,6 +88,7 @@ GramState g_identifier(GrammarData& g);
 GramState g_object_literal(GrammarData& g);
 GramState g_array_literal(GrammarData& g);
 GramState g_array_element(GrammarData& g);
+GramState g_element_list(GrammarData& g);
 GramState g_property_assignment(GrammarData& g);
 GramState g_numeric_literal(GrammarData&);
 GramState g_keyword(GrammarData& g);
@@ -120,6 +121,7 @@ GramState g_return_statement(GrammarData& g);
 GramState g_yield_statement(GrammarData& g);
 GramState g_with_statement(GrammarData& g);
 GramState g_switch_statement(GrammarData& g);
+GramState g_case_block(GrammarData& g);
 GramState g_case_clauses(GrammarData& g);
 GramState g_case_clause(GrammarData& g);
 GramState g_default_clause(GrammarData& g);
@@ -136,6 +138,7 @@ GramState g_class_element(GrammarData& g);
 GramState g_method_definition(GrammarData& g);
 GramState g_last_formal_parameter_list(GrammarData& g);
 GramState g_arguments(GrammarData& g);
+GramState g_argument(GrammarData& g);
 GramState g_expression_sequence(GrammarData& g);
 GramState g_arrow_function_parameters(GrammarData& g);
 GramState g_arrow_function_body(GrammarData& g);
